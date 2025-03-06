@@ -85,10 +85,7 @@ You can add the unfiltered Flathub repo with `ujust enable-flatpak-unfiltered`.
 ### [How do I install my VPN?](#vpn)
 {: #vpn}
 The recommended approach is to use Wireguard profiles. These can be downloaded from your VPN provider's website. If wireguard profiles work for you, import them via the system network settings menu. In GNOME, add a VPN, select the "Import from File" option, and select the VPN config file you downloaded. It will then be usable through the system GUI.
-Otherwise, use `ujust install-vpn` (once [secureblue/secureblue#849](https://github.com/secureblue/secureblue/issues/849)) is complete
-> [!NOTE]
-> The ProtonVPN Flatpak is not recommended, as it is an unoffical distribution unaffiliated with Proton.
-> The Mullvad VPN GUI runs on Electron and will not launch unless unprivileged user namespaces are enabled. This can be toggled with `ujust toggle-unconfined-domain-userns-creation`. If you do not want to enable this, Mullvad has the option of only using the cli interface instead. 
+If you still want to install a standalone VPN app despite the security degredation, use `ujust install-vpn`
 
 ### [How do I install Steam?](#steam)
 {: #steam}
