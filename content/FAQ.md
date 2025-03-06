@@ -84,7 +84,7 @@ You can add the unfiltered Flathub repo with `ujust enable-flatpak-unfiltered`.
 
 ### [How do I install my VPN?](#vpn)
 {: #vpn}
-The reccomended approach is to use Wireguard profiles. These can be downloaded from your VPN provider's website. If wireguard profiles work for you, import them via the system network settings menu. In Gnome, add a VPN, select the "Import from File" option, and select the VPN config file you downloaded. It will then be useable through the system GUI.
+The recommended approach is to use Wireguard profiles. These can be downloaded from your VPN provider's website. If wireguard profiles work for you, import them via the system network settings menu. In GNOME, add a VPN, select the "Import from File" option, and select the VPN config file you downloaded. It will then be usable through the system GUI.
 Otherwise, use `ujust install-vpn` (once [secureblue/secureblue#849](https://github.com/secureblue/secureblue/issues/849)) is complete
 > [!NOTE]
 > The ProtonVPN Flatpak is not recommended, as it is an unoffical distribution unaffiliated with Proton.
