@@ -40,6 +40,7 @@ permalink: /faq
 - [How do I add a repo?](#adding-repos)
 - [How do I install proprietary codecs?](#install-codecs)
 - [How do I change my DE?](#change-de)
+- [Why doesn't DRM content (spotify, netflix etc.) work in Trivalent?](#trivalent-protected-content)
 
 ### [Why is Flatpak included? Should I use Flatpak?](#flatpak)
 {: #flatpak}
@@ -268,3 +269,8 @@ There is no need, they are already included in the image.
 
 
 Choose whatever you like from the [available options](https://secureblue.dev/images) by running `ujust rebase-secureblue`. 
+
+### [Why doesn't DRM content (spotify, netflix etc.) work in Trivalent?](#trivealent-protected-content)
+{: #trivalent-protected-content}
+
+DRM is available in trivalent, however it is disabled by default. Visit `chrome://settings/content/protectedContent` and select "Sites can play protected content"
