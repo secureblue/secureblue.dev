@@ -41,6 +41,7 @@ permalink: /faq
 - [How do I install proprietary codecs?](#install-codecs)
 - [How do I change my DE?](#change-de)
 - [Why doesn't DRM content (spotify, netflix etc.) work in Trivalent?](#trivalent-protected-content)
+- [How do I enable kernel modules?](#enable-kernel-modules)
 
 ### [Why is Flatpak included? Should I use Flatpak?](#flatpak)
 {: #flatpak}
@@ -274,3 +275,8 @@ Choose whatever you like from the [available options](https://secureblue.dev/ima
 {: #trivalent-protected-content}
 
 DRM-protected content is available in trivalent, however it is disabled by default. Visit `chrome://settings/content/protectedContent` and select "Sites can play protected content"
+
+### [How do I enable kernel modules?](#enable-kernel-modules)
+{: #enable-kernel-modules}
+
+Some functionality requires you to enable extra kernel modules that are disabled by default. Modules can be enabled by running `ujust override-enable-module`. For instance, mounting SMB shares requires the `cifs` and `netfs` kernel modules. To load them, simply run `ujust override-enable-module cifs` and `ujust override-enable-module netfs` then reboot.
