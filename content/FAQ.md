@@ -279,4 +279,4 @@ DRM-protected content is available in trivalent, however it is disabled by defau
 ### [How do I enable kernel modules?](#enable-kernel-modules)
 {: #enable-kernel-modules}
 
-Some functionality requires you to enable extra kernel modules that are disabled by default. Modules can be enabled by running `ujust override-enable-module`. For instance, mounting SMB shares requires the `cifs` and `netfs` kernel modules. To load them, simply run `ujust override-enable-module cifs` and `ujust override-enable-module netfs` then reboot.
+Some functionality requires you to enable extra kernel modules that are disabled by default in secureblue. Modules can be enabled by running `ujust override-enable-module`. For instance, mounting SMB shares requires the `cifs` and `netfs` kernel modules. To load them, simply run `ujust override-enable-module cifs` and `ujust override-enable-module netfs` then reboot.
