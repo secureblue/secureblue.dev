@@ -6,7 +6,7 @@ permalink: /install
 
 # Install
 
-To install secureblue, you will use a Fedora Atomic (or CoreOS, for securecore) ISO to install Fedora Atomic, then rebase to a secureblue image using the installer. Unless specified otherwise, secureblue is used to refer to both the secureblue set of images and the securecore set of images, for the sake of brevity. The install script presented in a later step lets you choose between them. You *must* start from a Fedora Atomic ISO for secureblue desktop images, and *must* start from a Fedora CoreOS ISO for securecore images.
+To install secureblue, you will use a Fedora Atomic (or CoreOS, for securecore) ISO to install Fedora Atomic, then rebase to a secureblue image using the installer. Unless specified otherwise, secureblue is used to refer to both the secureblue set of images and the securecore set of images, for the sake of brevity. The installation script presented in a later step lets you choose between them. You *must* start from a Fedora Atomic ISO for secureblue desktop images, and *must* start from a Fedora CoreOS ISO for securecore images.
 
 ## [Table of Contents](#table-of-contents)
 {: #table-of-contents}
@@ -42,8 +42,8 @@ Before rebasing and during the installation, the following checks are recommende
 
 ### [BIOS hardening](#bios-hardening)
 {: #bios-hardening}
-- Ensure secureboot is enabled.
-- Ensure your BIOS is up to date by checking its manufacturer's website.
+- Ensure SecureBoot is enabled.
+- Ensure your BIOS is up-to-date by checking its manufacturer's website.
 - Disable booting from USB (some manufacturers allow firmware changes from live systems).
 - Set a BIOS password to prevent tampering.
 
@@ -93,7 +93,7 @@ bash install_secureblue.sh
 
 - [Subscribe to secureblue release notifications](#release-notifications)
 - [Set NVIDIA-specific kargs if applicable](#nvidia)
-- [Enroll secureboot key](#secureboot)
+- [Enroll SecureBoot key](#secureboot)
 - [Set hardened kargs](#kargs)
   - [32-bit support](#kargs-32-bit)
   - [Force disable simultaneous multithreading](#kargs-smt)
@@ -123,14 +123,14 @@ If you are using an `nvidia` image, run this after installation:
 ujust set-kargs-nvidia
 ```
 
-If you encounter flickering or luks issues, you may also (rarely) need this karg:
+If you encounter flickering or LUKS issues, you may also (rarely) need this karg:
 
 ```
 rpm-ostree kargs \
     --append-if-missing=initcall_blacklist=simpledrm_platform_driver_init
 ```
 
-### [Enroll secureboot key](#secureboot)
+### [Enroll SecureBoot key](#secureboot)
 {: #secureboot}
 
 ```
@@ -146,19 +146,19 @@ ujust enroll-secure-boot-key
 ujust set-kargs-hardening
 ```
 
-This command applies a fixed set of hardened boot parameters, and asks you whether or not the following kargs should *also* be set along with those (all of which are documented in the link above):
+This command applies a fixed set of hardened boot parameters, and asks you whether the following kargs should *also* be set along with those (all of which are documented in the link above):
 
 #### [32-bit support](#kargs-32-bit)
 {: #kargs-32-bit}
 
 If you answer `N`, or press enter without any input, support for 32-bit programs will be disabled on the next boot. If you run exclusively modern software, chances are likely you don't need this, so it's safe to disable for additional attack surface reduction.
 
-However, there are certain exceptions. A couple common usecases are if you need Steam, or run an occasional application in Wine you'll likely want to keep support for 32-bit programs. If this is the case, answer `Y`.
+However, there are certain exceptions. A couple common usecases are if you require Steam, or run an occasional application in Wine you'll likely want to keep support for 32-bit programs. If this is the case, answer `Y`.
 
 #### [Force disable simultaneous multithreading](#kargs-smt)
 {: #kargs-smt}
 
-If you answer `Y` when prompted, simultaneous multithreading (SMT, often called Hyperthreading) will be forcefully disabled, regardless of known vulnerabilities in the running hardware. This can cause a reduction in the performance of certain tasks in favor of security.
+If you answer `Y` when prompted, simultaneous multithreading (SMT, often called Hyper-threading) will be forcefully disabled, regardless of known vulnerabilities in the running hardware. This can cause a reduction in the performance of certain tasks in favor of security.
 
 #### [Unstable hardening kargs](#kargs-unstable)
 {: #kargs-unstable}
@@ -193,7 +193,7 @@ Creating a dedicated wheel user and removing wheel from your primary user helps 
 9. `gpasswd -d {your username here} wheel`
 10. `reboot`
 
-{% include alert.html type='note' content='You don\'t need to login using your wheel user to use it for privileged operations. When logged in as your non-wheel user, polkit will prompt you to authenticate as your wheel user as needed, or when requested by calling <code>run0</code>.' %}
+{% include alert.html type='note' content='You don\'t need to log in using your wheel user to use it for privileged operations. When logged in as your non-wheel user, Polkit will prompt you to authenticate as your wheel user as needed, or when requested by calling <code>run0</code>.' %}
 
 ### [Setup system DNS](#dns)
 {: #dns}
@@ -218,7 +218,7 @@ ujust toggle-bash-environment-lockdown
 ### [LUKS Hardware-Unlock](#luks-hardware-unlock)
 {: #luks-hardware-unlock}
 
-{% include alert.html type='note' content='There are two options available for hardware-based unlocking. You can either enroll FIDO2 or TPM2 for your luks volume. FIDO2 enrollment is preferable if you own a hardware security key. It\'s recommended that you choose only one of these, and not both at the same time.' %}
+{% include alert.html type='note' content='There are two options available for hardware-based unlocking. You can either enroll FIDO2 or TPM2 for your LUKS volume. FIDO2 enrollment is preferable if you own a hardware security key. It\'s recommended that you choose only one of these, and not both at the same time.' %}
 
 
 #### [LUKS FIDO2 Unlock](#luks-fido2)
