@@ -9,4 +9,8 @@ defaults:
     values:
       layout: "page"
 
+webrick:
+  headers:
+    Content-Security-Policy: default-src 'none'; style-src-elem 'self'; font-src 'self'; img-src 'self'; manifest-src 'self'; form-action 'none'; frame-ancestors 'none'; base-url 'none'; sandbox; upgrade-insecure-requests;
+
 exclude: ["README.md"]
