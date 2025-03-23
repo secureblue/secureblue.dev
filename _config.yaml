@@ -10,3 +10,4 @@ defaults:
       layout: "page"
 
 exclude: ["README.md"]
+include: ["_headers"]
