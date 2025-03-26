@@ -45,6 +45,7 @@ permalink: /faq
 - [How do I change my DE?](#change-de)
 - [Why doesn't DRM content (spotify, netflix etc.) work in Trivalent?](#trivalent-protected-content)
 - [How do I enable kernel modules?](#enable-kernel-modules)
+- [Why am I being asked to enroll a Secure Boot key?](#new-key)
 
 
 ### [Why secureblue?](#secureblue)
@@ -299,3 +300,12 @@ DRM-protected content is available in trivalent, however it is disabled by defau
 {: #enable-kernel-modules}
 
 Some functionality requires you to enable extra kernel modules that are disabled by default in secureblue. Modules can be enabled by running `ujust override-enable-module`. For instance, mounting SMB shares requires the `cifs` and `netfs` kernel modules. To load them, simply run `ujust override-enable-module cifs` and `ujust override-enable-module netfs` then reboot.
+
+### [Why am I being asked to enroll a Secure Boot key?](#new-key)
+{: #new-key}
+
+As part of a move to unify our supply chain, secureblue is moving off of [uBlue](https://universal-blue.org)'s kernel cache and akmods. This has both practical and security advantages, and paves the way towards further kernel security improvements in the future. This change includes a transition to a new secureblue Secure Boot key. You must enroll this new key to prevent issues loading kernel modules:
+
+```
+ujust enroll-secureblue-secure-boot-key
+```
