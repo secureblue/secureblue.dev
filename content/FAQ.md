@@ -223,7 +223,7 @@ To subscribe to release notifications, on the secureblue GitHub page, click "Wat
 
 <img alt="GitHub screenshot" src="/assets/release-notifications.png" />
 
-If you prefer to use an Atom feed, supported by many RSS clients, you can use the feed provided by GitHub, [appending .atom to the Releases.](https://github.com/secureblue/secureblue/releases.atom)
+If you prefer to use an Atom feed, supported by many RSS clients, you can use the [feed provided by GitHub](https://github.com/secureblue/secureblue/releases.atom).
 
 ### [Why don't my AppImages work?](#appimage)
 {: #appimage}
