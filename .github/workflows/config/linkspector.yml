@@ -3,4 +3,4 @@ dirs:
 useGitIgnore: true
 replacementPatterns:
   - pattern: '(\((?=\W)\/?.*(#.*)\))''
-    replacement: '{: $2}'
+    replacement: "#{: $2}"
