@@ -15,6 +15,7 @@ permalink: /faq
 - [Why is Flatpak included? Should I use Flatpak?](#flatpak)
 - [Should I use Electron apps? Why don't they work well with hardened_malloc?](#electron)
 - [My fans are really loud, is this normal?](#fans)
+- [How do I whitelist a module?](#module-whitelist)
 - [Should I use Firejail?](#firejail)
 - [An app I use won't start due to a malloc issue. How do I fix it?](#standard-malloc)
 - [On secureblue half of my CPU cores are gone. Why is this?](#smt)
@@ -22,8 +23,10 @@ permalink: /faq
 - [How do I install Steam?](#steam)
 - [How do I enable anti-cheat support?](#anticheat)
 - [How do I install Docker?](#docker)
+- [How do I enable printing?](#printing)
 - [Why am I unable to start containers?](#container-userns)
 - [How do I enable userns for other apps?](#unconfined-userns)
+- [Something broke! How do I rollback?](#rollback)
 - [Another security project has a feature that's missing in secureblue, can you add it?](#feature-request)
 - [Why are Bluetooth kernel modules disabled? How do I enable them?](#bluetooth)
 - [Why are upgrades so large?](#upgrade-size)
@@ -32,6 +35,7 @@ permalink: /faq
 - [Why I can't install nor use any GNOME user extensions?](#gnome-extensions)
 - [My clock is wrong, and it's not getting automatically set. How do I fix this?](#clock)
 - [How do I get notified of new releases?](#releases)
+- [What do the GitHub releases involve?](#release-content)
 - [Why don't my AppImages work?](#appimage)
 - [Why don't KDE Vaults work?](#kde-vaults)
 - [How do I provision signed Distroboxes?](#distrobox-assemble)
@@ -46,6 +50,8 @@ permalink: /faq
 - [Why doesn't DRM content (spotify, netflix etc.) work in Trivalent?](#trivalent-protected-content)
 - [How do I enable kernel modules?](#enable-kernel-modules)
 - [Why am I being asked to enroll a Secure Boot key?](#new-key)
+- [Why does secureblue include Homebrew?](#brew)
+- [Does secureblue use "linux-hardened"?](#linux-hardened)
 
 
 ### [Why secureblue?](#secureblue)
@@ -78,6 +84,11 @@ Consult this [discussion](https://github.com/secureblue/secureblue/issues/193#is
 
 During rpm-ostree operations, it's normal. Outside of that, make sure you followed the NVIDIA steps in the [post-install instructions](/install#nvidia) if you're using an NVIDIA GPU.
 
+### [How do I whitelist a module?](#module-whitelist)
+{: #module-whitelist}
+
+secureblue prevents [numerous modules](https://github.com/secureblue/secureblue/blob/live/files/system/etc/modprobe.d/blacklist.conf) from loading to reduce attack surface. If there's a particular module you need, run `ujust override-enable-module mod_name`. To undo this, run `ujust override-reset-module mod_name`.
+
 ### [Should I use Firejail?](#firejail)
 {: #firejail}
 
@@ -92,7 +103,7 @@ During rpm-ostree operations, it's normal. Outside of that, make sure you follow
 ### [On secureblue half of my CPU cores are gone. Why is this?](#smt)
 {: #smt}
 
-`mitigations=auto,nosmt` is set on secureblue. This means that if your CPU is vulnerable to attacks that utilize [Simultaneous Multithreading](https://en.wikipedia.org/wiki/Simultaneous_multithreading), SMT will be disabled.
+`mitigations=auto,nosmt` is set on secureblue. This means that if your CPU is vulnerable to attacks that utilize [Simultaneous Multithreading](https://en.wikipedia.org/wiki/Simultaneous_multithreading), SMT will be disabled. There are several other kargs secureblue sets that may also trigger this behavior, including `nosmt=force`, and `l1tf=full,force`.
 
 ### [How do I install software?](#software)
 {: #software}
@@ -137,6 +148,11 @@ Similarly, you can uninstall Docker with:
 ujust uninstall-docker
 ```
 
+### [How do I enable printing?](#printing)
+{: #printing}
+
+To enable printing using [CUPS](https://en.wikipedia.org/wiki/CUPS), run `ujust toggle-cups`. Note that this enables printing support, but still leaves printer discovery disabled for security reasons. The cups printer discovery service increases attack surface significantly and has a recent history of [severe vulnerabilities](https://www.redhat.com/en/blog/red-hat-response-openprinting-cups-vulnerabilities).
+
 ### [Why am I unable to start containers?](#container-userns)
 {: #container-userns}
 
@@ -157,7 +173,10 @@ The following command will toggle the ability of processes in the unconfined SEL
 ujust toggle-unconfined-domain-userns-creation
 ```
 
-For one example, attempting to bubblewrap a program without first enabling the ability toggled by the ujust above will result in a `bwrap: Creating new namespace failed: Permission denied` error, but beware that enabling it results in a security degradation. Consult our [user namespaces article](/articles/userns) for more details.
+### [Something broke! How do I rollback?](#rollback)
+{: #rollback}
+
+Each `rpm-ostree` operation generates and stages a new deployment, which includes the creation of a new GRUB entry at position 0. To boot into the previous deployment, simply select the GRUB entry at position 1. As a preventative measure, you can ensure you always have a known-good deployment available by [pinning](https://docs.fedoraproject.org/en-US/fedora-silverblue/faq/#_how_can_i_upgrade_my_system_to_the_next_major_version_for_instance_rawhide_or_an_upcoming_fedora_release_branch_while_keeping_my_current_deployment) an existing deployment. 
 
 ### [Another security project has a feature that's missing in secureblue, can you add it?](#feature-request)
 {: #feature-request}
@@ -225,6 +244,11 @@ To subscribe to release notifications, on the secureblue GitHub page, click "Wat
 <img alt="GitHub screenshot" src="/assets/release-notifications.png" />
 
 If you prefer to use an Atom feed, supported by many RSS clients, you can use the [feed provided by GitHub](https://github.com/secureblue/secureblue/releases.atom).
+
+### [What do the GitHub releases involve?](#release-content)
+{: #release-content}
+
+Substantial testing for new changes is done in the `staging` and `next` branches. However, once a commit is merged into `live`, a new set of builds is immediately generated and deployed. As such, the GitHub releases are an informational measure to track progress and communicate changes to users. This is only the case for the secureblue main repo, it isn't the case for Trivalent. For Trivalent, GitHub releases correspond to RPM releases to the RPM repo. 
 
 ### [Why don't my AppImages work?](#appimage)
 {: #appimage}
@@ -311,3 +335,13 @@ As part of a move to unify our supply chain, secureblue is moving off of [uBlue]
 ```
 ujust enroll-secureblue-secure-boot-key
 ```
+
+### [Why does secureblue include Homebrew?](#brew)
+{: #brew}
+
+Homebrew is a cross-platform package manager originally for MacOS that allows users on Atomic systems to install cli tools without layering and rebooting their system. It also brings with it a recent [independent security audit](https://github.com/trailofbits/publications/blob/master/reviews/2023-08-28-homebrew-securityreview.pdf) and subsequent [actions](https://github.com/Homebrew/brew.sh/blob/master/_posts/2024-07-30-homebrew-security-audit.md?plain=1#L24) taken in response to security findings uncovered by that audit. 
+
+### [Does secureblue use "linux-hardened"?](#linux-hardened)
+{: #linux-hardened}
+
+"linux-hardened" is the brand name for a specific set of kernel patches and builds on top of the mainline kernel, used by some distributions. secureblue doesn't use this kernel. Instead, we apply runtime configuration changes on top of Fedora's kernel. We can accomplish much but not all of what linux-hardened accomplishes using this approach. In the future, we plan to build our own kernel with patches on top of Fedora's kernel, including the [OpenPAX patches](https://github.com/edera-dev/linux-openpax). However, even today there are some important ways in which our approach is preferable. For example, linux-hardened completely disables [unprivileged user namespaces](/articles/userns). This means that to use flatpaks or chromium-based browsers, [suid-root](https://en.wikipedia.org/wiki/Setuid) binaries are required. This is a significant security degradation. secureblue on the other hand implements SELinux-confined unprivileged user namespaces, restricting them by default but allowing them for Flatpaks and Trivalent to enable their operation without suid-root. 

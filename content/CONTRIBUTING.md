@@ -95,7 +95,7 @@ Start from your own fork with a branch for the pull request/feature you want to 
 Once it's done building, go to your VM running Fedora Atomic and rebase to your newly built image. This is a string that starts with 'rpm-ostree rebase ostree-unverified-registry:ghcr.io/', followed by the repo and package name. This can be found by checking the "packages" section in the sidebar of your fork. Take the docker pull command and copy the repo and package reference. Then, append the tag, which is in the format `br-{branchName}-{fedoraVersion}`. Your command should look like this:
 
 ```
-rpm-ostree rebase ostree-unverified-registry:ghcr.io/YOURUSERNAME/YOURIMAGENAME:br-YOURBRANCHNAME-41`
+rpm-ostree rebase ostree-unverified-registry:ghcr.io/YOURUSERNAME/YOURIMAGENAME:br-YOURBRANCHNAME-41
 ```
 
 ## [Building Locally](#building-locally)
@@ -177,6 +177,7 @@ Run the image using `podman run` to get a root shell in your newly built image a
 We use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) and enforce them with a bot to keep the changelogs tidy:
 
 ```
+
 chore: add Oyster build script
 docs: explain hat wobble
 feat: add beta sequence
@@ -184,4 +185,5 @@ fix: remove broken confirmation message
 refactor: share logic between 4d3d3d3 and flarhgunnstow
 style: convert tabs to spaces
 test: ensure Tayne retains clothing
+
 ```
