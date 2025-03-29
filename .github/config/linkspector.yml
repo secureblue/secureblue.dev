@@ -1,3 +1,6 @@
 dirs:
   - .
 useGitIgnore: true
+ignorePatterns:
+  - pattern: '^/.*'
+  - pattern: '^#.*'
