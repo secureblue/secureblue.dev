@@ -3,4 +3,4 @@ dirs:
 useGitIgnore: true
 baseUrl: https://secureblue.dev
 ignorePatterns:
-  - pattern: '^https:\/\/secureblue.dev'
+  - pattern: 'https:\/\/secureblue.dev'
