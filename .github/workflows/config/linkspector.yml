@@ -1,6 +1,5 @@
 dirs:
   - .
 useGitIgnore: true
-baseUrl: https://secureblue.dev
 ignorePatterns:
   - pattern: '\[(.+)\]\(#(.+)\)'
