@@ -1,5 +1,6 @@
 dirs:
   - .
 useGitIgnore: true
-ignorePatterns:
-  - pattern: '\[(.+)\]\(#(.+)\)'
+replacementPatterns:
+  - pattern: "(\((?=\W)\/?.*(#.*)\))"
+    replacement: '{: $2}'
