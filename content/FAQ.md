@@ -173,6 +173,8 @@ The following command will toggle the ability of processes in the unconfined SEL
 ujust toggle-unconfined-domain-userns-creation
 ```
 
+Attempting to bubblewrap a program without first enabling the ability toggled by the ujust above will result in a `bwrap: Creating new namespace failed: Permission denied` error, but beware that enabling it results in a security degradation. Consult our [user namespaces article](/articles/userns) for more details.
+
 ### [Something broke! How do I rollback?](#rollback)
 {: #rollback}
 
