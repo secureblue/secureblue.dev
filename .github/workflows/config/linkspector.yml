@@ -2,5 +2,5 @@ dirs:
   - .
 useGitIgnore: true
 replacementPatterns:
-  - pattern: '(\((?=\W)\/?.*(#.*)\))''
-    replacement: "#{: $2}"
+  - pattern: '(\((?=\W)\/?.*(#.*)\))'
+    replacement: '#{: $2}'
