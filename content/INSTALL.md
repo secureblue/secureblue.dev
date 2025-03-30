@@ -134,7 +134,7 @@ rpm-ostree kargs \
 {: #secureboot}
 
 ```
-ujust enroll-secure-boot-key
+ujust enroll-secureblue-secure-boot-key
 ```
 
 ### [Set hardened kargs](#kargs)
