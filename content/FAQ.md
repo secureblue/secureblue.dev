@@ -62,12 +62,12 @@ secureblue is a collaborative effort to ship a maximally secure Linux operating 
 ### [Why not upstream your changes?](#upstream)
 {: #upstream}
 
-When possible, we do upstream our changes. For example, collaborating with KDE to make [portal improvements](https://invent.kde.org/plasma/xdg-desktop-portal-kde/-/merge_requests/347). However, it's important to note that many of the changes we make are not possible to upstream, generally due to upstream not desiring them. This is for good reason. Many of the changes secureblue makes will necessarily break someone’s use case by default. Otherwise, secureblue could just submit all of our changes upstream to Fedora. Take AppImage support as an example. AppImages depend on the suid-root, deprecated, unmaintained fuse2 interface. They also encourage users to follow the security antipattern of downloading and executing binaries from the browser. Yet, since AppImages are widely used, Fedora can’t remove support for them. secureblue is willing make these kinds of changes by default to improve security, with mechanisms available for users to re-enable support if needed for their use cases.
+When possible, we do upstream our changes. For example, collaborating with KDE to make [portal improvements](https://invent.kde.org/plasma/xdg-desktop-portal-kde/-/merge_requests/347). However, it's important to note that many of the changes we make are not possible to upstream, generally due to upstream not desiring them. This is for good reason. Many of the changes secureblue makes will necessarily break someone’s use case by default. Otherwise, secureblue could just submit all of our changes upstream to Fedora. Take AppImage support as an example. AppImages depend on the suid-root, deprecated, unmaintained fuse2 interface. They also encourage users to follow the security antipattern of downloading and executing binaries from the browser. Yet, since AppImages are widely used, Fedora can’t remove support for them. secureblue is willing to make these kinds of changes by default to improve security, with mechanisms available for users to re-enable support if needed for their use cases.
 
 ### [Is this an install script?](#script)
 {: #script}
 
-No. When you run our installer, you are *fully replacing* the system. secureblue is not an install script, nor an addon to a Fedora installation, nor a distro in the traditional sense. It is a set of [bootable container](https://github.com/containers/bootc) images shipped via GitHub's container registry. These images are rebuilt daily and pushed to GitHub's container registry. These images are then then pulled in by `rpm-ostree`, which stages updates as a pending deployment for the next boot. To view information about your current local deployments and remotes, run `rpm-ostree status`.
+No. When you run our installer, you are *fully replacing* the system. secureblue is not an install script, nor an add-on to a Fedora installation, nor a distro in the traditional sense. It is a set of [bootable container](https://github.com/containers/bootc) images shipped via GitHub's container registry. These images are rebuilt daily and pushed to GitHub's container registry. These images are then pulled in by `rpm-ostree`, which stages updates as a pending deployment for the next boot. To view information about your current local deployments and remotes, run `rpm-ostree status`.
 
 ### [Why is Flatpak included? Should I use Flatpak?](#flatpak)
 {: #flatpak}
@@ -151,7 +151,7 @@ ujust uninstall-docker
 ### [How do I enable printing?](#printing)
 {: #printing}
 
-To enable printing using [CUPS](https://en.wikipedia.org/wiki/CUPS), run `ujust toggle-cups`. Note that this enables printing support, but still leaves printer discovery disabled for security reasons. The cups printer discovery service increases attack surface significantly and has a recent history of [severe vulnerabilities](https://www.redhat.com/en/blog/red-hat-response-openprinting-cups-vulnerabilities).
+To enable printing using [CUPS](https://en.wikipedia.org/wiki/CUPS), run `ujust toggle-cups`. Note that this enables printing support, but still leaves printer discovery disabled for security reasons. The CUPS printer discovery service increases attack surface significantly and has a recent history of [severe vulnerabilities](https://www.redhat.com/en/blog/red-hat-response-openprinting-cups-vulnerabilities).
 
 ### [Why am I unable to start containers?](#container-userns)
 {: #container-userns}
@@ -175,7 +175,7 @@ ujust toggle-unconfined-domain-userns-creation
 
 Attempting to bubblewrap a program without first enabling the ability toggled by the ujust above will result in a `bwrap: Creating new namespace failed: Permission denied` error, but beware that enabling it results in a security degradation. Consult our [user namespaces article](/articles/userns) for more details.
 
-### [Something broke! How do I rollback?](#rollback)
+### [Something broke! How do I roll back?](#rollback)
 {: #rollback}
 
 Each `rpm-ostree` operation generates and stages a new deployment, which includes the creation of a new GRUB entry at position 0. To boot into the previous deployment, simply select the GRUB entry at position 1. As a preventative measure, you can ensure you always have a known-good deployment available by [pinning](https://docs.fedoraproject.org/en-US/fedora-silverblue/faq/#_how_can_i_upgrade_my_system_to_the_next_major_version_for_instance_rawhide_or_an_upcoming_fedora_release_branch_while_keeping_my_current_deployment) an existing deployment. 
@@ -183,7 +183,7 @@ Each `rpm-ostree` operation generates and stages a new deployment, which include
 ### [Another security project has a feature that's missing in secureblue, can you add it?](#feature-request)
 {: #feature-request}
 
-First, check our [features list](/features) on whether it already lists an equivalent or better feature. If it doesn't, open a new [GitHub issue](https://github.com/secureblue/secureblue/issues).
+First, check our [features list](/features) to see whether it already lists an equivalent or better feature. If it doesn't, open a new [GitHub issue](https://github.com/secureblue/secureblue/issues).
 
 ### [Why are Bluetooth kernel modules disabled? How do I enable them?](#bluetooth)
 {: #bluetooth}
@@ -293,7 +293,7 @@ This is an [upstream bug](https://issues.chromium.org/issues/373893056) that pre
 ### [Why don't extensions work in Trivalent?](#trivalent-extensions)
 {: #trivalent-extensions}
 
-Extensions in Trivalent are disabled by default, for security reasons it is not advised to use them. If you want content/ad blocking, that is already built into Trivalent and enabled by default. If you require extensions, you can re-enable them by disabling the `Disable Extensions` toggle under `chrome://settings/security`, then restart your browser (this toggle is per-profile).
+Extensions in Trivalent are disabled by default, for security reasons, it is not advised to use them. If you want content/ad blocking, that is already built into Trivalent and enabled by default. If you require extensions, you can re-enable them by disabling the `Disable Extensions` toggle under `chrome://settings/security`, then restart your browser (this toggle is per-profile).
 \
 \
 If the extension you installed doesn't work, it is likely because it requires WebAssembly (WASM) for some cryptographic library or some other optimizations (this is the case with the Bitwarden extension). To re-enable JavaScript JIT and WASM for an extension, visit `chrome://extensions`, under the extension with the issues, go `Details -> Site Settings`, then scroll to `V8 Optimizer` and flip to allow.
@@ -322,7 +322,7 @@ Choose whatever you like from the [available options](https://secureblue.dev/ima
 ### [Why doesn't DRM content (spotify, netflix etc.) work in Trivalent?](#trivalent-protected-content)
 {: #trivalent-protected-content}
 
-DRM-protected content is available in trivalent, however it is disabled by default. Visit `chrome://settings/content/protectedContent` and select "Sites can play protected content"
+DRM-protected content is available in trivalent, however it is disabled by default. Visit `chrome://settings/content/protectedContent` and select "Sites can play protected content".
 
 ### [How do I enable kernel modules?](#enable-kernel-modules)
 {: #enable-kernel-modules}
@@ -341,7 +341,7 @@ ujust enroll-secureblue-secure-boot-key
 ### [Why does secureblue include Homebrew?](#brew)
 {: #brew}
 
-Homebrew is a cross-platform package manager originally for MacOS that allows users on Atomic systems to install cli tools without layering and rebooting their system. It also brings with it a recent [independent security audit](https://github.com/trailofbits/publications/blob/master/reviews/2023-08-28-homebrew-securityreview.pdf) and subsequent [actions](https://github.com/Homebrew/brew.sh/blob/master/_posts/2024-07-30-homebrew-security-audit.md?plain=1#L24) taken in response to security findings uncovered by that audit. 
+Homebrew is a cross-platform package manager, originally for macOS that allows users on Atomic systems to install CLI tools without layering and rebooting their system. It also brings with it a recent [independent security audit](https://github.com/trailofbits/publications/blob/master/reviews/2023-08-28-homebrew-securityreview.pdf) and subsequent [actions](https://github.com/Homebrew/brew.sh/blob/master/_posts/2024-07-30-homebrew-security-audit.md?plain=1#L24) taken in response to security findings uncovered by that audit. 
 
 ### [Does secureblue use "linux-hardened"?](#linux-hardened)
 {: #linux-hardened}
