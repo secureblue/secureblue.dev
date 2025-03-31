@@ -52,6 +52,7 @@ permalink: /faq
 - [Why am I being asked to enroll a Secure Boot key?](#new-key)
 - [Why does secureblue include Homebrew?](#brew)
 - [Does secureblue use "linux-hardened"?](#linux-hardened)
+- [Why is my splash screen getting disabled on KDE?](#kde-splash-disabled)
 
 
 ### [Why secureblue?](#secureblue)
@@ -347,3 +348,12 @@ Homebrew is a cross-platform package manager, originally for macOS that allows u
 {: #linux-hardened}
 
 "linux-hardened" is the brand name for a specific set of kernel patches and builds on top of the mainline kernel, used by some distributions. secureblue doesn't use this kernel. Instead, we apply runtime configuration changes on top of Fedora's kernel. We can accomplish much but not all of what linux-hardened accomplishes using this approach. In the future, we plan to build our own kernel with patches on top of Fedora's kernel, including the [OpenPAX patches](https://github.com/edera-dev/linux-openpax). However, even today there are some important ways in which our approach is preferable. For example, linux-hardened completely disables [unprivileged user namespaces](/articles/userns). This means that to use flatpaks or chromium-based browsers, [suid-root](https://en.wikipedia.org/wiki/Setuid) binaries are required. This is a significant security degradation. secureblue on the other hand implements SELinux-confined unprivileged user namespaces, restricting them by default but allowing them for Flatpaks and Trivalent to enable their operation without suid-root. 
+
+### [Why is my splash screen getting disabled on KDE?](#kde-splash-disabled)
+{: #kde-splash-disabled}
+
+The KDE splash screen is currently [broken](https://github.com/secureblue/secureblue/issues/926) if XWayland is disabled, due to an [upstream bug](https://discuss.kde.org/t/how-to-disable-xwayland-for-the-plasma-wayland-session/19325/6). secureblue automatically disable it for every user to work around this. If you don't want the splash screen to be automatically disabled, run the following command:
+```
+systemctl disable --user disable-kde-splash.service
+```
+Alternatively, you can also enable XWayland, though this is not recommended for security reasons.
