@@ -356,4 +356,3 @@ The KDE splash screen is currently [broken](https://github.com/secureblue/secure
 ```
 systemctl disable --user disable-kde-splash.service
 ```
-Alternatively, you can also enable XWayland, though this is not recommended for security reasons.
