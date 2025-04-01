@@ -352,7 +352,7 @@ Homebrew is a cross-platform package manager, originally for macOS that allows u
 ### [Why is my splash screen getting disabled on KDE?](#kde-splash-disabled)
 {: #kde-splash-disabled}
 
-The KDE splash screen is currently [broken](https://github.com/secureblue/secureblue/issues/926) if XWayland is disabled, due to an [upstream bug](https://discuss.kde.org/t/how-to-disable-xwayland-for-the-plasma-wayland-session/19325/6). secureblue automatically disable it for every user to work around this. If you don't want the splash screen to be automatically disabled, run the following command:
+The KDE splash screen is currently [broken](https://github.com/secureblue/secureblue/issues/926) if XWayland is disabled, due to an [upstream bug](https://discuss.kde.org/t/how-to-disable-xwayland-for-the-plasma-wayland-session/19325/6). secureblue automatically disables it for every user to work around this. If you don't want the splash screen to be automatically disabled, run the following command:
 ```
 systemctl disable --user disable-kde-splash.service
 ```
