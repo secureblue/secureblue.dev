@@ -177,6 +177,13 @@ main {
     overflow-wrap: break-word;
 }
 
+main img {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
 button, input, select, textarea {
     font-family: inherit;
 }
