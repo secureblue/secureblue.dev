@@ -28,7 +28,7 @@ The following is advice on what to do before and during the installation of a Fe
 
 {% include alert.html type='tip' content='If you don\'t already have a Fedora Atomic installation, use a Fedora Atomic ISO that matches your secureblue target image to install one. If you want to use a secureblue Silverblue image, start with the Fedora Silverblue ISO, Kinoite for Kinoite, Sericea (Sway Atomic) for Sericea and all the Wayblue images, and CoreOS for all the securecore images.<br>For more details on the available images, have a look at the <a href="/images">list of available images</a> before proceeding.' %}
 
-{% include alert.html type='caution' content='The Fedora 41 ISO contains a bugged version of rpm-ostree. As such, after using it to install Fedora Atomic, you <em>must</em> run rpm-ostree upgrade and then restart, before running the secureblue installer.' %}
+{% include alert.html type='caution' content='The Fedora 41 ISO contains a bugged version of rpm-ostree. As such, after using it to install Fedora Atomic, you <em>must</em> run rpm-ostree upgrade and then restart, before running the secureblue installer. Until secureblue ships Fedora 42 based images, Fedora 41 ISOs must be used.' %}
 
 Before rebasing and during the installation, the following checks are recommended.
 
