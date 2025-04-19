@@ -5,4 +5,4 @@
   Content-Security-Policy: default-src 'none'; style-src-elem 'self'; font-src 'self'; img-src 'self'; manifest-src 'self'; form-action 'none'; frame-ancestors 'none'; base-uri 'none'; sandbox; upgrade-insecure-requests;
 
 /install
-  Content-Security-Policy: allow-downloads
+  Content-Security-Policy: sandbox allow-downloads;
