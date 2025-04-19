@@ -78,7 +78,7 @@ limitations under the License.
 Now that you have a Fedora Atomic or Fedora CoreOS installation, rebase it to the secureblue image of your choice using the script below. This script does not install secureblue into the existing system. It rebases (fully replaces the existing system) with secureblue.
 
 
-<a class="button" href="/assets/install_secureblue.sh">Download secureblue installer</a>
+<a class="button" href="https://github.com/secureblue/secureblue/releases/latest/download/install_secureblue.sh">Download secureblue installer</a>
 
 After downloading the installer, run it from the directory you downloaded it to:
 
