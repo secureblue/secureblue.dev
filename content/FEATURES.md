@@ -13,7 +13,7 @@ permalink: /features
 - Restrict [unprivileged user namespaces](/articles/userns) via SELinux policy
 - Harden the kernel via numerous sysctl values <sup>[details](https://github.com/secureblue/secureblue/blob/live/files/system/etc/sysctl.d/60-hardening.conf)</sup>
 - Harden the kernel via numerous kernel arguments (Inspired by [Madaidan's Hardening Guide](https://madaidans-insecurities.github.io/guides/linux-hardening.html)) <sup>[details](/articles/kargs)</sup>
-- Configure chronyd to use Network Time Security (NTS) <sup>[using chrony config from GrapheneOS](https://github.com/GrapheneOS/infrastructure/blob/main/chrony.conf)</sup>
+- Configure chronyd to use Network Time Security (NTS) <sup>[using chrony config from GrapheneOS](https://github.com/GrapheneOS/infrastructure/blob/main/etc/chrony.conf)</sup>
 - Set opportunistic DNSSEC and DNS over TLS for systemd-resolved
 - Install USBGuard and provide `ujust` commands to automatically configure it
 
