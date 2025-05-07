@@ -22,9 +22,9 @@ Our Silverblue images utilize GNOME, which is the only desktop environment that 
 | DE/WM      | Secures privileged Wayland protocols? | Thumbnailer sandboxing? | Stability    | Recommendation                                                                                           |
 |------------|---------------------------------------|-------------------------|--------------|----------------------------------------------------------------------------------------------------------|
 | GNOME      | Yes                                   | Weak                     | Stable       | Recommended                                                                                              |
-| KDE Plasma | No                                    | No                      | Stable       | Not recommended until Plasma secures privileged Wayland protocols (ETA: Plasma 6.4)                                       |
-| Sway       | Yes                                    | No                      | Stable       | Recommended for tiling WM users                                                                                |
-| COSMIC     | No                                    | No                      | Experimental | Not currently recommended                                                                                |
+| KDE Plasma | No                                    | None                    | Stable       | Not recommended until Plasma secures privileged Wayland protocols (ETA: Plasma 6.4)                                       |
+| Sway       | Yes                                    | None                    | Stable       | Recommended for tiling WM users                                                                                |
+| COSMIC     | No                                    | None                    | Experimental | Not currently recommended                                                                                |
 
 
 ## [Desktop](#desktop)
