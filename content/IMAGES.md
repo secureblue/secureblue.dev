@@ -23,7 +23,7 @@ Our Silverblue images utilize GNOME, which is the only desktop environment that 
 |------------|---------------------------------------|-------------------------|--------------|----------------------------------------------------------------------------------------------------------|
 | GNOME      | Yes                                   | Weak                     | Stable       | Recommended                                                                                              |
 | KDE Plasma | No                                    | No                      | Stable       | Not recommended until Plasma secures privileged Wayland protocols (ETA: Plasma 6.4)                                       |
-| Sway       | No                                    | No                      | Stable       | Recommended for tiling WM users                                                                                |
+| Sway       | Yes                                    | No                      | Stable       | Recommended for tiling WM users                                                                                |
 | COSMIC     | No                                    | No                      | Experimental | Not currently recommended                                                                                |
 
 
