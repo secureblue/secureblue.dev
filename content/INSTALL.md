@@ -206,6 +206,17 @@ ujust dns-selector
 
 {% include alert.html type='note' content='If you intend to use a VPN, use the system default state (network provided resolver). This will ensure your system uses the VPN provided DNS resolver to prevent DNS leaks. ESPECIALLY avoid setting the browser DNS policy in this case.' %}
 
+### [Toggle MAC address randomization](#mac-randomization)
+{: #mac-randomization }
+
+Toggle system-wide MAC address randomization in NetworkManager between `random` and `permanent`:
+
+```
+ujust toggle-mac-randomization
+```
+
+{% include alert.html type='note' content='Disabling MAC randomization can help with network compatibility issues, especially in enterprise or captive portal environments. Enabling it improves privacy by preventing tracking across networks.' %}
+
 ### [Bash environment lockdown](#bash)
 {: #bash}
 
