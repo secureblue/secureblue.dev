@@ -108,8 +108,6 @@ bash install_secureblue.sh
 
 {% include alert.html type='note' content='After installation, <a href="https://github.com/ublue-os/yafti">yafti</a> will open. Make sure to follow the steps listed carefully and read the directions closely.' %}
 
-{% include alert.html type='note' content='GNOME users on `-nvidia` images may notice that Gnome Software prompts them to create a new secureboot key. This prompt can and should be ignored.' %}
-
 ### [Subscribe to secureblue release notifications](#release-notifications)
 {: #release-notifications}
 
@@ -133,6 +131,9 @@ rpm-ostree kargs \
 
 ### [Enroll SecureBoot key](#secureboot)
 {: #secureboot}
+
+
+{% include alert.html type='note' content='GNOME users on Nvidia images may notice that Gnome Software prompts them to create a new secureboot key. This prompt can and should be ignored, and the command below used instead.' %}
 
 ```
 ujust enroll-secureblue-secure-boot-key
