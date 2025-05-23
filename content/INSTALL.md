@@ -101,6 +101,7 @@ bash install_secureblue.sh
 - [Setup USBGuard](#usbguard)
 - [Create a separate wheel account for admin purposes](#wheel)
 - [Setup system DNS](#dns)
+- [Toggle MAC address randomization](#mac-randomization)
 - [Bash environment lockdown](#bash)
 - [LUKS Hardware Unlock](#luks-hardware-unlock)
 - [Validation](#validation)
