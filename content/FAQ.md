@@ -68,7 +68,7 @@ When possible, we do upstream our changes. For example, collaborating with KDE t
 ### [Is this an install script?](#script)
 {: #script}
 
-No. When you run our installer, you are *fully replacing* the system (excluding your homedir), because secureblue is not an install script, nor an add-on to a Fedora installation, nor a distro in the traditional sense. It is a set of [bootable container](https://github.com/containers/bootc) images shipped via GitHub's container registry. These images are rebuilt daily and pushed to GitHub's container registry. These images are then pulled in by `rpm-ostree`, which stages updates as a pending deployment for the next boot. To view information about your current local deployments and remotes, run `rpm-ostree status`.
+No. When you run our installer, you are *fully replacing* the system (excluding your homedir). secureblue is not an install script, nor an add-on to a Fedora installation, nor a distro in the traditional sense. It is a set of [bootable container](https://github.com/containers/bootc) images shipped via GitHub's container registry. These images are rebuilt daily and pushed to GitHub's container registry. These images are then pulled in by `rpm-ostree`, which stages updates as a pending deployment for the next boot. To view information about your current local deployments and remotes, run `rpm-ostree status`.
 
 ### [Why is Flatpak included? Should I use Flatpak?](#flatpak)
 {: #flatpak}
