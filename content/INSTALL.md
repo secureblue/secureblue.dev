@@ -117,7 +117,7 @@ bash install_secureblue.sh
 ### [Set NVIDIA-specific kargs if applicable](#nvidia)
 {: #nvidia}
 
-If you are using an `nvidia` image, run this after installation:
+If you are using an `nvidia` or `nvidia-open` image, run this after installation:
 
 ```
 ujust set-kargs-nvidia
