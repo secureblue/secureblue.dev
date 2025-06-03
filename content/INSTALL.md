@@ -247,7 +247,7 @@ ujust setup-luks-fido2-unlock
 #### [LUKS TPM2 Unlock](#luks-tpm2)
 {: #luks-tpm2}
 
-{% include alert.html type='warning' content='Do not use this if you have an AMD CPU.' %}
+{% include alert.html type='warning' content='If you have an AMD CPU, check your firmware settings to make sure it is using a dedicated TPM device or a Pluton Chip. If not and it is using an fTPM (firmware TPM), skip this step. If you do not know what this means or are unsure, just skip this step.' %}
 
 To enable TPM2 LUKS unlocking, run:
 
