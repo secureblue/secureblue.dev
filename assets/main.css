@@ -17,6 +17,15 @@ body {
     overflow-y: scroll;
 }
 
+a {
+    color: #1a5fb4;
+    text-decoration: underline;
+}
+
+a:visited {
+    color: #613583;
+}
+
 footer a, footer a:visited {
     color: #616161; /* grey500 */
 }
@@ -83,15 +92,6 @@ h6 {
     font-size: 0.6875rem;
     line-height: 1rem;
     letter-spacing: 0.03125rem;
-}
-
-a {
-    color: #1a5fb4;
-    text-decoration: underline;
-}
-
-a:visited {
-    color: #613583;
 }
 
 em {
