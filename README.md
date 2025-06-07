@@ -28,7 +28,7 @@ By default, most files not relevant to the generated website are already exclude
 
 > [!NOTE]
 > An alert of the "note" type. It's pretty cool, right?
-> 
+>
 > Another line in the same alert. Click [here](https://secureblue.dev/faq) to go to the FAQ.
 
 Which can be created with the following, simple sintax:

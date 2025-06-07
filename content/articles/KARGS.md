@@ -6,6 +6,7 @@ permalink: /articles/kargs
 
 # Table of contents
 {: #table-of-contents}
+
 - [Standard](#standard)
 - [Additional](#additional)
   - [Disable 32-bit processes and syscalls](#32-bit)

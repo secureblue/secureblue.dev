@@ -47,7 +47,7 @@ If you want to ask a question, opening a [GitHub issue](https://github.com/secur
 ### [Legal Notice](#legal-notice)
 {: #legal-notice}
 
-When contributing to this project, you must agree that you have authored 100% of the content, that you have the necessary rights to the content and that the content you contribute may be provided under the project license. 
+When contributing to this project, you must agree that you have authored 100% of the content, that you have the necessary rights to the content and that the content you contribute may be provided under the project license.
 
 ### [AI Content Policy](#ai-content)
 {: #ai-content}
@@ -106,17 +106,23 @@ Building locally is much faster than building in GitHub and is a good way to mov
 
 ### Clone the repo
 
-    git clone https://github.com/secureblue/secureblue.git
+```
+git clone https://github.com/secureblue/secureblue.git
+```
 
 ### Build the image
 
 First, make sure you can build an existing image:
 
-    podman build . -t something
+```
+podman build . -t something
+```
 
 Then confirm your image built:
 
-    podman image ls
+```
+podman image ls
+```
 
 TODO: Set up and push to your own local registry
 
@@ -150,10 +156,6 @@ Copy `/etc/containers/policy.json` to `~/.config/containers/policy.json` and the
 - `podman image trust set --type accept docker.io/mikefarah/yq`
 - `podman image trust set --type accept ghcr.io/blue-build`
 - `podman image trust set --type accept quay.io/fedora-ostree-desktops`
-
-### Clone the repo
-
-    git clone https://github.com/secureblue/secureblue.git
 
 ### Making changes
 
