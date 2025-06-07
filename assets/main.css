@@ -141,6 +141,14 @@ var {
     text-decoration: none;
 }
 
+#site-menu ul li a {
+    color: #fff;
+    display: flex;
+    text-decoration: none;
+    padding: 1em;
+    align-items: center;
+}
+
 #secureblue a:hover {
     text-decoration: underline;
 }
@@ -194,13 +202,6 @@ ul ul {
     background-color: #343147;
 }
 
-#site-menu ul li a {
-    color: #fff;
-    display: flex;
-    text-decoration: none;
-    padding: 1em;
-    align-items: center;
-}
 
 #site-menu ul li a:visited {
     color: #fff;
