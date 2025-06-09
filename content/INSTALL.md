@@ -93,9 +93,9 @@ Things to remember during installation:
     <option value="nvidia-open">Yes (Turing and later)</option>
   </select>
 
-  <button type="submit" formaction="/download">Download secureblue ISO</button>
-  <button type="submit" formaction="/downloadSHA256SUM">Download ISO SHA256SUM</button>
-  <button type="submit" formaction="/secureblue-keyring.gpg">Download secureblue keyring</button>
+  <button type="submit" formaction="https://isos.secureblue.dev/download">Download secureblue ISO</button>
+  <button type="submit" formaction="https://isos.secureblue.dev/downloadSHA256SUM">Download ISO SHA256SUM</button>
+  <button type="submit" formaction="https://isos.secureblue.dev/secureblue-keyring.gpg">Download secureblue keyring</button>
 </form>
 
 ### [Ignition (CoreOS)](#ignition)
