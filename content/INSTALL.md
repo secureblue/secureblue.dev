@@ -76,25 +76,25 @@ Things to remember during installation:
 {: #iso}
 
 <form method="GET">
-  <label for="de">Select an environment:</label>
   <select name="de" id="de" required>
-    <option value=""></option>
+    <option value="">Select an environment</option>
     <option value="silverblue">GNOME</option>
     <option value="kinoite">KDE Plasma</option>
     <option value="sericea">Sway</option>
     <option value="cosmic">COSMIC</option>
   </select>
-
-  <label for="nvidia">Do you have NVIDIA?</label>
+  <br>
   <select name="nvidia" id="nvidia" required>
-    <option value=""></option>
+    <option value="">Do you have NVIDIA?</option>
     <option value="main">No</option>
     <option value="nvidia">Yes (pre-Turing)</option>
     <option value="nvidia-open">Yes (Turing and later)</option>
   </select>
 
   <button type="submit" formaction="https://isos.secureblue.dev/download">Download secureblue ISO</button>
+  <br>
   <button type="submit" formaction="https://isos.secureblue.dev/downloadSHA256SUM">Download ISO SHA256SUM</button>
+  <br>
   <button type="submit" formaction="https://isos.secureblue.dev/secureblue-keyring.gpg">Download secureblue keyring</button>
 </form>
 
