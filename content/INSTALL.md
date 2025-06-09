@@ -6,16 +6,13 @@ permalink: /install
 
 # Install
 
-To install secureblue, you will use a Fedora Atomic (or CoreOS, for securecore) ISO to install Fedora Atomic, then rebase to a secureblue image using the installer. Unless specified otherwise, secureblue is used to refer to both the secureblue set of images and the securecore set of images, for the sake of brevity. The installation script presented in a later step lets you choose between them. You *must* start from a Fedora Atomic ISO for secureblue desktop images, and *must* start from a Fedora CoreOS ISO for securecore images.
-
 ## [Table of Contents](#table-of-contents)
 {: #table-of-contents}
 
 - [Pre-install](#pre-install)
-  - [Fedora installation](#fedora-installation)
   - [BIOS hardening](#bios-hardening)
 - [Terms of use](#terms)
-- [Rebase](#rebase)
+- [Installation](#installation)
 - [Post-install](#post-install)
 
 <hr>
@@ -23,24 +20,9 @@ To install secureblue, you will use a Fedora Atomic (or CoreOS, for securecore) 
 ## [Pre-install](#pre-install)
 {: #pre-install}
 
-The following is advice on what to do before and during the installation of a Fedora ISO, and how.
-
 {% include alert.html type='note' content='The cross-platform Fedora Media Writer is the <em>official, tested, and supported</em> method for the creation of bootable media. Instructions (alongside a word on alternative methods) are available in the <a href="https://docs.fedoraproject.org/en-US/fedora/latest/preparing-boot-media/">Fedora documentation</a>.' %}
 
-{% include alert.html type='tip' content='If you don\'t already have a Fedora Atomic installation, use a Fedora Atomic ISO that matches your secureblue target image to install one. If you want to use a secureblue Silverblue image, start with the Fedora Silverblue ISO, Kinoite for Kinoite images, Sericea (Sway Atomic) for Sericea images, and CoreOS for all the securecore images.<br>For more details on the available images, have a look at the <a href="/images">list of available images</a> before proceeding.' %}
-
-Before rebasing and during the installation, the following checks are recommended.
-
-### [Fedora installation](#fedora-installation)
-{: #fedora-installation}
-
-- Select the option to encrypt the drive you're installing to.
-- Use a [strong password](https://security.harvard.edu/use-strong-passwords) when prompted.
-- Leave the root account disabled if prompted.
-- Select wheel group membership for your user if prompted.
-
-### [BIOS hardening](#bios-hardening)
-{: #bios-hardening}
+Before installation, the following checks are recommended:
 
 - Ensure SecureBoot is enabled.
 - Ensure your BIOS is up-to-date by checking its manufacturer's website.
@@ -72,10 +54,59 @@ limitations under the License.
 
 <hr>
 
-## [Rebase](#rebase)
+## [Installation]
+{: #installation}
+
+To install secureblue, you will use one of the following processes. Consult the table below for the right starting point for your use case.
+
+| Image Type | Installation Process                                                                           | Recommended Use Cases          |
+|------------|------------------------------------------------------------------------------------------------|--------------------------------|
+| Desktop    | Direct installation with a [secureblue ISO]()                                                  | Desktop/laptop end user        |
+| CoreOS     | Installation using Ignition via Butane. Consult our [example.butane] file as a starting point. | Cloud, containerized workloads |
+| IoT        | Installation with a Fedora IoT ISO, followed by [rebasing](#rebase) to secureblue.             | IoT / bare-metal servers       |
+
+Things to remember during installation:
+
+- Select the option to encrypt the drive you're installing to.
+- Use a [strong password](https://security.harvard.edu/use-strong-passwords) when prompted.
+- Leave the root account disabled if prompted.
+- Select wheel group membership for your user if prompted.
+
+### [Secureblue ISO (Desktop)](#iso)
+{: #iso}
+
+<form method="GET">
+  <label for="de">Select an environment:</label>
+  <select name="de" id="de" required>
+    <option value=""></option>
+    <option value="silverblue">GNOME</option>
+    <option value="kinoite">KDE Plasma</option>
+    <option value="sericea">Sway</option>
+    <option value="cosmic">COSMIC</option>
+  </select>
+
+  <label for="nvidia">Do you have NVIDIA?</label>
+  <select name="nvidia" id="nvidia" required>
+    <option value=""></option>
+    <option value="main">No</option>
+    <option value="nvidia">Yes (pre-Turing)</option>
+    <option value="nvidia-open">Yes (Turing and later)</option>
+  </select>
+
+  <button type="submit" formaction="/download">Download secureblue ISO</button>
+  <button type="submit" formaction="/downloadSHA256SUM">Download ISO SHA256SUM</button>
+  <button type="submit" formaction="/secureblue-keyring.gpg">Download secureblue keyring</button>
+</form>
+
+### [Ignition (CoreOS)](#ignition)
+{: #ignition}
+
+
+
+### [Rebase (IoT)](#rebase)
 {: #rebase}
 
-Now that you have a Fedora Atomic or Fedora CoreOS installation, rebase it to the secureblue image of your choice using the script below. This script does not install secureblue into the existing system. It rebases (fully replaces the existing system) with secureblue.
+Once you have a , rebase it to the secureblue image of your choice using the script below. This script does not install secureblue into the existing system. It rebases (fully replaces the existing system) with secureblue.
 
 <a class="button" href="https://github.com/secureblue/secureblue/releases/latest/download/install_secureblue.sh">Download secureblue installer</a>
 
