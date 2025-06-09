@@ -90,10 +90,12 @@ Things to remember during installation:
     <option value="nvidia">Yes (pre-Turing)</option>
     <option value="nvidia-open">Yes (Turing and later)</option>
   </select>
-
+  <br>
   <button type="submit" formaction="https://isos.secureblue.dev/download">Download secureblue ISO</button>
   <br>
+  <br>
   <button type="submit" formaction="https://isos.secureblue.dev/downloadSHA256SUM">Download ISO SHA256SUM</button>
+  <br>
   <br>
   <button type="submit" formaction="https://isos.secureblue.dev/secureblue-keyring.gpg">Download secureblue keyring</button>
 </form>
