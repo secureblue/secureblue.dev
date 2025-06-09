@@ -86,6 +86,7 @@ You can add the unfiltered Flathub repo with `ujust enable-flatpak-unfiltered`.
 {: #vpn}
 To install a standalone VPN app, use `ujust install-vpn`.
 Alternatively, you can download a WireGuard profile config from your VPN provider's website and import it via the system network settings menu. Below are the steps for GNOME.
+
 1. Navigate to the "Network" tab in GNOME settings.
 <img alt="Gnome Settings screenshot" src="/assets/gnome-settings-vpn-step1.png" />
 2. Click the "+" button to add a new VPN connection.
@@ -94,6 +95,7 @@ Alternatively, you can download a WireGuard profile config from your VPN provide
 <img alt="Gnome Settings screenshot" src="/assets/gnome-settings-vpn-step3.png" />
 4. Click the "Add" button, and your VPN will now be accessible through the system network settings.
 <img alt="Gnome Settings screenshot" src="/assets/gnome-settings-vpn-step4.png" />
+
 {% include alert.html type='note' content='If you get an error that says "Cannot Import VPN", that is likely because the name of the WireGuard configuration file is too long. GNOME Settings will only accept WireGuard configuration files with filenames 15 characters or less.' %}
 
 ### [How do I install Steam?](#steam)
