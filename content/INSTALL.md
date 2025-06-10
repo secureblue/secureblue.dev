@@ -13,6 +13,8 @@ permalink: /install
   - [BIOS hardening](#bios-hardening)
 - [Terms of use](#terms)
 - [Installation](#installation)
+  - [Secureblue ISO (Desktop)](#iso)
+  - [Ignition (CoreOS)](#ignition)
 - [Post-install](#post-install)
 
 <hr>
@@ -54,7 +56,7 @@ limitations under the License.
 
 <hr>
 
-## [Installation]
+## Installation
 {: #installation}
 
 To install secureblue, you will use one of the following processes. Consult the table below for the right starting point for your use case.
@@ -62,7 +64,7 @@ To install secureblue, you will use one of the following processes. Consult the 
 | Image Type | Installation Process                                                                           | Recommended Use Cases          |
 |------------|------------------------------------------------------------------------------------------------|--------------------------------|
 | Desktop    | Direct installation with a [secureblue ISO]()                                                  | Desktop/laptop end user        |
-| CoreOS     | Installation using Ignition via Butane. Consult our [example.butane] file as a starting point. | Cloud, containerized workloads |
+| CoreOS     | Installation using [Ignition via Butane](#ignition).                                           | Cloud, containerized workloads |
 | IoT        | Installation with a Fedora IoT ISO, followed by [rebasing](#rebase) to secureblue.             | IoT / bare-metal servers       |
 
 Things to remember during installation:
@@ -93,9 +95,7 @@ Things to remember during installation:
   <br>
   <button type="submit" formaction="https://isos.secureblue.dev/download">Download secureblue ISO</button>
   <br>
-  <br>
   <button type="submit" formaction="https://isos.secureblue.dev/downloadSHA256SUM">Download ISO SHA256SUM</button>
-  <br>
   <br>
   <button type="submit" formaction="https://isos.secureblue.dev/secureblue-keyring.gpg">Download secureblue keyring</button>
 </form>
@@ -103,20 +103,10 @@ Things to remember during installation:
 ### [Ignition (CoreOS)](#ignition)
 {: #ignition}
 
+Follow the [Fedora CoreOS docs](https://docs.fedoraproject.org/en-US/fedora-coreos/getting-started/), [Ignition docs](https://docs.fedoraproject.org/en-US/fedora-coreos/producing-ign/), and [Butane docs](https://coreos.github.io/butane/) to configure initialization for your CoreOS instance(s).
 
+You can use our [example.butane](https://github.com/secureblue/secureblue/blob/live/docs/example.butane) as a starting point.
 
-### [Rebase (IoT)](#rebase)
-{: #rebase}
-
-Once you have a , rebase it to the secureblue image of your choice using the script below. This script does not install secureblue into the existing system. It rebases (fully replaces the existing system) with secureblue.
-
-<a class="button" href="https://github.com/secureblue/secureblue/releases/latest/download/install_secureblue.sh">Download secureblue installer</a>
-
-After downloading the installer, run it from the directory you downloaded it to:
-
-```
-bash install_secureblue.sh
-```
 
 <hr>
 
