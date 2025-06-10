@@ -109,7 +109,7 @@ gpgv --keyring ./secureblue-keyring.gpg "${IMAGE_NAME}.iso-CHECKSUM"
 
 Second command:
 ```
-sha256sum --ignore-missing -c "${IMAGE_NAME}.iso-CHECKSUM"
+sha256sum -c "${IMAGE_NAME}.iso-CHECKSUM"
 ```
 
 
