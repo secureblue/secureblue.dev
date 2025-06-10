@@ -102,20 +102,24 @@ Things to remember during installation:
 
 Once you have the ISO, the CHECKSUM, and the keyring downloaded, use the following commands to verify the ISO (where IMAGE_NAME corresponds to the filename of the ISO you donwloaded):
 
+First command:
 ```
 gpgv --keyring ./secureblue-keyring.gpg "${IMAGE_NAME}.iso-CHECKSUM"
 ```
 
-Expected output:
+Second command:
+```
+sha256sum --ignore-missing -c "${IMAGE_NAME}.iso-CHECKSUM"
+```
+
+
+Expected output from the first command:
 ```
 gpgv: Signature made Wed 04 Jun 2025 12:49:39 AM PDT
 gpgv:                using EDDSA key 26B4463ED8F313BC7E3FBDF9D9223AF0F47B3E41
 gpgv: Good signature from "secureblueadmin <secureblueadmin@proton.me>"
 ```
 
-```
-sha256sum --ignore-missing -c "${IMAGE_NAME}.iso-CHECKSUM"
-```
 
 ### [Ignition (CoreOS)](#ignition)
 {: #ignition}
