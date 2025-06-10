@@ -23,3 +23,15 @@ ujust flatpak-permissions-lockdown
 ```
 
 This is not enabled out of the box on secureblue because it has a somewhat significant usability impact (many flatpaks will break due to missing permissions). Until the flatpak and xdg portal permissions model is improved, this is the most secure option we can offer. That said, users are still encouraged to report unnecessary permissions to upstream projects when found, while incremental development progresses on flatpak and portals.
+
+You can revert this change by running:
+
+```
+ujust flatpak-reset-global-overrides
+```
+
+Note that this will undo the flatpak-harden command, the flatpak-permissions-lockdown command, as well as any other global overrides (individual app overrides will not be affected). Since this command undoes the flatpak-harden command as well, you might want to run it again afterwards:
+
+```
+ujust flatpak-harden
+```
