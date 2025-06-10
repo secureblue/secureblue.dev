@@ -65,7 +65,6 @@ To install secureblue, you will use one of the following processes. Consult the 
 |------------|------------------------------------------------------------------------------------------------|--------------------------------|
 | Desktop    | Direct installation with a [secureblue ISO]()                                                  | Desktop/laptop end user        |
 | CoreOS     | Installation using [Ignition via Butane](#ignition).                                           | Cloud, containerized workloads |
-| IoT        | Installation with a Fedora IoT ISO, followed by [rebasing](#rebase) to secureblue.             | IoT / bare-metal servers       |
 
 Things to remember during installation:
 
