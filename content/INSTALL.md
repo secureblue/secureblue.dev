@@ -39,7 +39,7 @@ Before installation, the following checks are recommended:
 secureblue includes a combination of software packages, each under its own licensing terms. The license of secureblue is the Apache License 2.0. The license of secureblue does not supersede the licenses of upstream code and content contained in secureblue images. By downloading secureblue you agree to the license terms of its use.
 
 ```
-Copyright 2024-2025 The secureblue authors
+Copyright 2024-2025 The Secureblue Authors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this software except in compliance with the License.
