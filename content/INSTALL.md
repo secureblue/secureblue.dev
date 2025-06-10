@@ -114,8 +114,7 @@ sha256sum --ignore-missing -c "${IMAGE_NAME}.iso-CHECKSUM"
 
 
 Expected output from the first command:
-```
-gpgv: Signature made Wed 04 Jun 2025 12:49:39 AM PDT
+```gpgv: Signature made Wed 04 Jun 2025 12:49:39 AM PDT
 gpgv:                using EDDSA key 26B4463ED8F313BC7E3FBDF9D9223AF0F47B3E41
 gpgv: Good signature from "secureblueadmin <secureblueadmin@proton.me>"
 ```
