@@ -116,7 +116,7 @@ secureblue prevents [numerous modules](https://github.com/secureblue/secureblue/
 3. For CLI packages, you can install from brew if available using `brew install`. You can browse this [catalogue of Homebrew Formulaes](https://formulae.brew.sh) to discover the available formulaes.
 4. If a package isn't available via the other two options, or if a package requires greater system integration, `rpm-ostree install` can be used to layer rpms directly into your subsequent deployments.
 
-You can add the unfiltered Flathub repo with `ujust enable-flatpak-unfiltered`.
+You can add the unfiltered Flathub repo with `ujust enable-flathub-unfiltered`.
 
 ### [How do I install my VPN?](#vpn)
 {: #vpn}
