@@ -30,8 +30,8 @@ You can revert this change by running:
 ujust flatpak-reset-global-overrides
 ```
 
-Note that this will undo the flatpak-harden command, the flatpak-permissions-lockdown command, as well as any other global overrides (individual app overrides will not be affected). Since this command undoes the flatpak-harden command as well, you might want to run it again afterwards:
+Note that this will not only undo the the `ujust flatpak-permissions-lockdown` command but also any other global overrides (individual app overrides will not be affected). Since this also affects the `ujust harden-flatpak` command, you might want to run it again afterwards:
 
 ```
-ujust flatpak-harden
+ujust harden-flatpak
 ```
