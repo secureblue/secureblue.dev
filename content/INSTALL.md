@@ -134,7 +134,6 @@ rpm-ostree kargs \
 ### [Enroll SecureBoot key](#secureboot)
 {: #secureboot}
 
-
 {% include alert.html type='note' content='GNOME users on Nvidia images may notice that Gnome Software prompts them to create a new secureboot key. This prompt can and should be ignored, and the command below used instead.' %}
 
 ```
@@ -186,6 +185,7 @@ Creating a dedicated wheel user and removing wheel from your primary user helps 
 {% include alert.html type='caution' content='If you do these steps out of order, it is possible to end up without the ability to administrate your system. You will not be able to use the <a href="https://linuxconfig.org/recover-reset-forgotten-linux-root-password">traditional GRUB-based method</a> of fixing mistakes like this, either, as this will leave your system in a broken state. However, simply rolling back to an older snapshot of your system, should resolve the problem.' %}
 
 {% include alert.html type='note' content='We log in as admin to do the final step of removing the user account\'s wheel privileges in order to make the operation of removing those privileges depend on having access to your admin account, and the admin account functioning correctly first.' %}
+
 1. `run0`
 2. `adduser admin`
 3. `usermod -aG wheel admin`

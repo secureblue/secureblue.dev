@@ -15,7 +15,6 @@ permalink: /images
   - [Experimental](#experimental)
 - [Server](#server)
 
-
 ## [Security recommendation](#security-recommendation)
 
 GNOME and Sway (Silverblue and Sericea images, respectively) secure privileged Wayland protocols like screencopy. This means that on environments outside of GNOME and Sway, applications can access screen content of the entire desktop. This implicitly includes the content of other applications. It\'s primarily for this reason that Silverblue and Sericea images are recommended. A commit submitted by secureblue to fix this in KDE is scheduled to land in Plasma 6.4 (<a href="https://invent.kde.org/plasma/xdg-desktop-portal-kde/-/issues/7#note_1112249">discussion</a>, <a href="https://invent.kde.org/plasma/xdg-desktop-portal-kde/-/merge_requests/347">PR</a>). Cosmic has <a href="https://github.com/pop-os/cosmic-comp/issues/970">plans</a> to fix this.

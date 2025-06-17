@@ -56,7 +56,6 @@ permalink: /faq
 - [Does secureblue use "linux-hardened"?](#linux-hardened)
 - [Why is my splash screen disabled on KDE?](#kde-splash-disabled)
 
-
 ### [Why secureblue?](#secureblue)
 {: #secureblue}
 
