@@ -94,7 +94,7 @@ secureblue prevents [numerous modules](https://github.com/secureblue/secureblue/
 ### [Should I use Firejail?](#firejail)
 {: #firejail}
 
-[No](https://madaidans-insecurities.github.io/linux.html#firejail), use ``bubblejail`` if there's no Flatpak available for an app.
+[No](https://madaidans-insecurities.github.io/linux.html#firejail), use `bubblejail` if there's no Flatpak available for an app that you want to sandbox. Note that this requires [enabling unconfined user namespaces](#unconfined-userns), which is a security degradation.
 
 ### [An app I use won't start due to a malloc issue. How do I fix it?](#standard-malloc)
 {: #standard-malloc}
