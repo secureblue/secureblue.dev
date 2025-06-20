@@ -177,7 +177,7 @@ To enable printing using [CUPS](https://en.wikipedia.org/wiki/CUPS), run `ujust 
 
 Modern USB-connected printer/scanner typically utilize `ipp-usb` protocol to enable driverless printing/scanning. Three services are required to enable driverless printing/scanning, `CUPS` (can be easily toggled), `ipp-usb` (enabled by default), and `avahi-daemon` (masked on secureblue).
 
-By default, CUPS is disabled on secureblue. You have to manually enable CUPS by running `ujust toggle-cups`. In addition, `avahi-daemon` has to be run as root. You may unmask `avahi-daemon.service` and enable it by running `systemctl unmask avahi-daemon.service` and `systemctl start --now avahi-daemon.service` (This is the default setting on Fedora Workstation 42), though it would likely degrade system security. Alternatively, elevate privileges using `run0` and run `avahi-daemon` interactively, and terminate (Ctrl+C) it after you finish printing/scanning. 
+By default, CUPS is disabled on secureblue. You have to manually enable CUPS by running `ujust toggle-cups`. In addition, `avahi-daemon` has to be run as root. You may unmask `avahi-daemon.service` and enable it by running `systemctl unmask avahi-daemon.service` and `systemctl start --now avahi-daemon.service` (which is the default setting on Fedora Workstation 42), though it would likely degrade system security. Alternatively, elevate privileges using `run0` and run `avahi-daemon` interactively, and terminate (Ctrl+C) it after you finish printing/scanning. 
 
 Do note that `ipp-usb` relays TCP connection to USB, thus network permission is required for flatpak applications to access your printer/scanner.
 
