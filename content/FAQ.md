@@ -26,6 +26,7 @@ permalink: /faq
 - [How do I enable anti-cheat support?](#anticheat)
 - [How do I install Docker?](#docker)
 - [How do I enable printing?](#printing)
+- [Why is my USB-connected printer/scanner not detected?](#ipp-usb)
 - [Why am I unable to start containers?](#container-userns)
 - [How do I enable userns for other apps?](#unconfined-userns)
 - [Something broke! How do I rollback?](#rollback)
@@ -170,6 +171,15 @@ ujust uninstall-docker
 {: #printing}
 
 To enable printing using [CUPS](https://en.wikipedia.org/wiki/CUPS), run `ujust toggle-cups`. Note that this enables printing support, but still leaves printer discovery disabled for security reasons. The CUPS printer discovery service increases attack surface significantly and has a recent history of [severe vulnerabilities](https://www.redhat.com/en/blog/red-hat-response-openprinting-cups-vulnerabilities).
+
+### [Why is my USB-connected printer/scanner not detected?](#ipp-usb)
+{: #ipp-usb}
+
+Modern USB-connected printer/scanner typically utilize `ipp-usb` protocol to enable driverless printing/scanning. Three services are required to enable driverless printing/scanning, `CUPS` (can be easily toggled), `ipp-usb` (enabled by default), and `avahi-daemon` (masked on secureblue).
+
+By default, CUPS is disabled on secureblue. You have to manually enable CUPS by running `ujust toggle-cups`. In addition, `avahi-daemon` has to be run as root. You may unmask `avahi-daemon.service` and enable it by running `systemctl unmask avahi-daemon.service` and `systemctl start --now avahi-daemon.service` (This is the default setting on Fedora Workstation 42), though it would likely degrade system security. Alternatively, elevate privileges using `run0` and run `avahi-daemon` interactively, and terminate (Ctrl+C) it after you finish printing/scanning. 
+
+Do note that `ipp-usb` relays TCP connection to USB, thus network permission is required for flatpak applications to access your printer/scanner.
 
 ### [Why am I unable to start containers?](#container-userns)
 {: #container-userns}
