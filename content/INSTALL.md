@@ -108,8 +108,6 @@ bash install_secureblue.sh
 - [Optional: Trivalent Flags](#trivalent-flags)
 - [Read the FAQ](#faq)
 
-{% include alert.html type='note' content='After installation, <a href="https://github.com/ublue-os/yafti">yafti</a> will open. Make sure to follow the steps listed carefully and read the directions closely.' %}
-
 ### [Subscribe to secureblue release notifications](#release-notifications)
 {: #release-notifications}
 
