@@ -159,7 +159,7 @@ You can use our [example.butane](https://github.com/secureblue/secureblue/blob/l
 
 [How to subscribe to secureblue release notifications](/faq#releases)
 
-#### [Enroll SecureBoot key](#secureboot)
+### [Enroll SecureBoot key](#secureboot)
 {: #secureboot}
 
 {% include alert.html type='note' content='GNOME users on Nvidia images may notice that Gnome Software prompts them to create a new secureboot key. This prompt can and should be ignored, and the command below used instead.' %}
@@ -170,7 +170,7 @@ The secureblue Secure Boot key should automatically enroll after installation, w
 ujust enroll-secureblue-secure-boot-key
 ```
 
-#### [Validation](#validation)
+### [Validation](#validation)
 {: #validation}
 
 To validate your secureblue setup, run:
@@ -179,24 +179,24 @@ To validate your secureblue setup, run:
 ujust audit-secureblue
 ```
 
-#### [Read the FAQ](#faq)
+### [Read the FAQ](#faq)
 {: #faq}
 
 Lots of important stuff is covered in the [FAQ](/faq). If you're having an issue, it's probably covered there already. AppImage toggles, GNOME extension toggles, Xwayland toggles, etc.
 
 
-### [Recommended](#recommended)
+## [Recommended](#recommended)
 {: #recommended}
 
-#### [Kernel argument tuning](#kargs)
+### [Kernel argument tuning](#kargs)
 
 A stable set of kernel arguments is preinstalled with secureblue. However, it is recommended that you consult our [Kargs article](/articles/kargs) for guidance on tuning Kargs based on your use case.
 
-#### [Flatpak Permissions Tuning](#flatpak-permissions-tuning)
+### [Flatpak Permissions Tuning](#flatpak-permissions-tuning)
 
 Consult our [Flatpak article](/articles/flatpak) for guidance on tuning Flatpak permissions.
 
-#### [Setup USBGuard](#usbguard)
+### [Setup USBGuard](#usbguard)
 {: #usbguard}
 
 *This will generate a policy based on your currently attached USB devices and block all others, then enable usbguard.*
@@ -205,7 +205,7 @@ Consult our [Flatpak article](/articles/flatpak) for guidance on tuning Flatpak 
 ujust setup-usbguard
 ```
 
-#### [Create a separate wheel account for admin purposes](#wheel)
+### [Create a separate wheel account for admin purposes](#wheel)
 {: #wheel}
 
 Creating a dedicated wheel user and removing wheel from your primary user helps prevent certain privilege escalation attack vectors and password sniffing.
@@ -227,7 +227,7 @@ Creating a dedicated wheel user and removing wheel from your primary user helps 
 
 {% include alert.html type='note' content='You don\'t need to log in using your wheel user to use it for privileged operations. When logged in as your non-wheel user, Polkit will prompt you to authenticate as your wheel user as needed, or when requested by calling <code>run0</code>.' %}
 
-#### [Configure system DNS](#dns)
+### [Configure system DNS](#dns)
 {: #dns}
 
 Interactively setup system DNS resolution for systemd-resolved (optionally also set the resolver for Trivalent via management policy):
@@ -238,7 +238,7 @@ ujust dns-selector
 
 {% include alert.html type='note' content='If you intend to use a VPN, use the system default state (network provided resolver). This will ensure your system uses the VPN provided DNS resolver to prevent DNS leaks. ESPECIALLY avoid setting the browser DNS policy in this case.' %}
 
-#### [Toggle MAC address randomization](#mac-randomization)
+### [Toggle MAC address randomization](#mac-randomization)
 {: #mac-randomization }
 
 Toggle system-wide MAC address randomization in NetworkManager between `random` and `permanent`:
@@ -249,7 +249,7 @@ ujust toggle-mac-randomization
 
 {% include alert.html type='note' content='Disabling MAC randomization can help with network compatibility issues, especially in enterprise or captive portal environments. Enabling it improves privacy by preventing tracking across networks.' %}
 
-#### [Bash environment lockdown](#bash)
+### [Bash environment lockdown](#bash)
 {: #bash}
 
 To mitigate [LD_PRELOAD attacks](https://github.com/Aishou/wayland-keylogger), run:
@@ -258,13 +258,13 @@ To mitigate [LD_PRELOAD attacks](https://github.com/Aishou/wayland-keylogger), r
 ujust toggle-bash-environment-lockdown
 ```
 
-#### [LUKS Hardware-Unlock](#luks-hardware-unlock)
+### [LUKS Hardware-Unlock](#luks-hardware-unlock)
 {: #luks-hardware-unlock}
 
 {% include alert.html type='note' content='There are two options available for hardware-based unlocking. You can either enroll FIDO2 or TPM2 for your LUKS volume. FIDO2 enrollment is preferable if you own a hardware security key. It\'s recommended that you choose only one of these, and not both at the same time.' %}
 
 
-##### [LUKS FIDO2 Unlock](#luks-fido2)
+#### [LUKS FIDO2 Unlock](#luks-fido2)
 {: #luks-fido2}
 
 To enable FIDO2 LUKS unlocking with your FIDO2 security key, run:
@@ -273,7 +273,7 @@ To enable FIDO2 LUKS unlocking with your FIDO2 security key, run:
 ujust setup-luks-fido2-unlock
 ```
 
-##### [LUKS TPM2 Unlock](#luks-tpm2)
+#### [LUKS TPM2 Unlock](#luks-tpm2)
 {: #luks-tpm2}
 
 {% include alert.html type='warning' content='If you have an AMD CPU, check your firmware settings to make sure it is using a dedicated TPM device or a Pluton Chip. If not and it is using an fTPM (firmware TPM), skip this step. If you do not know what this means or are unsure, just skip this step.' %}
@@ -286,7 +286,7 @@ ujust setup-luks-tpm-unlock
 
 Type `Y` when asked if you want to set a PIN.
 
-#### [Trivalent Flags](#trivalent-flags)
+### [Trivalent Flags](#trivalent-flags)
 {: #trivalent-flags}
 
 The included [Trivalent](https://github.com/secureblue/Trivalent) browser has some additional settings in `chrome://flags` you may want to set for additional hardening and convenience (can cause functionality issues in some cases).
