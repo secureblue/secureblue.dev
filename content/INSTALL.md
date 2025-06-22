@@ -138,83 +138,65 @@ You can use our [example.butane](https://github.com/secureblue/secureblue/blob/l
 ## [Post-install](#post-install)
 {: #post-install}
 
-- [Subscribe to secureblue release notifications](#release-notifications)
-- [Set NVIDIA-specific kargs if applicable](#nvidia)
-- [Enroll SecureBoot key](#secureboot)
-- [Set hardened kargs](#kargs)
-  - [32-bit support](#kargs-32-bit)
-  - [Force disable simultaneous multithreading](#kargs-smt)
-  - [Unstable hardening kargs](#kargs-unstable)
-- [Setup USBGuard](#usbguard)
-- [Create a separate wheel account for admin purposes](#wheel)
-- [Setup system DNS](#dns)
-- [Toggle MAC address randomization](#mac-randomization)
-- [Bash environment lockdown](#bash)
-- [LUKS Hardware Unlock](#luks-hardware-unlock)
-- [Flatpak Permissions Tuning](#flatpak-permissions-tuning)
-- [Validation](#validation)
-- [Optional: Trivalent Flags](#trivalent-flags)
-- [Read the FAQ](#faq)
+- [Essential](#Essential)
+  - [Subscribe to secureblue release notifications](#release-notifications)
+  - [Enroll SecureBoot key](#secureboot)
+  - [Validation](#validation)
+  - [Read the FAQ](#faq)
+- [Recommended](#Recommended)
+  - [Kernel argument tuning](#kargs)
+  - [Setup USBGuard](#usbguard)
+  - [Create a separate wheel account for admin purposes](#wheel)
+  - [Setup system DNS](#dns)
+  - [Toggle MAC address randomization](#mac-randomization)
+  - [Bash environment lockdown](#bash)
+  - [LUKS Hardware Unlock](#luks-hardware-unlock)
+  - [Flatpak Permissions Tuning](#flatpak-permissions-tuning)
+  - [Trivalent Flags](#trivalent-flags)
 
 ### [Subscribe to secureblue release notifications](#release-notifications)
 {: #release-notifications}
 
 [How to subscribe to secureblue release notifications](/faq#releases)
 
-### [Set NVIDIA-specific kargs if applicable](#nvidia)
-{: #nvidia}
-
-If you are using an `nvidia` or `nvidia-open` image, run this after installation:
-
-```
-ujust set-kargs-nvidia
-```
-
-If you encounter flickering or LUKS issues, you may also (rarely) need this karg:
-
-```
-rpm-ostree kargs \
-    --append-if-missing=initcall_blacklist=simpledrm_platform_driver_init
-```
-
-### [Enroll SecureBoot key](#secureboot)
+#### [Enroll SecureBoot key](#secureboot)
 {: #secureboot}
 
 {% include alert.html type='note' content='GNOME users on Nvidia images may notice that Gnome Software prompts them to create a new secureboot key. This prompt can and should be ignored, and the command below used instead.' %}
+
+The secureblue Secure Boot key should automatically enroll after installation, with the MOK password "secureblue". If this fails or doesn't appear for whatever reason, you can manually enroll the key with the command below.
 
 ```
 ujust enroll-secureblue-secure-boot-key
 ```
 
-### [Set hardened kargs](#kargs)
-{: #kargs}
+#### [Validation](#validation)
+{: #validation}
 
-{% include alert.html type='note' content='Learn more about the <a href="/articles/kargs">hardened boot kargs</a> applied by the command below.' %}
+To validate your secureblue setup, run:
 
 ```
-ujust set-kargs-hardening
+ujust audit-secureblue
 ```
 
-This command applies a fixed set of hardened boot parameters, and asks you whether the following kargs should *also* be set along with those (all of which are documented in the link above):
+#### [Read the FAQ](#faq)
+{: #faq}
 
-#### [32-bit support](#kargs-32-bit)
-{: #kargs-32-bit}
+Lots of important stuff is covered in the [FAQ](/faq). If you're having an issue, it's probably covered there already. AppImage toggles, GNOME extension toggles, Xwayland toggles, etc.
 
-If you answer `N`, or press enter without any input, support for 32-bit programs will be disabled on the next boot. If you run exclusively modern software, chances are likely you don't need this, so it's safe to disable for additional attack surface reduction.
 
-However, there are certain exceptions. A couple common usecases are if you require Steam, or run an occasional application in Wine you'll likely want to keep support for 32-bit programs. If this is the case, answer `Y`.
+#### [Recommended](#recommended)
+{: #recommended}
 
-#### [Force disable simultaneous multithreading](#kargs-smt)
-{: #kargs-smt}
+#### [Kernel argument tuning](#kargs)
 
-If you answer `Y` when prompted, simultaneous multithreading (SMT, often called Hyper-threading) will be forcefully disabled, regardless of known vulnerabilities in the running hardware. This can cause a reduction in the performance of certain tasks in favor of security.
+A stable set of kernel arguments is preinstalled with secureblue. However, it is recommended that you consult our [Kargs article](/articles/kargs) for guidance on tuning Kargs based on your use case.
 
-#### [Unstable hardening kargs](#kargs-unstable)
-{: #kargs-unstable}
+#### [Flatpak Permissions Tuning](#flatpak-permissions-tuning)
 
-If you answer `Y` when prompted, unstable hardening kargs will be additionally applied, which can cause issues on some hardware, but are stable on other hardware.
+Consult our [Flatpak article](/articles/flatpak) for guidance on tuning Flatpak permissions.
 
-### [Setup USBGuard](#usbguard)
+#### [Setup USBGuard](#usbguard)
 {: #usbguard}
 
 *This will generate a policy based on your currently attached USB devices and block all others, then enable usbguard.*
@@ -223,7 +205,7 @@ If you answer `Y` when prompted, unstable hardening kargs will be additionally a
 ujust setup-usbguard
 ```
 
-### [Create a separate wheel account for admin purposes](#wheel)
+#### [Create a separate wheel account for admin purposes](#wheel)
 {: #wheel}
 
 Creating a dedicated wheel user and removing wheel from your primary user helps prevent certain privilege escalation attack vectors and password sniffing.
@@ -245,7 +227,7 @@ Creating a dedicated wheel user and removing wheel from your primary user helps 
 
 {% include alert.html type='note' content='You don\'t need to log in using your wheel user to use it for privileged operations. When logged in as your non-wheel user, Polkit will prompt you to authenticate as your wheel user as needed, or when requested by calling <code>run0</code>.' %}
 
-### [Setup system DNS](#dns)
+#### [Configure system DNS](#dns)
 {: #dns}
 
 Interactively setup system DNS resolution for systemd-resolved (optionally also set the resolver for Trivalent via management policy):
@@ -256,7 +238,7 @@ ujust dns-selector
 
 {% include alert.html type='note' content='If you intend to use a VPN, use the system default state (network provided resolver). This will ensure your system uses the VPN provided DNS resolver to prevent DNS leaks. ESPECIALLY avoid setting the browser DNS policy in this case.' %}
 
-### [Toggle MAC address randomization](#mac-randomization)
+#### [Toggle MAC address randomization](#mac-randomization)
 {: #mac-randomization }
 
 Toggle system-wide MAC address randomization in NetworkManager between `random` and `permanent`:
@@ -267,7 +249,7 @@ ujust toggle-mac-randomization
 
 {% include alert.html type='note' content='Disabling MAC randomization can help with network compatibility issues, especially in enterprise or captive portal environments. Enabling it improves privacy by preventing tracking across networks.' %}
 
-### [Bash environment lockdown](#bash)
+#### [Bash environment lockdown](#bash)
 {: #bash}
 
 To mitigate [LD_PRELOAD attacks](https://github.com/Aishou/wayland-keylogger), run:
@@ -276,13 +258,13 @@ To mitigate [LD_PRELOAD attacks](https://github.com/Aishou/wayland-keylogger), r
 ujust toggle-bash-environment-lockdown
 ```
 
-### [LUKS Hardware-Unlock](#luks-hardware-unlock)
+#### [LUKS Hardware-Unlock](#luks-hardware-unlock)
 {: #luks-hardware-unlock}
 
 {% include alert.html type='note' content='There are two options available for hardware-based unlocking. You can either enroll FIDO2 or TPM2 for your LUKS volume. FIDO2 enrollment is preferable if you own a hardware security key. It\'s recommended that you choose only one of these, and not both at the same time.' %}
 
 
-#### [LUKS FIDO2 Unlock](#luks-fido2)
+##### [LUKS FIDO2 Unlock](#luks-fido2)
 {: #luks-fido2}
 
 To enable FIDO2 LUKS unlocking with your FIDO2 security key, run:
@@ -291,7 +273,7 @@ To enable FIDO2 LUKS unlocking with your FIDO2 security key, run:
 ujust setup-luks-fido2-unlock
 ```
 
-#### [LUKS TPM2 Unlock](#luks-tpm2)
+##### [LUKS TPM2 Unlock](#luks-tpm2)
 {: #luks-tpm2}
 
 {% include alert.html type='warning' content='If you have an AMD CPU, check your firmware settings to make sure it is using a dedicated TPM device or a Pluton Chip. If not and it is using an fTPM (firmware TPM), skip this step. If you do not know what this means or are unsure, just skip this step.' %}
@@ -304,27 +286,9 @@ ujust setup-luks-tpm-unlock
 
 Type `Y` when asked if you want to set a PIN.
 
-### [Flatpak Permissions Tuning](#flatpak-permissions-tuning)
-
-Consult our [Flatpak article](/articles/flatpak) for guidance on tuning Flatpak permissions.
-
-### [Validation](#validation)
-{: #validation}
-
-To validate your secureblue setup, run:
-
-```
-ujust audit-secureblue
-```
-
-### [Optional: Trivalent Flags](#trivalent-flags)
+#### [Trivalent Flags](#trivalent-flags)
 {: #trivalent-flags}
 
 The included [Trivalent](https://github.com/secureblue/Trivalent) browser has some additional settings in `chrome://flags` you may want to set for additional hardening and convenience (can cause functionality issues in some cases).
 
 You can read about these settings in the [Trivalent post-install](https://github.com/secureblue/Trivalent?tab=readme-ov-file#post-install) instructions.
-
-### [Read the FAQ](#faq)
-{: #faq}
-
-Lots of important stuff is covered in the [FAQ](/faq). AppImage toggles, GNOME extension toggles, Xwayland toggles, etc.
