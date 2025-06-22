@@ -157,7 +157,7 @@ You can use our [example.butane](https://github.com/secureblue/secureblue/blob/l
 ### [Subscribe to secureblue release notifications](#release-notifications)
 {: #release-notifications}
 
-[How to subscribe to secureblue release notifications](/faq#releases)
+Subscribing to release notifications is documented [here](/faq#releases).
 
 ### [Enroll SecureBoot key](#secureboot)
 {: #secureboot}
@@ -206,12 +206,9 @@ ujust setup-usbguard
 ### [Create a separate wheel account for admin purposes](#wheel)
 {: #wheel}
 
-Creating a dedicated wheel user and removing wheel from your primary user helps prevent certain privilege escalation attack vectors and password sniffing.
-
 {% include alert.html type='caution' content='If you do these steps out of order, it is possible to end up without the ability to administrate your system. You will not be able to use the <a href="https://linuxconfig.org/recover-reset-forgotten-linux-root-password">traditional GRUB-based method</a> of fixing mistakes like this, either, as this will leave your system in a broken state. However, simply rolling back to an older snapshot of your system, should resolve the problem.' %}
 
-{% include alert.html type='note' content='We log in as admin to do the final step of removing the user account\'s wheel privileges in order to make the operation of removing those privileges depend on having access to your admin account, and the admin account functioning correctly first.' %}
-
+Creating a dedicated wheel user and removing wheel from your primary user helps prevent certain privilege escalation attack vectors and password sniffing. We log in as admin to do the final step of removing the user account\'s wheel privileges in order to make the operation of removing those privileges depend on having access to your admin account, and the admin account functioning correctly first.' You don\'t need to log in using your wheel user to use it for privileged operations. When logged in as your non-wheel user, Polkit will prompt you to authenticate as your wheel user as needed, or when requested by calling <code>run0</code>.
 1. `run0`
 2. `adduser admin`
 3. `usermod -aG wheel admin`
@@ -222,8 +219,6 @@ Creating a dedicated wheel user and removing wheel from your primary user helps 
 8. `run0`
 9. `gpasswd -d {your username here} wheel`
 10. `reboot`
-
-{% include alert.html type='note' content='You don\'t need to log in using your wheel user to use it for privileged operations. When logged in as your non-wheel user, Polkit will prompt you to authenticate as your wheel user as needed, or when requested by calling <code>run0</code>.' %}
 
 ### [Configure system DNS](#dns)
 {: #dns}
@@ -259,7 +254,7 @@ ujust toggle-bash-environment-lockdown
 ### [LUKS Hardware-Unlock](#luks-hardware-unlock)
 {: #luks-hardware-unlock}
 
-{% include alert.html type='note' content='There are two options available for hardware-based unlocking. You can either enroll FIDO2 or TPM2 for your LUKS volume. FIDO2 enrollment is preferable if you own a hardware security key. It\'s recommended that you choose only one of these, and not both at the same time.' %}
+There are two options available for hardware-based unlocking. You can either enroll FIDO2 or TPM2 for your LUKS volume. FIDO2 enrollment is preferable if you own a hardware security key. It\'s recommended that you choose only one of these, and not both at the same time.
 
 
 #### [LUKS FIDO2 Unlock](#luks-fido2)
