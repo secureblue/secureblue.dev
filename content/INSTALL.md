@@ -185,7 +185,7 @@ ujust audit-secureblue
 Lots of important stuff is covered in the [FAQ](/faq). If you're having an issue, it's probably covered there already. AppImage toggles, GNOME extension toggles, Xwayland toggles, etc.
 
 
-#### [Recommended](#recommended)
+### [Recommended](#recommended)
 {: #recommended}
 
 #### [Kernel argument tuning](#kargs)
