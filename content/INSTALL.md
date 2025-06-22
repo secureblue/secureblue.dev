@@ -138,12 +138,12 @@ You can use our [example.butane](https://github.com/secureblue/secureblue/blob/l
 ## [Post-install](#post-install)
 {: #post-install}
 
-- [Essential](#Essential)
+- Essential
   - [Subscribe to secureblue release notifications](#release-notifications)
   - [Enroll SecureBoot key](#secureboot)
   - [Validation](#validation)
   - [Read the FAQ](#faq)
-- [Recommended](#Recommended)
+- Recommended
   - [Kernel argument tuning](#kargs)
   - [Setup USBGuard](#usbguard)
   - [Create a separate wheel account for admin purposes](#wheel)
@@ -184,15 +184,13 @@ ujust audit-secureblue
 
 Lots of important stuff is covered in the [FAQ](/faq). If you're having an issue, it's probably covered there already. AppImage toggles, GNOME extension toggles, Xwayland toggles, etc.
 
-
-## [Recommended](#recommended)
-{: #recommended}
-
 ### [Kernel argument tuning](#kargs)
+{: #kargs}
 
 A stable set of kernel arguments is preinstalled with secureblue. However, it is recommended that you consult our [Kargs article](/articles/kargs) for guidance on tuning Kargs based on your use case.
 
 ### [Flatpak Permissions Tuning](#flatpak-permissions-tuning)
+{: #flatpak-permissions-tuning}
 
 Consult our [Flatpak article](/articles/flatpak) for guidance on tuning Flatpak permissions.
 
