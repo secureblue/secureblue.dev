@@ -10,7 +10,6 @@ permalink: /install
 {: #table-of-contents}
 
 - [Pre-install](#pre-install)
-  - [BIOS hardening](#bios-hardening)
 - [Terms of Use](#terms)
 - [Installation](#installation)
   - [Secureblue ISO (Desktop)](#iso)
