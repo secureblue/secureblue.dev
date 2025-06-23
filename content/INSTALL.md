@@ -89,6 +89,7 @@ Things to remember during installation:
     <option value="nvidia">Yes (pre-Turing)</option>
     <option value="nvidia-open">Yes (Turing and later)</option>
   </select>
+  <br>
   <label>
     <input type="checkbox" name="terms" required>
     I accept the <a href="/install#terms" target="_blank">Terms of use</a>.
