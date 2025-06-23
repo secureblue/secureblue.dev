@@ -101,7 +101,7 @@ Things to remember during installation:
   <a href="https://isos.secureblue.dev/secureblue-keyring.gpg" class="button">Download secureblue keyring</a>
 </form>
 
-### [ISO Verification](#verification)
+#### [ISO Verification](#verification)
 {: #verification}
 Once you have the ISO, the CHECKSUM, and the keyring downloaded, use the following commands to verify the ISO (where `${IMAGE_NAME}` corresponds to the filename of the ISO you donwloaded):
 
