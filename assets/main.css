@@ -234,7 +234,7 @@ button, select, option, input, select, textarea {
     font-family: inherit;
 }
 
-button, select, option, .button, .button:visited {
+button, select, .button, .button:visited {
     color: white;
     font-size: 0.9em;
     font-weight: bold;
