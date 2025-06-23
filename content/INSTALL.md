@@ -92,7 +92,7 @@ Things to remember during installation:
   </select>
   <br><br>
   <label>
-    I accept the <a href="#terms" target="_blank">Terms of use</a>
+    I accept the <a href="#terms">Terms of use</a>
     <input type="checkbox" name="terms" required>
   </label>
   <br><br>
