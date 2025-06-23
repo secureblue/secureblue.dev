@@ -91,8 +91,8 @@ Things to remember during installation:
   </select>
   <br><br>
   <label>
-    <input type="checkbox" name="terms" required>
     I accept the <a href="#terms" target="_blank">Terms of use</a>
+    <input type="checkbox" name="terms" required>
   </label>
   <br><br>
   <button type="submit" formaction="https://isos.secureblue.dev/download">Download secureblue ISO</button>
