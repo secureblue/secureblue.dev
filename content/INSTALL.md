@@ -59,12 +59,12 @@ limitations under the License.
 ## Installation
 {: #installation}
 
-To install secureblue, you will use one of the following processes. Consult the table below for the right starting point for your use case.
+To install secureblue, you will use one of the following processes. Consult the table below for the right starting point for your use case. For more details on the available images, have a look at the <a href="/images">list of available images</a> before proceeding.
 
 | Image Type | Installation Process                                                                           | Recommended Use Cases          |
 |------------|------------------------------------------------------------------------------------------------|--------------------------------|
 | Desktop    | Direct installation with a [secureblue ISO]()                                                  | Desktop/laptop end user        |
-| CoreOS     | Installation using [Ignition via Butane](#ignition).                                           | Cloud, containerized workloads |
+| Server     | Installation using [Ignition via Butane](#ignition).                                           | Cloud, containerized workloads |
 
 Things to remember during installation:
 
@@ -122,7 +122,7 @@ sha256sum: WARNING: 8 lines are improperly formatted
 ```
 
 
-### [Ignition (CoreOS)](#ignition)
+### [Ignition (Server)](#ignition)
 {: #ignition}
 
 Follow the [Fedora CoreOS docs](https://docs.fedoraproject.org/en-US/fedora-coreos/getting-started/), [Ignition docs](https://docs.fedoraproject.org/en-US/fedora-coreos/producing-ign/), and [Butane docs](https://coreos.github.io/butane/) to configure initialization for your CoreOS instance(s).
