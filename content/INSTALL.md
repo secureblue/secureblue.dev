@@ -83,7 +83,6 @@ Things to remember during installation:
     <option value="kinoite">KDE Plasma</option>
     <option value="sericea">Sway</option>
   </select>
-  <br><br>
   <select name="nvidia" id="nvidia" required>
     <option value="">Do you have NVIDIA?</option>
     <option value="main">No</option>
