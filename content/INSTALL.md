@@ -34,7 +34,7 @@ Before installation, the following checks are recommended:
 
 <hr>
 
-## [Terms of use](#terms)
+## [Terms of Use](#terms)
 {: #terms}
 
 secureblue includes a combination of software packages, each under its own licensing terms. The license of secureblue is the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0). The license of secureblue does not supersede the licenses of upstream code and content contained in secureblue images. By downloading secureblue you agree to the license terms of its use.
@@ -92,8 +92,8 @@ Things to remember during installation:
   </select>
   <br><br>
   <label>
-    <input type="checkbox" name="terms" required>
-    I have read and agree to the <a href="#terms">Terms of use</a>
+    <input type="checkbox" name="terms" required oninvalid="this.setCustomValidity('You must agree to the Terms of Use')">
+    I have read and agree to the <a href="#terms">Terms of Use</a>
   </label>
   <br><br>
   <button type="submit" formaction="https://isos.secureblue.dev/download">Download secureblue ISO</button>
