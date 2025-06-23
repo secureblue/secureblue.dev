@@ -230,11 +230,11 @@ ul ul {
     filter: none;
 }
 
-button, input, select, textarea {
+button, select, option, input, select, textarea {
     font-family: inherit;
 }
 
-button, .button, .button:visited {
+button, select, option, .button, .button:visited {
     color: white;
     font-size: 0.9em;
     font-weight: bold;

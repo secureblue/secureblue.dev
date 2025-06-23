@@ -82,7 +82,6 @@ Things to remember during installation:
     <option value="silverblue">GNOME</option>
     <option value="kinoite">KDE Plasma</option>
     <option value="sericea">Sway</option>
-    <option value="cosmic">COSMIC</option>
   </select>
   <br>
   <select name="nvidia" id="nvidia" required>
@@ -91,11 +90,11 @@ Things to remember during installation:
     <option value="nvidia">Yes (pre-Turing)</option>
     <option value="nvidia-open">Yes (Turing and later)</option>
   </select>
-  <br>
+  
   <button type="submit" formaction="https://isos.secureblue.dev/download">Download secureblue ISO</button>
-  <br>
+  
   <button type="submit" formaction="https://isos.secureblue.dev/downloadSHA256SUM">Download ISO SHA256SUM</button>
-  <br>
+  
   <button type="submit" formaction="https://isos.secureblue.dev/secureblue-keyring.gpg">Download secureblue keyring</button>
 </form>
 
@@ -197,7 +196,7 @@ Consult our [Flatpak article](/articles/flatpak) for guidance on tuning Flatpak 
 ### [Setup USBGuard](#usbguard)
 {: #usbguard}
 
-*This will generate a policy based on your currently attached USB devices and block all others, then enable usbguard.*
+This will generate a policy based on your currently attached USB devices and block all others, then enable usbguard.
 
 ```
 ujust setup-usbguard
@@ -223,24 +222,20 @@ Creating a dedicated wheel user and removing wheel from your primary user helps 
 ### [Configure system DNS](#dns)
 {: #dns}
 
-Interactively setup system DNS resolution for systemd-resolved (optionally also set the resolver for Trivalent via management policy):
+The command below will interactively setup system DNS resolution for systemd-resolved (and optionally set the resolver for Trivalent via management policy). If you intend to use a VPN, use the system default state (network provided resolver). This will ensure your system uses the VPN provided DNS resolver to prevent DNS leaks. ESPECIALLY avoid setting the browser DNS policy in this case.
 
 ```
 ujust dns-selector
 ```
 
-{% include alert.html type='note' content='If you intend to use a VPN, use the system default state (network provided resolver). This will ensure your system uses the VPN provided DNS resolver to prevent DNS leaks. ESPECIALLY avoid setting the browser DNS policy in this case.' %}
-
 ### [Toggle MAC address randomization](#mac-randomization)
 {: #mac-randomization }
 
-Toggle system-wide MAC address randomization in NetworkManager between `random` and `permanent`:
+Toggle system-wide MAC address randomization in NetworkManager between `random` and `permanent` using the command below. Disabling MAC randomization can help with network compatibility issues, especially in enterprise or captive portal environments. Enabling it improves privacy by preventing tracking across networks.
 
 ```
 ujust toggle-mac-randomization
 ```
-
-{% include alert.html type='note' content='Disabling MAC randomization can help with network compatibility issues, especially in enterprise or captive portal environments. Enabling it improves privacy by preventing tracking across networks.' %}
 
 ### [Bash environment lockdown](#bash)
 {: #bash}
