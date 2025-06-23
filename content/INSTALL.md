@@ -92,7 +92,7 @@ Things to remember during installation:
   </select>
   <br><br>
   <label>
-    <input type="checkbox" name="terms" required oninvalid="this.setCustomValidity('You must agree to the Terms of Use')">
+    <input type="checkbox" name="terms" required>
     I have read and agree to the <a href="#terms">Terms of Use</a>
   </label>
   <br><br>
