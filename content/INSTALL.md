@@ -11,7 +11,7 @@ permalink: /install
 
 - [Pre-install](#pre-install)
   - [BIOS hardening](#bios-hardening)
-- [Terms of use](#terms)
+- [Terms of Use](#terms)
 - [Installation](#installation)
   - [Secureblue ISO (Desktop)](#iso)
     - [ISO Verification](#verification)
