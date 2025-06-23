@@ -56,7 +56,7 @@ limitations under the License.
 
 <hr>
 
-## Installation
+## [Installation](#installation)
 {: #installation}
 
 To install secureblue, you will use one of the following processes. Consult the table below for the right starting point for your use case. For more details on the available images, have a look at the <a href="/images">list of available images</a> before proceeding.
