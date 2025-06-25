@@ -70,8 +70,7 @@ Things to remember during installation:
 
 - Select the option to encrypt the drive you're installing to.
 - Use a [strong password](https://security.harvard.edu/use-strong-passwords) when prompted.
-- Leave the root account disabled if prompted.
-- Select wheel group membership for your user if prompted.
+- Select wheel group membership for your user when prompted.
 
 ### [Secureblue ISO (Desktop)](#iso)
 {: #iso}
