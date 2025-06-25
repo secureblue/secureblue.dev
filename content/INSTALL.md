@@ -76,6 +76,8 @@ Things to remember during installation:
 ### [Secureblue ISO (Desktop)](#iso)
 {: #iso}
 
+<b>nvidia-open</b> images are recommended for systems with NVIDIA GPUs Turing or newer (GTX 16XX+, RTX 20XX+). These include the new <a href="https://github.com/NVIDIA/open-gpu-kernel-modules">open kernel modules</a> from NVIDIA, not Nouveau.<br><b>nvidia</b> images are recommended for systems with NVIDIA GPUs Pascal or older. These include the closed kernel modules from NVIDIA.
+
 <form method="GET">
   <select name="de" id="de" required>
     <option value="">Select an environment</option>
