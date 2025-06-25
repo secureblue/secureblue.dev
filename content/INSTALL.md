@@ -63,7 +63,7 @@ To install secureblue, you will use one of the following processes. Consult the 
 
 | Image Type | Installation Process                                                                           | Recommended Use Cases          |
 |------------|------------------------------------------------------------------------------------------------|--------------------------------|
-| Desktop    | Direct installation with a [secureblue ISO]()                                                  | Desktop/laptop end user        |
+| Desktop    | Direct installation with a [secureblue ISO](#iso)                                              | Desktop/laptop end user        |
 | Server     | Installation using [Ignition via Butane](#ignition).                                           | Cloud, containerized workloads |
 
 Things to remember during installation:
