@@ -69,7 +69,7 @@ To install secureblue, you will use one of the following processes. Consult the 
 Things to remember during installation:
 
 - Select the option to encrypt the drive you're installing to.
-- Use a [strong password](https://security.harvard.edu/use-strong-passwords) when prompted.
+- Use a [strong password](https://www.eff.org/dice) when prompted.
 - Select wheel group membership for your user when prompted.
 
 ### [Secureblue ISO (Desktop)](#iso)
