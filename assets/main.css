@@ -116,7 +116,6 @@ pre {
 
 code {
     border-radius: 8px;
-    padding: 0 0.25rem;
 }
 
 var {
@@ -230,11 +229,11 @@ ul ul {
     filter: none;
 }
 
-button, input, select, textarea {
+button, select, option, input, select, textarea {
     font-family: inherit;
 }
 
-button, .button, .button:visited {
+button, select, .button, .button:visited {
     color: white;
     font-size: 0.9em;
     font-weight: bold;
@@ -246,17 +245,17 @@ button, .button, .button:visited {
     padding: 0.5rem 1.5rem;
 }
 
-button:hover, .button:hover {
+button:hover, select:hover, .button:hover {
     background-color: #086ba1;
     cursor: pointer;
 }
 
-button:focus, .button:focus {
+button:focus, select: focus, .button:focus {
     background-color: #075e8d; /* button pressed on Android */
     box-shadow: inset 0 2px 4px -1px rgba(0 0 0 / 20%), inset 0 4px 5px 0 rgba(0 0 0 / 14%), inset 0 1px 10px 0 rgba(0 0 0 / 12%);
 }
 
-button:disabled {
+button:disabled, select:disabled {
     background-color: rgb(26 27 30 / 12%);
     color: rgb(26 27 30 / 38%);
     cursor: not-allowed;
@@ -524,20 +523,20 @@ th {
         color: rgba(255 255 255 / 87%); /* 87% white */
     }
 
-    button, .button, .button:visited {
+    button, select, .button, .button:visited {
         color: black;
         background-color: #95c4ff; /* system_accent1_200, because accent_device_default_dark => system_accent1_100 was too light */
     }
 
-    button:hover, .button:hover {
+    button:hover, select:hover, .button:hover {
         background-color: #89b4ea; /* color between default and pressed */
     }
 
-    button:focus, .button:focus {
+    button:focus, select:focus, .button:focus {
         background-color: #7ca3d4; /* button pressed on Android */
     }
 
-    button:disabled {
+    button:disabled, select:disabled {
         background-color: rgb(227 226 230 / 12%);
         color: rgb(227 226 230 / 38%);
     }

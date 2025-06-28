@@ -6,4 +6,4 @@
 
 /install
   ! Content-Security-Policy
-  Content-Security-Policy: default-src 'none'; style-src 'self'; style-src-attr 'none'; font-src 'self'; img-src 'self'; manifest-src 'self'; form-action 'none'; frame-ancestors 'none'; base-uri 'none'; sandbox allow-downloads; upgrade-insecure-requests;
+  Content-Security-Policy: default-src 'none'; style-src 'self'; style-src-attr 'none'; font-src 'self'; img-src 'self'; manifest-src 'self'; form-action 'none' https://isos.secureblue.dev; frame-ancestors 'none'; base-uri 'none'; sandbox allow-downloads allow-forms; upgrade-insecure-requests;
