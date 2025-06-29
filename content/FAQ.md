@@ -169,7 +169,7 @@ ujust uninstall-docker
 ### [How do I enable printing?](#printing)
 {: #printing}
 
-To enable printing using [CUPS](https://en.wikipedia.org/wiki/CUPS), run `ujust toggle-cups`. Note that this enables printing support, but still leaves printer discovery disabled for security reasons. The CUPS printer discovery service increases attack surface significantly and has a recent history of [severe vulnerabilities](https://www.redhat.com/en/blog/red-hat-response-openprinting-cups-vulnerabilities). 
+To enable printing using [CUPS](https://en.wikipedia.org/wiki/CUPS), run `ujust toggle-cups`. Note that this enables printing support, but still leaves printer discovery disabled for security reasons. The CUPS printer discovery service increases attack surface significantly and has a recent history of [severe vulnerabilities](https://www.redhat.com/en/blog/red-hat-response-openprinting-cups-vulnerabilities).
 
 Toggling this also unmasks `avahi-daemon`, which is not enabled by default, but is started automatically when required. For now, there is no mechanism that stops `avahi-daemon` when it is not in use, meaning once it is started, it runs till the next boot. This expands the attack surface especially when a public network connection is in use.
 
