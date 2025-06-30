@@ -243,6 +243,7 @@ button, select, .button, .button:visited {
     border: none;
     height: 40px;
     padding: 0.5rem 1.5rem;
+    margin: 0.25rem
 }
 
 button:hover, select:hover, .button:hover {
