@@ -90,12 +90,12 @@ Things to remember during installation:
     <option value="nvidia">Yes (pre-Turing)</option>
     <option value="nvidia-open">Yes (Turing and later)</option>
   </select>
-  <br><br>
+  <br>
   <label>
     <input type="checkbox" name="terms" required>
     I have read and agree to the <a href="#terms">Terms of Use</a>
   </label>
-  <br><br>
+  <br>
   <button type="submit" formaction="https://isos.secureblue.dev/download">Download secureblue ISO</button>
   <button type="submit" formaction="https://isos.secureblue.dev/downloadTorrent">Download secureblue ISO torrent</button>
   <button type="submit" formaction="https://isos.secureblue.dev/downloadSHA256SUM">Download ISO SHA256SUM</button>
