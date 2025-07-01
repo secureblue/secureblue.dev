@@ -320,7 +320,7 @@ If the extension you installed doesn't work, it is likely because it requires We
 ### [Why does Trivalent log me out of all sites by default?](#trivalent-net-sandbox)
 {: #trivalent-net-sandbox}
 
-It shouldn't, this is a bug related to Chromium's Network Service Sandbox. If you experience this, navigate to `chrome://settings/security`, at the bottom you will see a `Hardening` section and within it a toggle `Network Service Sandbox`, flip this to off and restart your browser.
+It shouldn't, this is a bug related to Chromium's Network Service Sandbox where cookies are either cleared or become inaccessible when the browser is closed. If you experience this, navigate to `chrome://settings/security`, at the bottom you will see a `Hardening` section and within it a toggle `Network Service Sandbox`, flip this to off and restart your browser.
 
 ### [How do I customize secureblue?](#customization)
 {: #customization}
