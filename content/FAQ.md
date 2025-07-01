@@ -45,6 +45,7 @@ permalink: /faq
 - [Why won't Trivalent start on Nvidia?](#trivalent-nvidia)
 - [Why don't some websites that require JIT/WebAssembly work in Trivalent even with the V8 Optimizer toggle enabled?](#trivalent-v8-exceptions)
 - [Why don't extensions work in Trivalent?](#trivalent-extensions)
+- [Why does Trivalent log me out of all sites by default?](#trivalent-net-sandbox)
 - [How do I customize secureblue?](#customization)
 - [How do I add a repo?](#adding-repos)
 - [How do I install proprietary codecs?](#install-codecs)
@@ -315,6 +316,11 @@ Extensions in Trivalent are disabled by default, for security reasons, it is not
 \
 \
 If the extension you installed doesn't work, it is likely because it requires WebAssembly (WASM) for some cryptographic library or some other optimizations (this is the case with the Bitwarden extension). To re-enable JavaScript JIT and WASM for an extension, visit `chrome://extensions`, under the extension with the issues, go `Details -> Site Settings`, then scroll to `V8 Optimizer` and flip to allow.
+
+### [Why does Trivalent log me out of all sites by default?](#trivalent-net-sandbox)
+{: #trivalent-net-sandbox}
+
+It shouldn't, this is a bug related to Chromium's Network Service Sandbox. If you experience this, navigate to `chrome://settings/security`, at the bottom you will see a `Hardening` section and within it a toggle `Network Service Sandbox`, flip this to off and restart your browser.
 
 ### [How do I customize secureblue?](#customization)
 {: #customization}
