@@ -96,19 +96,22 @@ Things to remember during installation:
     I have read and agree to the <a href="#terms">Terms of Use</a>
   </label>
   <br><br>
+  Download options:
   <button type="submit" formaction="https://isos.secureblue.dev/download">Download ISO</button>
-  <button type="submit" formaction="https://isos.secureblue.dev/downloadSHA256SUM">Download ISO checksum</button>
-  <br />
   <button type="submit" formaction="https://isos.secureblue.dev/downloadTorrent" formtarget="_blank" >Download torrent</button>
-  <button type="submit" formaction="https://isos.secureblue.dev/downloadTorrentSHA256SUM">Download torrent checksum</button>
   <br />
+  Verification:
+  <button type="submit" formaction="https://isos.secureblue.dev/downloadSHA256SUM">Download ISO checksum</button>
+  <button type="submit" formaction="https://isos.secureblue.dev/downloadTorrentSHA256SUM">Download torrent checksum</button>
   <a href="https://isos.secureblue.dev/secureblue-keyring.gpg" class="button">Download keyring</a>
 </form>
 
 #### [ISO Verification](#verification)
 {: #verification}
 
-Once you have the ISO, the CHECKSUM, and the keyring downloaded, use the following commands to verify the ISO (where `${IMAGE_NAME}` corresponds to the filename of the ISO you downloaded):
+You should now have the ISO with its corresponding CHECKSUM file, the keyring file, and if you opted to use a torrent, the torrent file with its corresponding CHECKSUM file. Use following commands to verify the ISO (where `${IMAGE_NAME}` corresponds to the filename of the ISO you downloaded).
+
+##### For all users
 
 First command:
 ```
@@ -133,6 +136,30 @@ IMAGE_NAME.iso: OK
 sha256sum: WARNING: 8 lines are improperly formatted
 ```
 
+##### For torrent users
+
+First command:
+```
+gpgv --keyring ./secureblue-keyring.gpg "${IMAGE_NAME}.iso.torrent-CHECKSUM"
+```
+
+Expected output:
+```
+gpgv: Signature made Wed 04 Jun 2025 12:49:39 AM PDT
+gpgv:                using EDDSA key 26B4463ED8F313BC7E3FBDF9D9223AF0F47B3E41
+gpgv: Good signature from "secureblueadmin <secureblueadmin@proton.me>"
+```
+
+Second command:
+```
+sha256sum -c "${IMAGE_NAME}.iso.torrent-CHECKSUM"
+```
+
+Expected output:
+```
+IMAGE_NAME.iso.torrent: OK
+sha256sum: WARNING: 8 lines are improperly formatted
+```
 
 ### [Ignition (Server)](#ignition)
 {: #ignition}
