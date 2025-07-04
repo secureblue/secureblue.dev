@@ -99,6 +99,7 @@ Things to remember during installation:
   <b>Download options</b><br />
   <button type="submit" formaction="https://isos.secureblue.dev/download">Download ISO</button>
   <button type="submit" formaction="https://isos.secureblue.dev/downloadTorrent" formtarget="_blank" >Download torrent</button>
+  <br />
   <b>Verification files</b><br />
   <button type="submit" formaction="https://isos.secureblue.dev/downloadSHA256SUM">Download ISO checksum</button>
   <button type="submit" formaction="https://isos.secureblue.dev/downloadTorrentSHA256SUM">Download torrent checksum</button>
