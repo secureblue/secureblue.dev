@@ -102,7 +102,7 @@ Things to remember during installation:
   <button type="submit" formaction="https://isos.secureblue.dev/downloadTorrent" formtarget="_blank" >Download torrent</button>
   </div>
   <div>
-  <h5>Verification</h5>
+  <h5>Verification files</h5>
   <button type="submit" formaction="https://isos.secureblue.dev/downloadSHA256SUM">Download ISO checksum</button>
   <button type="submit" formaction="https://isos.secureblue.dev/downloadTorrentSHA256SUM">Download torrent checksum</button>
   <a href="https://isos.secureblue.dev/secureblue-keyring.gpg" class="button">Download keyring</a>
