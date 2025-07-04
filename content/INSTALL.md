@@ -96,10 +96,12 @@ Things to remember during installation:
     I have read and agree to the <a href="#terms">Terms of Use</a>
   </label>
   <br><br>
-  <button type="submit" formaction="https://isos.secureblue.dev/download">ISO</button>
-  <button type="submit" formaction="https://isos.secureblue.dev/downloadSHA256SUM">ISO SHA256SUM</button>
-  <button type="submit" formaction="https://isos.secureblue.dev/downloadTorrent" formtarget="_blank" >Torrent</button>
-  <button type="submit" formaction="https://isos.secureblue.dev/downloadTorrentSHA256SUM" formtarget="_blank" >Torrent SHA256SUM</button>
+  <button type="submit" formaction="https://isos.secureblue.dev/download">Download ISO</button>
+  <button type="submit" formaction="https://isos.secureblue.dev/downloadSHA256SUM">Download ISO checksum</button>
+  <br />
+  <button type="submit" formaction="https://isos.secureblue.dev/downloadTorrent" formtarget="_blank" >Download torrent</button>
+  <button type="submit" formaction="https://isos.secureblue.dev/downloadTorrentSHA256SUM" formtarget="_blank" >Download torrent checksum</button>
+  <br />
   <a href="https://isos.secureblue.dev/secureblue-keyring.gpg" class="button">Keyring</a>
 </form>
 
