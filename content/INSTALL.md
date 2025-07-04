@@ -97,13 +97,13 @@ Things to remember during installation:
   </label>
   <br><br>
   <div>
-  #### Download options<br />
+  <h5>Download options</h5><br />
   <button type="submit" formaction="https://isos.secureblue.dev/download">Download ISO</button>
   <button type="submit" formaction="https://isos.secureblue.dev/downloadTorrent" formtarget="_blank" >Download torrent</button>
   </div>
   <br />
   <div>
-  #### Verification<br />
+  <h5>Verification</h5><br />
   <button type="submit" formaction="https://isos.secureblue.dev/downloadSHA256SUM">Download ISO checksum</button>
   <button type="submit" formaction="https://isos.secureblue.dev/downloadTorrentSHA256SUM">Download torrent checksum</button>
   <a href="https://isos.secureblue.dev/secureblue-keyring.gpg" class="button">Download keyring</a>
