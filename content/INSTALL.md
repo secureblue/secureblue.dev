@@ -97,8 +97,9 @@ Things to remember during installation:
   </label>
   <br><br>
   <button type="submit" formaction="https://isos.secureblue.dev/download">Download secureblue ISO</button>
+  <button type="submit" formaction="https://isos.secureblue.dev/downloadSHA256SUM">📋</button>
   <button type="submit" formaction="https://isos.secureblue.dev/downloadTorrent" formtarget="_blank" >Download secureblue ISO torrent</button>
-  <button type="submit" formaction="https://isos.secureblue.dev/downloadSHA256SUM">Download ISO SHA256SUM</button>
+  <button type="submit" formaction="https://isos.secureblue.dev/downloadTorrentSHA256SUM" formtarget="_blank" >📋</button>
   <a href="https://isos.secureblue.dev/secureblue-keyring.gpg" class="button">Download secureblue keyring</a>
 </form>
 
