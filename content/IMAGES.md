@@ -66,6 +66,8 @@ This section is a relative recommendation between the desktop environments avail
 
 ### [Experimental](#experimental)
 
+Note that there are no ISOs available for experimental images. If you want to try out an experimental image, you can use `ujust rebase-secureblue` on an existing secureblue installation.
+
 #### COSMIC
 
 | Name                                      | Base                  | NVIDIA Support          |
