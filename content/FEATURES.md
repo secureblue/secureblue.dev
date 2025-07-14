@@ -55,7 +55,8 @@ permalink: /features
 {: #ease}
 
 - Provide a system auditor to verify the status of system hardening.
-- Install Bubblejail for additional sandbox tooling.
+- Setup commands via `ujust` for installing desktop apps from common VPN providers.
+- Install Bubblejail for additional sandboxing tooling.
 - Provide tooling for automatically setting up and enabling LUKS TPM2+PIN integration for unlocking LUKS drives (on devices where the TPM is free of known vulnerabilities).
 - Provide tooling for automatically setting up and enabling LUKS FIDO2 integration for unlocking LUKS drives.
 - Provide toggles for a variety of the hardening set by default, for user convenience (`ujust --choose`).
