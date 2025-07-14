@@ -27,7 +27,7 @@ permalink: /features
 - Disable KDE GHNS by default. <sup>[why?](https://blog.davidedmundson.co.uk/blog/kde-store-content/)</sup>
 - Remove the unmaintained and suid-root fuse2 by default.
 - Disable unprivileged user namespaces by default for the unconfined SELinux domain and the container SELinux domain, while retaining support for flatpaks, Trivalent, and other applications that need unprivileged user namespaces. <sup>[why?](/articles/userns)</sup>
-- Prohibit ptrace attachment by default. <sup>[why?](https://www.kernel.org/doc/Documentation/security/Yama.txt)</sup>
+- Prohibit ptrace attachment by default. <sup>[why?](https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html)</sup>
 - Locking down Flatpak permissions to close sandbox escapes. <sup>[why?](/articles/flatpak)</sup>
 
 ## [Security by default](#security-by-default)
@@ -54,7 +54,7 @@ permalink: /features
 ## [Security ease-of-use](#ease)
 {: #ease}
 
-- Provide a system auditor to verify the status of system hardening.
+- Provide a system auditing tooling to verify the status of system hardening.
 - Setup commands via `ujust` for installing desktop apps from common VPN providers.
 - Install Bubblejail for additional sandboxing tooling.
 - Provide tooling for automatically setting up and enabling LUKS TPM2+PIN integration for unlocking LUKS drives (on devices where the TPM is free of known vulnerabilities).
