@@ -14,7 +14,7 @@ permalink: /features
 - Kernel hardening via sysctl. <sup>[details](https://github.com/secureblue/secureblue/blob/live/files/system/etc/sysctl.d/60-hardening.conf)</sup>
 - Kernel hardening via kernel arguments. <sup>[details](/articles/kargs)</sup>
 - Configure chronyd to use Network Time Security (NTS).
-- Set opportunistic DNSSEC and DNS over TLS for systemd-resolved.
+- Configurable system-wide DNS-over-TLS via systemd-resolved
 - Install USBGuard and provide `ujust` commands to automatically configure it.
 
 ## [Filling known security holes](#filling-security-holes)

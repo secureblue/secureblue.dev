@@ -37,6 +37,9 @@ Stable kargs that are always applied by the `set-kargs-hardening` ujust script.
 - `l1d_flush=on`: Enable the mechanism to flush the L1D cache on context switch.
 - `l1tf=full,force`: Force enables all available mitigations for the L1TF vulnerability.
 - `kvm-intel.vmentry_l1d_flush=always`: Enables unconditional flushes, required for complete l1d vulnerability mitigation.
+- `l1d_flush=on`: Enable the mechanism to flush the L1D cache on context switch.
+- `oops=panic`: Treat [oopses](https://en.wikipedia.org/wiki/Linux_kernel_oops) as fatal, preventing attacks that depend on repeated oopses.
+- `rd.shell=0,rd.emergency=halt`: Prevent [initramfs malware injection](https://insinuator.net/2025/07/insecure-boot-injecting-initramfs-from-a-debug-shell/)
 
 # Additional
 
