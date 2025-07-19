@@ -14,6 +14,7 @@ permalink: /faq
 - [Is secureblue immutable?](#immutable)
 - [Why not upstream your changes?](#upstream)
 - [Is this an install script?](#script)
+- [How do I update the system?](#update)
 - [Why is Flatpak included? Should I use Flatpak?](#flatpak)
 - [Should I use Electron apps? Why don't they work well with hardened_malloc?](#electron)
 - [My fans are really loud, is this normal?](#fans)
@@ -77,6 +78,11 @@ When possible, we do upstream our changes. In particular, we have contributed se
 {: #script}
 
 No. When you run our installer, you are *fully replacing* the system (excluding your homedir). secureblue is not an install script, nor an add-on to a Fedora installation, nor a distro in the traditional sense. It is a set of [bootable container](https://github.com/containers/bootc) images shipped via GitHub's container registry. These images are rebuilt daily and pushed to GitHub's container registry. These images are then pulled in by `rpm-ostree`, which stages updates as a pending deployment for the next boot. To view information about your current local deployments and remotes, run `rpm-ostree status`.
+
+### [How do I update the system?](#update)
+{: #update}
+
+All system updates are automatic, running on at least a daily cadence. This includes automatic updates for rpm-ostree, brew, flatpak, and podman. If the system is over 1 week out of date (for example in the event of update failures), the user will be notified and pointed to the right command to run to manually upgrade.
 
 ### [Why is Flatpak included? Should I use Flatpak?](#flatpak)
 {: #flatpak}
