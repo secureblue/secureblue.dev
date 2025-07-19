@@ -11,6 +11,7 @@ permalink: /faq
 {: #table-of-contents}
 
 - [Why secureblue?](#secureblue)
+- [Is secureblue immutable?](#immutable)
 - [Why not upstream your changes?](#upstream)
 - [Is this an install script?](#script)
 - [Why is Flatpak included? Should I use Flatpak?](#flatpak)
@@ -61,6 +62,11 @@ permalink: /faq
 {: #secureblue}
 
 secureblue is a collaborative effort to ship a maximally secure Linux operating system. It leverages [bootable container](https://github.com/containers/bootc) technology to build on top of Fedora Atomic, avoiding the need to become a distro in the traditional sense. secureblue has benefitted massively by not being a distro, and instead shipping as bootable OCI container images. This has meant a ton of overhead is taken care of for us by Fedora. We don’t need general repos or packaging, except for a handful of specific packages ([Trivalent](https://github.com/secureblue/Trivalent), [hardened_malloc](https://github.com/GrapheneOS/hardened_malloc), etc). The Fedora Atomic ecosystem is also rich in tooling and automation (see: [BlueBuild](https://blue-build.org/)), plus the backdrop of robust container technology that already exists. All of this has largely enabled us to focus our energy on improving secureblue's hardening and UX, developing [Trivalent](https://github.com/secureblue/Trivalent), and building out userspace SELinux policies.
+
+### [Is secureblue immutable?](#immutable)
+{: #immutable}
+
+"Immutable" is an old misnomer for atomic systems. It gives the impression that users can't modify or tinker with their system, which is not the case. While directories like `/usr` are mounted read-only by default, settings and configurations can be easily overriden with changes in `/etc`, which is not mounted read-only. This is in addition to the fact that `/usr` is mutated with every deployment that is staged and booted via any `rpm-ostree` operation (like upgreading, installing a new package, etc). As such, secureblue is not immutable.
 
 ### [Why not upstream your changes?](#upstream)
 {: #upstream}
