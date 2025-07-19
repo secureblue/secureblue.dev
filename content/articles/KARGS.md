@@ -19,24 +19,26 @@ Stable kargs that are always applied by the `set-kargs-hardening` ujust script.
 
 - `init_on_alloc=1`: Zero newly allocated pages and heaps, mitigating use-after-free vulnerabilities.
 - `init_on_free=1`: Fills freed pages and heaps with zeroes, mitigating use-after-free vulnerabilities.
-- `slab_nomerge`: Disables the merging of slabs, increasing difficulty of heap exploitation.
-- `page_alloc.shuffle=1`: Enables page allocator freelist randomization, reducing page allocation predictability.
-- `randomize_kstack_offset=on`: Randomize kernel stack offset on each syscall, making certain types of attacks more difficult.
-- `vsyscall=none`: Disable vsyscall as it is both obsolete and enables an ROP attack vector.
-- `lockdown=confidentiality`: Enable kernel lockdown in the strictest mode.
-- `random.trust_cpu=off`: Disable CPU-based entropy sources, as it's not auditable and has resulted in vulnerabilities.
-- `random.trust_bootloader=off`: Disable trusting the use of the seed passed by the bootloader.
 - `iommu=force` and `intel_iommu=on`: Mitigate DMA attacks by enabling IOMMU.
 - `iommu.passthrough=0`: Disable IOMMU bypass.
 - `iommu.strict=1`: Synchronously invalidate IOMMU hardware TLBs.
-- `pti=on`: Enable kernel page table isolation.
-- `module.sig_enforce=1`: Only allows kernel modules that have been signed with a valid key to be loaded.
-- `mitigations=auto,nosmt`: Automatically mitigate all known CPU vulnerabilities, including disabling SMT if necessary.
-- `spectre_v2=on`: Turn on spectre_v2 mitigations at boot time for all programs.
-- `spec_store_bypass_disable=on`: Disable spec store bypass for all programs.
+- `kvm-intel.vmentry_l1d_flush=always`: Enables unconditional flushes, required for complete l1d vulnerability mitigation.
 - `l1d_flush=on`: Enable the mechanism to flush the L1D cache on context switch.
 - `l1tf=full,force`: Force enables all available mitigations for the L1TF vulnerability.
-- `kvm-intel.vmentry_l1d_flush=always`: Enables unconditional flushes, required for complete l1d vulnerability mitigation.
+- `lockdown=confidentiality`: Enable kernel lockdown in the strictest mode.
+- `mitigations=auto,nosmt`: Automatically mitigate all known CPU vulnerabilities, including disabling SMT if necessary.
+- `module.sig_enforce=1`: Only allows kernel modules that have been signed with a valid key to be loaded.
+- `oops=panic`: Treat [oopses](https://en.wikipedia.org/wiki/Linux_kernel_oops) as fatal, preventing attacks that depend on repeated oopses.
+- `page_alloc.shuffle=1`: Enables page allocator freelist randomization, reducing page allocation predictability.
+- `pti=on`: Enable kernel page table isolation.
+- `randomize_kstack_offset=on`: Randomize kernel stack offset on each syscall, making certain types of attacks more difficult.
+- `random.trust_bootloader=off`: Disable trusting the use of the seed passed by the bootloader.
+- `random.trust_cpu=off`: Disable CPU-based entropy sources, as it's not auditable and has resulted in vulnerabilities.
+- `rd.shell=0`, `rd.emergency=halt`: Prevent [initramfs malware injection](https://insinuator.net/2025/07/insecure-boot-injecting-initramfs-from-a-debug-shell/)
+- `slab_nomerge`: Disables the merging of slabs, increasing difficulty of heap exploitation.
+- `spec_store_bypass_disable=on`: Disable spec store bypass for all programs.
+- `spectre_v2=on`: Turn on spectre_v2 mitigations at boot time for all programs.
+- `vsyscall=none`: Disable vsyscall as it is both obsolete and enables an ROP attack vector.
 
 # Additional
 

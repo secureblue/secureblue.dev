@@ -45,6 +45,7 @@ permalink: /faq
 - [Why won't Trivalent start on Nvidia?](#trivalent-nvidia)
 - [Why don't some websites that require JIT/WebAssembly work in Trivalent even with the V8 Optimizer toggle enabled?](#trivalent-v8-exceptions)
 - [Why don't extensions work in Trivalent?](#trivalent-extensions)
+- [Why does Trivalent log me out of all sites by default?](#trivalent-net-sandbox)
 - [How do I customize secureblue?](#customization)
 - [How do I add a repo?](#adding-repos)
 - [How do I install proprietary codecs?](#install-codecs)
@@ -56,7 +57,6 @@ permalink: /faq
 - [Does secureblue use "linux-hardened"?](#linux-hardened)
 - [Why is my splash screen disabled on KDE?](#kde-splash-disabled)
 
-
 ### [Why secureblue?](#secureblue)
 {: #secureblue}
 
@@ -65,7 +65,7 @@ secureblue is a collaborative effort to ship a maximally secure Linux operating 
 ### [Why not upstream your changes?](#upstream)
 {: #upstream}
 
-When possible, we do upstream our changes. For example, collaborating with KDE to make [portal improvements](https://invent.kde.org/plasma/xdg-desktop-portal-kde/-/merge_requests/347). However, it's important to note that many of the changes we make are not possible to upstream, generally due to upstream not desiring them. This is for good reason. Many of the changes secureblue makes will necessarily break someone’s use case by default. Otherwise, secureblue could just submit all of our changes upstream to Fedora. Take AppImage support as an example. AppImages depend on the suid-root, deprecated, unmaintained fuse2 interface. They also encourage users to follow the security antipattern of downloading and executing binaries from the browser. Yet, since AppImages are widely used, Fedora can’t remove support for them. secureblue is willing to make these kinds of changes by default to improve security, with mechanisms available for users to re-enable support if needed for their use cases.
+When possible, we do upstream our changes. In particular, we have contributed several findings and fixes to KDE. However, it's important to note that many of the changes we make are not possible to upstream, generally due to upstream not desiring them. This is for good reason. Many of the changes secureblue makes will necessarily break someone’s use case by default. Otherwise, secureblue could just submit all of our changes upstream to Fedora. Take AppImage support as an example. AppImages depend on the suid-root, deprecated, unmaintained fuse2 interface. They also encourage users to follow the security antipattern of downloading and executing binaries from the browser. Yet, since AppImages are widely used, Fedora can’t remove support for them. secureblue is willing to make these kinds of changes by default to improve security, with mechanisms available for users to re-enable support if needed for their use cases.
 
 ### [Is this an install script?](#script)
 {: #script}
@@ -95,7 +95,7 @@ secureblue prevents [numerous modules](https://github.com/secureblue/secureblue/
 ### [Should I use Firejail?](#firejail)
 {: #firejail}
 
-[No](https://madaidans-insecurities.github.io/linux.html#firejail), use ``bubblejail`` if there's no Flatpak available for an app.
+[No](https://madaidans-insecurities.github.io/linux.html#firejail), use `bubblejail` if there's no Flatpak available for an app that you want to sandbox. Note that this requires [enabling unconfined user namespaces](#unconfined-userns), which is a security degradation.
 
 ### [An app I use won't start due to a malloc issue. How do I fix it?](#standard-malloc)
 {: #standard-malloc}
@@ -116,7 +116,7 @@ secureblue prevents [numerous modules](https://github.com/secureblue/secureblue/
 3. For CLI packages, you can install from brew if available using `brew install`. You can browse this [catalogue of Homebrew Formulaes](https://formulae.brew.sh) to discover the available formulaes.
 4. If a package isn't available via the other two options, or if a package requires greater system integration, `rpm-ostree install` can be used to layer rpms directly into your subsequent deployments.
 
-You can add the unfiltered Flathub repo with `ujust enable-flatpak-unfiltered`.
+You can add the unfiltered Flathub repo with `ujust enable-flathub-unfiltered`.
 
 ### [How do I install my VPN?](#vpn)
 {: #vpn}
@@ -146,7 +146,7 @@ ujust install-steam
 
 {% include alert.html type='note' content='Kernel-level anti-cheat solutions are generally unsupported on desktop Linux.' %}
 
-Anti-cheat solutions typically require process tracing to work - the ability to monitor syscalls (and other signals) from other processes. On Linux, process tracing is controlled by the `kernel.yama.ptrace_scope` kernel parameter. [By default, secureblue doesn't allow ptrace attachment](https://github.com/secureblue/secureblue/blob/605c8cfcd4723fef1e1e4764dcb6870e50514252/files/system/etc/sysctl.d/60-hardening.conf) at all, addressing [basic security concerns](https://www.kernel.org/doc/Documentation/security/Yama.txt). The command below toggles between this restrictive default setting where `ptrace_scope` is set to `3`, breaking anti-cheat software, and a much less restrictive setting where `ptrace_scope` is set to `1`, which allows parent processes to trace child processes, enabling some anti-cheat solutions to work.
+Anti-cheat solutions typically require process tracing to work - the ability to monitor syscalls (and other signals) from other processes. On Linux, process tracing is controlled by the `kernel.yama.ptrace_scope` kernel parameter. [By default, secureblue doesn't allow ptrace attachment](https://github.com/secureblue/secureblue/blob/605c8cfcd4723fef1e1e4764dcb6870e50514252/files/system/etc/sysctl.d/60-hardening.conf) at all, addressing [basic security concerns](https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html). The command below toggles between this restrictive default setting where `ptrace_scope` is set to `3`, breaking anti-cheat software, and a much less restrictive setting where `ptrace_scope` is set to `1`, which allows parent processes to trace child processes, enabling some anti-cheat solutions to work.
 
 ```
 ujust toggle-anticheat-support
@@ -315,7 +315,12 @@ This is an [upstream bug](https://issues.chromium.org/issues/373893056) that pre
 Extensions in Trivalent are disabled by default, for security reasons, it is not advised to use them. If you want content/ad blocking, that is already built into Trivalent and enabled by default. If you require extensions, you can re-enable them by disabling the `Disable Extensions` toggle under `chrome://settings/security`, then restart your browser (this toggle is per-profile).
 \
 \
-If the extension you installed doesn't work, it is likely because it requires WebAssembly (WASM) for some cryptographic library or some other optimizations (this is the case with the Bitwarden extension). To re-enable JavaScript JIT and WASM for an extension, visit `chrome://extensions`, under the extension with the issues, go `Details -> Site Settings`, then scroll to `V8 Optimizer` and flip to allow.
+If the extension you installed doesn't work, it is likely because it requires WebAssembly (WASM) for some cryptographic library or some other optimizations (this is the case with the Bitwarden extension). To re-enable JavaScript JIT and WASM for an extension, visit `chrome://extensions`, under the extension with the issues, go `Details -> Site Settings`, then scroll to `V8 Optimizer` and flip to allow. If the extension continues to not work, try reinstalling the extension.
+
+### [Why does Trivalent log me out of all sites by default?](#trivalent-net-sandbox)
+{: #trivalent-net-sandbox}
+
+It shouldn't, this is a bug related to Chromium's Network Service Sandbox where cookies are either cleared or become inaccessible when the browser is closed. If you experience this, navigate to `chrome://settings/security`, at the bottom you will see a `Hardening` section and within it a toggle `Network Service Sandbox`, flip this to off and restart your browser.
 
 ### [How do I customize secureblue?](#customization)
 {: #customization}

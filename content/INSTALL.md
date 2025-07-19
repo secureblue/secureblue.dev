@@ -6,16 +6,15 @@ permalink: /install
 
 # Install
 
-To install secureblue, you will use a Fedora Atomic (or CoreOS, for securecore) ISO to install Fedora Atomic, then rebase to a secureblue image using the installer. Unless specified otherwise, secureblue is used to refer to both the secureblue set of images and the securecore set of images, for the sake of brevity. The installation script presented in a later step lets you choose between them. You *must* start from a Fedora Atomic ISO for secureblue desktop images, and *must* start from a Fedora CoreOS ISO for securecore images.
-
 ## [Table of Contents](#table-of-contents)
 {: #table-of-contents}
 
 - [Pre-install](#pre-install)
-  - [Fedora installation](#fedora-installation)
-  - [BIOS hardening](#bios-hardening)
-- [Terms of use](#terms)
-- [Rebase](#rebase)
+- [Terms of Use](#terms)
+- [Installation](#installation)
+  - [Secureblue ISO (Desktop)](#iso)
+    - [ISO Verification](#verification)
+  - [Ignition (CoreOS)](#ignition)
 - [Post-install](#post-install)
 
 <hr>
@@ -23,24 +22,9 @@ To install secureblue, you will use a Fedora Atomic (or CoreOS, for securecore) 
 ## [Pre-install](#pre-install)
 {: #pre-install}
 
-The following is advice on what to do before and during the installation of a Fedora ISO, and how.
+{% include alert.html type='note' content='The cross-platform Fedora Media Writer is the <em>official, tested, and supported</em> method for the creation of bootable media. Instructions are available in the <a href="https://docs.fedoraproject.org/en-US/fedora/latest/preparing-boot-media/">Fedora documentation</a>.' %}
 
-{% include alert.html type='note' content='The cross-platform Fedora Media Writer is the <em>official, tested, and supported</em> method for the creation of bootable media. Instructions (alongside a word on alternative methods) are available in the <a href="https://docs.fedoraproject.org/en-US/fedora/latest/preparing-boot-media/">Fedora documentation</a>.' %}
-
-{% include alert.html type='tip' content='If you don\'t already have a Fedora Atomic installation, use a Fedora Atomic ISO that matches your secureblue target image to install one. If you want to use a secureblue Silverblue image, start with the Fedora Silverblue ISO, Kinoite for Kinoite images, Sericea (Sway Atomic) for Sericea images, and CoreOS for all the securecore images.<br>For more details on the available images, have a look at the <a href="/images">list of available images</a> before proceeding.' %}
-
-Before rebasing and during the installation, the following checks are recommended.
-
-### [Fedora installation](#fedora-installation)
-{: #fedora-installation}
-
-- Select the option to encrypt the drive you're installing to.
-- Use a [strong password](https://security.harvard.edu/use-strong-passwords) when prompted.
-- Leave the root account disabled if prompted.
-- Select wheel group membership for your user if prompted.
-
-### [BIOS hardening](#bios-hardening)
-{: #bios-hardening}
+Before installation, the following checks are recommended:
 
 - Ensure SecureBoot is enabled.
 - Ensure your BIOS is up-to-date by checking its manufacturer's website.
@@ -49,13 +33,13 @@ Before rebasing and during the installation, the following checks are recommende
 
 <hr>
 
-## [Terms of use](#terms)
+## [Terms of Use](#terms)
 {: #terms}
 
-secureblue includes a combination of software packages, each under its own licensing terms. The license of secureblue is the Apache License 2.0. The license of secureblue does not supersede the licenses of upstream code and content contained in secureblue images. By downloading secureblue you agree to the license terms of its use.
+secureblue includes a combination of software packages, each under its own licensing terms. The license of secureblue is the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0). The license of secureblue does not supersede the licenses of upstream code and content contained in secureblue images. By downloading secureblue you agree to the license terms of its use.
 
 ```
-Copyright 2024-2025 The secureblue authors
+Copyright 2024-2025 The Secureblue Authors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this software except in compliance with the License.
@@ -72,107 +56,185 @@ limitations under the License.
 
 <hr>
 
-## [Rebase](#rebase)
-{: #rebase}
+## [Installation](#installation)
+{: #installation}
 
-Now that you have a Fedora Atomic or Fedora CoreOS installation, rebase it to the secureblue image of your choice using the script below. This script does not install secureblue into the existing system. It rebases (fully replaces the existing system) with secureblue.
+To install secureblue, you will use one of the following processes. Consult the table below for the right starting point for your use case. For more details on the available images, have a look at the <a href="/images">list of available images</a> before proceeding.
 
-<a class="button" href="https://github.com/secureblue/secureblue/releases/latest/download/install_secureblue.sh">Download secureblue installer</a>
+| Image Type | Installation Process                                                                           | Recommended Use Cases          |
+|------------|------------------------------------------------------------------------------------------------|--------------------------------|
+| Desktop    | Direct installation with a [secureblue ISO](#iso)                                              | Desktop/laptop end user        |
+| Server     | Installation using [Ignition via Butane](#ignition).                                           | Cloud, containerized workloads |
 
-After downloading the installer, run it from the directory you downloaded it to:
+Things to remember during installation:
 
+- Select the option to encrypt the drive you're installing to.
+- Use a [strong password](https://www.eff.org/dice) when prompted.
+- Select wheel group membership for your user when prompted.
+
+### [Secureblue ISO (Desktop)](#iso)
+{: #iso}
+
+{% include alert.html type='note' content='<b>nvidia-open</b> images are recommended for systems with NVIDIA GPUs Turing or newer (GTX 16XX+, RTX 20XX+). These include the new <a href="https://github.com/NVIDIA/open-gpu-kernel-modules">open kernel modules</a> from NVIDIA, not Nouveau. <b>nvidia</b> images are recommended for systems with NVIDIA GPUs Pascal or older. These include the closed kernel modules from NVIDIA.' %}
+
+<form method="GET">
+  <select name="de" id="de" required>
+    <option value="">Select an environment</option>
+    <option value="silverblue">GNOME</option>
+    <option value="kinoite">KDE Plasma</option>
+    <option value="sericea">Sway</option>
+  </select>
+  <select name="nvidia" id="nvidia" required>
+    <option value="">Do you have NVIDIA?</option>
+    <option value="main">No</option>
+    <option value="nvidia">Yes (pre-Turing)</option>
+    <option value="nvidia-open">Yes (Turing and later)</option>
+  </select>
+  <br><br>
+  <label>
+    <input type="checkbox" name="terms" required>
+    I have read and agree to the <a href="#terms">Terms of Use</a>
+  </label>
+  <br><br>
+  <i>Download options</i><br />
+  <button type="submit" formaction="https://isos.secureblue.dev/download">Download ISO</button>
+  <button type="submit" formaction="https://isos.secureblue.dev/downloadTorrent" formtarget="_blank" >Download torrent</button>
+  <br /><br />
+  <i>Verification files</i><br />
+  <button type="submit" formaction="https://isos.secureblue.dev/downloadSHA256SUM">Download ISO checksum</button>
+  <button type="submit" formaction="https://isos.secureblue.dev/downloadTorrentSHA256SUM">Download torrent checksum</button>
+  <a href="https://isos.secureblue.dev/secureblue-keyring.gpg" class="button">Download keyring</a>
+  <br /><br />
+</form>
+
+#### [ISO Verification](#verification)
+{: #verification}
+
+You should now have the ISO with its corresponding CHECKSUM file, the keyring file, and if you opted to use a torrent, the torrent file with its corresponding CHECKSUM file. Use following commands to verify the ISO (where `${IMAGE_NAME}` corresponds to the filename of the ISO you downloaded).
+
+##### For all users
+
+First command:
 ```
-bash install_secureblue.sh
+gpgv --keyring ./secureblue-keyring.gpg "${IMAGE_NAME}.iso-CHECKSUM"
 ```
+
+Expected output:
+```
+gpgv: Signature made Wed 04 Jun 2025 12:49:39 AM PDT
+gpgv:                using EDDSA key 26B4463ED8F313BC7E3FBDF9D9223AF0F47B3E41
+gpgv: Good signature from "secureblueadmin <secureblueadmin@proton.me>"
+```
+
+Second command:
+```
+sha256sum -c "${IMAGE_NAME}.iso-CHECKSUM"
+```
+
+Expected output:
+```
+IMAGE_NAME.iso: OK
+sha256sum: WARNING: 8 lines are improperly formatted
+```
+
+##### For torrent users
+
+First command:
+```
+gpgv --keyring ./secureblue-keyring.gpg "${IMAGE_NAME}.iso.torrent-CHECKSUM"
+```
+
+Expected output:
+```
+gpgv: Signature made Wed 04 Jun 2025 12:49:39 AM PDT
+gpgv:                using EDDSA key 26B4463ED8F313BC7E3FBDF9D9223AF0F47B3E41
+gpgv: Good signature from "secureblueadmin <secureblueadmin@proton.me>"
+```
+
+Second command:
+```
+sha256sum -c "${IMAGE_NAME}.iso.torrent-CHECKSUM"
+```
+
+Expected output:
+```
+IMAGE_NAME.iso.torrent: OK
+sha256sum: WARNING: 8 lines are improperly formatted
+```
+
+### [Ignition (Server)](#ignition)
+{: #ignition}
+
+Follow the [Fedora CoreOS docs](https://docs.fedoraproject.org/en-US/fedora-coreos/getting-started/), [Ignition docs](https://docs.fedoraproject.org/en-US/fedora-coreos/producing-ign/), and [Butane docs](https://coreos.github.io/butane/) to configure initialization for your CoreOS instance(s).
+
+You can use our [example.butane](https://github.com/secureblue/secureblue/blob/live/docs/example.butane) as a starting point.
+
 
 <hr>
 
 ## [Post-install](#post-install)
 {: #post-install}
 
-- [Subscribe to secureblue release notifications](#release-notifications)
-- [Set NVIDIA-specific kargs if applicable](#nvidia)
-- [Enroll SecureBoot key](#secureboot)
-- [Set hardened kargs](#kargs)
-  - [32-bit support](#kargs-32-bit)
-  - [Force disable simultaneous multithreading](#kargs-smt)
-  - [Unstable hardening kargs](#kargs-unstable)
-- [Setup USBGuard](#usbguard)
-- [Create a separate wheel account for admin purposes](#wheel)
-- [Setup system DNS](#dns)
-- [Toggle MAC address randomization](#mac-randomization)
-- [Bash environment lockdown](#bash)
-- [LUKS Hardware Unlock](#luks-hardware-unlock)
-- [Flatpak Permissions Tuning](#flatpak-permissions-tuning)
-- [Validation](#validation)
-- [Optional: Trivalent Flags](#trivalent-flags)
-- [Read the FAQ](#faq)
-
-{% include alert.html type='note' content='After installation, <a href="https://github.com/ublue-os/yafti">yafti</a> will open. Make sure to follow the steps listed carefully and read the directions closely.' %}
+- Essential
+  - [Subscribe to secureblue release notifications](#release-notifications)
+  - [Enroll SecureBoot key](#secureboot)
+  - [Validation](#validation)
+  - [Read the FAQ](#faq)
+- Recommended
+  - [Kernel argument tuning](#kargs)
+  - [Setup USBGuard](#usbguard)
+  - [Create a separate wheel account for admin purposes](#wheel)
+  - [Setup system DNS](#dns)
+  - [Toggle MAC address randomization](#mac-randomization)
+  - [Bash environment lockdown](#bash)
+  - [LUKS Hardware Unlock](#luks-hardware-unlock)
+  - [Flatpak Permissions Tuning](#flatpak-permissions-tuning)
+  - [Trivalent Flags](#trivalent-flags)
 
 ### [Subscribe to secureblue release notifications](#release-notifications)
 {: #release-notifications}
 
-[How to subscribe to secureblue release notifications](/faq#releases)
-
-### [Set NVIDIA-specific kargs if applicable](#nvidia)
-{: #nvidia}
-
-If you are using an `nvidia` or `nvidia-open` image, run this after installation:
-
-```
-ujust set-kargs-nvidia
-```
-
-If you encounter flickering or LUKS issues, you may also (rarely) need this karg:
-
-```
-rpm-ostree kargs \
-    --append-if-missing=initcall_blacklist=simpledrm_platform_driver_init
-```
+Subscribing to release notifications is documented [here](/faq#releases).
 
 ### [Enroll SecureBoot key](#secureboot)
 {: #secureboot}
 
-
 {% include alert.html type='note' content='GNOME users on Nvidia images may notice that Gnome Software prompts them to create a new secureboot key. This prompt can and should be ignored, and the command below used instead.' %}
+
+The secureblue Secure Boot key should automatically enroll after installation, with the MOK password "secureblue". If this fails or doesn't appear for whatever reason, you can manually enroll the key with the command below.
 
 ```
 ujust enroll-secureblue-secure-boot-key
 ```
 
-### [Set hardened kargs](#kargs)
+### [Validation](#validation)
+{: #validation}
+
+To validate your secureblue setup, run:
+
+```
+ujust audit-secureblue
+```
+
+### [Read the FAQ](#faq)
+{: #faq}
+
+Lots of important stuff is covered in the [FAQ](/faq). If you're having an issue, it's probably covered there already. AppImage toggles, GNOME extension toggles, Xwayland toggles, etc.
+
+### [Kernel argument tuning](#kargs)
 {: #kargs}
 
-{% include alert.html type='note' content='Learn more about the <a href="/articles/kargs">hardened boot kargs</a> applied by the command below.' %}
+A stable set of kernel arguments is preinstalled with secureblue. However, it is recommended that you consult our [Kargs article](/articles/kargs) for guidance on tuning Kargs based on your use case.
 
-```
-ujust set-kargs-hardening
-```
+### [Flatpak Permissions Tuning](#flatpak-permissions-tuning)
+{: #flatpak-permissions-tuning}
 
-This command applies a fixed set of hardened boot parameters, and asks you whether the following kargs should *also* be set along with those (all of which are documented in the link above):
-
-#### [32-bit support](#kargs-32-bit)
-{: #kargs-32-bit}
-
-If you answer `N`, or press enter without any input, support for 32-bit programs will be disabled on the next boot. If you run exclusively modern software, chances are likely you don't need this, so it's safe to disable for additional attack surface reduction.
-
-However, there are certain exceptions. A couple common usecases are if you require Steam, or run an occasional application in Wine you'll likely want to keep support for 32-bit programs. If this is the case, answer `Y`.
-
-#### [Force disable simultaneous multithreading](#kargs-smt)
-{: #kargs-smt}
-
-If you answer `Y` when prompted, simultaneous multithreading (SMT, often called Hyper-threading) will be forcefully disabled, regardless of known vulnerabilities in the running hardware. This can cause a reduction in the performance of certain tasks in favor of security.
-
-#### [Unstable hardening kargs](#kargs-unstable)
-{: #kargs-unstable}
-
-If you answer `Y` when prompted, unstable hardening kargs will be additionally applied, which can cause issues on some hardware, but are stable on other hardware.
+Consult our [Flatpak article](/articles/flatpak) for guidance on tuning Flatpak permissions.
 
 ### [Setup USBGuard](#usbguard)
 {: #usbguard}
 
-*This will generate a policy based on your currently attached USB devices and block all others, then enable usbguard.*
+This will generate a policy based on your currently attached USB devices and block all others, then enable usbguard.
 
 ```
 ujust setup-usbguard
@@ -181,11 +243,9 @@ ujust setup-usbguard
 ### [Create a separate wheel account for admin purposes](#wheel)
 {: #wheel}
 
-Creating a dedicated wheel user and removing wheel from your primary user helps prevent certain privilege escalation attack vectors and password sniffing.
-
 {% include alert.html type='caution' content='If you do these steps out of order, it is possible to end up without the ability to administrate your system. You will not be able to use the <a href="https://linuxconfig.org/recover-reset-forgotten-linux-root-password">traditional GRUB-based method</a> of fixing mistakes like this, either, as this will leave your system in a broken state. However, simply rolling back to an older snapshot of your system, should resolve the problem.' %}
 
-{% include alert.html type='note' content='We log in as admin to do the final step of removing the user account\'s wheel privileges in order to make the operation of removing those privileges depend on having access to your admin account, and the admin account functioning correctly first.' %}
+Creating a dedicated wheel user and removing wheel from your primary user helps prevent certain privilege escalation attack vectors and password sniffing. We log in as admin to do the final step of removing the user account\'s wheel privileges in order to make the operation of removing those privileges depend on having access to your admin account, and the admin account functioning correctly first.' You don\'t need to log in using your wheel user to use it for privileged operations. When logged in as your non-wheel user, Polkit will prompt you to authenticate as your wheel user as needed, or when requested by calling <code>run0</code>.
 1. `run0`
 2. `adduser admin`
 3. `usermod -aG wheel admin`
@@ -197,29 +257,23 @@ Creating a dedicated wheel user and removing wheel from your primary user helps 
 9. `gpasswd -d {your username here} wheel`
 10. `reboot`
 
-{% include alert.html type='note' content='You don\'t need to log in using your wheel user to use it for privileged operations. When logged in as your non-wheel user, Polkit will prompt you to authenticate as your wheel user as needed, or when requested by calling <code>run0</code>.' %}
-
-### [Setup system DNS](#dns)
+### [Configure system DNS](#dns)
 {: #dns}
 
-Interactively setup system DNS resolution for systemd-resolved (optionally also set the resolver for Trivalent via management policy):
+The command below will interactively setup system DNS resolution for systemd-resolved (and optionally set the resolver for Trivalent via management policy). If you intend to use a VPN, use the system default state (network provided resolver). This will ensure your system uses the VPN provided DNS resolver to prevent DNS leaks. ESPECIALLY avoid setting the browser DNS policy in this case.
 
 ```
 ujust dns-selector
 ```
 
-{% include alert.html type='note' content='If you intend to use a VPN, use the system default state (network provided resolver). This will ensure your system uses the VPN provided DNS resolver to prevent DNS leaks. ESPECIALLY avoid setting the browser DNS policy in this case.' %}
-
 ### [Toggle MAC address randomization](#mac-randomization)
 {: #mac-randomization }
 
-Toggle system-wide MAC address randomization in NetworkManager between `random` and `permanent`:
+Toggle system-wide MAC address randomization in NetworkManager between `random` and `permanent` using the command below. Disabling MAC randomization can help with network compatibility issues, especially in enterprise or captive portal environments. Enabling it improves privacy by preventing tracking across networks.
 
 ```
 ujust toggle-mac-randomization
 ```
-
-{% include alert.html type='note' content='Disabling MAC randomization can help with network compatibility issues, especially in enterprise or captive portal environments. Enabling it improves privacy by preventing tracking across networks.' %}
 
 ### [Bash environment lockdown](#bash)
 {: #bash}
@@ -233,7 +287,7 @@ ujust toggle-bash-environment-lockdown
 ### [LUKS Hardware-Unlock](#luks-hardware-unlock)
 {: #luks-hardware-unlock}
 
-{% include alert.html type='note' content='There are two options available for hardware-based unlocking. You can either enroll FIDO2 or TPM2 for your LUKS volume. FIDO2 enrollment is preferable if you own a hardware security key. It\'s recommended that you choose only one of these, and not both at the same time.' %}
+There are two options available for hardware-based unlocking. You can either enroll FIDO2 or TPM2 for your LUKS volume. FIDO2 enrollment is preferable if you own a hardware security key. It\'s recommended that you choose only one of these, and not both at the same time.
 
 
 #### [LUKS FIDO2 Unlock](#luks-fido2)
@@ -258,27 +312,9 @@ ujust setup-luks-tpm-unlock
 
 Type `Y` when asked if you want to set a PIN.
 
-### [Flatpak Permissions Tuning](#flatpak-permissions-tuning)
-
-Consult our [Flatpak article](/articles/flatpak) for guidance on tuning Flatpak permissions.
-
-### [Validation](#validation)
-{: #validation}
-
-To validate your secureblue setup, run:
-
-```
-ujust audit-secureblue
-```
-
-### [Optional: Trivalent Flags](#trivalent-flags)
+### [Trivalent Flags](#trivalent-flags)
 {: #trivalent-flags}
 
 The included [Trivalent](https://github.com/secureblue/Trivalent) browser has some additional settings in `chrome://flags` you may want to set for additional hardening and convenience (can cause functionality issues in some cases).
 
 You can read about these settings in the [Trivalent post-install](https://github.com/secureblue/Trivalent?tab=readme-ov-file#post-install) instructions.
-
-### [Read the FAQ](#faq)
-{: #faq}
-
-Lots of important stuff is covered in the [FAQ](/faq). AppImage toggles, GNOME extension toggles, Xwayland toggles, etc.
