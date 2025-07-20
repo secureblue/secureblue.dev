@@ -207,15 +207,6 @@ The secureblue Secure Boot key should automatically enroll after installation, w
 ujust enroll-secureblue-secure-boot-key
 ```
 
-### [Enable Bluetooth (if needed!)](#bluetooth)
-{: #bluetooth}
-
-Bluetooth connectivity is off by default. If you have bluetooth devices (e.g. earbuds) you can toggle it on:
-
-```
-ujust toggle-bluetooth-modules
-```
-
 ### [Validation](#validation)
 {: #validation}
 
