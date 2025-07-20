@@ -219,7 +219,7 @@ ujust audit-secureblue
 ### [Read the FAQ](#faq)
 {: #faq}
 
-A lot of technical issues is covered in the [FAQ](/faq). For new users, these topics are particularly important to read:
+A lot of technical issues are covered in the [FAQ](/faq). For new users, these topics are particularly important to read:
 
 - [Why Bluetooth is disabled? How do I enable it?] (/faq#bluetooth)
 - [Why doesn’t my Xwayland app work?] (/faq#xwayland)
