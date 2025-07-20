@@ -221,7 +221,7 @@ ujust audit-secureblue
 
 A lot of technical issues is covered in the [FAQ](/faq). For new users, these topics are particularly important to read:
 
-- [Why are Bluetooth is disabled? How do I enable them?] (/faq#bluetooth)
+- [Why Bluetooth is disabled? How do I enable it?] (/faq#bluetooth)
 - [Why doesn’t my Xwayland app work?] (/faq#xwayland)
 - [How do I install my VPN?](/faq#vpn) 
 - [Why I am unable to start containers?] (/faq#container-userns)
