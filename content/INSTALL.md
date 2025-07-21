@@ -22,7 +22,7 @@ permalink: /install
 ## [Pre-install](#pre-install)
 {: #pre-install}
 
-{% include alert.html type='note' content='The cross-platform Fedora Media Writer is the <em>official, tested, and supported</em> method for the creation of bootable media. Instructions are available in the <a href="https://docs.fedoraproject.org/en-US/fedora/latest/preparing-boot-media/">Fedora documentation</a>.' %}
+{% include alert.html type='note' content='The cross-platform Fedora Media Writer is the <em>official, tested, and supported</em> method for the creation of bootable media. Instructions are available in the <a href="https://docs.fedoraproject.org/en-US/fedora/latest/preparing-boot-media/">Fedora documentation</a>. Do <a href="https://github.com/ventoy/Ventoy/issues/2795">not</a> use Ventoy.' %}
 
 Before installation, the following checks are recommended:
 
