@@ -223,8 +223,9 @@ A lot of technical issues are covered in the [FAQ](/faq). For new users, the fol
 
 - [Why Bluetooth is disabled? How do I enable it?](/faq#bluetooth)
 - [Why doesn’t my Xwayland app work?](/faq#xwayland)
-- [An app I use won’t start due to a malloc issue. How do I fix it?](/faq#standard-malloc) 
-- [How do I install my VPN?](/faq#vpn) 
+- [An app I use won’t start due to a malloc issue. How do I fix it?](/faq#standard-malloc)
+- [Why don’t my appimages work?](/faq#appimage)
+- [How do I install my VPN?](/faq#vpn)
 - [Why I am unable to start containers?](/faq#container-userns)
 
 ### [Kernel argument tuning](#kargs)
