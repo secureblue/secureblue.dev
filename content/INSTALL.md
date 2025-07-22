@@ -14,7 +14,7 @@ permalink: /install
 - [Installation](#installation)
   - [Secureblue ISO (Desktop)](#iso)
     - [ISO Verification](#verification)
-  - [Ignition (CoreOS)](#ignition)
+  - [Ignition (Server)](#ignition)
 - [Post-install](#post-install)
 
 <hr>
