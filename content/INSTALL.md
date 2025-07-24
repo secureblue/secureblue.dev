@@ -110,7 +110,7 @@ Things to remember during installation:
 #### [ISO Verification](#verification)
 {: #verification}
 
-You should now have the ISO with its corresponding CHECKSUM file, the keyring file, and if you opted to use a torrent, the torrent file with its corresponding CHECKSUM file. Use following commands to verify the ISO (where `${IMAGE_NAME}` corresponds to the filename of the ISO you downloaded).
+You should now have the ISO with its corresponding CHECKSUM file, the keyring file, and if you opted to use a torrent, the torrent file with its corresponding CHECKSUM file. Use following commands to verify the ISO (where `${IMAGE_NAME}` corresponds to the filename of the ISO you downloaded). If you're on Windows, the tools used below are available on [Chocolatey](https://chocolatey.org/). If you're on a Mac, the tools used below are available on [Homebrew](https://brew.sh/).
 
 ##### For all users
 
