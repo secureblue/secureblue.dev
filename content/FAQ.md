@@ -58,6 +58,7 @@ permalink: /faq
 - [Why does secureblue include Homebrew?](#brew)
 - [Does secureblue use "linux-hardened"?](#linux-hardened)
 - [Why is my splash screen disabled on KDE?](#kde-splash-disabled)
+- [Why is my secureblue virtual machine integration broken?](#vm-integration)
 
 ### [Why secureblue?](#secureblue)
 {: #secureblue}
@@ -392,3 +393,13 @@ The KDE splash screen is currently [broken](https://github.com/secureblue/secure
 ```
 systemctl disable --user disable-kde-splash.service
 ```
+
+### [Why is my virtual machine integration broken?](#vm-integration)
+{: #vm-integration}
+
+In order to use SPICE integration with a secureblue guest, such as the shared clipboard and automatic display resolution setting, you must enable XWayland:
+
+```
+ujust toggle-xwayland
+```
+
