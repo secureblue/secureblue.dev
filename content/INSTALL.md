@@ -137,32 +137,9 @@ brew install gnupg
 
 Alternatively, Linux users can use their existing distribution's package manager.
 
-##### For all users
-
-First command:
-```
-gpgv --keyring ./secureblue-keyring.gpg "${IMAGE_NAME}.iso-CHECKSUM"
-```
-
-Expected output:
-```
-gpgv: Signature made Wed 04 Jun 2025 12:49:39 AM PDT
-gpgv:                using EDDSA key 26B4463ED8F313BC7E3FBDF9D9223AF0F47B3E41
-gpgv: Good signature from "secureblueadmin <secureblueadmin@proton.me>"
-```
-
-Second command:
-```
-sha256sum -c "${IMAGE_NAME}.iso-CHECKSUM"
-```
-
-Expected output:
-```
-IMAGE_NAME.iso: OK
-sha256sum: WARNING: 8 lines are improperly formatted
-```
-
 ##### For torrent users
+
+Before downloading, torrent users should check their torrent is authentic.
 
 First command:
 ```
@@ -184,6 +161,33 @@ sha256sum -c "${IMAGE_NAME}.iso.torrent-CHECKSUM"
 Expected output:
 ```
 IMAGE_NAME.iso.torrent: OK
+sha256sum: WARNING: 8 lines are improperly formatted
+```
+
+##### For all users
+
+After downloading the ISO, you should verify it.
+
+First command:
+```
+gpgv --keyring ./secureblue-keyring.gpg "${IMAGE_NAME}.iso-CHECKSUM"
+```
+
+Expected output:
+```
+gpgv: Signature made Wed 04 Jun 2025 12:49:39 AM PDT
+gpgv:                using EDDSA key 26B4463ED8F313BC7E3FBDF9D9223AF0F47B3E41
+gpgv: Good signature from "secureblueadmin <secureblueadmin@proton.me>"
+```
+
+Second command:
+```
+sha256sum -c "${IMAGE_NAME}.iso-CHECKSUM"
+```
+
+Expected output:
+```
+IMAGE_NAME.iso: OK
 sha256sum: WARNING: 8 lines are improperly formatted
 ```
 
