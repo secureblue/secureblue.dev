@@ -110,7 +110,32 @@ Things to remember during installation:
 #### [ISO Verification](#verification)
 {: #verification}
 
-You should now have the ISO with its corresponding CHECKSUM file, the keyring file, and if you opted to use a torrent, the torrent file with its corresponding CHECKSUM file. Use following commands to verify the ISO (where `${IMAGE_NAME}` corresponds to the filename of the ISO you downloaded). If you're on Windows, the tools used below are available on [Chocolatey](https://chocolatey.org/). If you're on a Mac, the tools used below are available on [Homebrew](https://brew.sh/).
+You should now have the ISO with its corresponding CHECKSUM file, the keyring file, and if you opted to use a torrent, the torrent file with its corresponding CHECKSUM file. Use following commands to verify the ISO (where `${IMAGE_NAME}` corresponds to the filename of the ISO you downloaded).
+
+##### Installing prerequisites
+
+###### Windows
+
+Open PowerShell as a regular user to run these commands:
+```
+winget install -e --id GnuPG.GnuPG
+winget install -e --id uutils.coreutils
+```
+
+To use the `sha256sum` command in the instructions below, you must then **restart PowerShell** and run:
+```
+function sha256sum {
+    coreutils.exe sha256sum @args
+}
+```
+
+###### macOS and Linux
+If `gpg --version` gives a `command not found` error, then you do not have GPG installed. You can get this by installing [Homebrew](https://brew.sh/), then:
+```
+brew install gnupg
+```
+
+Alternatively, Linux users can use their existing distribution's package manager.
 
 ##### For all users
 
