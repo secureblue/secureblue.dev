@@ -122,20 +122,31 @@ winget install -e --id GnuPG.GnuPG
 winget install -e --id uutils.coreutils
 ```
 
-To use the `sha256sum` command in the instructions below, you must then **restart PowerShell** and run:
+To temporarily enable the `sha256sum` command, you must then **restart PowerShell** and run:
 ```
 function sha256sum {
     coreutils.exe sha256sum @args
 }
 ```
 
-###### macOS and Linux
-If `gpg --version` gives a `command not found` error, then you do not have GPG installed. You can get this by installing [Homebrew](https://brew.sh/), then:
+###### macOS
+
+In the terminal, install [Homebrew](https://brew.sh/) if you haven't already. Then:
+```
+brew install gnupg coreutils
+```
+
+To temporarily enable the `sha256sum` command, run:
+```
+export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+```
+
+###### Linux
+
+If `gpg --version` gives a `command not found` error, then you do not have GPG installed. You can get this via your distribution's package manager, or by installing [Homebrew](https://brew.sh/), then:
 ```
 brew install gnupg
 ```
-
-Alternatively, Linux users can use their existing distribution's package manager.
 
 ##### For torrent users
 
