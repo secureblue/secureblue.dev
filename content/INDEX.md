@@ -1,6 +1,6 @@
 ---
-title: "secureblue: Hardened Fedora Atomic and Fedora CoreOS images"
-description: "Hardened operating system images based on Fedora Atomic Desktop and Fedora CoreOS"
+title: "secureblue: A security-focused desktop and server linux operating system."
+description: "A security-focused desktop and server linux operating system."
 permalink: /
 ---
 
