@@ -9,8 +9,10 @@ permalink: /verification
 ## [Table of Contents](#table-of-contents)
 {: #table-of-contents}
 
-- [Pre-install](#pre-install)
-- [Terms of Use](#terms)
+- [Prerequisites](#prerequisites)
+  - [Windows](#windows)
+  - [macOS](#macOS)
+  - [Linux](#linux)
 - [Installation](#installation)
   - [Secureblue ISO (Desktop)](#iso)
     - [ISO Verification](#verification)
@@ -22,9 +24,9 @@ permalink: /verification
 ## [Prerequisites](#prerequisites)
 {: #prerequisites}
 
-You should now have the ISO with its corresponding CHECKSUM file, the keyring file, and if you opted to use a torrent, the torrent file with its corresponding CHECKSUM file. Use following commands to verify the ISO (where `${IMAGE_NAME}` corresponds to the filename of the ISO you downloaded).
+Verifying secureblue media requires both the `gpgv` and `sha256sum` commands.
 
-### Windows(#windows)
+### [Windows](#windows)
 {: #windows}
 
 Open PowerShell as a regular user to run these commands:
@@ -40,7 +42,7 @@ function sha256sum {
 }
 ```
 
-### macOS(#macOS)
+### [macOS](#macOS)
 {: #macOS}
 
 In the terminal, install [Homebrew](https://brew.sh/) if you haven't already. Then:
@@ -53,7 +55,7 @@ To temporarily enable the `sha256sum` command, run:
 export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 ```
 
-### Linux(#Linux)
+### [Linux](#Linux)
 {: #Linux}
 
 If `gpg --version` gives a `command not found` error, then you do not have GPG installed. You can get this via your distribution's package manager, or by installing [Homebrew](https://brew.sh/), then:
@@ -61,10 +63,11 @@ If `gpg --version` gives a `command not found` error, then you do not have GPG i
 brew install gnupg
 ```
 
-## For torrent users(#torrent-users)
+## [For torrent users](#torrent-users)
 {: #torrent-users}
 
-Before downloading, torrent users should check their torrent is authentic.
+At this point, you should have the torrent file, its corresponding CHECKSUM file, and the keyring file. Use following commands to verify the ISO (where `${IMAGE_NAME}` corresponds to the filename of the torrent you downloaded).
+
 
 First command:
 ```
@@ -89,10 +92,11 @@ IMAGE_NAME.iso.torrent: OK
 sha256sum: WARNING: 8 lines are improperly formatted
 ```
 
-## For all users(#all-users)
+## [For all users](#all-users)
 {: #all-users}
 
-After downloading the ISO, you should verify it.
+At this point, you should have the ISO, its corresponding CHECKSUM file, and the keyring file. Use following commands to verify the ISO (where `${IMAGE_NAME}` corresponds to the filename of the ISO you downloaded).
+
 
 First command:
 ```
