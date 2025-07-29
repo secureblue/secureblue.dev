@@ -124,4 +124,4 @@ You can use our [example.butane](https://github.com/secureblue/secureblue/blob/l
 ## [Post-install](#post-install)
 {: #post-install}
 
-Finish setting up your secureblue installation: <a href="/post-install" target="_blank" class="button">Post-install steps</a>.
+Finish setting up your secureblue installation: <a href="/post-install" target="_blank" class="button">Post-install steps</a>
