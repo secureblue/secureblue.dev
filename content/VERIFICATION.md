@@ -13,11 +13,8 @@ permalink: /verification
   - [Windows](#windows)
   - [macOS](#macOS)
   - [Linux](#linux)
-- [Installation](#installation)
-  - [Secureblue ISO (Desktop)](#iso)
-    - [ISO Verification](#verification)
-  - [Ignition (Server)](#ignition)
-- [Post-install](#post-install)
+- [For torrent users](#torrent-users)
+- [For all users](#all-users)
 
 <hr>
 
@@ -55,8 +52,8 @@ To temporarily enable the `sha256sum` command, run:
 export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 ```
 
-### [Linux](#Linux)
-{: #Linux}
+### [Linux](#linux)
+{: #linux}
 
 If `gpg --version` gives a `command not found` error, then you do not have GPG installed. You can get this via your distribution's package manager, or by installing [Homebrew](https://brew.sh/), then:
 ```
