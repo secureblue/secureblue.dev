@@ -27,6 +27,7 @@ Verifying secureblue media requires both the `gpgv` and `sha256sum` commands.
 {: #windows}
 
 Open PowerShell as a regular user to run these commands:
+
 ```
 winget install -e --id GnuPG.GnuPG
 winget install -e --id uutils.coreutils
@@ -64,7 +65,6 @@ brew install gnupg
 {: #torrent-users}
 
 At this point, you should have the torrent file, its corresponding CHECKSUM file, and the keyring file. Use following commands to verify the ISO (where `${IMAGE_NAME}` corresponds to the filename of the torrent you downloaded).
-
 
 First command:
 ```
