@@ -27,12 +27,12 @@ permalink: /post-install
 
 <hr>
 
-### [Subscribe to secureblue release notifications](#release-notifications)
+## [Subscribe to secureblue release notifications](#release-notifications)
 {: #release-notifications}
 
 Subscribing to release notifications is documented [here](/faq#releases).
 
-### [Enroll SecureBoot key](#secureboot)
+## [Enroll SecureBoot key](#secureboot)
 {: #secureboot}
 
 {% include alert.html type='note' content='GNOME users on Nvidia images may notice that Gnome Software prompts them to create a new secureboot key. This prompt can and should be ignored, and the command below used instead.' %}
@@ -43,7 +43,7 @@ The secureblue Secure Boot key should automatically enroll after installation, w
 ujust enroll-secureblue-secure-boot-key
 ```
 
-### [Validation](#validation)
+## [Validation](#validation)
 {: #validation}
 
 To validate your secureblue setup, run:
@@ -52,7 +52,7 @@ To validate your secureblue setup, run:
 ujust audit-secureblue
 ```
 
-### [Read the FAQ](#faq)
+## [Read the FAQ](#faq)
 {: #faq}
 
 A lot of technical issues are covered in the [FAQ](/faq). For new users, the following topics are particularly important to read:
@@ -64,17 +64,17 @@ A lot of technical issues are covered in the [FAQ](/faq). For new users, the fol
 - [How do I install my VPN?](/faq#vpn)
 - [Why am I unable to start containers?](/faq#container-userns)
 
-### [Kernel argument tuning](#kargs)
+## [Kernel argument tuning](#kargs)
 {: #kargs}
 
 A stable set of kernel arguments is preinstalled with secureblue. However, it is recommended that you consult our [Kargs article](/articles/kargs) for guidance on tuning Kargs based on your use case.
 
-### [Flatpak Permissions Tuning](#flatpak-permissions-tuning)
+## [Flatpak Permissions Tuning](#flatpak-permissions-tuning)
 {: #flatpak-permissions-tuning}
 
 Consult our [Flatpak article](/articles/flatpak) for guidance on tuning Flatpak permissions.
 
-### [Setup USBGuard](#usbguard)
+## [Setup USBGuard](#usbguard)
 {: #usbguard}
 
 This will generate a policy based on your currently attached USB devices and block all others, then enable usbguard.
@@ -83,7 +83,7 @@ This will generate a policy based on your currently attached USB devices and blo
 ujust setup-usbguard
 ```
 
-### [Create a separate wheel account for admin purposes](#wheel)
+## [Create a separate wheel account for admin purposes](#wheel)
 {: #wheel}
 
 {% include alert.html type='caution' content='If you do these steps out of order, it is possible to end up without the ability to administrate your system. You will not be able to use the <a href="https://linuxconfig.org/recover-reset-forgotten-linux-root-password">traditional GRUB-based method</a> of fixing mistakes like this, either, as this will leave your system in a broken state. However, simply rolling back to an older snapshot of your system, should resolve the problem.' %}
@@ -100,7 +100,7 @@ Creating a dedicated wheel user and removing wheel from your primary user helps 
 9. `gpasswd -d {your username here} wheel`
 10. `reboot`
 
-### [Configure system DNS](#dns)
+## [Configure system DNS](#dns)
 {: #dns}
 
 The command below will interactively setup system DNS resolution for systemd-resolved (and optionally set the resolver for Trivalent via management policy). If you intend to use a VPN, use the system default state (network provided resolver). This will ensure your system uses the VPN provided DNS resolver to prevent DNS leaks. ESPECIALLY avoid setting the browser DNS policy in this case.
@@ -109,7 +109,7 @@ The command below will interactively setup system DNS resolution for systemd-res
 ujust dns-selector
 ```
 
-### [Toggle MAC address randomization](#mac-randomization)
+## [Toggle MAC address randomization](#mac-randomization)
 {: #mac-randomization }
 
 Toggle system-wide MAC address randomization in NetworkManager between `random` and `permanent` using the command below. Disabling MAC randomization can help with network compatibility issues, especially in enterprise or captive portal environments. Enabling it improves privacy by preventing tracking across networks.
@@ -118,7 +118,7 @@ Toggle system-wide MAC address randomization in NetworkManager between `random` 
 ujust toggle-mac-randomization
 ```
 
-### [Bash environment lockdown](#bash)
+## [Bash environment lockdown](#bash)
 {: #bash}
 
 To mitigate [LD_PRELOAD attacks](https://github.com/Aishou/wayland-keylogger), run:
@@ -127,13 +127,13 @@ To mitigate [LD_PRELOAD attacks](https://github.com/Aishou/wayland-keylogger), r
 ujust toggle-bash-environment-lockdown
 ```
 
-### [LUKS Hardware-Unlock](#luks-hardware-unlock)
+## [LUKS Hardware-Unlock](#luks-hardware-unlock)
 {: #luks-hardware-unlock}
 
 There are two options available for hardware-based unlocking. You can either enroll FIDO2 or TPM2 for your LUKS volume. FIDO2 enrollment is preferable if you own a hardware security key. It\'s recommended that you choose only one of these, and not both at the same time.
 
 
-#### [LUKS FIDO2 Unlock](#luks-fido2)
+### [LUKS FIDO2 Unlock](#luks-fido2)
 {: #luks-fido2}
 
 To enable FIDO2 LUKS unlocking with your FIDO2 security key, run:
@@ -142,7 +142,7 @@ To enable FIDO2 LUKS unlocking with your FIDO2 security key, run:
 ujust setup-luks-fido2-unlock
 ```
 
-#### [LUKS TPM2 Unlock](#luks-tpm2)
+### [LUKS TPM2 Unlock](#luks-tpm2)
 {: #luks-tpm2}
 
 {% include alert.html type='warning' content='If you have an AMD CPU, check your firmware settings to make sure it is using a dedicated TPM device or a Pluton Chip. If not and it is using an fTPM (firmware TPM), skip this step. If you do not know what this means or are unsure, just skip this step.' %}
@@ -155,7 +155,7 @@ ujust setup-luks-tpm-unlock
 
 Type `Y` when asked if you want to set a PIN.
 
-### [Trivalent Flags](#trivalent-flags)
+## [Trivalent Flags](#trivalent-flags)
 {: #trivalent-flags}
 
 The included [Trivalent](https://github.com/secureblue/Trivalent) browser has some additional settings in `chrome://flags` you may want to set for additional hardening and convenience (can cause functionality issues in some cases).
