@@ -34,6 +34,7 @@ winget install -e --id uutils.coreutils
 ```
 
 To temporarily enable the `sha256sum` command, you must then **restart PowerShell** and run:
+
 ```
 function sha256sum {
     coreutils.exe sha256sum @args
@@ -93,7 +94,6 @@ sha256sum: WARNING: 8 lines are improperly formatted
 {: #all-users}
 
 At this point, you should have the ISO, its corresponding CHECKSUM file, and the keyring file. Use following commands to verify the ISO (where `${IMAGE_NAME}` corresponds to the filename of the ISO you downloaded).
-
 
 First command:
 ```
