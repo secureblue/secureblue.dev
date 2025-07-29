@@ -110,7 +110,7 @@ Things to remember during installation:
 #### [ISO Verification](#verification)
 {: #verification}
 
-Follow the <a href="https://secureblue.dev/verification" target=”_blank”>verification steps</a> before proceeding.
+Follow the <a href="/verification" target=”_blank”>verification steps</a> before proceeding.
 
 ### [Ignition (Server)](#ignition)
 {: #ignition}
@@ -124,4 +124,4 @@ You can use our [example.butane](https://github.com/secureblue/secureblue/blob/l
 ## [Post-install](#post-install)
 {: #post-install}
 
-Finish setting up your secureblue installation by following the <a href="https://secureblue.dev/post-install" target=”_blank”>post-install steps</a>.
+Finish setting up your secureblue installation by following the <a href="/post-install" target=”_blank”>post-install steps</a>.
