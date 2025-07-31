@@ -292,7 +292,7 @@ AppImages depend on fuse2, which is unmaintained and depends on a SUID root bina
 For example:
 
 ```
-rpm-ostree install zfs-fuse
+rpm-ostree install funionfs
 ```
 
 ### [Why don't KDE Vaults work?](#kde-vaults)
