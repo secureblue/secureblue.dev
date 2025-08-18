@@ -199,7 +199,7 @@ Trying to start a container without first enabling the ability toggled by the uj
 ### [How do I enable userns for other apps?](#unconfined-userns)
 {: #unconfined-userns}
 
-The following command will toggle the ability of processes in the unconfined SELinux domain to create user namespaces. It's necessary for any apps that require this feature, such as bubblewrap when it isn't SUID-root.
+The following command will toggle the ability of processes in the unconfined SELinux domain to create user namespaces. It's necessary for any apps that require this feature, such as: browsers other than Trivalent, many [Electron](https://en.wikipedia.org/wiki/Electron_(software_framework)) apps, and bubblejail.
 
 ```
 ujust toggle-unconfined-domain-userns-creation
