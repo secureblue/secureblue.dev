@@ -245,7 +245,7 @@ ujust toggle-ghns
 ### [Why doesn't my Xwayland app work?](#xwayland)
 {: #xwayland}
 
-Xwayland is disabled by default on GNOME, KDE Plasma, and Sway. Some apps haven't migrated to wayland yet, and will often say so when started from the terminal by complaining about not being able to find X11. Since enabling Xwayland is a security degradation, you are encouraged to find alternatives for those apps. If you decide you still need Xwayland, run:
+[Xwayland](https://wayland.freedesktop.org/docs/html/ch05.html#sect-X11-Application-Support-architecture) is disabled by default on GNOME, KDE Plasma, and Sway. Some apps haven't migrated to [Wayland](https://en.wikipedia.org/wiki/Wayland_(protocol)) yet, and will often say so when started from the terminal by complaining about not being able to find [X11](https://en.wikipedia.org/wiki/X.Org_Server). Since enabling Xwayland is a security degradation, you are encouraged to find alternatives for those apps. If you decide you still need Xwayland, run:
 
 ```
 ujust toggle-xwayland
