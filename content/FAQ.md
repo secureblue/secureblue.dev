@@ -134,7 +134,7 @@ Consult this [discussion](https://github.com/secureblue/secureblue/issues/193#is
 ### [Why am I being asked to enroll a Secure Boot key?](#new-key)
 {: #new-key}
 
-As part of a move to unify our supply chain, secureblue is moving off of [uBlue](https://universal-blue.org)'s kernel cache and akmods. This has both practical and security advantages, and paves the way towards further kernel security improvements in the future. This change includes a transition to a new secureblue Secure Boot key. You must enroll this new key to prevent issues loading kernel modules:
+As part of a move to unify our supply chain, secureblue moved to our own kernel signing system. This was done for both practical and security advantages, and paved the way towards further kernel security improvements in the future. This change included a transition to a new secureblue Secure Boot key. You must enroll this new key to prevent issues when loading kernel modules:
 
 ```
 ujust enroll-secureblue-secure-boot-key
