@@ -317,6 +317,7 @@ If you still want to enable this functionality, run:
 ```
 ujust toggle-ghns
 ```
+
 ### [Why doesn't my Xwayland app work?](#xwayland)
 {: #xwayland}
 
