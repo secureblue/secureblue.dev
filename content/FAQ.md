@@ -67,6 +67,8 @@ permalink: /faq
     - [Why is my splash screen disabled on KDE?](#kde-splash-disabled)
     - [Why is my secureblue virtual machine integration broken?](#vm-integration)
 
+<hr>
+
 ## [Project information](#project)
 {: #project}
 
@@ -109,6 +111,8 @@ If you prefer to use an Atom feed, supported by many RSS clients, you can use th
 
 Substantial testing for new changes is done in the `staging` and `next` branches. However, once a commit is merged into `live`, a new set of builds is immediately generated and deployed. As such, the GitHub releases are an informational measure to track progress and communicate changes to users. This is only the case for the secureblue main repo, it isn't the case for Trivalent. For Trivalent, GitHub releases correspond to RPM releases to the RPM repo.
 
+<hr>
+
 ## [System information](#system)
 {: #system}
 
@@ -150,6 +154,8 @@ Homebrew is a cross-platform package manager, originally for macOS that allows u
 {: #upgrade-size}
 
 This is an issue with rpm-ostree image-based systems generally, and not specific to secureblue. Ideally, upgrades would come in the form of a zstd-compressed container diff, but it's not there yet. Check out [this upstream issue](https://github.com/coreos/rpm-ostree/issues/4012) for more information.
+
+<hr>
 
 ## [Usage](#usage)
 {: #usage}
@@ -290,6 +296,8 @@ Choose whatever you like from the [available options](https://secureblue.dev/ima
 {: #enable-kernel-modules}
 
 Some functionality requires you to enable extra kernel modules that are disabled by default in secureblue. Modules can be enabled by running `ujust override-enable-module`. For instance, mounting SMB shares requires the `cifs` and `netfs` kernel modules. To load them, simply run `ujust override-enable-module cifs` and `ujust override-enable-module netfs` then reboot.
+
+<hr>
 
 ## [Troubleshooting](#troubleshooting)
 {: #troubleshooting}
