@@ -66,6 +66,9 @@ permalink: /faq
     - [Why doesn't DRM content (spotify, netflix etc.) work in Trivalent?](#trivalent-protected-content)
     - [Why is my splash screen disabled on KDE?](#kde-splash-disabled)
     - [Why is my secureblue virtual machine integration broken?](#vm-integration)
+    
+## [Project information](#project)
+{: #project}
 
 ### [Why secureblue?](#secureblue)
 {: #secureblue}
