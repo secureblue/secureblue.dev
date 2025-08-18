@@ -11,7 +11,7 @@ permalink: /faq
 {: #table-of-contents}
 
 - [Project information](#project)
-    - [Why secureblue?](#secureblue)
+    - [Why secureblue?](#why-secureblue)
     - [Is secureblue immutable?](#immutable)
     - [Why not upstream your changes?](#upstream)
     - [Is this an install script?](#script)
@@ -66,12 +66,12 @@ permalink: /faq
     - [Why doesn't DRM content (spotify, netflix etc.) work in Trivalent?](#trivalent-protected-content)
     - [Why is my splash screen disabled on KDE?](#kde-splash-disabled)
     - [Why is my secureblue virtual machine integration broken?](#vm-integration)
-    
+
 ## [Project information](#project)
 {: #project}
 
-### [Why secureblue?](#secureblue)
-{: #secureblue}
+### [Why secureblue?](#why-secureblue)
+{: #why-secureblue}
 
 secureblue is a collaborative effort to ship a maximally secure Linux operating system. It leverages [bootable container](https://github.com/containers/bootc) technology to build on top of Fedora Atomic, avoiding the need to become a distro in the traditional sense. secureblue has benefitted massively by not being a distro, and instead shipping as bootable OCI container images. This has meant a ton of overhead is taken care of for us by Fedora. We don’t need general repos or packaging, except for a handful of specific packages ([Trivalent](https://github.com/secureblue/Trivalent), [hardened_malloc](https://github.com/GrapheneOS/hardened_malloc), etc). The Fedora Atomic ecosystem is also rich in tooling and automation (see: [BlueBuild](https://blue-build.org/)), plus the backdrop of robust container technology that already exists. All of this has largely enabled us to focus our energy on improving secureblue's hardening and UX, developing [Trivalent](https://github.com/secureblue/Trivalent), and building out userspace SELinux policies.
 
@@ -90,10 +90,27 @@ When possible, we do upstream our changes. In particular, we have contributed se
 
 No. secureblue is not an install script, nor an add-on to a Fedora installation, nor a distro in the traditional sense. It is a set of [bootable container](https://github.com/containers/bootc) images shipped via GitHub's container registry. These images are rebuilt daily and pushed to GitHub's container registry. These images are then pulled in by `rpm-ostree`, which stages updates as a pending deployment for the next boot. To view information about your current local deployments and remotes, run `rpm-ostree status`.
 
-### [How do I update the system?](#update)
-{: #update}
+### [Another security project has a feature that's missing in secureblue, can you add it?](#feature-request)
+{: #feature-request}
 
-All system updates are automatic, running on at least a daily cadence. This includes automatic updates for rpm-ostree, brew, flatpak, and podman. If the system is over 1 week out of date (for example in the event of update failures), the user will be notified and pointed to the right command to run to manually upgrade.
+First, check our [features list](/features) to see whether it already lists an equivalent or better feature. If it doesn't, open a new [GitHub issue](https://github.com/secureblue/secureblue/issues).
+
+### [How do I get notified of new releases?](#releases)
+{: #releases}
+
+To subscribe to release notifications, on the secureblue GitHub page, click "Watch", and then "Custom", and select Releases like so:
+
+<img alt="GitHub screenshot" src="/assets/release-notifications.png" />
+
+If you prefer to use an Atom feed, supported by many RSS clients, you can use the [feed provided by GitHub](https://github.com/secureblue/secureblue/releases.atom).
+
+### [What do the GitHub releases involve?](#release-content)
+{: #release-content}
+
+Substantial testing for new changes is done in the `staging` and `next` branches. However, once a commit is merged into `live`, a new set of builds is immediately generated and deployed. As such, the GitHub releases are an informational measure to track progress and communicate changes to users. This is only the case for the secureblue main repo, it isn't the case for Trivalent. For Trivalent, GitHub releases correspond to RPM releases to the RPM repo.
+
+## [System information](#system)
+{: #system}
 
 ### [Why is Flatpak included? Should I use Flatpak?](#flatpak)
 {: #flatpak}
@@ -105,31 +122,47 @@ Consult our [Flatpak article](/articles/flatpak).
 
 Consult this [discussion](https://github.com/secureblue/secureblue/issues/193#issuecomment-1953323680)
 
-### [My fans are really loud, is this normal?](#fans)
-{: #fans}
-
-During rpm-ostree operations, it's normal. Outside of that, make sure you followed the NVIDIA steps in the [post-install instructions](/install#nvidia) if you're using an NVIDIA GPU.
-
-### [How do I whitelist a module?](#module-whitelist)
-{: #module-whitelist}
-
-secureblue prevents [numerous modules](https://github.com/secureblue/secureblue/blob/live/files/system/etc/modprobe.d/blacklist.conf) from loading to reduce attack surface. If there's a particular module you need, run `ujust override-enable-module mod_name`. To undo this, run `ujust override-reset-module mod_name`.
-
 ### [Should I use Firejail?](#firejail)
 {: #firejail}
 
 [No](https://madaidans-insecurities.github.io/linux.html#firejail), use `bubblejail` if there's no Flatpak available for an app that you want to sandbox. Note that this requires [enabling unconfined user namespaces](#unconfined-userns), which is a security degradation.
 
-### [An app I use won't start due to a malloc issue. How do I fix it?](#standard-malloc)
-{: #standard-malloc}
+### [Why am I being asked to enroll a Secure Boot key?](#new-key)
+{: #new-key}
 
-- For Flatpaks, remove the `LD_PRELOAD` environment variable via Flatseal. To re-enable hardened_malloc for the respective Flatpak, replace the removed variable.
-- For layered packages and packages installed via brew, run the application with `ujust with-standard-malloc APP`. This starts the app without hardened_malloc only once, it does not disable hardened_malloc for the app persistently.
+As part of a move to unify our supply chain, secureblue is moving off of [uBlue](https://universal-blue.org)'s kernel cache and akmods. This has both practical and security advantages, and paves the way towards further kernel security improvements in the future. This change includes a transition to a new secureblue Secure Boot key. You must enroll this new key to prevent issues loading kernel modules:
 
-### [On secureblue half of my CPU cores are gone. Why is this?](#smt)
-{: #smt}
+```
+ujust enroll-secureblue-secure-boot-key
+```
 
-`mitigations=auto,nosmt` is set on secureblue. This means that if your CPU is vulnerable to attacks that utilize [Simultaneous Multithreading](https://en.wikipedia.org/wiki/Simultaneous_multithreading), SMT will be disabled. There are several other kargs secureblue sets that may also trigger this behavior, including `nosmt=force`, and `l1tf=full,force`.
+### [Why does secureblue include Homebrew?](#brew)
+{: #brew}
+
+Homebrew is a cross-platform package manager, originally for macOS that allows users on Atomic systems to install CLI tools without layering and rebooting their system. It also brings with it a recent [independent security audit](https://github.com/trailofbits/publications/blob/master/reviews/2023-08-28-homebrew-securityreview.pdf) and subsequent [actions](https://github.com/Homebrew/brew.sh/blob/master/_posts/2024-07-30-homebrew-security-audit.md?plain=1#L24) taken in response to security findings uncovered by that audit.
+
+### [Does secureblue use "linux-hardened"?](#linux-hardened)
+{: #linux-hardened}
+
+"linux-hardened" is the brand name for a specific set of kernel patches and builds on top of the mainline kernel, used by some distributions. secureblue doesn't use this kernel. Instead, we apply runtime configuration changes on top of Fedora's kernel. We can accomplish much but not all of what linux-hardened accomplishes using this approach. In the future, we plan to build our own kernel with patches on top of Fedora's kernel, including the [OpenPAX patches](https://github.com/edera-dev/linux-openpax). However, even today there are some important ways in which our approach is preferable. For example, linux-hardened completely disables [unprivileged user namespaces](/articles/userns). This means that to use flatpaks or chromium-based browsers, [suid-root](https://en.wikipedia.org/wiki/Setuid) binaries are required. This is a significant security degradation. secureblue on the other hand implements SELinux-confined unprivileged user namespaces, restricting them by default but allowing them for Flatpaks and Trivalent to enable their operation without suid-root.
+
+### [Why are upgrades so large?](#upgrade-size)
+{: #upgrade-size}
+
+This is an issue with rpm-ostree image-based systems generally, and not specific to secureblue. Ideally, upgrades would come in the form of a zstd-compressed container diff, but it's not there yet. Check out [this upstream issue](https://github.com/coreos/rpm-ostree/issues/4012) for more information.
+
+## [Usage](#usage)
+{: #usage}
+
+### [How do I update the system?](#update)
+{: #update}
+
+All system updates are automatic, running on at least a daily cadence. This includes automatic updates for rpm-ostree, brew, flatpak, and podman. If the system is over 1 week out of date (for example in the event of update failures), the user will be notified and pointed to the right command to run to manually upgrade.
+
+### [How do I whitelist a module?](#module-whitelist)
+{: #module-whitelist}
+
+secureblue prevents [numerous modules](https://github.com/secureblue/secureblue/blob/live/files/system/etc/modprobe.d/blacklist.conf) from loading to reduce attack surface. If there's a particular module you need, run `ujust override-enable-module mod_name`. To undo this, run `ujust override-reset-module mod_name`.
 
 ### [How do I install software?](#software)
 {: #software}
@@ -217,16 +250,6 @@ ujust toggle-unconfined-domain-userns-creation
 
 Attempting to bubblewrap a program without first enabling the ability toggled by the ujust above will result in a `bwrap: Creating new namespace failed: Permission denied` error, but beware that enabling it results in a security degradation. Consult our [user namespaces article](/articles/userns) for more details.
 
-### [Something broke! How do I rollback?](#rollback)
-{: #rollback}
-
-Each `rpm-ostree` operation generates and stages a new deployment, which includes the creation of a new GRUB entry at position 0. To boot into the previous deployment, simply select the GRUB entry at position 1. As a preventative measure, you can ensure you always have a known-good deployment available by [pinning](https://docs.fedoraproject.org/en-US/fedora-silverblue/faq/#_how_can_i_upgrade_my_system_to_the_next_major_version_for_instance_rawhide_or_an_upcoming_fedora_release_branch_while_keeping_my_current_deployment) an existing deployment.
-
-### [Another security project has a feature that's missing in secureblue, can you add it?](#feature-request)
-{: #feature-request}
-
-First, check our [features list](/features) to see whether it already lists an equivalent or better feature. If it doesn't, open a new [GitHub issue](https://github.com/secureblue/secureblue/issues).
-
 ### [Why are Bluetooth kernel modules disabled? How do I enable them?](#bluetooth)
 {: #bluetooth}
 
@@ -236,10 +259,45 @@ Bluetooth has a long and consistent history of security issues. However, if you 
 ujust toggle-bluetooth-modules
 ```
 
-### [Why are upgrades so large?](#upgrade-size)
-{: #upgrade-size}
+### [How do I provision signed Distroboxes?](#distrobox-assemble)
+{: #distrobox-assemble}
 
-This is an issue with rpm-ostree image-based systems generally, and not specific to secureblue. Ideally, upgrades would come in the form of a zstd-compressed container diff, but it's not there yet. Check out [this upstream issue](https://github.com/coreos/rpm-ostree/issues/4012) for more information.
+```
+ujust distrobox-assemble
+```
+
+### [How do I customize secureblue?](#customization)
+{: #customization}
+
+If you want to add your own customizations on top of secureblue that go beyond installing packages, you are advised strongly against forking. Instead, create a repo for your own image by using the [BlueBuild template](https://github.com/blue-build/template), then change your `base-image` to a secureblue image. This allows you to apply your customizations to secureblue in a concise and maintainable way, without the need to constantly sync with upstream. For local development, [building locally](/contributing#building-locally) is the recommended approach.
+
+### [How do I add a repo?](#adding-repos)
+{: #adding-repos}
+
+The process of adding a repository to secureblue is the same as [on Fedora](https://docs.fedoraproject.org/en-US/quick-docs/adding-or-removing-software-repositories-in-fedora/#_for_fedora_41_or_later_dnf_5)
+
+### [How do I install proprietary codecs?](#install-codecs)
+{: #install-codecs}
+
+There is no need, they are already included in the image.
+
+### [How do I change my DE?](#change-de)
+{: #change-de}
+
+Choose whatever you like from the [available options](https://secureblue.dev/images) by running `ujust rebase-secureblue`.
+
+### [How do I enable kernel modules?](#enable-kernel-modules)
+{: #enable-kernel-modules}
+
+Some functionality requires you to enable extra kernel modules that are disabled by default in secureblue. Modules can be enabled by running `ujust override-enable-module`. For instance, mounting SMB shares requires the `cifs` and `netfs` kernel modules. To load them, simply run `ujust override-enable-module cifs` and `ujust override-enable-module netfs` then reboot.
+
+## [Troubleshooting](#troubleshooting)
+{: #troubleshooting}
+
+### [Something broke! How do I rollback?](#rollback)
+{: #rollback}
+
+Each `rpm-ostree` operation generates and stages a new deployment, which includes the creation of a new GRUB entry at position 0. To boot into the previous deployment, simply select the GRUB entry at position 1. As a preventative measure, you can ensure you always have a known-good deployment available by [pinning](https://docs.fedoraproject.org/en-US/fedora-silverblue/faq/#_how_can_i_upgrade_my_system_to_the_next_major_version_for_instance_rawhide_or_an_upcoming_fedora_release_branch_while_keeping_my_current_deployment) an existing deployment.
 
 ### [Why can't I install new KDE themes?](#ghns)
 {: #ghns}
@@ -251,7 +309,6 @@ If you still want to enable this functionality, run:
 ```
 ujust toggle-ghns
 ```
-
 ### [Why doesn't my Xwayland app work?](#xwayland)
 {: #xwayland}
 
@@ -273,6 +330,12 @@ To enable support for installing GNOME user extensions, you can run ujust comman
 ujust toggle-gnome-extensions
 ```
 
+### [An app I use won't start due to a malloc issue. How do I fix it?](#standard-malloc)
+{: #standard-malloc}
+
+- For Flatpaks, remove the `LD_PRELOAD` environment variable via Flatseal. To re-enable hardened_malloc for the respective Flatpak, replace the removed variable.
+- For layered packages and packages installed via brew, run the application with `ujust with-standard-malloc APP`. This starts the app without hardened_malloc only once, it does not disable hardened_malloc for the app persistently.
+
 ### [My clock is wrong, and it's not getting automatically set. How do I fix this?](#clock)
 {: #clock}
 
@@ -280,19 +343,15 @@ If your system time is off by an excessive amount due to rare conditions like a 
 
 For more technical detail, see [issue #268](https://github.com/secureblue/secureblue/issues/268)
 
-### [How do I get notified of new releases?](#releases)
-{: #releases}
+### [My fans are really loud, is this normal?](#fans)
+{: #fans}
 
-To subscribe to release notifications, on the secureblue GitHub page, click "Watch", and then "Custom", and select Releases like so:
+During rpm-ostree operations, it's normal. Outside of that, make sure you followed the NVIDIA steps in the [post-install instructions](/install#nvidia) if you're using an NVIDIA GPU.
 
-<img alt="GitHub screenshot" src="/assets/release-notifications.png" />
+### [On secureblue half of my CPU cores are gone. Why is this?](#smt)
+{: #smt}
 
-If you prefer to use an Atom feed, supported by many RSS clients, you can use the [feed provided by GitHub](https://github.com/secureblue/secureblue/releases.atom).
-
-### [What do the GitHub releases involve?](#release-content)
-{: #release-content}
-
-Substantial testing for new changes is done in the `staging` and `next` branches. However, once a commit is merged into `live`, a new set of builds is immediately generated and deployed. As such, the GitHub releases are an informational measure to track progress and communicate changes to users. This is only the case for the secureblue main repo, it isn't the case for Trivalent. For Trivalent, GitHub releases correspond to RPM releases to the RPM repo.
+`mitigations=auto,nosmt` is set on secureblue. This means that if your CPU is vulnerable to attacks that utilize [Simultaneous Multithreading](https://en.wikipedia.org/wiki/Simultaneous_multithreading), SMT will be disabled. There are several other kargs secureblue sets that may also trigger this behavior, including `nosmt=force`, and `l1tf=full,force`.
 
 ### [Why don't my AppImages work?](#appimage)
 {: #appimage}
@@ -309,13 +368,6 @@ rpm-ostree install funionfs
 {: #kde-vaults}
 
 Similar to the AppImage FAQ, the KDE Vault default backend `cryfs` depends on fuse2. For this reason, it's recommended that you migrate to an alternative that doesn't depend on fuse2, for example `fscrypt`. If you don't want to do so, you can add fuse2 back by layering something that depends on it, as described in the AppImage FAQ.
-
-### [How do I provision signed Distroboxes?](#distrobox-assemble)
-{: #distrobox-assemble}
-
-```
-ujust distrobox-assemble
-```
 
 ### [Why won't Trivalent start when Bubblejailed?](#trivalent-bubblejail)
 {: #trivalent-bubblejail}
@@ -345,55 +397,10 @@ If the extension you installed doesn't work, it is likely because it requires We
 
 It shouldn't, this is a bug related to Chromium's Network Service Sandbox where cookies are either cleared or become inaccessible when the browser is closed. If you experience this, navigate to `chrome://settings/security`, at the bottom you will see a `Hardening` section and within it a toggle `Network Service Sandbox`, flip this to off and restart your browser.
 
-### [How do I customize secureblue?](#customization)
-{: #customization}
-
-If you want to add your own customizations on top of secureblue that go beyond installing packages, you are advised strongly against forking. Instead, create a repo for your own image by using the [BlueBuild template](https://github.com/blue-build/template), then change your `base-image` to a secureblue image. This allows you to apply your customizations to secureblue in a concise and maintainable way, without the need to constantly sync with upstream. For local development, [building locally](/contributing#building-locally) is the recommended approach.
-
-### [How do I add a repo to secureblue?](#adding-repos)
-{: #adding-repos}
-
-The process of adding a repository to secureblue is the same as [on Fedora](https://docs.fedoraproject.org/en-US/quick-docs/adding-or-removing-software-repositories-in-fedora/#_for_fedora_41_or_later_dnf_5)
-
-### [How do I install proprietary codecs?](#install-codecs)
-{: #install-codecs}
-
-There is no need, they are already included in the image.
-
-### [How do I change my DE?](#change-de)
-{: #change-de}
-
-
-Choose whatever you like from the [available options](https://secureblue.dev/images) by running `ujust rebase-secureblue`.
-
 ### [Why doesn't DRM content (spotify, netflix etc.) work in Trivalent?](#trivalent-protected-content)
 {: #trivalent-protected-content}
 
 DRM-protected content is available in trivalent, however it is disabled by default. Visit `chrome://settings/content/protectedContent` and select "Sites can play protected content".
-
-### [How do I enable kernel modules?](#enable-kernel-modules)
-{: #enable-kernel-modules}
-
-Some functionality requires you to enable extra kernel modules that are disabled by default in secureblue. Modules can be enabled by running `ujust override-enable-module`. For instance, mounting SMB shares requires the `cifs` and `netfs` kernel modules. To load them, simply run `ujust override-enable-module cifs` and `ujust override-enable-module netfs` then reboot.
-
-### [Why am I being asked to enroll a Secure Boot key?](#new-key)
-{: #new-key}
-
-As part of a move to unify our supply chain, secureblue is moving off of [uBlue](https://universal-blue.org)'s kernel cache and akmods. This has both practical and security advantages, and paves the way towards further kernel security improvements in the future. This change includes a transition to a new secureblue Secure Boot key. You must enroll this new key to prevent issues loading kernel modules:
-
-```
-ujust enroll-secureblue-secure-boot-key
-```
-
-### [Why does secureblue include Homebrew?](#brew)
-{: #brew}
-
-Homebrew is a cross-platform package manager, originally for macOS that allows users on Atomic systems to install CLI tools without layering and rebooting their system. It also brings with it a recent [independent security audit](https://github.com/trailofbits/publications/blob/master/reviews/2023-08-28-homebrew-securityreview.pdf) and subsequent [actions](https://github.com/Homebrew/brew.sh/blob/master/_posts/2024-07-30-homebrew-security-audit.md?plain=1#L24) taken in response to security findings uncovered by that audit.
-
-### [Does secureblue use "linux-hardened"?](#linux-hardened)
-{: #linux-hardened}
-
-"linux-hardened" is the brand name for a specific set of kernel patches and builds on top of the mainline kernel, used by some distributions. secureblue doesn't use this kernel. Instead, we apply runtime configuration changes on top of Fedora's kernel. We can accomplish much but not all of what linux-hardened accomplishes using this approach. In the future, we plan to build our own kernel with patches on top of Fedora's kernel, including the [OpenPAX patches](https://github.com/edera-dev/linux-openpax). However, even today there are some important ways in which our approach is preferable. For example, linux-hardened completely disables [unprivileged user namespaces](/articles/userns). This means that to use flatpaks or chromium-based browsers, [suid-root](https://en.wikipedia.org/wiki/Setuid) binaries are required. This is a significant security degradation. secureblue on the other hand implements SELinux-confined unprivileged user namespaces, restricting them by default but allowing them for Flatpaks and Trivalent to enable their operation without suid-root.
 
 ### [Why is my splash screen disabled on KDE?](#kde-splash-disabled)
 {: #kde-splash-disabled}
