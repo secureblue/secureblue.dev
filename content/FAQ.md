@@ -46,6 +46,7 @@ permalink: /faq
   - [How do I install proprietary codecs?](#install-codecs)
   - [How do I change my DE?](#change-de)
   - [How do I enable kernel modules?](#enable-kernel-modules)
+  - [Which filters are included in Trivalent adblocking? How do I add a new filter?](#trivalent-filter)
 
 - [Troubleshooting](#troubleshooting)
   - [Something broke! How do I rollback?](#rollback)
@@ -296,6 +297,11 @@ Choose whatever you like from the [available options](https://secureblue.dev/ima
 {: #enable-kernel-modules}
 
 Some functionality requires you to enable extra kernel modules that are disabled by default in secureblue. Modules can be enabled by running `ujust override-enable-module`. For instance, mounting SMB shares requires the `cifs` and `netfs` kernel modules. To load them, simply run `ujust override-enable-module cifs` and `ujust override-enable-module netfs` then reboot.
+
+### [Which filters are included in Trivalent adblocking? How do I add a new filter?](#trivalent-filter)
+{: #trivalent-filter}
+
+Trivalent comes preloaded with **EasyList**, **EasyPrivacy**, **Fanboy Annoyance**, and a wide set of **regional filter lists** covering Europe, Asia, the Middle East, and more. It also includes **Anti-Adblock Filters** to bypass detection. You can see the full list here: [Trivalent filter sources](github.com/secureblue/trivalent-subresource-filter/blob/live/copr_script.sh). If you want to add a new filter, open an **issue** or submit a **pull request** in the same repository.
 
 <hr>
 
