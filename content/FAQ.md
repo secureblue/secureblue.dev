@@ -304,6 +304,11 @@ Some functionality requires you to enable extra kernel modules that are disabled
 
 Trivalent comes preloaded with EasyList, EasyPrivacy, Fanboy Annoyance, and a wide set of regional filter lists covering Europe, Asia, the Middle East, and more. It also includes Anti-Adblock Filters to bypass detection. You can see the full list here: [Trivalent filter sources](https://github.com/secureblue/trivalent-subresource-filter/blob/live/copr_script.sh). If you want to add a new filter, open an issue or submit a pull request in the same repository.
 
+### [Why aren’t YouTube ads blocked, and how can I watch YouTube without ads?](#youtube-ads)
+{: #youtube-ads}
+
+Trivalent’s subresource filter cannot perform script injection or observe and alter what happens inside YouTube’s video player, so it can’t reliably intercept the scripts and dynamic behavior YouTube uses to serve ads. To avoid ads you need a tool capable of doing that. Common options are FreeTube [Electron Flatpak](https://flathub.org/apps/io.freetubeapp.FreeTube), Pipeline [Piped proxy Flatpak](https://flathub.org/apps/de.schmidhuberj.tubefeeder), and the YouTube PWA paired with  uBlock Origin‑Lite. Consider creating a separate profile for the Youtube PWA, so you can continue browsing extensionless for your usual profile.
+
 <hr>
 
 ## [Troubleshooting](#troubleshooting)
@@ -435,9 +440,4 @@ In order to use SPICE integration with a secureblue guest, such as the shared cl
 ```
 ujust toggle-xwayland
 ```
-
-### [Why aren’t YouTube ads blocked, and how can I watch YouTube without ads?](#youtube-ads)
-{: #youtube-ads}
-
-Trivalent’s subresource filter cannot perform script injection or observe and alter what happens inside YouTube’s video player, so it can’t reliably intercept the scripts and dynamic behavior YouTube uses to serve ads. To avoid ads you need a tool capable of doing that. Common options are FreeTube [Electron Flatpak](https://flathub.org/apps/io.freetubeapp.FreeTube), Pipeline [Piped proxy Flatpak](https://flathub.org/apps/de.schmidhuberj.tubefeeder), and the YouTube PWA paired with  uBlock Origin‑Lite. Consider creating a separate profile for the Youtube PWA, so you can continue browsing extensionless for your usual profile.
 
