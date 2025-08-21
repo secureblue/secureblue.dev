@@ -66,6 +66,7 @@ permalink: /faq
   - [Why doesn't DRM content (spotify, netflix etc.) work in Trivalent?](#trivalent-protected-content)
   - [Why is my splash screen disabled on KDE?](#kde-splash-disabled)
   - [Why is my secureblue virtual machine integration broken?](#vm-integration)
+  - [Why aren’t YouTube ads blocked, and how can I watch YouTube without ads?](#youtube-ads)
 
 <hr>
 
@@ -429,3 +430,7 @@ In order to use SPICE integration with a secureblue guest, such as the shared cl
 ujust toggle-xwayland
 ```
 
+### [Why aren’t YouTube ads blocked, and how can I watch YouTube without ads?](#youtube-ads)
+{: #youtube-ads}
+
+Trivalent’s subresource filter cannot perform script injection or observe and alter what happens inside YouTube’s video player, so it can’t reliably intercept the scripts and dynamic behavior YouTube uses to serve ads. To avoid ads you need a tool capable of doing that. Common options are FreeTube (Electron Flatpak), Piped (Piped proxy Flatpak), and the YouTube PWA paired with  uBlock Origin‑lite. Also consider using a separate profile for this.
