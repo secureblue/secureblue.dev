@@ -47,6 +47,8 @@ permalink: /faq
   - [How do I change my DE?](#change-de)
   - [How do I enable kernel modules?](#enable-kernel-modules)
   - [Which filters are included in Trivalent adblocking? How do I add a new filter?](#trivalent-filter)
+  - [Why aren’t YouTube ads blocked, and how can I watch YouTube without ads?](#youtube-ads)
+
 
 - [Troubleshooting](#troubleshooting)
   - [Something broke! How do I rollback?](#rollback)
@@ -67,8 +69,7 @@ permalink: /faq
   - [Why doesn't DRM content (spotify, netflix etc.) work in Trivalent?](#trivalent-protected-content)
   - [Why is my splash screen disabled on KDE?](#kde-splash-disabled)
   - [Why is my secureblue virtual machine integration broken?](#vm-integration)
-  - [Why aren’t YouTube ads blocked, and how can I watch YouTube without ads?](#youtube-ads)
-
+  
 <hr>
 
 ## [Project information](#project)
