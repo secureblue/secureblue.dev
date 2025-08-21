@@ -301,7 +301,7 @@ Some functionality requires you to enable extra kernel modules that are disabled
 ### [Which filters are included in Trivalent adblocking? How do I add a new filter?](#trivalent-filter)
 {: #trivalent-filter}
 
-Trivalent comes preloaded with EasyList, EasyPrivacy, Fanboy Annoyance, and a wide set of regional filter lists covering Europe, Asia, the Middle East, and more. It also includes Anti-Adblock Filters to bypass detection. You can see the full list here: [Trivalent filter sources](github.com/secureblue/trivalent-subresource-filter/blob/live/copr_script.sh). If you want to add a new filter, open an issue or submit a pull request in the same repository.
+Trivalent comes preloaded with EasyList, EasyPrivacy, Fanboy Annoyance, and a wide set of regional filter lists covering Europe, Asia, the Middle East, and more. It also includes Anti-Adblock Filters to bypass detection. You can see the full list here: [Trivalent filter sources](https://github.com/secureblue/trivalent-subresource-filter/blob/live/copr_script.sh). If you want to add a new filter, open an issue or submit a pull request in the same repository.
 
 <hr>
 
