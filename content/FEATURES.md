@@ -51,8 +51,8 @@ permalink: /features
 - Protect against brute force by locking user accounts for 24 hours after 50 failed login attempts, providing password quality suggestions and making use of hardened password hashing.
 - Disable and mask a variety of services by default (including cups, geoclue, passim, and others).
 
-## [Security ease-of-use](#ease)
-{: #ease}
+## [Security ease-of-use](#security-ease)
+{: #security-ease}
 
 - Provide system auditing tooling to verify the status of system hardening and provide users with suggestions.
 - Setup commands via `ujust` for installing desktop apps from common VPN providers.
@@ -60,3 +60,11 @@ permalink: /features
 - Provide tooling for automatically setting up and enabling LUKS TPM2+PIN integration for unlocking LUKS drives (on devices where the TPM is free of known vulnerabilities).
 - Provide tooling for automatically setting up and enabling LUKS FIDO2 integration for unlocking LUKS drives.
 - Provide toggles for a variety of the hardening set by default, for user convenience (`ujust --choose`).
+
+## [General ease-of-use] (#general-ease)
+{: #general-ease}
+
+- Install Homebrew, which simplifies software installation and management of CLI apps.
+- Install Multimedia codecs, so audio and video work seamlessly without extra setup.
+- Provide Nvidia support, removing the hassle of manually configuring proprietary drivers.
+- Provide an active [Discord community](https://discord.gg/qMTv5cKfbF) for support and discussion.
