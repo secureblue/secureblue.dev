@@ -66,5 +66,6 @@ permalink: /features
 
 - Install Homebrew, which simplifies software installation and management of CLI apps.
 - Install Multimedia codecs, so audio and video work seamlessly without extra setup.
-- Provide Nvidia support, removing the hassle of manually configuring proprietary drivers.
-- Provide an active [Discord community](https://discord.gg/qMTv5cKfbF) for support and discussion.
+- Provide out-of-the-box support for patent-encumbered codecs and drivers, which Fedora doesn't provide for legal reasons.
+- Provide images into which we build the ZFS and official Nvidia kmod.
+- Provide easy rebasing between different desktop environments
