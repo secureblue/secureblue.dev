@@ -68,4 +68,4 @@ permalink: /features
 - Install Multimedia codecs, so audio and video work seamlessly without extra setup.
 - Provide out-of-the-box support for patent-encumbered codecs and drivers, which Fedora doesn't provide for legal reasons.
 - Provide images into which we build the ZFS and official Nvidia kmod.
-- Provide easy rebasing between different desktop environments
+- Provide easy rebasing between different desktop environments.
