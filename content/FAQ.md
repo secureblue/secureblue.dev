@@ -69,6 +69,7 @@ permalink: /faq
   - [Why doesn't DRM content (spotify, netflix etc.) work in Trivalent?](#trivalent-protected-content)
   - [Why is my splash screen disabled on KDE?](#kde-splash-disabled)
   - [Why is my secureblue virtual machine integration broken?](#vm-integration)
+  - [Why can't I see any network services? (e.g. printers, Google Cast, file servers, IoT)](#mdns-resolution)
   
 <hr>
 
@@ -442,3 +443,48 @@ In order to use SPICE integration with a secureblue guest, such as the shared cl
 ujust toggle-xwayland
 ```
 
+### [Why can't I see any network services? (e.g. printers, Google Cast, file servers, IoT)](#mdns-resolution)
+{: #mdns-resolution}
+
+For applications to automatically discover other devices on your network such as `fritz.box`, `sonos.local`, `fuchsia.local` or `epson.local`, you need to enable the Avahi mDNS stack and allow it through your firewall.
+
+{% include alert.html type='caution' content='mDNS is insecure by design and allows any device on your local network to announce any name or service. Its implementations also have a history of security vulnerabilities. Avoid it where possible, such as by assigning static IPs to local devices, and only expose the mDNS port on trusted networks.' %}
+
+#### Enabling Avahi
+
+`avahi-daemon.service` and `avahi-daemon.socket` are masked and disabled by default. To undo this, run these commands in a root terminal, which you can access by running `run0`:
+
+```
+# systemctl unmask avahi-daemon.socket
+# systemctl unmask avahi-daemon.service
+# systemctl enable --now avahi-daemon.socket
+# systemctl enable --now avahi-daemon.service
+```
+
+#### Allowing mDNS through your firewall
+
+For Avahi to work, you must modify your firewall zone to allow mDNS traffic. But, if you modify the default zone (typically FedoraWorkstation), then mDNS will be open for all current and future connections unless specified. Instead, create a custom zone:
+
+```
+# firewall-cmd --new-zone=allow-mdns --permanent
+# firewall-cmd --zone=allow-mdns --add-service=mdns --permanent
+# firewall-cmd --reload
+```
+
+Then, modify only your current connection to use the new zone. Find your current connection:
+
+```
+# nmcli connection show
+```
+
+Then, change the zone for the connection (using the UUID from above) to `allow-mdns`.
+
+```
+# nmcli connection modify uuid ${UUID} connection.zone allow-mdns
+```
+
+Then apply your connection changes to the active device as shown by `nmcli`, such as `wlp1s0`:
+
+```
+# nmcli device reapply ${DEVICE}
+```
