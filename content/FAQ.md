@@ -36,6 +36,7 @@ permalink: /faq
   - [How do I install Steam?](#steam)
   - [How do I enable anti-cheat support?](#anticheat)
   - [How do I install Docker?](#docker)
+  - [How do I install additional fonts?](#fonts)
   - [How do I enable printing?](#printing)
   - [Why am I unable to start containers?](#container-userns)
   - [How do I enable userns for other apps?](#unconfined-userns)
@@ -231,6 +232,23 @@ Similarly, you can uninstall Docker with:
 
 ```
 ujust uninstall-docker
+```
+
+### [How do I install additional fonts?](#fonts)
+{: #fonts}
+
+You can either layer fonts with `rpm-ostree install` or add them to your user's local font directory at `$HOME/.local/share/fonts`.
+
+One popular collection of fonts is [Noto](https://notofonts.github.io/). You can install all Noto fonts system-wide with:
+
+```
+rpm-ostree install google-noto-fonts-all
+```
+
+If you install fonts in `$HOME/.local/share/fonts`, it is recommended to run the following command afterward to ensure the fonts have the correct SELinux labels:
+
+```
+restorecon -Rv $HOME/.local/share/fonts
 ```
 
 ### [How do I enable printing?](#printing)
