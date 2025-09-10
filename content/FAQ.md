@@ -237,13 +237,7 @@ ujust uninstall-docker
 ### [How do I install additional fonts?](#fonts)
 {: #fonts}
 
-You can either layer fonts with `rpm-ostree install` or add them to your user's local font directory at `$HOME/.local/share/fonts`.
-
-One popular collection of fonts is [Noto](https://notofonts.github.io/). You can install all Noto fonts system-wide with:
-
-```
-rpm-ostree install google-noto-fonts-all
-```
+You can either layer fonts with `rpm-ostree install` (if they're packaged as an RPM) or add them to your user's local font directory at `$HOME/.local/share/fonts`.
 
 If you install fonts in `$HOME/.local/share/fonts`, it is recommended to run the following command afterward to ensure the fonts have the correct SELinux labels:
 
