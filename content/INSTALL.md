@@ -31,6 +31,10 @@ Before installation, the following checks are recommended:
 - Disable booting from USB (some manufacturers allow firmware changes from live systems).
 - Set a BIOS password to prevent tampering.
 
+As firmware updates for devices are often released only in .exe format, you are advised to shrink, but not delete, the Microsoft Windows system, and install firmware updates there as they are released. If your device does not come with a Windows installation, you may want to use [rufus](https://github.com/pbatard/rufus) to create a Windows To Go USB thumbdrive.
+
+Up-to-date firmware plays a significant role in overall device security. It is suggested that you bookmark the firmware updates page of your specific device, and check regularly if any update has been published. Alternatively, boot to Windows and check for firmware updates in Windows Update, under the Optional Updates page.
+
 <hr>
 
 ## [Terms of Use](#terms)
