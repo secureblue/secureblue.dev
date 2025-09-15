@@ -16,6 +16,7 @@ permalink: /post-install
   - [Read the FAQ](#faq)
 - Recommended
   - [Kernel argument tuning](#kargs)
+  - [Disable booting from USB](#booting-from-usb)
   - [Setup USBGuard](#usbguard)
   - [Create a separate wheel account for admin purposes](#wheel)
   - [Setup system DNS](#dns)
@@ -73,6 +74,17 @@ A stable set of kernel arguments is preinstalled with secureblue. However, it is
 {: #flatpak-permissions-tuning}
 
 Consult our [Flatpak article](/articles/flatpak) for guidance on tuning Flatpak permissions.
+
+## [Disable booting from USB](#booting-from-usb)
+{: #booting-from-usb}
+
+Some manufacturers allow firmware changes from live systems.
+
+To access your device's BIOS/EUFI screen to disable booting from usb you can run:
+
+```
+ujust bios
+```
 
 ## [Setup USBGuard](#usbguard)
 {: #usbguard}
