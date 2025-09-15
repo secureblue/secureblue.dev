@@ -80,7 +80,7 @@ Consult our [Flatpak article](/articles/flatpak) for guidance on tuning Flatpak 
 
 Some manufacturers allow firmware changes from live systems.
 
-To access your device's BIOS/EUFI screen to disable booting from usb you can run:
+To access your device's BIOS/UEFI screen to disable booting from USB, you can run:
 
 ```
 ujust bios
