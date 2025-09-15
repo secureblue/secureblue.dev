@@ -278,7 +278,7 @@ Attempting to bubblewrap a program without first enabling the ability toggled by
 Bluetooth has a long and consistent history of security issues. However, if you still need it, run:
 
 ```
-ujust toggle-bluetooth-modules
+ujust set-bluetooth-modules on
 ```
 
 ### [How do I provision signed Distroboxes?](#distrobox-assemble)
