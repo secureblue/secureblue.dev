@@ -49,6 +49,7 @@ permalink: /faq
   - [How do I enable kernel modules?](#enable-kernel-modules)
   - [Which filters are included in Trivalent adblocking? How do I add a new filter?](#trivalent-filter)
   - [Why aren’t YouTube ads blocked, and how can I watch YouTube without ads?](#youtube-ads)
+  - [How do I configure GRUB](#configure-grub)
 
 
 - [Troubleshooting](#troubleshooting)
@@ -322,6 +323,13 @@ Trivalent comes preloaded with EasyList, EasyPrivacy, Fanboy Annoyance, and a wi
 {: #youtube-ads}
 
 Trivalent’s subresource filter cannot perform script injection or observe and alter what happens inside YouTube’s video player, so it can’t reliably intercept the scripts and dynamic behavior YouTube uses to serve ads. To avoid ads you need a tool capable of doing that. Common options are FreeTube [Electron Flatpak](https://flathub.org/apps/io.freetubeapp.FreeTube), Pipeline [Piped proxy Flatpak](https://flathub.org/apps/de.schmidhuberj.tubefeeder), and the YouTube PWA paired with  uBlock Origin‑Lite. Consider creating a separate profile for the Youtube PWA, so you can continue browsing extensionless for your usual profile.
+
+### [How do I configure GRUB](#configure-grub)
+{: #configure-grub}
+
+As of Fedora 41, GRUB configuration is now [static](https://discussion.fedoraproject.org/t/etc-default-grub-is-missing-on-silverblue-41-fresh-install/135344/3) for Atomic desktops, not dynamic <sup>([why?](https://discussion.fedoraproject.org/t/etc-default-grub-is-missing-on-silverblue-41-fresh-install/135344/23))</sup>. This essentially means that changes to the main config file at `/boot/grub2/grub.cfg` are expected to come from upstream, not from manual configuration or tools like `grub2-mkconfig`. However, `/boot/grub2/grub.cfg` contains two if statements that check if files `/boot/grub2/user.cfg` and/or `/boot/grub2/console.cfg` exist and will then load in any manual configuration made in these files. `user.cfg` is intended for general configuration, whereas `console.cfg` is intended for graphics related configuration, however you can use either file for either purpose or use one for both if you wish. You can find information about manual grub configuration [here](https://wiki.archlinux.org/title/GRUB#Custom_grub.cfg). 
+
+Please note, the instructions provided by the Arch Wiki article for manually adding a menu entry for Windows are incorrect. The Wiki states you need to provide a `hints_string` as a parameter for the `search` function, however this is not required and will cause GRUB to error. You only need to provide the UUID for the partition that holds the Windows boot EFI file.
 
 <hr>
 
