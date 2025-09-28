@@ -98,20 +98,11 @@ ujust setup-usbguard
 ## [Create a separate wheel account for admin purposes](#wheel)
 {: #wheel}
 
-{% include alert.html type='caution' content='If you do these steps out of order, it is possible to end up without the ability to administrate your system. You will not be able to use the <a href="https://linuxconfig.org/recover-reset-forgotten-linux-root-password">traditional GRUB-based method</a> of fixing mistakes like this, either, as this will leave your system in a broken state. However, simply rolling back to an older snapshot of your system, should resolve the problem.' %}
+Running the command below will automatically setup an admin account and ask you to select a password for it.
 
-Creating a dedicated wheel user and removing wheel from your primary user helps prevent certain privilege escalation attack vectors and password sniffing. We log in as admin to do the final step of removing the user account\'s wheel privileges in order to make the operation of removing those privileges depend on having access to your admin account, and the admin account functioning correctly first.' You don\'t need to log in using your wheel user to use it for privileged operations. When logged in as your non-wheel user, Polkit will prompt you to authenticate as your wheel user as needed, or when requested by calling <code>run0</code>.
-
-1. `run0`
-2. `adduser admin`
-3. `usermod -aG wheel admin`
-4. `passwd admin`
-5. `exit`
-6. `reboot`
-7. Log in as `admin`
-8. `run0`
-9. `gpasswd -d {your username here} wheel`
-10. `reboot`
+```
+ujust create-admin
+```
 
 ## [Configure system DNS](#dns)
 {: #dns}
