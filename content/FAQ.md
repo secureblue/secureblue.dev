@@ -65,7 +65,7 @@ permalink: /faq
   - [Why don't KDE Vaults work?](#kde-vaults)
   - [Why won't Trivalent start when Bubblejailed?](#trivalent-bubblejail)
   - [Why won't Trivalent start on Nvidia?](#trivalent-nvidia)
-  - [Why don't some websites that require JIT/WebAssembly work in Trivalent even with the JavaScript Optimizer toggle enabled?](#trivalent-v8-exceptions)
+  - [Why don't some websites that require JIT/WebAssembly work in Trivalent even with the JavaScript Optimizations toggle enabled?](#trivalent-v8-exceptions)
   - [Why don't extensions work in Trivalent?](#trivalent-extensions)
   - [Why does Trivalent log me out of all sites by default?](#trivalent-net-sandbox)
   - [Why doesn't DRM content (spotify, netflix etc.) work in Trivalent?](#trivalent-protected-content)
