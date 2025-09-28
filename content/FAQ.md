@@ -65,7 +65,7 @@ permalink: /faq
   - [Why don't KDE Vaults work?](#kde-vaults)
   - [Why won't Trivalent start when Bubblejailed?](#trivalent-bubblejail)
   - [Why won't Trivalent start on Nvidia?](#trivalent-nvidia)
-  - [Why don't some websites that require JIT/WebAssembly work in Trivalent even with the V8 Optimizer toggle enabled?](#trivalent-v8-exceptions)
+  - [Why don't some websites that require JIT/WebAssembly work in Trivalent even with the JavaScript Optimizer toggle enabled?](#trivalent-v8-exceptions)
   - [Why don't extensions work in Trivalent?](#trivalent-extensions)
   - [Why does Trivalent log me out of all sites by default?](#trivalent-net-sandbox)
   - [Why doesn't DRM content (spotify, netflix etc.) work in Trivalent?](#trivalent-protected-content)
@@ -422,10 +422,13 @@ Similar to the AppImage FAQ, the KDE Vault default backend `cryfs` depends on fu
 
 On some Nvidia machines, Trivalent defaults to the X11 backend. Since secureblue disables Xwayland by default, this means that you will need to run `ujust toggle-xwayland` and reboot, for Trivalent to work.
 
-### [Why don't some websites that require JIT/WebAssembly work in Trivalent even with the V8 Optimizer toggle enabled?](#trivalent-v8-exceptions)
+### [Why don't some websites that require JIT/WebAssembly work in Trivalent even with the JavaScript Optimizations toggle enabled?](#trivalent-v8-exceptions)
 {: #trivalent-v8-exceptions}
 
-This is an [upstream bug](https://issues.chromium.org/issues/373893056) that prevents V8 optimization settings from being applied to iframes embedded within a parent website. As a result, WebAssembly may not function on services that use a separate URL for their content delivery network or other included domains, such as VSCode Web ([https://github.dev](https://github.dev)). To make VSCode Web work properly, you need to manually allow V8 optimizations for the CDN by adding `https://[*.]vscode-cdn.net` to your list of trusted websites.
+This is an [upstream bug](https://issues.chromium.org/issues/373893056) that prevents JavaScript Optimizations settings from being applied to iframes embedded within a parent website. As a result, WebAssembly may not function on services that use a separate URL for their content delivery network or other included domains, such as VSCode Web ([https://github.dev](https://github.dev)). To make VSCode Web work properly, you need to manually allow JavaScript optimizations for the CDN by adding `https://[*.]vscode-cdn.net` to your list of trusted websites.
+\
+\
+There is also currently a bug where the optimizations permission doesn't apply to a tab even after reloading, only after closing and re-opening the tab does the optimizations toggle properly apply.
 
 ### [Why don't extensions work in Trivalent?](#trivalent-extensions)
 {: #trivalent-extensions}
@@ -433,7 +436,9 @@ This is an [upstream bug](https://issues.chromium.org/issues/373893056) that pre
 Extensions in Trivalent are disabled by default, for security reasons, it is not advised to use them. If you want content/ad blocking, that is already built into Trivalent and enabled by default. If you require extensions, you can re-enable them by disabling the `Disable Extensions` toggle under `chrome://settings/security`, then restart your browser (this toggle is per-profile).
 \
 \
-If the extension you installed doesn't work, it is likely because it requires WebAssembly (WASM) for some cryptographic library or some other optimizations (this is the case with the Bitwarden extension). To re-enable JavaScript JIT and WASM for an extension, visit `chrome://extensions`, under the extension with the issues, go `Details -> Site Settings`, then scroll to `V8 Optimizer` and flip to allow. If the extension continues to not work, try reinstalling the extension.
+If the extension you installed doesn't work, it is likely because it requires WebAssembly (WASM) for some cryptographic library or some other optimizations (this is the case with the Bitwarden extension). Currently, WebAssembly is available without JIT through an interpreter called drumbrake so allowing JIT should ideally not be needed, though some extensions do not always work with drumbrake (for example Bitwarden sometimes has issues) and JIT may need to be enabled anyway.
+\
+To re-enable JavaScript JIT and WASM for an extension, visit `chrome://extensions`, under the extension with the issues, go `Details -> Site Settings`, then scroll to `JavaScript optimization & security` and flip to allow. If the extension continues to not work, try reinstalling the extension.
 
 ### [Why does Trivalent log me out of all sites by default?](#trivalent-net-sandbox)
 {: #trivalent-net-sandbox}
