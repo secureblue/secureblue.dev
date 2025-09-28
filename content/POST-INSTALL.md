@@ -19,7 +19,7 @@ permalink: /post-install
   - [Disable booting from USB](#booting-from-usb)
   - [Setup USBGuard](#usbguard)
   - [Create a separate wheel account for admin purposes](#wheel)
-  - [Setup system DNS](#dns)
+  - [Configure system DNS](#dns)
   - [Toggle MAC address randomization](#mac-randomization)
   - [Bash environment lockdown](#bash)
   - [LUKS Hardware Unlock](#luks-hardware-unlock)
@@ -116,11 +116,13 @@ Creating a dedicated wheel user and removing wheel from your primary user helps 
 ## [Configure system DNS](#dns)
 {: #dns}
 
-The command below will interactively setup system DNS resolution for systemd-resolved (and optionally set the resolver for Trivalent via management policy). If you intend to use a VPN, use the system default state (network provided resolver). This will ensure your system uses the VPN provided DNS resolver to prevent DNS leaks. ESPECIALLY avoid setting the browser DNS policy in this case.
+The command below will interactively set up system DNS resolution for Unbound, and optionally set the resolver for Trivalent via management policy. Choose **Configure global DNS.**
 
 ```
 ujust dns-selector
 ```
+
+{% include alert.html type='warning' content='If you intend to use a VPN, use the system default DNS. You may also have to use systemd&#8209;resolved with <code>ujust dns-selector resolver resolved</code>. This will ensure your system uses the VPN provided resolver to prevent DNS leaks. Especially avoid setting the Trivalent DNS over HTTPS policy in this case.' %}
 
 ## [Toggle MAC address randomization](#mac-randomization)
 {: #mac-randomization }
