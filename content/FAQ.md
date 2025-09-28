@@ -72,6 +72,7 @@ permalink: /faq
   - [Why is my splash screen disabled on KDE?](#kde-splash-disabled)
   - [Why is my secureblue virtual machine integration broken?](#vm-integration)
   - [Why can't I see any network services? (e.g. printers, Google Cast, file servers, IoT)](#mdns-resolution)
+  - [Why is my DNS broken when using a VPN?](#dns-vpn)
   
 <hr>
 
@@ -507,4 +508,25 @@ Then apply your connection changes to the active device as shown by `nmcli`, suc
 
 ```
 # nmcli device reapply ${DEVICE}
+```
+### [Why is my DNS broken when using a VPN?](#dns-vpn)
+{: #dns-vpn}
+
+Some third-party VPN clients depend on systemd&#8209;resolved directly, rather than sending their connection information to NetworkManager. If your VPN is broken, consider importing the configuration, instead of using the Mullvad GUI or `wg-quick`. Several desktops, including GNOME, let you do this in Network Settings. Or, you can use the command line:
+
+```
+run0 nmcli connection import type wireguard file /path/to/vpn.conf
+```
+
+Optionally, you can then find the connection's name and set it to autoconnect:
+
+```
+nmcli connection show
+run0 nmcli connection modify "Proton US123" connection.autoconnect yes
+```
+
+If this is not an option, such as for Tailscale (which directly conflicts with secureblue's default DNS), you can **switch back to systemd&#8209;resolved** which is the default in Fedora.
+
+```
+ujust dns-selector resolver resolved
 ```
