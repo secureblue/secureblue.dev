@@ -25,12 +25,12 @@ It should also be noted that our Sericea images disable the wlroots desktop port
 
 This section is a relative recommendation between the desktop environments available on secureblue. GNOME, KDE Plasma, and Sway have some extra security niceties like the ones listed above. However, this should not be misconstrued as saying that either one solves any of the fundamental issues with desktop Linux security. For more details, consult the table below.
 
-| DE/WM      | Secures privileged Wayland protocols? | Thumbnailer sandboxing? | Stability    | Recommendation                  |
-|------------|---------------------------------------|-------------------------|--------------|---------------------------------|
-| GNOME      | Yes                                   | Weak                    | Stable       | Recommended                     |
-| KDE Plasma | Yes                                   | None                    | Stable       | Recommended                     |
-| Sway       | Yes                                   | None                    | Stable       | Recommended for tiling WM users |
-| COSMIC     | No                                    | None                    | Experimental | Not currently recommended       |
+| DE/WM      | Secures privileged Wayland protocols? | Thumbnailer sandboxing? | Stability    | Recommendation                   |
+|------------|---------------------------------------|-------------------------|--------------|----------------------------------|
+| GNOME      | Yes                                   | Weak                    | Stable       | Recommended (without extensions) |
+| KDE Plasma | Yes                                   | None                    | Stable       | Recommended                      |
+| Sway       | Yes                                   | None                    | Stable       | Recommended for tiling WM users  |
+| COSMIC     | Yes                                   | None                    | Experimental | Not currently recommended        |
 
 
 ## [Desktop](#desktop)
