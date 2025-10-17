@@ -390,7 +390,7 @@ For more technical detail, see [issue #268](https://github.com/secureblue/secure
 ### [My fans are really loud, is this normal?](#fans)
 {: #fans}
 
-During rpm-ostree operations, it's normal. Outside of that, make sure you followed the NVIDIA steps in the [post-install instructions](/install#nvidia) if you're using an NVIDIA GPU.
+During rpm-ostree operations, it's normal. Outside of that, make sure you followed the [post-install instructions](/post-install).
 
 ### [On secureblue half of my CPU cores are gone. Why is this?](#smt)
 {: #smt}
