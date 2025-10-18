@@ -30,6 +30,7 @@ permalink: /faq
 
 - [Usage](#usage)
   - [How do I update the system?](#update)
+  - [How do I disable automatic updates?](#disable-update)
   - [How do I whitelist a module?](#module-whitelist)
   - [How do I install software?](#software)
   - [How do I install my VPN?](#vpn)
@@ -146,7 +147,7 @@ As part of a move to unify our supply chain, secureblue moved to our own kernel 
 ```
 ujust enroll-secureblue-secure-boot-key
 ```
-
+Note for Nvidia users: due to how secureboot is inplemented and how nvidia provides drivers the gpu will not work unless secureboot keys are enrolled. 
 ### [Why does secureblue include Homebrew?](#brew)
 {: #brew}
 
@@ -172,6 +173,15 @@ This is an issue with rpm-ostree image-based systems generally, and not specific
 
 All system updates are automatic, running on at least a daily cadence. This includes automatic updates for rpm-ostree, brew, flatpak, and podman. If the system is over 1 week out of date (for example in the event of update failures), the user will be notified and pointed to the right command to run to manually upgrade.
 
+### [How do I disable automatic updates?](#disable-update)
+{: #disable-update}
+
+Note: disabling automatic updates is a security degradation by not providing important patches to user's system.However, if user is willing to take charge of updating the system manually it can be done by disabling system timers with following commands:
+- `systemctl disable rpm-ostreed-automatic.timer` disables automatic rpm updates (base system), to update manually run `rpm-ostree upgrade`
+- `systemctl disable flatpak-system-update.timer`, `systemctl --user disable --global flatpak-user-update.timer` the former disables automatic updates for system flatpaks, the latter stops automatic updates for user installed flatpaks for all users, tu update manually Gnome Software/Kde Discover can be used, for command line use `flatpak update`
+- `systemctl disable brew-upgrade.timer brew-update.timer` disables automatic Homebrew updates, to update brew manually run `brew update`, to update packages installed by brew run `brew upgrade`
+- `systemctl disable podman-auto-update.timer` disables automatic podman updates
+  
 ### [How do I whitelist a module?](#module-whitelist)
 {: #module-whitelist}
 
