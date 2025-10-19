@@ -12,7 +12,7 @@ permalink: /features
 - Install and enable [hardened_malloc](https://github.com/GrapheneOS/hardened_malloc) globally, including for Flatpaks.
 - Install [Trivalent](https://github.com/secureblue/Trivalent), our security-focused, Chromium-based browser inspired by [Vanadium](https://github.com/GrapheneOS/Vanadium). <sup>[Why Chromium-based?](https://grapheneos.org/usage#web-browsing)</sup> <sup>[Why not a Flatpak?](https://forum.vivaldi.net/post/669805)</sup>
 - SELinux [confinement](https://github.com/secureblue/secureblue/tree/live/files/scripts/selinux/trivalent) for Trivalent.
-- Kernel hardening via sysctl. <sup>[details](https://github.com/secureblue/secureblue/blob/live/files/system/etc/sysctl.d/60-hardening.conf)</sup>
+- Kernel hardening via sysctl. <sup>[details](https://github.com/secureblue/secureblue/blob/live/files/system/usr/lib/sysctl.d/55-hardening.conf)</sup>
 - Kernel hardening via kernel arguments. <sup>[details](/articles/kargs)</sup>
 - Configure chronyd to use Network Time Security (NTS).
 - Configurable DNS over TLS and local DNSSEC validation with Unbound via `ujust dns-selector`. systemd&#8209;resolved is optionally available for compatibility.
