@@ -64,8 +64,8 @@ permalink: /features
 ## [General ease-of-use] (#general-ease)
 {: #general-ease}
 
-- Install Homebrew, which simplifies software installation and management of CLI apps.
-- Install Multimedia codecs, so audio and video work seamlessly without extra setup.
 - Provide out-of-the-box support for patent-encumbered codecs and drivers, which Fedora doesn't provide for legal reasons.
-- Provide images into which we build the ZFS and official Nvidia kmod.
-- Provide easy rebasing between different desktop environments.
+- Provide server images with the ZFS kmod and tooling preinstalled (`-zfs`).
+- Provide images for any desired Nvidia driver and kmod configuration: `main` images with Nouveau + NVK, `nvidia` images with the Nvidia-closed kmod and drivers, and `nvidia-open` images with the Nvidia-open kmod and drivers.
+- Provide tooling to easily change desktop environments by rebasing between our images (`ujust rebase-secureblue`).
+- Install Homebrew, which (optionally) simplifies software installation and management of CLI apps.
