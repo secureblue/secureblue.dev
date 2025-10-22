@@ -84,8 +84,7 @@ gpgv:                using EDDSA key 26B4463ED8F313BC7E3FBDF9D9223AF0F47B3E41
 gpgv: Good signature from "secureblueadmin <secureblueadmin@proton.me>"
 ```
 
-> [!NOTE]
-> The signature date in the top line may vary depending on how recent your ISO is, and your local time zone. What matters is that `gpgv` says the checksum's signature is good and matches the keyring.
+{% include alert.html type='note' content='The signature date in the top line may vary depending on how recent your ISO is, and your local time zone. What matters is that gpgv says the checksum\'s signature is good and matches the keyring.' %}
 
 Second command:
 
@@ -119,8 +118,7 @@ gpgv:                using EDDSA key 26B4463ED8F313BC7E3FBDF9D9223AF0F47B3E41
 gpgv: Good signature from "secureblueadmin <secureblueadmin@proton.me>"
 ```
 
-> [!NOTE]
-> The signature date in the top line may vary depending on how recent your ISO is, and your local time zone. What matters is that `gpgv` says the checksum's signature is good and matches the keyring.
+{% include alert.html type='note' content='The signature date in the top line may vary depending on how recent your ISO is, and your local time zone. What matters is that gpgv says the checksum\'s signature is good and matches the keyring.' %}
 
 Second command:
 

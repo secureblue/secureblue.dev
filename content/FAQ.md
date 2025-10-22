@@ -36,6 +36,7 @@ permalink: /faq
   - [How do I install Steam?](#steam)
   - [How do I enable anti-cheat support?](#anticheat)
   - [How do I install Docker?](#docker)
+  - [How do I install additional fonts?](#fonts)
   - [How do I enable printing?](#printing)
   - [Why am I unable to start containers?](#container-userns)
   - [How do I enable userns for other apps?](#unconfined-userns)
@@ -48,6 +49,7 @@ permalink: /faq
   - [How do I enable kernel modules?](#enable-kernel-modules)
   - [Which filters are included in Trivalent adblocking? How do I add a new filter?](#trivalent-filter)
   - [Why aren’t YouTube ads blocked, and how can I watch YouTube without ads?](#youtube-ads)
+  - [How do I configure GRUB?](#configure-grub)
 
 
 - [Troubleshooting](#troubleshooting)
@@ -63,12 +65,14 @@ permalink: /faq
   - [Why don't KDE Vaults work?](#kde-vaults)
   - [Why won't Trivalent start when Bubblejailed?](#trivalent-bubblejail)
   - [Why won't Trivalent start on Nvidia?](#trivalent-nvidia)
-  - [Why don't some websites that require JIT/WebAssembly work in Trivalent even with the V8 Optimizer toggle enabled?](#trivalent-v8-exceptions)
+  - [Why don't some websites that require JIT/WebAssembly work in Trivalent even with the JavaScript Optimizations toggle enabled?](#trivalent-v8-exceptions)
   - [Why don't extensions work in Trivalent?](#trivalent-extensions)
   - [Why does Trivalent log me out of all sites by default?](#trivalent-net-sandbox)
   - [Why doesn't DRM content (spotify, netflix etc.) work in Trivalent?](#trivalent-protected-content)
   - [Why is my splash screen disabled on KDE?](#kde-splash-disabled)
   - [Why is my secureblue virtual machine integration broken?](#vm-integration)
+  - [Why can't I see any network services? (e.g. printers, Google Cast, file servers, IoT)](#mdns-resolution)
+  - [Why is my DNS broken when using a VPN?](#dns-vpn)
   
 <hr>
 
@@ -211,7 +215,7 @@ ujust install-steam
 
 {% include alert.html type='note' content='Kernel-level anti-cheat solutions are generally unsupported on desktop Linux.' %}
 
-Anti-cheat solutions typically require process tracing to work - the ability to monitor syscalls (and other signals) from other processes. On Linux, process tracing is controlled by the `kernel.yama.ptrace_scope` kernel parameter. [By default, secureblue doesn't allow ptrace attachment](https://github.com/secureblue/secureblue/blob/605c8cfcd4723fef1e1e4764dcb6870e50514252/files/system/etc/sysctl.d/60-hardening.conf) at all, addressing [basic security concerns](https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html). The command below toggles between this restrictive default setting where `ptrace_scope` is set to `3`, breaking anti-cheat software, and a much less restrictive setting where `ptrace_scope` is set to `1`, which allows parent processes to trace child processes, enabling some anti-cheat solutions to work.
+Anti-cheat solutions typically require process tracing to work - the ability to monitor syscalls (and other signals) from other processes. On Linux, process tracing is controlled by the `kernel.yama.ptrace_scope` kernel parameter. [By default, secureblue doesn't allow ptrace attachment](https://github.com/secureblue/secureblue/blob/live/files/system/etc/sysctl.d/61-ptrace-scope.conf) at all, addressing [basic security concerns](https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html). The command below toggles between this restrictive default setting where `ptrace_scope` is set to `3`, breaking anti-cheat software, and a much less restrictive setting where `ptrace_scope` is set to `1`, which allows parent processes to trace child processes, enabling some anti-cheat solutions to work.
 
 ```
 ujust toggle-anticheat-support
@@ -230,6 +234,17 @@ Similarly, you can uninstall Docker with:
 
 ```
 ujust uninstall-docker
+```
+
+### [How do I install additional fonts?](#fonts)
+{: #fonts}
+
+You can either layer fonts with `rpm-ostree install` (if they're packaged as an RPM) or add them to your user's local font directory at `$HOME/.local/share/fonts`.
+
+If you install fonts in `$HOME/.local/share/fonts`, it is recommended to run the following command afterward to ensure the fonts have the correct SELinux labels:
+
+```
+restorecon -Rv $HOME/.local/share/fonts
 ```
 
 ### [How do I enable printing?](#printing)
@@ -265,7 +280,7 @@ Attempting to bubblewrap a program without first enabling the ability toggled by
 Bluetooth has a long and consistent history of security issues. However, if you still need it, run:
 
 ```
-ujust toggle-bluetooth-modules
+ujust set-bluetooth-modules on
 ```
 
 ### [How do I provision signed Distroboxes?](#distrobox-assemble)
@@ -309,6 +324,13 @@ Trivalent comes preloaded with EasyList, EasyPrivacy, Fanboy Annoyance, and a wi
 {: #youtube-ads}
 
 Trivalent’s subresource filter cannot perform script injection or observe and alter what happens inside YouTube’s video player, so it can’t reliably intercept the scripts and dynamic behavior YouTube uses to serve ads. To avoid ads you need a tool capable of doing that. Common options are FreeTube [Electron Flatpak](https://flathub.org/apps/io.freetubeapp.FreeTube), Pipeline [Piped proxy Flatpak](https://flathub.org/apps/de.schmidhuberj.tubefeeder), and the YouTube PWA paired with  uBlock Origin‑Lite. Consider creating a separate profile for the Youtube PWA, so you can continue browsing extensionless for your usual profile.
+
+### [How do I configure GRUB?](#configure-grub)
+{: #configure-grub}
+
+As of Fedora 41, GRUB configuration is now [static](https://discussion.fedoraproject.org/t/etc-default-grub-is-missing-on-silverblue-41-fresh-install/135344/3) for Atomic desktops, not dynamic <sup>([why?](https://discussion.fedoraproject.org/t/etc-default-grub-is-missing-on-silverblue-41-fresh-install/135344/23))</sup>. This means that changes to the main config file at `/boot/grub2/grub.cfg` are expected to come from upstream, not from manual configuration or tools like `grub2-mkconfig`. However, `/boot/grub2/grub.cfg` contains two if statements that check if files `/boot/grub2/user.cfg` and/or `/boot/grub2/console.cfg` exist and will then load in any manual configuration made in these files. `user.cfg` is intended for general configuration, whereas `console.cfg` is intended for graphics related configuration, however you can use either file for either purpose or use one for both if you wish. You can find information about manual grub configuration [here](https://wiki.archlinux.org/title/GRUB#Custom_grub.cfg).
+
+Please note, the instructions provided by the Arch Wiki article for manually adding a menu entry for Windows are incorrect. The Wiki states you need to provide a `hints_string` as a parameter for the `search` function, however this is not required and will cause GRUB to error. You only need to provide the UUID for the partition that holds the Windows boot EFI file.
 
 <hr>
 
@@ -368,7 +390,7 @@ For more technical detail, see [issue #268](https://github.com/secureblue/secure
 ### [My fans are really loud, is this normal?](#fans)
 {: #fans}
 
-During rpm-ostree operations, it's normal. Outside of that, make sure you followed the NVIDIA steps in the [post-install instructions](/install#nvidia) if you're using an NVIDIA GPU.
+During rpm-ostree operations, it's normal. Outside of that, make sure you followed the [post-install instructions](/post-install).
 
 ### [On secureblue half of my CPU cores are gone. Why is this?](#smt)
 {: #smt}
@@ -401,10 +423,13 @@ Similar to the AppImage FAQ, the KDE Vault default backend `cryfs` depends on fu
 
 On some Nvidia machines, Trivalent defaults to the X11 backend. Since secureblue disables Xwayland by default, this means that you will need to run `ujust toggle-xwayland` and reboot, for Trivalent to work.
 
-### [Why don't some websites that require JIT/WebAssembly work in Trivalent even with the V8 Optimizer toggle enabled?](#trivalent-v8-exceptions)
+### [Why don't some websites that require JIT/WebAssembly work in Trivalent even with the JavaScript Optimizations toggle enabled?](#trivalent-v8-exceptions)
 {: #trivalent-v8-exceptions}
 
-This is an [upstream bug](https://issues.chromium.org/issues/373893056) that prevents V8 optimization settings from being applied to iframes embedded within a parent website. As a result, WebAssembly may not function on services that use a separate URL for their content delivery network or other included domains, such as VSCode Web ([https://github.dev](https://github.dev)). To make VSCode Web work properly, you need to manually allow V8 optimizations for the CDN by adding `https://[*.]vscode-cdn.net` to your list of trusted websites.
+This is an [upstream bug](https://issues.chromium.org/issues/373893056) that prevents JavaScript Optimizations settings from being applied to iframes embedded within a parent website. As a result, WebAssembly may not function on services that use a separate URL for their content delivery network or other included domains, such as VSCode Web ([https://github.dev](https://github.dev)). To make VSCode Web work properly, you need to manually allow JavaScript optimizations for the CDN by adding `https://[*.]vscode-cdn.net` to your list of trusted websites.
+\
+\
+There is also currently a bug where the optimizations permission doesn't apply to a tab even after reloading, only after closing and re-opening the tab does the optimizations toggle properly apply.
 
 ### [Why don't extensions work in Trivalent?](#trivalent-extensions)
 {: #trivalent-extensions}
@@ -412,7 +437,9 @@ This is an [upstream bug](https://issues.chromium.org/issues/373893056) that pre
 Extensions in Trivalent are disabled by default, for security reasons, it is not advised to use them. If you want content/ad blocking, that is already built into Trivalent and enabled by default. If you require extensions, you can re-enable them by disabling the `Disable Extensions` toggle under `chrome://settings/security`, then restart your browser (this toggle is per-profile).
 \
 \
-If the extension you installed doesn't work, it is likely because it requires WebAssembly (WASM) for some cryptographic library or some other optimizations (this is the case with the Bitwarden extension). To re-enable JavaScript JIT and WASM for an extension, visit `chrome://extensions`, under the extension with the issues, go `Details -> Site Settings`, then scroll to `V8 Optimizer` and flip to allow. If the extension continues to not work, try reinstalling the extension.
+If the extension you installed doesn't work, it is likely because it requires WebAssembly (WASM) for some cryptographic library or some other optimizations (this is the case with the Bitwarden extension). Currently, WebAssembly is available without JIT through an interpreter called DrumBrake (which can be toggled at `chrome://flags/#jitless-wasm`) so allowing JIT should ideally not be needed, though some extensions do not always work with DrumBrake (for example Bitwarden sometimes has issues) and JIT may need to be enabled anyway.
+\
+To re-enable JavaScript JIT and WASM for an extension, visit `chrome://extensions`, under the extension with the issues, go `Details -> Site Settings`, then scroll to `JavaScript optimization & security` and flip to allow. If the extension continues to not work, try reinstalling the extension.
 
 ### [Why does Trivalent log me out of all sites by default?](#trivalent-net-sandbox)
 {: #trivalent-net-sandbox}
@@ -442,3 +469,69 @@ In order to use SPICE integration with a secureblue guest, such as the shared cl
 ujust toggle-xwayland
 ```
 
+### [Why can't I see any network services? (e.g. printers, Google Cast, file servers, IoT)](#mdns-resolution)
+{: #mdns-resolution}
+
+For applications to automatically discover other devices on your network such as `fritz.box`, `sonos.local`, `fuchsia.local` or `epson.local`, you need to enable the Avahi mDNS stack and allow it through your firewall.
+
+{% include alert.html type='caution' content='mDNS is insecure by design and allows any device on your local network to announce any name or service. Its implementations also have a history of security vulnerabilities. Avoid it where possible, such as by assigning static IPs to local devices, and only expose the mDNS port on trusted networks.' %}
+
+#### Enabling Avahi
+
+`avahi-daemon.service` and `avahi-daemon.socket` are masked and disabled by default. To undo this, run these commands in a root terminal, which you can access by running `run0`:
+
+```
+# systemctl unmask avahi-daemon.socket
+# systemctl unmask avahi-daemon.service
+# systemctl enable --now avahi-daemon.socket
+# systemctl enable --now avahi-daemon.service
+```
+
+#### Allowing mDNS through your firewall
+
+For Avahi to work, you must modify your firewall zone to allow mDNS traffic. But, if you modify the default zone (typically FedoraWorkstation), then mDNS will be open for all current and future connections unless specified. Instead, create a custom zone:
+
+```
+# firewall-cmd --new-zone=allow-mdns --permanent
+# firewall-cmd --zone=allow-mdns --add-service=mdns --permanent
+# firewall-cmd --reload
+```
+
+Then, modify only your current connection to use the new zone. Find your current connection:
+
+```
+# nmcli connection show
+```
+
+Then, change the zone for the connection (using the UUID from above) to `allow-mdns`.
+
+```
+# nmcli connection modify uuid ${UUID} connection.zone allow-mdns
+```
+
+Then apply your connection changes to the active device as shown by `nmcli`, such as `wlp1s0`:
+
+```
+# nmcli device reapply ${DEVICE}
+```
+### [Why is my DNS broken when using a VPN?](#dns-vpn)
+{: #dns-vpn}
+
+Some third-party VPN clients depend on systemd&#8209;resolved directly, rather than sending their connection information to NetworkManager. If your VPN is broken, consider importing the configuration, instead of using the Mullvad GUI or `wg-quick`. Several desktops, including GNOME, let you do this in Network Settings. Or, you can use the command line:
+
+```
+run0 nmcli connection import type wireguard file /path/to/vpn.conf
+```
+
+Optionally, you can then find the connection's name and set it to autoconnect:
+
+```
+nmcli connection show
+run0 nmcli connection modify "Proton US123" connection.autoconnect yes
+```
+
+If this is not an option, such as for Tailscale (which directly conflicts with secureblue's default DNS), you can **switch back to systemd&#8209;resolved** which is the default in Fedora.
+
+```
+ujust dns-selector resolver resolved
+```

@@ -28,7 +28,6 @@ Before installation, the following checks are recommended:
 
 - Ensure SecureBoot is enabled.
 - Ensure your BIOS is up-to-date by checking its manufacturer's website.
-- Disable booting from USB (some manufacturers allow firmware changes from live systems).
 - Set a BIOS password to prevent tampering.
 
 <hr>
