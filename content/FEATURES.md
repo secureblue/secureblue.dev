@@ -62,7 +62,7 @@ permalink: /features
 - Provide tooling for automatically setting up and enabling LUKS FIDO2 integration for unlocking LUKS drives.
 - Provide toggles for a variety of the hardening set by default, for user convenience (`ujust --choose`).
 
-## [General ease-of-use] (#general-ease)
+## [General ease-of-use](#general-ease)
 {: #general-ease}
 
 - Provide out-of-the-box support for patent-encumbered codecs and drivers, which Fedora doesn't provide for legal reasons.
