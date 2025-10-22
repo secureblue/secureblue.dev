@@ -179,9 +179,9 @@ All system updates are automatic, running on at least a daily cadence. This incl
 {% include alert.html type='caution' Disabling automatic updates is a security degradation. You will no longer automatically receive security updates.}
 
 - `systemctl disable rpm-ostreed-automatic.timer` disables automatic system updates. To update manually, run `rpm-ostree upgrade`.
-- `systemctl disable flatpak-system-update.timer` and `systemctl --user disable --global flatpak-user-update.timer` disable automatic updates for system flatpaks and user flatpaks, respectively. To update manually, run `flatpak update`
+- `systemctl disable flatpak-system-update.timer` and `systemctl --user disable --global flatpak-user-update.timer` disable automatic updates for system flatpaks and user flatpaks, respectively. To update manually, run `flatpak update`.
 - `systemctl disable brew-upgrade.timer brew-update.timer` disables automatic Homebrew updates. To update manually, run `brew update && brew upgrade`.
-- `systemctl disable podman-auto-update.timer` disables automatic podman container updates. To update manually, use `podman update` on your comaintas.
+- `systemctl disable podman-auto-update.timer` disables automatic podman container updates. To update manually, use `podman update` on your containers.
   
 ### [How do I whitelist a module?](#module-whitelist)
 {: #module-whitelist}
