@@ -26,6 +26,7 @@ Stable kargs that are always applied by the `set-kargs-hardening` ujust script.
 - `l1d_flush=on`: Enable the mechanism to flush the L1D cache on context switch.
 - `l1tf=full,force`: Force enables all available mitigations for the L1TF vulnerability.
 - `lockdown=confidentiality`: Enable kernel lockdown in the strictest mode.
+- `loglevel=0`: Only log level 0 (system is unusable) messages to the console.
 - `mitigations=auto,nosmt`: Automatically mitigate all known CPU vulnerabilities, including disabling SMT if necessary.
 - `module.sig_enforce=1`: Only allows kernel modules that have been signed with a valid key to be loaded.
 - `oops=panic`: Treat [oopses](https://en.wikipedia.org/wiki/Linux_kernel_oops) as fatal, preventing attacks that depend on repeated oopses.
@@ -38,6 +39,7 @@ Stable kargs that are always applied by the `set-kargs-hardening` ujust script.
 - `slab_nomerge`: Disables the merging of slabs, increasing difficulty of heap exploitation.
 - `spec_store_bypass_disable=on`: Disable spec store bypass for all programs.
 - `spectre_v2=on`: Turn on spectre_v2 mitigations at boot time for all programs.
+- `vdso32=0`: Disable 32-bit vDSO.
 - `vsyscall=none`: Disable vsyscall as it is both obsolete and enables an ROP attack vector.
 
 # Additional

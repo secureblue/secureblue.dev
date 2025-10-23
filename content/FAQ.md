@@ -30,6 +30,7 @@ permalink: /faq
 
 - [Usage](#usage)
   - [How do I update the system?](#update)
+  - [How do I disable automatic updates?](#disable-update)
   - [How do I whitelist a module?](#module-whitelist)
   - [How do I install software?](#software)
   - [How do I install my VPN?](#vpn)
@@ -172,6 +173,16 @@ This is an issue with rpm-ostree image-based systems generally, and not specific
 
 All system updates are automatic, running on at least a daily cadence. This includes automatic updates for rpm-ostree, brew, flatpak, and podman. If the system is over 1 week out of date (for example in the event of update failures), the user will be notified and pointed to the right command to run to manually upgrade.
 
+### [How do I disable automatic updates?](#disable-update)
+{: #disable-update}
+
+{% include alert.html type='caution' content='Disabling automatic updates is a security degradation. You will no longer automatically receive security updates.' %}
+
+- `systemctl disable rpm-ostreed-automatic.timer` disables automatic system updates. To update manually, run `rpm-ostree upgrade`.
+- `systemctl disable flatpak-system-update.timer` and `systemctl disable --global flatpak-user-update.timer` disable automatic updates for system flatpaks and user flatpaks, respectively. To update manually, run `flatpak update`.
+- `systemctl disable brew-upgrade.timer brew-update.timer` disables automatic Homebrew updates. To update manually, run `brew update && brew upgrade`.
+- `systemctl disable podman-auto-update.timer` and `systemctl disable --global podman-auto-update.timer` disable automatic podman container updates for system and user containers, respectively. To update manually, use `podman update` on your containers.
+  
 ### [How do I whitelist a module?](#module-whitelist)
 {: #module-whitelist}
 
@@ -215,7 +226,7 @@ ujust install-steam
 
 {% include alert.html type='note' content='Kernel-level anti-cheat solutions are generally unsupported on desktop Linux.' %}
 
-Anti-cheat solutions typically require process tracing to work - the ability to monitor syscalls (and other signals) from other processes. On Linux, process tracing is controlled by the `kernel.yama.ptrace_scope` kernel parameter. [By default, secureblue doesn't allow ptrace attachment](https://github.com/secureblue/secureblue/blob/605c8cfcd4723fef1e1e4764dcb6870e50514252/files/system/etc/sysctl.d/60-hardening.conf) at all, addressing [basic security concerns](https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html). The command below toggles between this restrictive default setting where `ptrace_scope` is set to `3`, breaking anti-cheat software, and a much less restrictive setting where `ptrace_scope` is set to `1`, which allows parent processes to trace child processes, enabling some anti-cheat solutions to work.
+Anti-cheat solutions typically require process tracing to work - the ability to monitor syscalls (and other signals) from other processes. On Linux, process tracing is controlled by the `kernel.yama.ptrace_scope` kernel parameter. [By default, secureblue doesn't allow ptrace attachment](https://github.com/secureblue/secureblue/blob/live/files/system/etc/sysctl.d/61-ptrace-scope.conf) at all, addressing [basic security concerns](https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html). The command below toggles between this restrictive default setting where `ptrace_scope` is set to `3`, breaking anti-cheat software, and a much less restrictive setting where `ptrace_scope` is set to `1`, which allows parent processes to trace child processes, enabling some anti-cheat solutions to work.
 
 ```
 ujust toggle-anticheat-support
@@ -390,7 +401,7 @@ For more technical detail, see [issue #268](https://github.com/secureblue/secure
 ### [My fans are really loud, is this normal?](#fans)
 {: #fans}
 
-During rpm-ostree operations, it's normal. Outside of that, make sure you followed the NVIDIA steps in the [post-install instructions](/install#nvidia) if you're using an NVIDIA GPU.
+During rpm-ostree operations, it's normal. Outside of that, make sure you followed the [post-install instructions](/post-install).
 
 ### [On secureblue half of my CPU cores are gone. Why is this?](#smt)
 {: #smt}
