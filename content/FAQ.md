@@ -176,7 +176,7 @@ All system updates are automatic, running on at least a daily cadence. This incl
 ### [How do I disable automatic updates?](#disable-update)
 {: #disable-update}
 
-{% include alert.html type='caution' Disabling automatic updates is a security degradation. You will no longer automatically receive security updates.}
+{% include alert.html type='caution' Disabling automatic updates is a security degradation. You will no longer automatically receive security updates. }
 
 - `systemctl disable rpm-ostreed-automatic.timer` disables automatic system updates. To update manually, run `rpm-ostree upgrade`.
 - `systemctl disable flatpak-system-update.timer` and `systemctl disable --global flatpak-user-update.timer` disable automatic updates for system flatpaks and user flatpaks, respectively. To update manually, run `flatpak update`.
