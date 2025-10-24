@@ -46,6 +46,7 @@ permalink: /faq
   - [How do I customize secureblue?](#customization)
   - [How do I add a repo?](#adding-repos)
   - [How do I install proprietary codecs?](#install-codecs)
+  - [How do I install KDE Connect?](#kde-connect)
   - [How do I change my DE?](#change-de)
   - [How do I enable kernel modules?](#enable-kernel-modules)
   - [Which filters are included in Trivalent adblocking? How do I add a new filter?](#trivalent-filter)
@@ -315,6 +316,11 @@ The process of adding a repository to secureblue is the same as [on Fedora](http
 {: #install-codecs}
 
 There is no need, they are already included in the image.
+
+### [How do I install KDE Connect?](#kde-connect)
+{: #kde-connect}
+
+Due to an [rpm-ostree bug](https://github.com/coreos/rpm-ostree/issues/4554), layering the `kde-connect` package currently does not work. As a workaround, you can layer the `kde-connect-nautilus` package which will pull KDE Connect while bringing minimal additional dependencies.
 
 ### [How do I change my DE?](#change-de)
 {: #change-de}
