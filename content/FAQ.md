@@ -30,6 +30,7 @@ permalink: /faq
 
 - [Usage](#usage)
   - [How do I update the system?](#update)
+  - [How do I disable automatic updates?](#disable-update)
   - [How do I whitelist a module?](#module-whitelist)
   - [How do I install software?](#software)
   - [How do I install my VPN?](#vpn)
@@ -172,6 +173,16 @@ This is an issue with rpm-ostree image-based systems generally, and not specific
 
 All system updates are automatic, running on at least a daily cadence. This includes automatic updates for rpm-ostree, brew, flatpak, and podman. If the system is over 1 week out of date (for example in the event of update failures), the user will be notified and pointed to the right command to run to manually upgrade.
 
+### [How do I disable automatic updates?](#disable-update)
+{: #disable-update}
+
+{% include alert.html type='caution' content='Disabling automatic updates is a security degradation. You will no longer automatically receive security updates.' %}
+
+- `systemctl disable rpm-ostreed-automatic.timer` disables automatic system updates. To update manually, run `rpm-ostree upgrade`.
+- `systemctl disable flatpak-system-update.timer` and `systemctl disable --global flatpak-user-update.timer` disable automatic updates for system flatpaks and user flatpaks, respectively. To update manually, run `flatpak update`.
+- `systemctl disable brew-upgrade.timer brew-update.timer` disables automatic Homebrew updates. To update manually, run `brew update && brew upgrade`.
+- `systemctl disable podman-auto-update.timer` and `systemctl disable --global podman-auto-update.timer` disable automatic podman container updates for system and user containers, respectively. To update manually, use `podman update` on your containers.
+  
 ### [How do I whitelist a module?](#module-whitelist)
 {: #module-whitelist}
 
