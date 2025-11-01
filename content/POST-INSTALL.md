@@ -98,6 +98,8 @@ ujust setup-usbguard
 ## [Create a separate wheel account for admin purposes](#wheel)
 {: #wheel}
 
+Creating a dedicated wheel user and removing wheel from your primary user helps prevent certain privilege escalation attack vectors and password sniffing. You don't need to log in using your wheel user to use it for privileged operations. When logged in as your non-wheel user, Polkit will prompt you to authenticate as your wheel user as needed, or when requested by calling `run0`.
+
 Running the command below will automatically setup an admin account and ask you to select a password for it.
 
 ```
