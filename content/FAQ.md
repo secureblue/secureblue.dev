@@ -463,7 +463,7 @@ To re-enable JavaScript JIT and WASM for an extension, visit `chrome://extension
 
 It shouldn't, this is a bug related to Chromium's Network Service Sandbox where cookies are either cleared or become inaccessible when the browser is closed. If you experience this, navigate to `chrome://settings/security`, at the bottom you will see a `Hardening` section and within it a toggle `Network Service Sandbox`, flip this to off and restart your browser.
 
-Please note that the Network Service Sandbox is [no longer enabled by default](https://github.com/secureblue/Trivalent/pull/480/files/67c2c91a056838f09776c9dd28e99124230adf07#diff-f24bc2fcd4ac4f85c8c6caf588c01bba7223ba8b2ffb109ba5ebfae58571c999). Therefore, users who do not mind testing whether their cookies are kept in the sites where they need to be logged in may prefer to enable this setting. Also note that this is a global toggle, which means that all your browser profiles will be affected if the setting is toggled.
+Please note that the Network Service Sandbox is [no longer enabled by default](https://github.com/secureblue/Trivalent/pull/480/files/67c2c91a056838f09776c9dd28e99124230adf07#diff-f24bc2fcd4ac4f85c8c6caf588c01bba7223ba8b2ffb109ba5ebfae58571c999). Therefore, users interested in evaluating cookie retention for sites where they need persistence may prefer to enable this setting. Also note that this is a global toggle, which means that all your browser profiles will be affected if the setting is toggled.
 
 ### [Why doesn't DRM content (spotify, netflix etc.) work in Trivalent?](#trivalent-protected-content)
 {: #trivalent-protected-content}
