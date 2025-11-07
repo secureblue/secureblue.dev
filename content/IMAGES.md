@@ -17,9 +17,9 @@ permalink: /images
 
 ## [Security recommendation](#security-recommendation)
 
-GNOME, KDE Plasma, Sway, and COSMIC (Silverblue, Kinoite, Sericea, and COSMIC images, respectively) secure privileged Wayland protocols like screencopy. This means that on environments outside of GNOME, KDE Plasma, and Sway, applications can access screen content of the entire desktop. This implicitly includes the content of other applications. It\'s primarily for this reason that Silverblue, Kinoite, and Sericea images are recommended.
+GNOME, KDE Plasma, Sway, and COSMIC (Silverblue, Kinoite, Sericea, and COSMIC images, respectively) secure privileged Wayland protocols like screencopy. This means that on environments outside of GNOME, KDE Plasma, Sway, and COSMIC, applications can access screen content of the entire desktop. This implicitly includes the content of other applications. It\'s primarily for this reason that Silverblue, Kinoite, and Sericea images are recommended.
 
-In addition, GNOME also provides weak <a href="https://gitlab.gnome.org/GNOME/gnome-desktop/-/issues/213">thumbnailer sandboxing</a> in Gnome Files, which is an effort to mitigate <a href="https://scarybeastsecurity.blogspot.com/2016/11/0day-exploit-compromising-linux-desktop.html">attacks via thumbnailers</a>. No environment aside from GNOME provides any thumbnailer sandboxing.
+In addition, GNOME also provides weak <a href="https://gitlab.gnome.org/GNOME/gnome-desktop/-/issues/213">thumbnailer sandboxing</a> in Gnome Files, which is an effort to mitigate <a href="https://scarybeastsecurity.blogspot.com/2016/11/0day-exploit-compromising-linux-desktop.html">attacks via thumbnailers</a>. Currently, no environment aside from GNOME provides any thumbnailer sandboxing, but COSMIC [is planning](https://github.com/pop-os/cosmic-files/issues/1189#event-20127287968) to add a thumbnailer sandboxing for the release of Epoch 2.
 
 It should also be noted that our Sericea images disable the wlroots desktop portal, despite it being commonly used alongside Sway. This is because the portal reintroduces the screencopy vulnerability described above, which would undermine the security improvements in Sway for sandboxed applications. The downside of this is that by default on our Sericea images, flatpaks and applications that haven't implemented protocol support (like chromium-based browsers) are entirely prevented from screenshotting and screensharing. If necessary, Sway users can configure this using their own <a href="https://flatpak.github.io/xdg-desktop-portal/docs/portals.conf.html">portals.conf</a>.
 
@@ -30,7 +30,7 @@ This section is a relative recommendation between the desktop environments avail
 | GNOME      | Yes                                   | Weak                    | Stable       | Recommended                     |
 | KDE Plasma | Yes                                   | None                    | Stable       | Recommended                     |
 | Sway       | Yes                                   | None                    | Stable       | Recommended for tiling WM users |
-| COSMIC     | Yes                                   | None                    | Experimental | Not currently recommended       |
+| COSMIC     | Yes                                   | None                    | Beta         | Not currently recommended       |
 
 
 ## [Desktop](#desktop)
