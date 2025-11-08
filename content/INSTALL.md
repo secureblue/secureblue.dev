@@ -15,7 +15,7 @@ permalink: /install
   - [Secureblue ISO (Desktop)](#iso)
     - [ISO Verification](#verification)
   - [Ignition (Server)](#ignition)
-  - [Rebase (IOT)](#iot)
+  - [Rebase (IOT)](#rebase)
 - [Post-install](#post-install)
 
 <hr>
