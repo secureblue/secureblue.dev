@@ -454,7 +454,7 @@ There is also currently a bug where the optimizations permission doesn't apply t
 Extensions in Trivalent are disabled by default, for security reasons, it is not advised to use them. If you want content/ad blocking, that is already built into Trivalent and enabled by default. If you require extensions, you can re-enable them by disabling the `Disable Extensions` toggle under `chrome://settings/security`, then restart your browser (this toggle is per-profile).
 \
 \
-If the extension you installed doesn't work, it may be because it requires JavaScript Just-In-Time (JIT). We enable WebAssembly without JIT through an interpreter called DrumBrake, and this should help with extension compatibility.
+If the extension you installed doesn't work, it may be because it requires JavaScript Just-In-Time Compilation (JIT). WebAssembly without JIT is enabled on secureblue through an interpreter called DrumBrake, and this should help with extension compatibility.
 \
 To re-enable JavaScript JIT for an extension, visit `chrome://extensions`, under the extension with the issues, go `Details -> Site Settings`, then scroll to `JavaScript optimization & security` and flip to allow. If the extension continues to not work, try reinstalling the extension.
 
