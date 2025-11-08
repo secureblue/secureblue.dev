@@ -123,7 +123,7 @@ You can use our [example.butane](https://github.com/secureblue/secureblue/blob/l
 ### [Rebase (IOT)](#rebase)
 {: #rebase}
 
-Install Fedora IOT using one of the [official methods](https://fedoraproject.org/iot/download). 
+Install Fedora IOT using one of the [official methods](https://fedoraproject.org/iot/download).
 
 Once Fedora IOT is installed, rebase to secureblue by selecting an appropriate image from [this list](https://github.com/orgs/secureblue/packages?tab=packages&q=iot), and then running the following command:
 
