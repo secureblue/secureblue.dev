@@ -58,7 +58,7 @@ permalink: /faq
   - [Something broke! How do I rollback?](#rollback)
   - [Why can't I install new KDE themes?](#ghns)
   - [Why doesn't my Xwayland app work?](#xwayland)
-  - [Why does a command fail when run with run0 but works inside of a root shell?](#fail-run0)
+  - [Why does some commands fail when run with run0?](#fail-run0)
   - [Why I can't install nor use any GNOME user extensions?](#gnome-extensions)
   - [An app I use won't start due to a malloc issue. How do I fix it?](#standard-malloc)
   - [My clock is wrong, and it's not getting automatically set. How do I fix this?](#clock)
@@ -380,7 +380,7 @@ ujust toggle-ghns
 ujust toggle-xwayland
 ```
 
-### [Why does a command fail when run with run0 but works inside of a root shell?](#fail-run0)
+### [Why does some commands fail when run with run0?](#fail-run0)
 {: #fail-run0}
 
 Fedora's SELinux policy causes `run0` to silently fail when run alongside some commands (e.g., dnf). There is already an [open issue](https://github.com/fedora-selinux/selinux-policy/issues/2500) tracking this, and it is expected to be fixed in the future. In the meantime, you can run `run0 sh -c '<your command>'` or enter a root shell by running `run0` and run the command from there.
