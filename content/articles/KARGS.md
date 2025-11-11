@@ -15,7 +15,7 @@ permalink: /articles/kargs
 
 # Standard
 
-Stable kargs that are always applied by the `set-kargs-hardening` ujust script.
+Stable kernel arguments (kargs) that are always applied by the script `ujust set-kargs-hardening`. This hardening can be undone by running `ujust remove-kargs-hardening`.
 
 - `init_on_alloc=1`: Zero newly allocated pages and heaps, mitigating use-after-free vulnerabilities.
 - `init_on_free=1`: Fills freed pages and heaps with zeroes, mitigating use-after-free vulnerabilities.
@@ -56,7 +56,7 @@ Sets of additional kargs that can be selectively set alongside the standard karg
 ## Force disable simultaneous multithreading
 {: #smt}
 
-- `nosmt=force`: Disables this hardware feature on user request, regardless of whether it is affected by known vulnerabilities
+- `nosmt=force`: Disables this hardware feature on user request, regardless of whether it is affected by known vulnerabilities. Note that this [halves the number of CPU cores](/faq#smt).
 
 ## Unstable kargs
 {: #unstable}
