@@ -380,7 +380,7 @@ ujust toggle-ghns
 ujust toggle-xwayland
 ```
 
-### [Why do some commands fail when run with run0?](#fail-run0)
+### [Why do some commands fail when run with run0?](#run0-failures)
 {: #run0-failures}
 
 Fedora's SELinux policy causes `run0` to silently fail when run alongside some commands (e.g., dnf). There is already an [open issue](https://github.com/fedora-selinux/selinux-policy/issues/2500) tracking this, and it is expected to be fixed in the future. In the meantime, you can run `run0 sh -c '<your command>'` or enter a root shell by running `run0` on its own and run the command from there.
