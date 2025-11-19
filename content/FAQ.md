@@ -188,7 +188,7 @@ All system updates are automatic, running on at least a daily cadence. This incl
 ### [How do I whitelist a module?](#module-whitelist)
 {: #module-whitelist}
 
-secureblue prevents [numerous modules](https://github.com/secureblue/secureblue/blob/live/files/system/etc/modprobe.d/blacklist.conf) from loading to reduce attack surface. If there's a particular module you need, run `ujust override-enable-module mod_name`. To undo this, run `ujust override-reset-module mod_name`.
+secureblue prevents [numerous modules](https://github.com/secureblue/secureblue/blob/live/files/system/usr/lib/modprobe.d/secureblue.conf) from loading to reduce attack surface. If there's a particular module you need, run `ujust override-enable-module mod_name`. To undo this, run `ujust override-reset-module mod_name`.
 
 ### [How do I install software?](#software)
 {: #software}
