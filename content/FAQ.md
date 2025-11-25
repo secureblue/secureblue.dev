@@ -303,6 +303,8 @@ ujust set-bluetooth-modules on
 ujust distrobox-assemble
 ```
 
+Note that Distrobox is not a security tool. It focuses on [integration, not isolation](https://distrobox.it/#security-implications), and [there are no plans to change this](https://github.com/89luca89/distrobox/issues/28).
+
 ### [How do I customize secureblue?](#customization)
 {: #customization}
 
@@ -460,9 +462,9 @@ There is also currently a bug where the optimizations permission doesn't apply t
 Extensions in Trivalent are disabled by default, for security reasons, it is not advised to use them. If you want content/ad blocking, that is already built into Trivalent and enabled by default. If you require extensions, you can re-enable them by disabling the `Disable Extensions` toggle under `chrome://settings/security`, then restart your browser (this toggle is per-profile).
 \
 \
-If the extension you installed doesn't work, it is likely because it requires WebAssembly (WASM) for some cryptographic library or some other optimizations (this is the case with the Bitwarden extension). Currently, WebAssembly is available without JIT through an interpreter called DrumBrake (which can be toggled at `chrome://flags/#jitless-wasm`) so allowing JIT should ideally not be needed, though some extensions do not always work with DrumBrake (for example Bitwarden sometimes has issues) and JIT may need to be enabled anyway.
+If the extension you installed doesn't work, it may be because it requires JavaScript Just-In-Time Compilation (JIT). WebAssembly without JIT is enabled on secureblue through an interpreter called DrumBrake, and this should help with extension compatibility.
 \
-To re-enable JavaScript JIT and WASM for an extension, visit `chrome://extensions`, under the extension with the issues, go `Details -> Site Settings`, then scroll to `JavaScript optimization & security` and flip to allow. If the extension continues to not work, try reinstalling the extension.
+To re-enable JavaScript JIT for an extension, visit `chrome://extensions`, under the extension with the issues, go `Details -> Site Settings`, then scroll to `JavaScript optimization & security` and flip to allow. If the extension continues to not work, try reinstalling the extension.
 
 ### [Why does Trivalent log me out of all sites by default?](#trivalent-net-sandbox)
 {: #trivalent-net-sandbox}
