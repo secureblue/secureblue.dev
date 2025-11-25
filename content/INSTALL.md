@@ -16,6 +16,7 @@ permalink: /install
     - [ISO Verification](#verification)
   - [Ignition (Server)](#ignition)
   - [Rebase (IOT)](#rebase)
+  - [Rebase (ARM64 - Beta)](#arm64)
 - [Post-install](#post-install)
 
 <hr>
@@ -126,6 +127,14 @@ You can use our [example.butane](https://github.com/secureblue/secureblue/blob/l
 Install Fedora IOT using one of the [official methods](https://fedoraproject.org/iot/download).
 
 Once Fedora IOT is installed, rebase to secureblue by selecting an appropriate image from [this list](https://github.com/orgs/secureblue/packages?tab=packages&q=iot), and then running the following command:
+
+```
+sudo bootc switch ghcr.io/secureblue/${IMAGE_NAME}:latest
+```
+
+### [Rebase (ARM64 - Beta)](#arm64)
+
+Some of our images have Beta support for the ARM64 / aarch64 architecture. Consult the <a href="/images">list of available images</a> to check which images have aarch64 support. For images with aarch64 support, our image manifests are multiarch. This means that to install a secureblue aarch64 image, simply install Fedora Atomic using a Fedora Atomic ISO, and then rebase using `bootc` like so:
 
 ```
 sudo bootc switch ghcr.io/secureblue/${IMAGE_NAME}:latest

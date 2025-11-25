@@ -43,28 +43,28 @@ This section is a relative recommendation between the desktop environments avail
 
 #### Silverblue (GNOME)
 
-| Name                                      | Base      | NVIDIA Support          |
-|-------------------------------------------|-----------|-------------------------|
-| `silverblue-main-hardened`                | Silverblue| No                      |
-| `silverblue-nvidia-hardened`              | Silverblue| Yes, closed drivers     |
-| `silverblue-nvidia-open-hardened`         | Silverblue| Yes, open drivers       |
+| Name                                      | Base      | NVIDIA Support          | ARM64 Support          |
+|-------------------------------------------|-----------|-------------------------|------------------------|
+| `silverblue-main-hardened`                | Silverblue| No                      | Beta                   |
+| `silverblue-nvidia-hardened`              | Silverblue| Yes, closed drivers     | No                     |
+| `silverblue-nvidia-open-hardened`         | Silverblue| Yes, open drivers       | No                     |
 
 
 #### Kinoite (KDE Plasma)
 
-| Name                                      | Base      | NVIDIA Support          |
-|-------------------------------------------|-----------|-------------------------|
-| `kinoite-main-hardened`                   | Kinoite   | No                      |
-| `kinoite-nvidia-hardened`                 | Kinoite   | Yes, closed drivers     |
-| `kinoite-nvidia-open-hardened`            | Kinoite   | Yes, open drivers       |
+| Name                                      | Base      | NVIDIA Support          | ARM64 Support          |
+|-------------------------------------------|-----------|-------------------------|------------------------|
+| `kinoite-main-hardened`                   | Kinoite   | No                      | Beta                   |
+| `kinoite-nvidia-hardened`                 | Kinoite   | Yes, closed drivers     | No                     |
+| `kinoite-nvidia-open-hardened`            | Kinoite   | Yes, open drivers       | No                     |
 
 #### Sericea (Sway)
 
-| Name                                      | Base      | NVIDIA Support          |
-|-------------------------------------------|-----------|-------------------------|
-| `sericea-main-hardened`                   | Sericea   | No                      |
-| `sericea-nvidia-hardened`                 | Sericea   | Yes, closed drivers     |
-| `sericea-nvidia-open-hardened`            | Sericea   | Yes, open drivers       |
+| Name                                      | Base      | NVIDIA Support          | ARM64 Support          |
+|-------------------------------------------|-----------|-------------------------|------------------------|
+| `sericea-main-hardened`                   | Sericea   | No                      | Beta                   |
+| `sericea-nvidia-hardened`                 | Sericea   | Yes, closed drivers     | No                     |
+| `sericea-nvidia-open-hardened`            | Sericea   | Yes, open drivers       | No                     |
 
 ### [Experimental](#experimental)
 
@@ -72,33 +72,33 @@ Note that there are no ISOs available for experimental images. If you want to tr
 
 #### COSMIC
 
-| Name                                      | Base                  | NVIDIA Support          |
-|-------------------------------------------|-----------------------|-------------------------|
-| `cosmic-main-hardened`                    | COSMIC                | No                      |
-| `cosmic-nvidia-hardened`                  | COSMIC                | Yes, closed drivers     |
-| `cosmic-nvidia-open-hardened`             | COSMIC                | Yes, open drivers       |
+| Name                                      | Base                  | NVIDIA Support          | ARM64 Support          |
+|-------------------------------------------|-----------------------|-------------------------|------------------------|
+| `cosmic-main-hardened`                    | COSMIC                | No                      | Beta                   |
+| `cosmic-nvidia-hardened`                  | COSMIC                | Yes, closed drivers     | No                     |
+| `cosmic-nvidia-open-hardened`             | COSMIC                | Yes, open drivers       | No                     |
 
 ## [Server](#server)
 ### [CoreOS](#coreos)
 {% include alert.html type='note' content='After you finish setting up your <a href="https://fedoraproject.org/coreos/">Fedora CoreOS</a> installation, you will need to disable <code>zincati.service</code> before rebasing to securecore.' %}
 
-| Name                                      | Base      | NVIDIA Support          | ZFS Support |
-|-------------------------------------------|-----------|-------------------------|-------------|
-| `securecore-main-hardened`                | CoreOS    | No                      | No          |
-| `securecore-nvidia-hardened`              | CoreOS    | Yes, closed drivers     | No          |
-| `securecore-nvidia-open-hardened`         | CoreOS    | Yes, open drivers       | No          |
-| `securecore-zfs-main-hardened`            | CoreOS    | No                      | Yes         |
-| `securecore-zfs-nvidia-hardened`          | CoreOS    | Yes, closed drivers     | Yes         |
-| `securecore-zfs-nvidia-open-hardened`     | CoreOS    | Yes, open drivers       | Yes         |
+| Name                                      | Base      | NVIDIA Support          | ZFS Support | ARM64 Support          |
+|-------------------------------------------|-----------|-------------------------|-------------|------------------------|
+| `securecore-main-hardened`                | CoreOS    | No                      | No          | Beta                   |
+| `securecore-nvidia-hardened`              | CoreOS    | Yes, closed drivers     | No          | No                     |
+| `securecore-nvidia-open-hardened`         | CoreOS    | Yes, open drivers       | No          | No                     |
+| `securecore-zfs-main-hardened`            | CoreOS    | No                      | Yes         | No                     |
+| `securecore-zfs-nvidia-hardened`          | CoreOS    | Yes, closed drivers     | Yes         | No                     |
+| `securecore-zfs-nvidia-open-hardened`     | CoreOS    | Yes, open drivers       | Yes         | No                     |
 
 ### [IOT](#iot)
 
-| Name                               | Base      | NVIDIA Support          | ZFS Support |
-|------------------------------------|-----------|-------------------------|-------------|
-| `iot-main-hardened`                | IOT       | No                      | No          |
-| `iot-nvidia-hardened`              | IOT       | Yes, closed drivers     | No          |
-| `iot-nvidia-open-hardened`         | IOT       | Yes, open drivers       | No          |
-| `iot-zfs-main-hardened`            | IOT       | No                      | Yes         |
-| `iot-zfs-nvidia-hardened`          | IOT       | Yes, closed drivers     | Yes         |
-| `iot-zfs-nvidia-open-hardened`     | IOT       | Yes, open drivers       | Yes         |
+| Name                               | Base      | NVIDIA Support          | ZFS Support | ARM64 Support          |
+|------------------------------------|-----------|-------------------------|-------------|------------------------|
+| `iot-main-hardened`                | IOT       | No                      | No          | Beta                   |
+| `iot-nvidia-hardened`              | IOT       | Yes, closed drivers     | No          | No                     |
+| `iot-nvidia-open-hardened`         | IOT       | Yes, open drivers       | No          | No                     |
+| `iot-zfs-main-hardened`            | IOT       | No                      | Yes         | No                     |
+| `iot-zfs-nvidia-hardened`          | IOT       | Yes, closed drivers     | Yes         | No                     |
+| `iot-zfs-nvidia-open-hardened`     | IOT       | Yes, open drivers       | Yes         | No                     |
 
