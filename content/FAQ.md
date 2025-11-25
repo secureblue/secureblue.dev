@@ -58,6 +58,7 @@ permalink: /faq
   - [Something broke! How do I rollback?](#rollback)
   - [Why can't I install new KDE themes?](#ghns)
   - [Why doesn't my Xwayland app work?](#xwayland)
+  - [Why do some commands fail when run with run0?](#run0-failures)
   - [Why I can't install nor use any GNOME user extensions?](#gnome-extensions)
   - [An app I use won't start due to a malloc issue. How do I fix it?](#standard-malloc)
   - [My clock is wrong, and it's not getting automatically set. How do I fix this?](#clock)
@@ -187,7 +188,7 @@ All system updates are automatic, running on at least a daily cadence. This incl
 ### [How do I whitelist a module?](#module-whitelist)
 {: #module-whitelist}
 
-secureblue prevents [numerous modules](https://github.com/secureblue/secureblue/blob/live/files/system/etc/modprobe.d/blacklist.conf) from loading to reduce attack surface. If there's a particular module you need, run `ujust override-enable-module mod_name`. To undo this, run `ujust override-reset-module mod_name`.
+secureblue prevents [numerous modules](https://github.com/secureblue/secureblue/blob/live/files/system/usr/lib/modprobe.d/secureblue.conf) from loading to reduce attack surface. If there's a particular module you need, run `ujust override-enable-module mod_name`. To undo this, run `ujust override-reset-module mod_name`.
 
 ### [How do I install software?](#software)
 {: #software}
@@ -380,6 +381,11 @@ ujust toggle-ghns
 ```
 ujust toggle-xwayland
 ```
+
+### [Why do some commands fail when run with run0?](#run0-failures)
+{: #run0-failures}
+
+Fedora's SELinux policy causes `run0` to silently fail when run alongside some commands (e.g., dnf). There is already an [open issue](https://github.com/fedora-selinux/selinux-policy/issues/2500) tracking this, and it is expected to be fixed in the future. In the meantime, you can run `run0 sh -c '<your command>'` or enter a root shell by running `run0` on its own and run the command from there.
 
 ### [Why I can't install nor use any GNOME user extensions?](#gnome-extensions)
 {: #gnome-extensions}

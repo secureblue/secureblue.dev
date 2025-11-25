@@ -21,7 +21,7 @@ permalink: /features
 ## [Filling known security holes](#filling-security-holes)
 {: #filling-security-holes}
 
-- Remove [suid-root](https://en.wikipedia.org/wiki/Setuid) from [numerous binaries](https://github.com/secureblue/secureblue/blob/live/files/scripts/removesuid.sh), replacing functionality [using capabilities](https://github.com/secureblue/secureblue/blob/live/files/system/usr/libexec/secureblue/setcapsforunsuidbinaries), and remove `sudo`, `su`, and `pkexec` entirely in favor of `run0`. <sup>[why?](https://mastodon.social/@pid_eins/112353324518585654)</sup>
+- Remove [suid-root](https://en.wikipedia.org/wiki/Setuid) from [numerous binaries](https://github.com/secureblue/secureblue/blob/live/files/scripts/removesuid.sh), replacing functionality [using capabilities](https://github.com/secureblue/secureblue/blob/live/files/scripts/removesuid.sh#L89), and remove `sudo`, `su`, and `pkexec` entirely in favor of `run0`. <sup>[why?](https://mastodon.social/@pid_eins/112353324518585654)</sup>
 - Disable XWayland by default (for GNOME, Plasma, and Sway images).
 - Mitigate [LD_PRELOAD attacks](https://github.com/Aishou/wayland-keylogger) via `ujust toggle-bash-environment-lockdown`.
 - Disable install & usage of GNOME user extensions by default.
@@ -48,7 +48,7 @@ permalink: /features
 ## [Attack surface reduction](#attack-surface)
 {: #attack-surface}
 
-- Blacklist numerous unused kernel modules to reduce attack surface. <sup>[details](https://github.com/secureblue/secureblue/blob/live/files/system/etc/modprobe.d/blacklist.conf)</sup>
+- Blacklist numerous unused kernel modules to reduce attack surface. <sup>[details](https://github.com/secureblue/secureblue/blob/live/files/system/usr/lib/modprobe.d/secureblue.conf)</sup>
 - Protect against brute force by locking user accounts for 24 hours after 50 failed login attempts, providing password quality suggestions and making use of hardened password hashing.
 - Disable and mask a variety of services by default (including cups, geoclue, passim, and others).
 

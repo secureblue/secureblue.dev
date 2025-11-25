@@ -14,6 +14,8 @@ permalink: /images
   - [Stable](#stable)
   - [Experimental](#experimental)
 - [Server](#server)
+  - [CoreOS](#coreos)
+  - [IOT](#iot)
 
 ## [Security recommendation](#security-recommendation)
 
@@ -77,7 +79,7 @@ Note that there are no ISOs available for experimental images. If you want to tr
 | `cosmic-nvidia-open-hardened`             | COSMIC                | Yes, open drivers       |
 
 ## [Server](#server)
-
+### [CoreOS](#coreos)
 {% include alert.html type='note' content='After you finish setting up your <a href="https://fedoraproject.org/coreos/">Fedora CoreOS</a> installation, you will need to disable <code>zincati.service</code> before rebasing to securecore.' %}
 
 | Name                                      | Base      | NVIDIA Support          | ZFS Support |
@@ -88,3 +90,15 @@ Note that there are no ISOs available for experimental images. If you want to tr
 | `securecore-zfs-main-hardened`            | CoreOS    | No                      | Yes         |
 | `securecore-zfs-nvidia-hardened`          | CoreOS    | Yes, closed drivers     | Yes         |
 | `securecore-zfs-nvidia-open-hardened`     | CoreOS    | Yes, open drivers       | Yes         |
+
+### [IOT](#iot)
+
+| Name                               | Base      | NVIDIA Support          | ZFS Support |
+|------------------------------------|-----------|-------------------------|-------------|
+| `iot-main-hardened`                | IOT       | No                      | No          |
+| `iot-nvidia-hardened`              | IOT       | Yes, closed drivers     | No          |
+| `iot-nvidia-open-hardened`         | IOT       | Yes, open drivers       | No          |
+| `iot-zfs-main-hardened`            | IOT       | No                      | Yes         |
+| `iot-zfs-nvidia-hardened`          | IOT       | Yes, closed drivers     | Yes         |
+| `iot-zfs-nvidia-open-hardened`     | IOT       | Yes, open drivers       | Yes         |
+
