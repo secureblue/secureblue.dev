@@ -116,6 +116,7 @@ pre {
 
 code {
     border-radius: 8px;
+    padding: 0 2px;
 }
 
 var {
@@ -235,23 +236,41 @@ button, select, option, input, select, textarea {
 
 button, select, .button, .button:visited {
     color: white;
-    font-size: 0.9em;
-    font-weight: bold;
-    letter-spacing: 0.0892857143em;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.009375rem;
     background-color: #0b7bb7;
-    border-radius: 20px;
+    border-radius: 100px;
     border: none;
-    height: 40px;
-    padding: 0.5rem 1.5rem;
-    margin: 0.25rem
+    padding: 16px 24px;
+    margin: 0.25rem;
+    cursor: pointer;
+}
+
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='%23ffffff'%3E%3Cpath d='M0 0h24v24H0V0z' fill='none'/%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");
+    background-position: right 12px center;
+    background-repeat: no-repeat;
+    background-size: 24px 24px;
+    padding-right: 40px;
+}
+
+.select-group {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.select-group > div {
+    flex: 1;
+    min-width: 250px;
 }
 
 button:hover, select:hover, .button:hover {
     background-color: #086ba1;
-    cursor: pointer;
 }
 
-button:focus, select: focus, .button:focus {
+button:focus, select:focus, .button:focus {
     background-color: #075e8d; /* button pressed on Android */
     box-shadow: inset 0 2px 4px -1px rgba(0 0 0 / 20%), inset 0 4px 5px 0 rgba(0 0 0 / 14%), inset 0 1px 10px 0 rgba(0 0 0 / 12%);
 }
@@ -264,9 +283,9 @@ button:disabled, select:disabled {
 
 .button, .button:visited, .button:hover, .button:active {
     text-decoration: none;
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-    line-height: 2.5rem;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    line-height: 3.8rem;
 }
 
 #social {
@@ -398,14 +417,15 @@ details[open] summary {
 }
 
 .alert {
-    border-left: .25em solid;
-    padding: 8px 5px 8px 16px;
+    border-radius: 4px;
+    border-left: 4px solid;
+    padding: 12px 5px 12px 16px;
     margin: 1em 0;
 }
 
 .alert p {
-    margin-block-end: 0;
-    margin-block-start: 0;
+    margin: 0;
+    flex: 1;
 }
 
 .alert em:last-child {
@@ -415,35 +435,35 @@ details[open] summary {
 }
 
 .alert svg {
-    margin-right: 10px;
+    margin-right: 8px;
 }
 
 .note {
-    background-color: rgba(68, 147, 248, 0.05);
+    background-color: rgba(68, 147, 248, 0.08);
     border-left-color: #4493f8;
     fill: #4493f8;
 }
 
 .tip {
-    background-color: rgba(88, 166, 255, 0.05);
+    background-color: rgba(88, 166, 255, 0.08);
     border-left-color: #58a6ff;
     fill: #58a6ff;
 }
 
 .important {
-    background-color: rgba(171, 125, 248, 0.05);
+    background-color: rgba(171, 125, 248, 0.08);
     border-left-color: #ab7df8;
     fill: #ab7df8;
 }
 
 .warning {
-    background-color: rgba(210, 153, 34, 0.05);
+    background-color: rgba(210, 153, 34, 0.08);
     border-left-color: #d29922;
     fill: #d29922;
 }
 
 .caution {
-    background-color: rgba(240, 136, 62, 0.05);
+    background-color: rgba(240, 136, 62, 0.08);
     border-left-color: #f0883e;
     fill: #f0883e;
 }
@@ -551,6 +571,10 @@ th {
     button:disabled, select:disabled {
         background-color: rgb(227 226 230 / 12%);
         color: rgb(227 226 230 / 38%);
+    }
+
+    select {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='%23000000'%3E%3Cpath d='M0 0h24v24H0V0z' fill='none'/%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");
     }
 
     code, pre {

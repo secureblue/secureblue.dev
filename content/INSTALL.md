@@ -80,19 +80,27 @@ Things to remember during installation:
 {% include alert.html type='note' content='<b>nvidia-open</b> images are recommended for systems with NVIDIA GPUs Turing or newer (GTX 16XX+, RTX 20XX+). Consult <a href="https://nouveau.freedesktop.org/CodeNames.html">this page</a> if you&#39;re not sure what family your GPU belongs to. These include the new <a href="https://github.com/NVIDIA/open-gpu-kernel-modules">open kernel modules</a> from NVIDIA, not Nouveau. <b>nvidia</b> images are recommended for systems with NVIDIA GPUs Pascal or older. These include the closed kernel modules from NVIDIA.' %}
 
 <form method="GET">
-  <select name="de" id="de" required>
-    <option value="">Select an environment</option>
-    <option value="silverblue">GNOME</option>
-    <option value="kinoite">KDE Plasma</option>
-    <option value="sericea">Sway</option>
-  </select>
-  <select name="nvidia" id="nvidia" required>
-    <option value="">Do you have NVIDIA?</option>
-    <option value="main">No</option>
-    <option value="nvidia">Yes (pre-Turing)</option>
-    <option value="nvidia-open">Yes (Turing and later)</option>
-  </select>
-  <br><br>
+  <div class="select-group">
+    <div>
+      <label for="de"><i>Desktop Environment:</i></label><br>
+      <select name="de" id="de" required>
+        <option value="" disabled selected hidden>Select an environment</option>
+        <option value="silverblue">GNOME</option>
+        <option value="kinoite">KDE Plasma</option>
+        <option value="sericea">Sway</option>
+      </select>
+    </div>
+    <div>
+      <label for="nvidia"><i>NVIDIA Graphics:</i></label><br>
+      <select name="nvidia" id="nvidia" required>
+        <option value="" disabled selected hidden>Do you have NVIDIA?</option>
+        <option value="main">No</option>
+        <option value="nvidia">Yes (pre-Turing)</option>
+        <option value="nvidia-open">Yes (Turing and later)</option>
+      </select>
+    </div>
+  </div>
+  <br>
   <label>
     <input type="checkbox" name="terms" required>
     I have read and agree to the <a href="#terms">Terms of Use</a>
