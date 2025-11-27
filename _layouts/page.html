@@ -13,7 +13,7 @@
         {% endif %}
 
         <main>
-            {{ content }}
+            {{ content | replace: '<table>', '<div class="table-container"><table>' | replace: '</table>', '</table></div>' }}
         </main>
 
         {% include footer.html %}

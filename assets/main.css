@@ -263,6 +263,7 @@ select {
 
 .select-group > div {
     flex: 1;
+    flex-grow: 0;
     min-width: 250px;
 }
 
@@ -301,14 +302,56 @@ button:disabled, select:disabled {
     color: #b00020;
 }
 
-table {
-    border-collapse: collapse;
-    width: 100%;
+.table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 1.5rem 0;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    background-color: #fff;
+    border: 1px solid rgba(118, 118, 118, 0.5);
 }
 
-td {
-    border: 1px solid #ddd;
-    padding: 0.5rem;
+.table-container table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.table-container th,
+.table-container td {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid rgba(118, 118, 118, 0.5);
+    border-right: 1px solid rgba(118, 118, 118, 0.5);
+}
+
+.table-container th:last-child,
+.table-container td:last-child {
+    border-right: none;
+}
+
+.table-container tr:last-child td {
+    border-bottom: none;
+}
+
+.table-container th {
+    background-color: #f5f5f5;
+    font-weight: 600;
+    color: #241f31;
+    font-size: 0.9rem;
+    letter-spacing: 0.00225rem;
+}
+
+.table-container td {
+    background-color: #fff;
+    color: #241f31;
+    font-weight: 200;
+    font-size: 0.9rem;
+    letter-spacing: 0.00225rem;
 }
 
 main.normalize {
@@ -468,14 +511,6 @@ details[open] summary {
     fill: #f0883e;
 }
 
-th, tr, td {
-    border: 1px solid;
-}
-
-th {
-    background-color: #3264FF22;
-}
-
 /* latin */
 @font-face {
     font-family: Roboto;
@@ -595,10 +630,6 @@ th {
         color: #cf6679;
     }
 
-    td {
-        border-color: #9f9f9f;
-    }
-
     .laptop-img {
         filter: invert(100%) hue-rotate(180deg) saturate(1.75);
     }
@@ -615,5 +646,29 @@ th {
         border-color: #8e9099 /* outline */;
         background-color: #3e4758 /* secondary container */;
         color: #dae2f9 /* on secondary container */;
+    }
+
+    .table-container {
+        background-color: #121212;
+        border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .table-container table {
+        background-color: #121212;
+    }
+
+    .table-container th,
+    .table-container td {
+        border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .table-container th {
+        background-color: #2c2c2e;
+        color: rgba(255, 255, 255, 0.87);
+    }
+
+    .table-container td {
+        background-color: #121212;
+        color: rgba(255, 255, 255, 0.87);
     }
 }
