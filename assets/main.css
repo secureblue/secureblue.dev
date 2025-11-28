@@ -249,7 +249,7 @@ button, select, .button, .button:visited {
 
 select {
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='%23ffffff'%3E%3Cpath d='M0 0h24v24H0V0z' fill='none'/%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");
+    background-image: url("arrow-drop-down-light.svg");
     background-position: right 12px center;
     background-repeat: no-repeat;
     background-size: 24px 24px;
@@ -307,26 +307,25 @@ button:disabled, select:disabled {
     -webkit-overflow-scrolling: touch;
     margin: 1.5rem 0;
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
     background-color: #fff;
     border: 1px solid rgba(118, 118, 118, 0.5);
 }
 
 .table-container table {
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    border-radius: 10px;
+    border-collapse: collapse;
     overflow: hidden;
-    background-color: #fff;
 }
 
 .table-container th,
 .table-container td {
-    padding: 8px 12px;
-    text-align: left;
+    padding: 12px 16px;
     border-bottom: 1px solid rgba(118, 118, 118, 0.5);
     border-right: 1px solid rgba(118, 118, 118, 0.5);
+    color: #241f31;
+    font-size: 0.9rem;
+    letter-spacing: 0.00225rem;
+    text-align: left;
 }
 
 .table-container th:last-child,
@@ -341,17 +340,10 @@ button:disabled, select:disabled {
 .table-container th {
     background-color: #f5f5f5;
     font-weight: 600;
-    color: #241f31;
-    font-size: 0.9rem;
-    letter-spacing: 0.00225rem;
 }
 
 .table-container td {
-    background-color: #fff;
-    color: #241f31;
     font-weight: 200;
-    font-size: 0.9rem;
-    letter-spacing: 0.00225rem;
 }
 
 main.normalize {
@@ -570,6 +562,11 @@ details[open] summary {
     .device-img {
         margin: 3.5rem 0 0;
     }
+
+    .table-container th,
+    .table-container td {
+        padding: 8px 12px;
+    }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -609,7 +606,11 @@ details[open] summary {
     }
 
     select {
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='%23000000'%3E%3Cpath d='M0 0h24v24H0V0z' fill='none'/%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");
+        background-image: url("arrow-drop-down-dark.svg");
+    }
+
+    #arrow-drop-down {
+        filter: invert(100%);
     }
 
     code, pre {
@@ -649,26 +650,17 @@ details[open] summary {
     }
 
     .table-container {
-        background-color: #121212;
+        background-color: #0c0c0c;
         border-color: rgba(255, 255, 255, 0.12);
-    }
-
-    .table-container table {
-        background-color: #121212;
     }
 
     .table-container th,
     .table-container td {
         border-color: rgba(255, 255, 255, 0.12);
+        color: rgba(255, 255, 255, 0.87);
     }
 
     .table-container th {
         background-color: #2c2c2e;
-        color: rgba(255, 255, 255, 0.87);
-    }
-
-    .table-container td {
-        background-color: #121212;
-        color: rgba(255, 255, 255, 0.87);
     }
 }
