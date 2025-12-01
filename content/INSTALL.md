@@ -15,6 +15,8 @@ permalink: /install
   - [Secureblue ISO (Desktop)](#iso)
     - [ISO Verification](#verification)
   - [Ignition (Server)](#ignition)
+  - [Rebase (IOT)](#rebase)
+  - [Rebase (ARM64 - Beta)](#arm64)
 - [Post-install](#post-install)
 
 <hr>
@@ -28,7 +30,6 @@ Before installation, the following checks are recommended:
 
 - Ensure SecureBoot is enabled.
 - Ensure your BIOS is up-to-date by checking its manufacturer's website.
-- Disable booting from USB (some manufacturers allow firmware changes from live systems).
 - Set a BIOS password to prevent tampering.
 
 <hr>
@@ -64,7 +65,8 @@ To install secureblue, you will use one of the following processes. Consult the 
 | Image Type | Installation Process                                                                           | Recommended Use Cases          |
 |------------|------------------------------------------------------------------------------------------------|--------------------------------|
 | Desktop    | Direct installation with a [secureblue ISO](#iso)                                              | Desktop/laptop end user        |
-| Server     | Installation using [Ignition via Butane](#ignition).                                           | Cloud, containerized workloads |
+| CoreOS     | Installation using [Ignition via Butane](#ignition).                                           | Cloud, containerized workloads |
+| IOT        | Installation via [rebase](#rebase).                                                            | Edge computing, bare-metal     |
 
 Things to remember during installation:
 
@@ -112,12 +114,32 @@ Things to remember during installation:
 
 Verify the secureblue installation media before proceeding: <a href="/verification" target="_blank" class="button">Verification</a>
 
-### [Ignition (Server)](#ignition)
+### [Ignition (CoreOS)](#ignition)
 {: #ignition}
 
 Follow the [Fedora CoreOS docs](https://docs.fedoraproject.org/en-US/fedora-coreos/getting-started/), [Ignition docs](https://docs.fedoraproject.org/en-US/fedora-coreos/producing-ign/), and [Butane docs](https://coreos.github.io/butane/) to configure initialization for your CoreOS instance(s).
 
 You can use our [example.butane](https://github.com/secureblue/secureblue/blob/live/docs/example.butane) as a starting point.
+
+### [Rebase (IOT)](#rebase)
+{: #rebase}
+
+Install Fedora IOT using one of the [official methods](https://fedoraproject.org/iot/download).
+
+Once Fedora IOT is installed, rebase to secureblue by selecting an appropriate image from [this list](https://github.com/orgs/secureblue/packages?tab=packages&q=iot), and then running the following command:
+
+```
+sudo bootc switch ghcr.io/secureblue/${IMAGE_NAME}:latest
+```
+
+### [Rebase (ARM64 - Beta)](#arm64)
+{: #arm64}
+
+Some of our images have Beta support for the ARM64 / aarch64 architecture. Consult the <a href="/images">list of available images</a> to check which images have aarch64 support. For images with aarch64 support, our image manifests are multiarch. This means that to install a secureblue aarch64 image, simply install Fedora Atomic using a Fedora Atomic ISO, and then rebase using `bootc` like so:
+
+```
+sudo bootc switch ghcr.io/secureblue/${IMAGE_NAME}:latest
+```
 
 <hr>
 

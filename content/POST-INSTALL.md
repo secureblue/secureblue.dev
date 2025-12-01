@@ -11,14 +11,15 @@ permalink: /post-install
 
 - Essential
   - [Subscribe to secureblue release notifications](#release-notifications)
-  - [Enroll SecureBoot key](#secureboot)
+  - [Enroll Secure Boot key](#secureboot)
   - [Validation](#validation)
   - [Read the FAQ](#faq)
 - Recommended
   - [Kernel argument tuning](#kargs)
+  - [Disable booting from USB](#booting-from-usb)
   - [Setup USBGuard](#usbguard)
   - [Create a separate wheel account for admin purposes](#wheel)
-  - [Setup system DNS](#dns)
+  - [Configure system DNS](#dns)
   - [Toggle MAC address randomization](#mac-randomization)
   - [Bash environment lockdown](#bash)
   - [LUKS Hardware Unlock](#luks-hardware-unlock)
@@ -32,10 +33,10 @@ permalink: /post-install
 
 Subscribing to release notifications is documented [here](/faq#releases).
 
-## [Enroll SecureBoot key](#secureboot)
+## [Enroll Secure Boot key](#secureboot)
 {: #secureboot}
 
-{% include alert.html type='note' content='GNOME users on Nvidia images may notice that Gnome Software prompts them to create a new secureboot key. This prompt can and should be ignored, and the command below used instead.' %}
+{% include alert.html type='note' content='GNOME users on Nvidia images may notice that Gnome Software prompts them to create a new Secure Boot key. This prompt can and should be ignored, and the command below used instead. Nvidia users should expect Nvidia drivers not to load unless Secure Boot is enabled and the secureblue key enrolled.' %}
 
 The secureblue Secure Boot key should automatically enroll after installation, with the MOK password "secureblue". If this fails or doesn't appear for whatever reason, you can manually enroll the key with the command below.
 
@@ -74,6 +75,17 @@ A stable set of kernel arguments is preinstalled with secureblue. However, it is
 
 Consult our [Flatpak article](/articles/flatpak) for guidance on tuning Flatpak permissions.
 
+## [Disable booting from USB](#booting-from-usb)
+{: #booting-from-usb}
+
+Some manufacturers allow firmware changes from live systems.
+
+To access your device's BIOS/UEFI screen to disable booting from USB, you can run:
+
+```
+ujust bios
+```
+
 ## [Setup USBGuard](#usbguard)
 {: #usbguard}
 
@@ -86,29 +98,24 @@ ujust setup-usbguard
 ## [Create a separate wheel account for admin purposes](#wheel)
 {: #wheel}
 
-{% include alert.html type='caution' content='If you do these steps out of order, it is possible to end up without the ability to administrate your system. You will not be able to use the <a href="https://linuxconfig.org/recover-reset-forgotten-linux-root-password">traditional GRUB-based method</a> of fixing mistakes like this, either, as this will leave your system in a broken state. However, simply rolling back to an older snapshot of your system, should resolve the problem.' %}
+Creating a dedicated wheel user and removing wheel from your primary user helps prevent certain privilege escalation attack vectors and password sniffing. You don't need to log in using your wheel user to use it for privileged operations. When logged in as your non-wheel user, Polkit will prompt you to authenticate as your wheel user as needed, or when requested by calling `run0`.
 
-Creating a dedicated wheel user and removing wheel from your primary user helps prevent certain privilege escalation attack vectors and password sniffing. We log in as admin to do the final step of removing the user account\'s wheel privileges in order to make the operation of removing those privileges depend on having access to your admin account, and the admin account functioning correctly first.' You don\'t need to log in using your wheel user to use it for privileged operations. When logged in as your non-wheel user, Polkit will prompt you to authenticate as your wheel user as needed, or when requested by calling <code>run0</code>.
+Running the command below will automatically setup an admin account and ask you to select a password for it.
 
-1. `run0`
-2. `adduser admin`
-3. `usermod -aG wheel admin`
-4. `passwd admin`
-5. `exit`
-6. `reboot`
-7. Log in as `admin`
-8. `run0`
-9. `gpasswd -d {your username here} wheel`
-10. `reboot`
+```
+ujust create-admin
+```
 
 ## [Configure system DNS](#dns)
 {: #dns}
 
-The command below will interactively setup system DNS resolution for systemd-resolved (and optionally set the resolver for Trivalent via management policy). If you intend to use a VPN, use the system default state (network provided resolver). This will ensure your system uses the VPN provided DNS resolver to prevent DNS leaks. ESPECIALLY avoid setting the browser DNS policy in this case.
+The command below will interactively set up system DNS resolution for Unbound, and optionally set the resolver for Trivalent via management policy. Choose **Configure global DNS.**
 
 ```
 ujust dns-selector
 ```
+
+{% include alert.html type='warning' content='If you intend to use a VPN, use the system default DNS. You may also have to use systemd&#8209;resolved with <code>ujust dns-selector resolver resolved</code>. This will ensure your system uses the VPN provided resolver to prevent DNS leaks. Especially avoid setting the Trivalent DNS over HTTPS policy in this case.' %}
 
 ## [Toggle MAC address randomization](#mac-randomization)
 {: #mac-randomization }
