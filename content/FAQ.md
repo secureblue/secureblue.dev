@@ -13,6 +13,7 @@ permalink: /faq
 - [Project information](#project)
   - [Why secureblue?](#why-secureblue)
   - [Is secureblue immutable?](#immutable)
+  - [What is the difference between QubesOS and secureblue?](#qubes)
   - [Why not upstream your changes?](#upstream)
   - [Is this an install script?](#script)
   - [Another security project has a feature that's missing in secureblue, can you add it?](#feature-request)
@@ -37,6 +38,7 @@ permalink: /faq
   - [How do I install Steam?](#steam)
   - [How do I enable anti-cheat support?](#anticheat)
   - [How do I install Docker?](#docker)
+  - [How do I install virtualization packages?](#libvirt)
   - [How do I install additional fonts?](#fonts)
   - [How do I enable printing?](#printing)
   - [Why am I unable to start containers?](#container-userns)
@@ -91,6 +93,15 @@ secureblue is a collaborative effort to ship a maximally secure Linux operating 
 {: #immutable}
 
 "Immutable" is an old misnomer for atomic systems. It gives the impression that users can't modify or tinker with their system, which is not the case. While directories like `/usr` are mounted read-only by default, settings and configurations can be easily overriden with changes in `/etc`, which is not mounted read-only. This is in addition to the fact that `/usr` is mutated with every deployment that is staged and booted via any `rpm-ostree` operation (like upgrading, installing a new package, etc). As such, secureblue is not immutable.
+
+### [What is the difference between QubesOS and secureblue?](#qubes)
+{: #qubes}
+
+QubesOS is a security-oriented desktop operating system based on Fedora Linux and the Xen hypervisor for those who want to use virtualization to isolate and compartmentalize. You can use and make templates to run various operating systems inside of "qubes". Isolation between different qubes is significantly stronger than the isolation between apps in traditional desktop operating systems, so QubesOS can fill certain security needs better than secureblue. For example, untrusted files can only compromise the qube that the file is opened in.
+
+secureblue is a Linux operating system with known security holes filled and proactive exploit mitigations in place. Virtualization [works on secureblue](#libvirt), but is not its focus. secureblue lacks [several virtualization features](https://www.qubes-os.org/doc/) that QubesOS has. secureblue also places emphasis on usability, while QubesOS is considered by many to have a steep learning curve.
+
+There [is interest](https://github.com/QubesOS/qubes-issues/issues/9755) for a secureblue template in QubesOS, but secureblue relies on Wayland which QubesOS does [not yet support](https://github.com/QubesOS/qubes-issues/issues/3366).
 
 ### [Why not upstream your changes?](#upstream)
 {: #upstream}
@@ -247,6 +258,16 @@ Similarly, you can uninstall Docker with:
 
 ```
 ujust uninstall-docker
+```
+
+
+### [How do I install virtualization packages?](#libvirt)
+{: #libvirt}
+
+This will install [virt-manager](https://en.wikipedia.org/wiki/Virt-manager) and other virtualization packages:
+
+```
+ujust install-libvirt-packages
 ```
 
 ### [How do I install additional fonts?](#fonts)
