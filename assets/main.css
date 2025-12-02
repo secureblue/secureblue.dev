@@ -249,7 +249,7 @@ button, select, .button, .button:visited {
 
 select {
     appearance: none;
-    background-image: url("arrow-drop-down-light.svg");
+    background-image: url("/assets/arrow-drop-down-light.svg");
     background-position: right 12px center;
     background-repeat: no-repeat;
     background-size: 24px 24px;
@@ -606,11 +606,7 @@ details[open] summary {
     }
 
     select {
-        background-image: url("arrow-drop-down-dark.svg");
-    }
-
-    #arrow-drop-down {
-        filter: invert(100%);
+        background-image: url("/assets/arrow-drop-down-dark.svg");
     }
 
     code, pre {
