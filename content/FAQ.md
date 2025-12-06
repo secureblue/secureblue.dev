@@ -295,7 +295,7 @@ To enable printing using [CUPS](https://en.wikipedia.org/wiki/CUPS), run `ujust 
 Software such as Podman and Distrobox need to be able to create user namespaces to work without root. The privilege to do so is denied by default in secureblue, but can be granted by running the following command:
 
 ```
-ujust toggle-container-domain-userns-creation
+ujust set-container-userns on
 ```
 
 Trying to start a container without first enabling the ability toggled by the ujust above will result in an `OCI permission denied` error, but beware that enabling it results in a security degradation. Consult our [user namespaces article](/articles/userns) for more details.
@@ -306,7 +306,7 @@ Trying to start a container without first enabling the ability toggled by the uj
 The following command will toggle the ability of processes in the unconfined SELinux domain to create user namespaces. It's necessary for any apps that require this feature, such as: browsers other than Trivalent, many [Electron](https://en.wikipedia.org/wiki/Electron_(software_framework)) apps, and bubblejail.
 
 ```
-ujust toggle-unconfined-domain-userns-creation
+ujust set-unconfined-userns on
 ```
 
 Attempting to bubblewrap a program without first enabling the ability toggled by the ujust above will result in a `bwrap: Creating new namespace failed: Permission denied` error, but beware that enabling it results in a security degradation. Consult our [user namespaces article](/articles/userns) for more details.
