@@ -169,7 +169,7 @@ Homebrew is a cross-platform package manager, originally for macOS that allows u
 ### [Does secureblue use "linux-hardened"?](#linux-hardened)
 {: #linux-hardened}
 
-"linux-hardened" is the brand name for a specific set of kernel patches and builds on top of the mainline kernel, used by some distributions. secureblue doesn't use this kernel. Instead, we apply runtime configuration changes on top of Fedora's kernel. We can accomplish much but not all of what linux-hardened accomplishes using this approach. In the future, we plan to build our own kernel with patches on top of Fedora's kernel, including the [OpenPAX patches](https://github.com/edera-dev/linux-openpax). However, even today there are some important ways in which our approach is preferable. For example, linux-hardened completely disables [unprivileged user namespaces](/articles/userns). This means that to use flatpaks or chromium-based browsers, [suid-root](https://en.wikipedia.org/wiki/Setuid) binaries are required. This is a significant security degradation. secureblue on the other hand implements SELinux-confined unprivileged user namespaces, restricting them by default but allowing them for Flatpaks and Trivalent to enable their operation without suid-root.
+"linux-hardened" is the brand name for a specific set of kernel patches and builds on top of the mainline kernel, used by some distributions. secureblue doesn't use this kernel. Instead, we apply runtime configuration changes on top of Fedora's kernel. We can accomplish much but not all of what linux-hardened accomplishes using this approach. In the future, we plan to build our own kernel with patches on top of Fedora's kernel, including the [OpenPAX patches](https://github.com/edera-dev/linux-openpax). However, even today there are some important ways in which our approach is preferable. For example, linux-hardened completely disables [unprivileged user namespaces](/articles/userns). This means that to use flatpaks or Chromium-based browsers, [suid-root](https://en.wikipedia.org/wiki/Setuid) binaries are required. This is a significant security degradation. secureblue on the other hand implements SELinux-confined unprivileged user namespaces, restricting them by default but allowing them for Flatpaks and Trivalent to enable their operation without suid-root.
 
 ### [Why are upgrades so large?](#upgrade-size)
 {: #upgrade-size}
@@ -184,7 +184,7 @@ This is an issue with rpm-ostree image-based systems generally, and not specific
 ### [How do I update the system?](#update)
 {: #update}
 
-All system updates are automatic, running on at least a daily cadence. This includes automatic updates for rpm-ostree, brew, flatpak, and podman. If the system is over 1 week out of date (for example in the event of update failures), the user will be notified and pointed to the right command to run to manually upgrade.
+All system updates are automatic, running on at least a daily cadence. This includes automatic updates for rpm-ostree, Homebrew, Flatpak, and Podman. If the system is over 1 week out of date (for example in the event of update failures), the user will be notified and pointed to the right command to run to manually upgrade.
 
 ### [How do I disable automatic updates?](#disable-update)
 {: #disable-update}
@@ -194,7 +194,7 @@ All system updates are automatic, running on at least a daily cadence. This incl
 - `systemctl disable rpm-ostreed-automatic.timer` disables automatic system updates. To update manually, run `rpm-ostree upgrade`.
 - `systemctl disable flatpak-system-update.timer` and `systemctl disable --global flatpak-user-update.timer` disable automatic updates for system flatpaks and user flatpaks, respectively. To update manually, run `flatpak update`.
 - `systemctl disable brew-upgrade.timer brew-update.timer` disables automatic Homebrew updates. To update manually, run `brew update && brew upgrade`.
-- `systemctl disable podman-auto-update.timer` and `systemctl disable --global podman-auto-update.timer` disable automatic podman container updates for system and user containers, respectively. To update manually, use `podman update` on your containers.
+- `systemctl disable podman-auto-update.timer` and `systemctl disable --global podman-auto-update.timer` disable automatic Podman container updates for system and user containers, respectively. To update manually, use `podman update` on your containers.
   
 ### [How do I whitelist a module?](#module-whitelist)
 {: #module-whitelist}
@@ -206,7 +206,7 @@ secureblue prevents [numerous modules](https://github.com/secureblue/secureblue/
 
 1. Check if it's already installed using `rpm -qa | grep x`
 2. For GUI packages, you can install the Flatpak if available using the Software store or using `flatpak install`. You can browse this [catalogue of Flatpaks](https://flathub.org) to discover the available packages.
-3. For CLI packages, you can install from brew if available using `brew install`. You can browse this [catalogue of Homebrew Formulaes](https://formulae.brew.sh) to discover the available formulaes.
+3. For CLI packages, you can install from brew if available using `brew install`. You can browse this [catalogue of Homebrew Formulae](https://formulae.brew.sh) to discover the available formulae.
 4. If a package isn't available via the other two options, or if a package requires greater system integration, `rpm-ostree install` can be used to layer rpms directly into your subsequent deployments.
 
 You can add the unfiltered Flathub repo with `ujust enable-flathub-unfiltered`.
@@ -334,7 +334,7 @@ If you want to add your own customizations on top of secureblue that go beyond i
 ### [How do I add a repo?](#adding-repos)
 {: #adding-repos}
 
-The process of adding a repository to secureblue is the same as [on Fedora](https://docs.fedoraproject.org/en-US/quick-docs/adding-or-removing-software-repositories-in-fedora/#_for_fedora_41_or_later_dnf_5)
+The process of adding a repository to secureblue is the same as [on Fedora](https://docs.fedoraproject.org/en-US/quick-docs/adding-or-removing-software-repositories-in-fedora/#_for_fedora_41_or_later_dnf_5).
 
 ### [How do I install proprietary codecs?](#install-codecs)
 {: #install-codecs}
@@ -364,7 +364,7 @@ Trivalent comes preloaded with EasyList, EasyPrivacy, Fanboy Annoyance, and a wi
 ### [Why aren’t YouTube ads blocked, and how can I watch YouTube without ads?](#youtube-ads)
 {: #youtube-ads}
 
-Trivalent’s subresource filter cannot perform script injection or observe and alter what happens inside YouTube’s video player, so it can’t reliably intercept the scripts and dynamic behavior YouTube uses to serve ads. To avoid ads you need a tool capable of doing that. Common options are FreeTube [Electron Flatpak](https://flathub.org/apps/io.freetubeapp.FreeTube), Pipeline [Piped proxy Flatpak](https://flathub.org/apps/de.schmidhuberj.tubefeeder), and the YouTube PWA paired with  uBlock Origin‑Lite. Consider creating a separate profile for the Youtube PWA, so you can continue browsing extensionless for your usual profile.
+Trivalent’s subresource filter cannot perform script injection or observe and alter what happens inside YouTube’s video player, so it can’t reliably intercept the scripts and dynamic behavior YouTube uses to serve ads. To avoid ads, you need a tool capable of doing that. Common options are FreeTube [Electron Flatpak](https://flathub.org/apps/io.freetubeapp.FreeTube), Pipeline [Piped proxy Flatpak](https://flathub.org/apps/de.schmidhuberj.tubefeeder), and the YouTube PWA paired with  uBlock Origin‑Lite. Consider creating a separate profile for the Youtube PWA, so you can continue browsing extensionless for your usual profile.
 
 ### [How do I configure GRUB?](#configure-grub)
 {: #configure-grub}
@@ -497,7 +497,7 @@ Please note that the Network Service Sandbox is [no longer enabled by default](h
 ### [Why doesn't DRM content (spotify, netflix etc.) work in Trivalent?](#trivalent-protected-content)
 {: #trivalent-protected-content}
 
-DRM-protected content is available in trivalent, however it is disabled by default. Visit `chrome://settings/content/protectedContent` and select "Sites can play protected content".
+DRM-protected content is available in Trivalent, however it is disabled by default. Visit `chrome://settings/content/protectedContent` and select "Sites can play protected content".
 
 ### [Why is my splash screen disabled on KDE?](#kde-splash-disabled)
 {: #kde-splash-disabled}
