@@ -73,7 +73,7 @@ permalink: /faq
   - [Why don't some websites that require JIT/WebAssembly work in Trivalent even with the JavaScript Optimizations toggle enabled?](#trivalent-v8-exceptions)
   - [Why don't extensions work in Trivalent?](#trivalent-extensions)
   - [Why does Trivalent log me out of all sites by default?](#trivalent-net-sandbox)
-  - [Why doesn't DRM content (spotify, netflix etc.) work in Trivalent?](#trivalent-protected-content)
+  - [Why doesn't DRM content (Spotify, Netflix etc.) work in Trivalent?](#trivalent-protected-content)
   - [Why is my splash screen disabled on KDE?](#kde-splash-disabled)
   - [Why is my secureblue virtual machine integration broken?](#vm-integration)
   - [Why can't I see any network services? (e.g. printers, Google Cast, file servers, IoT)](#mdns-resolution)
@@ -494,7 +494,7 @@ It shouldn't, this is a bug related to Chromium's Network Service Sandbox where 
 
 Please note that the Network Service Sandbox is [no longer enabled by default](https://github.com/secureblue/Trivalent/pull/480/files/67c2c91a056838f09776c9dd28e99124230adf07#diff-f24bc2fcd4ac4f85c8c6caf588c01bba7223ba8b2ffb109ba5ebfae58571c999). Users should keep in mind that enabling this setting may result in issues with cookie persistence. Also note that this is a global toggle, which means that all your browser profiles will be affected if the setting is toggled.
 
-### [Why doesn't DRM content (spotify, netflix etc.) work in Trivalent?](#trivalent-protected-content)
+### [Why doesn't DRM content (Spotify, Netflix etc.) work in Trivalent?](#trivalent-protected-content)
 {: #trivalent-protected-content}
 
 DRM-protected content is available in Trivalent, however it is disabled by default. Visit `chrome://settings/content/protectedContent` and select "Sites can play protected content".
