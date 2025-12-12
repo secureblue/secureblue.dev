@@ -41,6 +41,8 @@ installation, and are always applied by the script `ujust set-kargs-hardening`.
 - `iommu=force` and `intel_iommu=on`: Mitigate DMA attacks by enabling IOMMU.
 - `iommu.passthrough=0`: Disable IOMMU bypass.
 - `iommu.strict=1`: Synchronously invalidate IOMMU hardware TLBs.
+- `kvm_amd.sev=1`, `kvm_amd.sev_es=1`, `kvm_amd.sev_snp=1`: Enable AMD Secure
+  Encrypted Virtualization (SEV) and extensions.
 - `kvm-intel.vmentry_l1d_flush=always`: Enable unconditional flushes, required
   for complete L1D vulnerability mitigation.
 - `kvm.mitigate_smt_rsb=1`: Mitigate cross-thread return address predictions
@@ -50,6 +52,7 @@ installation, and are always applied by the script `ujust set-kargs-hardening`.
   vulnerability.
 - `lockdown=confidentiality`: Enable kernel lockdown in the strictest mode.
 - `loglevel=0`: Only log level 0 (system is unusable) messages to the console.
+- `mem_encrypt=on`: Enable AMD Secure Memory Encryption (SME).
 - `mitigations=auto,nosmt`: Automatically mitigate all known CPU
   vulnerabilities, including disabling SMT if necessary.
 - `module.sig_enforce=1`: Only allow kernel modules that have been signed with a
