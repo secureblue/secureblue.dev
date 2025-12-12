@@ -78,6 +78,7 @@ permalink: /faq
   - [Why is my secureblue virtual machine integration broken?](#vm-integration)
   - [Why can't I see any network services? (e.g. printers, Google Cast, file servers, IoT)](#mdns-resolution)
   - [Why is my DNS broken when using a VPN?](#dns-vpn)
+  - [Why isn't my network adapter working?](#network-mac)
   
 <hr>
 
@@ -582,4 +583,13 @@ If this is not an option, such as for Tailscale (which directly conflicts with s
 
 ```
 ujust dns-selector resolver resolved
+```
+
+### [Why isn't my network adapter working?](#network-mac)
+{: #network-mac}
+
+Some network adapters, especially USB ethernet adapters, can appear stuck in a "connecting" state or not function at all. The solution may be to disable MAC randomization:
+
+```
+ujust toggle-mac-randomization
 ```
