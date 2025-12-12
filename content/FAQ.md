@@ -184,7 +184,9 @@ This is an issue with rpm-ostree image-based systems generally, and not specific
 ### [How do I update the system?](#update)
 {: #update}
 
-All system updates are automatic, running on at least a daily cadence. This includes automatic updates for rpm-ostree, Homebrew, Flatpak, and Podman. If the system is over 1 week out of date (for example in the event of update failures), the user will be notified and pointed to the right command to run to manually upgrade.
+All system updates are automatic, running on at least a daily cadence. This includes automatic updates for rpm-ostree, Homebrew, Flatpak, and Podman. If the system is over 1 week out of date (for example in the event of update failures), you will be notified and told how to manually upgrade.
+
+If you need to update your system manually, for example after a severe CVE is patched, run `rpm-ostree upgrade`. To see whether an update is already staged for the next boot, run `rpm-ostree status`. More information can be found in the [rpm-ostree administrator documentation](https://coreos.github.io/rpm-ostree/administrator-handbook/#administering-an-rpm-ostree-based-system).
 
 ### [How do I disable automatic updates?](#disable-update)
 {: #disable-update}
