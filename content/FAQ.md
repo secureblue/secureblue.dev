@@ -42,6 +42,7 @@ permalink: /faq
   - [How do I install additional fonts?](#fonts)
   - [How do I enable printing?](#printing)
   - [Why am I unable to start containers?](#container-userns)
+  - [How do I allow a specific container to be run?](#container-policy)
   - [How do I enable userns for other apps?](#unconfined-userns)
   - [Why are Bluetooth kernel modules disabled? How do I enable them?](#bluetooth)
   - [How do I provision signed Distroboxes?](#distrobox-assemble)
@@ -299,6 +300,30 @@ ujust set-container-userns on
 ```
 
 Trying to start a container without first enabling the ability toggled by the ujust above will result in an `OCI permission denied` error, but beware that enabling it results in a security degradation. Consult our [user namespaces article](/articles/userns) for more details.
+
+### [How do I allow a specific container to be run?](#container-policy)
+{: #container-policy}
+
+Podman uses a [container policy](https://github.com/containers/image/blob/main/docs/containers-policy.json.5.md) to determine which container images are allowed to run. Secureblue sets this policy to reject container images by default, while allowing a short list of images as long as they pass a signature verification requirement.
+
+When an image is rejected by policy, it produces an error message along the lines of:
+
+> Source image rejected: Running image [...] is rejected by policy.
+
+To manage container policy, you can use [`podman image trust`](https://docs.podman.io/en/latest/markdown/podman-image-trust.1.html). For example, to allow all images from `registry.fedoraproject.org/fedora` to run without signature verification, you can run
+
+```sh
+run0 podman image trust set -t accept registry.fedoraproject.org/fedora
+```
+
+The same command without `run0` will set this policy for the current user only.
+
+To reset container policy to the system default, run:
+
+```sh
+rm -f ~/.config/containers/policy.json
+run0 cp /usr/etc/containers/policy.json /etc/containers/policy.json
+```
 
 ### [How do I enable userns for other apps?](#unconfined-userns)
 {: #unconfined-userns}
