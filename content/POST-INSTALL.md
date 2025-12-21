@@ -38,7 +38,7 @@ Subscribing to release notifications is documented [here](/faq#releases).
 
 {% include alert.html type='note' content='GNOME users on Nvidia images may notice that Gnome Software prompts them to create a new Secure Boot key. This prompt can and should be ignored, and the command below used instead. Nvidia users should expect Nvidia drivers not to load unless Secure Boot is enabled and the secureblue key enrolled.' %}
 
-The secureblue Secure Boot key should automatically enroll after installation, with the MOK password "secureblue". If this fails or doesn't appear for whatever reason, you can manually enroll the key with the command below.
+The secureblue Secure Boot key should automatically enroll after installation. If you have Secure Boot enabled in your BIOS, you will get a prompt during boot. In this prompt, select `Enroll MOK` and enter the password `secureblue`. If this fails or doesn't appear for whatever reason, you can manually enroll the key with the command below.
 
 ```
 ujust enroll-secureblue-secure-boot-key

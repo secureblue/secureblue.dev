@@ -42,6 +42,7 @@ permalink: /faq
   - [How do I install additional fonts?](#fonts)
   - [How do I enable printing?](#printing)
   - [Why am I unable to start containers?](#container-userns)
+  - [How do I allow a specific container to be run?](#container-policy)
   - [How do I enable userns for other apps?](#unconfined-userns)
   - [Why are Bluetooth kernel modules disabled? How do I enable them?](#bluetooth)
   - [How do I provision signed Distroboxes?](#distrobox-assemble)
@@ -73,11 +74,12 @@ permalink: /faq
   - [Why don't some websites that require JIT/WebAssembly work in Trivalent even with the JavaScript Optimizations toggle enabled?](#trivalent-v8-exceptions)
   - [Why don't extensions work in Trivalent?](#trivalent-extensions)
   - [Why does Trivalent log me out of all sites by default?](#trivalent-net-sandbox)
-  - [Why doesn't DRM content (spotify, netflix etc.) work in Trivalent?](#trivalent-protected-content)
+  - [Why doesn't DRM content (Spotify, Netflix etc.) work in Trivalent?](#trivalent-protected-content)
   - [Why is my splash screen disabled on KDE?](#kde-splash-disabled)
   - [Why is my secureblue virtual machine integration broken?](#vm-integration)
   - [Why can't I see any network services? (e.g. printers, Google Cast, file servers, IoT)](#mdns-resolution)
   - [Why is my DNS broken when using a VPN?](#dns-vpn)
+  - [Why isn't my network adapter working?](#network-mac)
   
 <hr>
 
@@ -169,7 +171,7 @@ Homebrew is a cross-platform package manager, originally for macOS that allows u
 ### [Does secureblue use "linux-hardened"?](#linux-hardened)
 {: #linux-hardened}
 
-"linux-hardened" is the brand name for a specific set of kernel patches and builds on top of the mainline kernel, used by some distributions. secureblue doesn't use this kernel. Instead, we apply runtime configuration changes on top of Fedora's kernel. We can accomplish much but not all of what linux-hardened accomplishes using this approach. In the future, we plan to build our own kernel with patches on top of Fedora's kernel, including the [OpenPAX patches](https://github.com/edera-dev/linux-openpax). However, even today there are some important ways in which our approach is preferable. For example, linux-hardened completely disables [unprivileged user namespaces](/articles/userns). This means that to use flatpaks or chromium-based browsers, [suid-root](https://en.wikipedia.org/wiki/Setuid) binaries are required. This is a significant security degradation. secureblue on the other hand implements SELinux-confined unprivileged user namespaces, restricting them by default but allowing them for Flatpaks and Trivalent to enable their operation without suid-root.
+"linux-hardened" is the brand name for a specific set of kernel patches and builds on top of the mainline kernel, used by some distributions. secureblue doesn't use this kernel. Instead, we apply runtime configuration changes on top of Fedora's kernel. We can accomplish much but not all of what linux-hardened accomplishes using this approach. In the future, we plan to build our own kernel with patches on top of Fedora's kernel, including the [OpenPAX patches](https://github.com/edera-dev/linux-openpax). However, even today there are some important ways in which our approach is preferable. For example, linux-hardened completely disables [unprivileged user namespaces](/articles/userns). This means that to use flatpaks or Chromium-based browsers, [suid-root](https://en.wikipedia.org/wiki/Setuid) binaries are required. This is a significant security degradation. secureblue on the other hand implements SELinux-confined unprivileged user namespaces, restricting them by default but allowing them for Flatpaks and Trivalent to enable their operation without suid-root.
 
 ### [Why are upgrades so large?](#upgrade-size)
 {: #upgrade-size}
@@ -184,7 +186,9 @@ This is an issue with rpm-ostree image-based systems generally, and not specific
 ### [How do I update the system?](#update)
 {: #update}
 
-All system updates are automatic, running on at least a daily cadence. This includes automatic updates for rpm-ostree, brew, flatpak, and podman. If the system is over 1 week out of date (for example in the event of update failures), the user will be notified and pointed to the right command to run to manually upgrade.
+All system updates are automatic, running on at least a daily cadence. This includes automatic updates for rpm-ostree, Homebrew, Flatpak, and Podman. If the system is over 1 week out of date (for example in the event of update failures), you will be notified and told how to manually upgrade.
+
+If you need to update your system manually, for example after a severe CVE is patched, run `rpm-ostree upgrade`. To see whether an update is already staged for the next boot, run `rpm-ostree status`. More information can be found in the [rpm-ostree administrator documentation](https://coreos.github.io/rpm-ostree/administrator-handbook/#administering-an-rpm-ostree-based-system).
 
 ### [How do I disable automatic updates?](#disable-update)
 {: #disable-update}
@@ -194,7 +198,7 @@ All system updates are automatic, running on at least a daily cadence. This incl
 - `systemctl disable rpm-ostreed-automatic.timer` disables automatic system updates. To update manually, run `rpm-ostree upgrade`.
 - `systemctl disable flatpak-system-update.timer` and `systemctl disable --global flatpak-user-update.timer` disable automatic updates for system flatpaks and user flatpaks, respectively. To update manually, run `flatpak update`.
 - `systemctl disable brew-upgrade.timer brew-update.timer` disables automatic Homebrew updates. To update manually, run `brew update && brew upgrade`.
-- `systemctl disable podman-auto-update.timer` and `systemctl disable --global podman-auto-update.timer` disable automatic podman container updates for system and user containers, respectively. To update manually, use `podman update` on your containers.
+- `systemctl disable podman-auto-update.timer` and `systemctl disable --global podman-auto-update.timer` disable automatic Podman container updates for system and user containers, respectively. To update manually, use `podman update` on your containers.
   
 ### [How do I whitelist a module?](#module-whitelist)
 {: #module-whitelist}
@@ -206,7 +210,7 @@ secureblue prevents [numerous modules](https://github.com/secureblue/secureblue/
 
 1. Check if it's already installed using `rpm -qa | grep x`
 2. For GUI packages, you can install the Flatpak if available using the Software store or using `flatpak install`. You can browse this [catalogue of Flatpaks](https://flathub.org) to discover the available packages.
-3. For CLI packages, you can install from brew if available using `brew install`. You can browse this [catalogue of Homebrew Formulaes](https://formulae.brew.sh) to discover the available formulaes.
+3. For CLI packages, you can install from brew if available using `brew install`. You can browse this [catalogue of Homebrew Formulae](https://formulae.brew.sh) to discover the available formulae.
 4. If a package isn't available via the other two options, or if a package requires greater system integration, `rpm-ostree install` can be used to layer rpms directly into your subsequent deployments.
 
 You can add the unfiltered Flathub repo with `ujust enable-flathub-unfiltered`.
@@ -292,10 +296,34 @@ To enable printing using [CUPS](https://en.wikipedia.org/wiki/CUPS), run `ujust 
 Software such as Podman and Distrobox need to be able to create user namespaces to work without root. The privilege to do so is denied by default in secureblue, but can be granted by running the following command:
 
 ```
-ujust toggle-container-domain-userns-creation
+ujust set-container-userns on
 ```
 
 Trying to start a container without first enabling the ability toggled by the ujust above will result in an `OCI permission denied` error, but beware that enabling it results in a security degradation. Consult our [user namespaces article](/articles/userns) for more details.
+
+### [How do I allow a specific container to be run?](#container-policy)
+{: #container-policy}
+
+Podman uses a [container policy](https://github.com/containers/image/blob/main/docs/containers-policy.json.5.md) to determine which container images are allowed to run. Secureblue sets this policy to reject container images by default, while allowing a short list of images as long as they pass a signature verification requirement.
+
+When an image is rejected by policy, it produces an error message along the lines of:
+
+> Source image rejected: Running image [...] is rejected by policy.
+
+To manage container policy, you can use [`podman image trust`](https://docs.podman.io/en/latest/markdown/podman-image-trust.1.html). For example, to allow all images from `registry.fedoraproject.org/fedora` to run without signature verification, you can run
+
+```sh
+run0 podman image trust set -t accept registry.fedoraproject.org/fedora
+```
+
+The same command without `run0` will set this policy for the current user only.
+
+To reset container policy to the system default, run:
+
+```sh
+rm -f ~/.config/containers/policy.json
+run0 cp /usr/etc/containers/policy.json /etc/containers/policy.json
+```
 
 ### [How do I enable userns for other apps?](#unconfined-userns)
 {: #unconfined-userns}
@@ -303,7 +331,7 @@ Trying to start a container without first enabling the ability toggled by the uj
 The following command will toggle the ability of processes in the unconfined SELinux domain to create user namespaces. It's necessary for any apps that require this feature, such as: browsers other than Trivalent, many [Electron](https://en.wikipedia.org/wiki/Electron_(software_framework)) apps, and bubblejail.
 
 ```
-ujust toggle-unconfined-domain-userns-creation
+ujust set-unconfined-userns on
 ```
 
 Attempting to bubblewrap a program without first enabling the ability toggled by the ujust above will result in a `bwrap: Creating new namespace failed: Permission denied` error, but beware that enabling it results in a security degradation. Consult our [user namespaces article](/articles/userns) for more details.
@@ -334,7 +362,7 @@ If you want to add your own customizations on top of secureblue that go beyond i
 ### [How do I add a repo?](#adding-repos)
 {: #adding-repos}
 
-The process of adding a repository to secureblue is the same as [on Fedora](https://docs.fedoraproject.org/en-US/quick-docs/adding-or-removing-software-repositories-in-fedora/#_for_fedora_41_or_later_dnf_5)
+The process of adding a repository to secureblue is the same as [on Fedora](https://docs.fedoraproject.org/en-US/quick-docs/adding-or-removing-software-repositories-in-fedora/#_for_fedora_41_or_later_dnf_5).
 
 ### [How do I install proprietary codecs?](#install-codecs)
 {: #install-codecs}
@@ -364,7 +392,7 @@ Trivalent comes preloaded with EasyList, EasyPrivacy, Fanboy Annoyance, and a wi
 ### [Why aren’t YouTube ads blocked, and how can I watch YouTube without ads?](#youtube-ads)
 {: #youtube-ads}
 
-Trivalent’s subresource filter cannot perform script injection or observe and alter what happens inside YouTube’s video player, so it can’t reliably intercept the scripts and dynamic behavior YouTube uses to serve ads. To avoid ads you need a tool capable of doing that. Common options are FreeTube [Electron Flatpak](https://flathub.org/apps/io.freetubeapp.FreeTube), Pipeline [Piped proxy Flatpak](https://flathub.org/apps/de.schmidhuberj.tubefeeder), and the YouTube PWA paired with  uBlock Origin‑Lite. Consider creating a separate profile for the Youtube PWA, so you can continue browsing extensionless for your usual profile.
+Trivalent’s subresource filter cannot perform script injection or observe and alter what happens inside YouTube’s video player, so it can’t reliably intercept the scripts and dynamic behavior YouTube uses to serve ads. To avoid ads, you need a tool capable of doing that. Common options are FreeTube [Electron Flatpak](https://flathub.org/apps/io.freetubeapp.FreeTube), Pipeline [Piped proxy Flatpak](https://flathub.org/apps/de.schmidhuberj.tubefeeder), and the YouTube PWA paired with uBlock Origin Lite. Consider creating a separate profile for the Youtube PWA, so you can continue browsing extensionless for your usual profile.
 
 ### [How do I configure GRUB?](#configure-grub)
 {: #configure-grub}
@@ -494,10 +522,10 @@ It shouldn't, this is a bug related to Chromium's Network Service Sandbox where 
 
 Please note that the Network Service Sandbox is [no longer enabled by default](https://github.com/secureblue/Trivalent/pull/480/files/67c2c91a056838f09776c9dd28e99124230adf07#diff-f24bc2fcd4ac4f85c8c6caf588c01bba7223ba8b2ffb109ba5ebfae58571c999). Users should keep in mind that enabling this setting may result in issues with cookie persistence. Also note that this is a global toggle, which means that all your browser profiles will be affected if the setting is toggled.
 
-### [Why doesn't DRM content (spotify, netflix etc.) work in Trivalent?](#trivalent-protected-content)
+### [Why doesn't DRM content (Spotify, Netflix etc.) work in Trivalent?](#trivalent-protected-content)
 {: #trivalent-protected-content}
 
-DRM-protected content is available in trivalent, however it is disabled by default. Visit `chrome://settings/content/protectedContent` and select "Sites can play protected content".
+DRM-protected content is available in Trivalent, however it is disabled by default. Visit `chrome://settings/content/protectedContent` and select "Sites can play protected content".
 
 ### [Why is my splash screen disabled on KDE?](#kde-splash-disabled)
 {: #kde-splash-disabled}
@@ -582,4 +610,13 @@ If this is not an option, such as for Tailscale (which directly conflicts with s
 
 ```
 ujust dns-selector resolver resolved
+```
+
+### [Why isn't my network adapter working?](#network-mac)
+{: #network-mac}
+
+Some network adapters, especially USB ethernet adapters, can appear stuck in a "connecting" state or not function at all. The solution may be to disable MAC randomization:
+
+```
+ujust toggle-mac-randomization
 ```
