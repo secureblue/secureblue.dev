@@ -428,7 +428,7 @@ ujust toggle-ghns
 [Xwayland](https://wayland.freedesktop.org/docs/html/ch05.html#sect-X11-Application-Support-architecture) is disabled by default on GNOME, KDE Plasma, and Sway. Some apps haven't migrated to [Wayland](https://en.wikipedia.org/wiki/Wayland_(protocol)) yet, and will often say so when started from the terminal by complaining about not being able to find [X11](https://en.wikipedia.org/wiki/X.Org_Server). Since enabling Xwayland is a security degradation, you are encouraged to find alternatives for those apps. If you decide you still need Xwayland, run:
 
 ```
-ujust toggle-xwayland
+ujust set-xwayland on
 ```
 
 ### [Why do some commands fail when run with run0?](#run0-failures)
@@ -495,7 +495,7 @@ Similar to the AppImage FAQ, the KDE Vault default backend `cryfs` depends on fu
 ### [Why won't Trivalent start on Nvidia?](#trivalent-nvidia)
 {: #trivalent-nvidia}
 
-On some Nvidia machines, Trivalent defaults to the X11 backend. Since secureblue disables Xwayland by default, this means that you will need to run `ujust toggle-xwayland` and reboot, for Trivalent to work.
+On some Nvidia machines, Trivalent defaults to the X11 backend. Since secureblue disables Xwayland by default, this means that you will need to run `ujust set-xwayland on` and reboot for Trivalent to work.
 
 ### [Why don't some websites that require JIT/WebAssembly work in Trivalent even with the JavaScript Optimizations toggle enabled?](#trivalent-v8-exceptions)
 {: #trivalent-v8-exceptions}
@@ -530,7 +530,7 @@ DRM-protected content is available in Trivalent, however it is disabled by defau
 ### [Why is my splash screen disabled on KDE?](#kde-splash-disabled)
 {: #kde-splash-disabled}
 
-The KDE splash screen is currently [broken](https://github.com/secureblue/secureblue/issues/926) if XWayland is disabled (which is the default on secureblue), due to an [upstream bug](https://discuss.kde.org/t/how-to-disable-xwayland-for-the-plasma-wayland-session/19325/6). secureblue automatically disables it for every user to work around this. If you don't want the splash screen to be automatically disabled, run the following command:
+The KDE splash screen is currently [broken](https://github.com/secureblue/secureblue/issues/926) if Xwayland is disabled (which is the default on secureblue), due to an [upstream bug](https://discuss.kde.org/t/how-to-disable-xwayland-for-the-plasma-wayland-session/19325/6). secureblue automatically disables it for every user to work around this. If you don't want the splash screen to be automatically disabled, run the following command:
 
 ```
 systemctl disable --user disable-kde-splash.service
@@ -539,10 +539,10 @@ systemctl disable --user disable-kde-splash.service
 ### [Why is my virtual machine integration broken?](#vm-integration)
 {: #vm-integration}
 
-In order to use SPICE integration with a secureblue guest, such as the shared clipboard and automatic display resolution setting, you must enable XWayland:
+In order to use SPICE integration with a secureblue guest, such as the shared clipboard and automatic display resolution setting, you must enable Xwayland:
 
 ```
-ujust toggle-xwayland
+ujust set-xwayland on
 ```
 
 ### [Why can't I see any network services? (e.g. printers, Google Cast, file servers, IoT)](#mdns-resolution)

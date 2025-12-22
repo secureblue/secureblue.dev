@@ -22,7 +22,7 @@ permalink: /features
 {: #filling-security-holes}
 
 - Remove [suid-root](https://en.wikipedia.org/wiki/Setuid) from [numerous binaries](https://github.com/secureblue/secureblue/blob/live/files/scripts/removesuid.sh), replacing functionality [using capabilities](https://github.com/secureblue/secureblue/blob/live/files/scripts/removesuid.sh#L89), and remove `sudo`, `su`, and `pkexec` entirely in favor of `run0`. <sup>[why?](https://mastodon.social/@pid_eins/112353324518585654)</sup>
-- Disable XWayland by default (for GNOME, Plasma, and Sway images).
+- Disable Xwayland by default (for GNOME, Plasma, and Sway images).
 - Mitigate [LD_PRELOAD attacks](https://github.com/Aishou/wayland-keylogger) via `ujust toggle-bash-environment-lockdown`.
 - Disable install & usage of GNOME user extensions by default.
 - Disable KDE GHNS by default. <sup>[why?](https://blog.davidedmundson.co.uk/blog/kde-store-content/)</sup>
