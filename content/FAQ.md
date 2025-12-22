@@ -13,7 +13,7 @@ permalink: /faq
 - [Project information](#project)
   - [Why secureblue?](#why-secureblue)
   - [Is secureblue immutable?](#immutable)
-  - [What is the difference between QubesOS and secureblue?](#qubes)
+  - [What is the difference between Qubes OS and secureblue?](#qubes)
   - [Why not upstream your changes?](#upstream)
   - [Is this an install script?](#script)
   - [Another security project has a feature that's missing in secureblue, can you add it?](#feature-request)
@@ -42,6 +42,7 @@ permalink: /faq
   - [How do I install additional fonts?](#fonts)
   - [How do I enable printing?](#printing)
   - [Why am I unable to start containers?](#container-userns)
+  - [How do I allow a specific container to be run?](#container-policy)
   - [How do I enable userns for other apps?](#unconfined-userns)
   - [Why are Bluetooth kernel modules disabled? How do I enable them?](#bluetooth)
   - [How do I provision signed Distroboxes?](#distrobox-assemble)
@@ -78,6 +79,7 @@ permalink: /faq
   - [Why is my secureblue virtual machine integration broken?](#vm-integration)
   - [Why can't I see any network services? (e.g. printers, Google Cast, file servers, IoT)](#mdns-resolution)
   - [Why is my DNS broken when using a VPN?](#dns-vpn)
+  - [Why isn't my network adapter working?](#network-mac)
   
 <hr>
 
@@ -94,14 +96,14 @@ secureblue is a collaborative effort to ship a maximally secure Linux operating 
 
 "Immutable" is an old misnomer for atomic systems. It gives the impression that users can't modify or tinker with their system, which is not the case. While directories like `/usr` are mounted read-only by default, settings and configurations can be easily overriden with changes in `/etc`, which is not mounted read-only. This is in addition to the fact that `/usr` is mutated with every deployment that is staged and booted via any `rpm-ostree` operation (like upgrading, installing a new package, etc). As such, secureblue is not immutable.
 
-### [What is the difference between QubesOS and secureblue?](#qubes)
+### [What is the difference between Qubes OS and secureblue?](#qubes)
 {: #qubes}
 
-QubesOS is a security-oriented desktop operating system based on Fedora Linux and the Xen hypervisor for those who want to use virtualization to isolate and compartmentalize. You can use and make templates to run various operating systems inside of "qubes". Isolation between different qubes is significantly stronger than the isolation between apps in traditional desktop operating systems, so QubesOS can fill certain security needs better than secureblue. For example, untrusted files can only compromise the qube that the file is opened in.
+Qubes OS is a security-oriented desktop operating system based on Fedora Linux and the Xen hypervisor for those who want to use virtualization to isolate and compartmentalize. You can use and make templates to run various operating systems inside of "qubes". Isolation between different qubes is significantly stronger than the isolation between apps in traditional desktop operating systems, so Qubes OS can fill certain security needs better than secureblue. For example, untrusted files can only compromise the qube that the file is opened in.
 
-secureblue is a Linux operating system with known security holes filled and proactive exploit mitigations in place. Virtualization [works on secureblue](#libvirt), but is not its focus. secureblue lacks [several virtualization features](https://www.qubes-os.org/doc/) that QubesOS has. secureblue also places emphasis on usability, while QubesOS is considered by many to have a steep learning curve.
+secureblue is a Linux operating system with known security holes filled and proactive exploit mitigations in place. Virtualization [works on secureblue](#libvirt), but is not its focus. secureblue lacks [several virtualization features](https://www.qubes-os.org/doc/) that Qubes OS has. secureblue also places emphasis on usability, while Qubes OS is considered by many to have a steep learning curve.
 
-There [is interest](https://github.com/QubesOS/qubes-issues/issues/9755) for a secureblue template in QubesOS, but secureblue relies on Wayland which QubesOS does [not yet support](https://github.com/QubesOS/qubes-issues/issues/3366).
+There [is interest](https://github.com/QubesOS/qubes-issues/issues/9755) for a secureblue template in Qubes OS, but secureblue relies on Wayland which Qubes OS does [not yet support](https://github.com/QubesOS/qubes-issues/issues/3366).
 
 ### [Why not upstream your changes?](#upstream)
 {: #upstream}
@@ -184,7 +186,9 @@ This is an issue with rpm-ostree image-based systems generally, and not specific
 ### [How do I update the system?](#update)
 {: #update}
 
-All system updates are automatic, running on at least a daily cadence. This includes automatic updates for rpm-ostree, Homebrew, Flatpak, and Podman. If the system is over 1 week out of date (for example in the event of update failures), the user will be notified and pointed to the right command to run to manually upgrade.
+All system updates are automatic, running on at least a daily cadence. This includes automatic updates for rpm-ostree, Homebrew, Flatpak, and Podman. If the system is over 1 week out of date (for example in the event of update failures), you will be notified and told how to manually upgrade.
+
+If you need to update your system manually, for example after a severe CVE is patched, run `rpm-ostree upgrade`. To see whether an update is already staged for the next boot, run `rpm-ostree status`. More information can be found in the [rpm-ostree administrator documentation](https://coreos.github.io/rpm-ostree/administrator-handbook/#administering-an-rpm-ostree-based-system).
 
 ### [How do I disable automatic updates?](#disable-update)
 {: #disable-update}
@@ -292,10 +296,34 @@ To enable printing using [CUPS](https://en.wikipedia.org/wiki/CUPS), run `ujust 
 Software such as Podman and Distrobox need to be able to create user namespaces to work without root. The privilege to do so is denied by default in secureblue, but can be granted by running the following command:
 
 ```
-ujust toggle-container-domain-userns-creation
+ujust set-container-userns on
 ```
 
 Trying to start a container without first enabling the ability toggled by the ujust above will result in an `OCI permission denied` error, but beware that enabling it results in a security degradation. Consult our [user namespaces article](/articles/userns) for more details.
+
+### [How do I allow a specific container to be run?](#container-policy)
+{: #container-policy}
+
+Podman uses a [container policy](https://github.com/containers/image/blob/main/docs/containers-policy.json.5.md) to determine which container images are allowed to run. Secureblue sets this policy to reject container images by default, while allowing a short list of images as long as they pass a signature verification requirement.
+
+When an image is rejected by policy, it produces an error message along the lines of:
+
+> Source image rejected: Running image [...] is rejected by policy.
+
+To manage container policy, you can use [`podman image trust`](https://docs.podman.io/en/latest/markdown/podman-image-trust.1.html). For example, to allow all images from `registry.fedoraproject.org/fedora` to run without signature verification, you can run
+
+```sh
+run0 podman image trust set -t accept registry.fedoraproject.org/fedora
+```
+
+The same command without `run0` will set this policy for the current user only.
+
+To reset container policy to the system default, run:
+
+```sh
+rm -f ~/.config/containers/policy.json
+run0 cp /usr/etc/containers/policy.json /etc/containers/policy.json
+```
 
 ### [How do I enable userns for other apps?](#unconfined-userns)
 {: #unconfined-userns}
@@ -303,7 +331,7 @@ Trying to start a container without first enabling the ability toggled by the uj
 The following command will toggle the ability of processes in the unconfined SELinux domain to create user namespaces. It's necessary for any apps that require this feature, such as: browsers other than Trivalent, many [Electron](https://en.wikipedia.org/wiki/Electron_(software_framework)) apps, and bubblejail.
 
 ```
-ujust toggle-unconfined-domain-userns-creation
+ujust set-unconfined-userns on
 ```
 
 Attempting to bubblewrap a program without first enabling the ability toggled by the ujust above will result in a `bwrap: Creating new namespace failed: Permission denied` error, but beware that enabling it results in a security degradation. Consult our [user namespaces article](/articles/userns) for more details.
@@ -582,4 +610,13 @@ If this is not an option, such as for Tailscale (which directly conflicts with s
 
 ```
 ujust dns-selector resolver resolved
+```
+
+### [Why isn't my network adapter working?](#network-mac)
+{: #network-mac}
+
+Some network adapters, especially USB ethernet adapters, can appear stuck in a "connecting" state or not function at all. The solution may be to disable MAC randomization:
+
+```
+ujust toggle-mac-randomization
 ```
