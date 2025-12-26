@@ -68,7 +68,6 @@ permalink: /faq
   - [My fans are really loud, is this normal?](#fans)
   - [On secureblue half of my CPU cores are gone. Why is this?](#smt)
   - [Why don't my AppImages work?](#appimage)
-  - [Why don't KDE Vaults work?](#kde-vaults)
   - [Why won't Trivalent start when Bubblejailed?](#trivalent-bubblejail)
   - [Why won't Trivalent start on Nvidia?](#trivalent-nvidia)
   - [Why don't some websites that require JIT/WebAssembly work in Trivalent even with the JavaScript Optimizations toggle enabled?](#trivalent-v8-exceptions)
@@ -481,11 +480,6 @@ For example:
 ```
 rpm-ostree install funionfs
 ```
-
-### [Why don't KDE Vaults work?](#kde-vaults)
-{: #kde-vaults}
-
-Similar to the AppImage FAQ, the KDE Vault default backend `cryfs` depends on fuse2. For this reason, it's recommended that you migrate to an alternative that doesn't depend on fuse2, for example `fscrypt`. If you don't want to do so, you can add fuse2 back by layering something that depends on it, as described in the AppImage FAQ.
 
 ### [Why won't Trivalent start when Bubblejailed?](#trivalent-bubblejail)
 {: #trivalent-bubblejail}
