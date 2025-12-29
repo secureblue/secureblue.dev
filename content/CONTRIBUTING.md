@@ -39,7 +39,7 @@ to secureblueadmin@proton.me
 ## [I Have a Question](#i-have-a-question)
 {: #i-have-a-question}
 
-If you want to ask a question, you are welcome to do so in [our Discord channel](https://discord.gg/qMTv5cKfbF).
+If you want to ask a question, you are welcome to do so in [our Discord server](https://discord.gg/qMTv5cKfbF).
 
 ## [I Want To Contribute](#i-want-to-contribute)
 {: #i-want-to-contribute}
