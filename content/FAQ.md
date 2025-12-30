@@ -35,6 +35,7 @@ permalink: /faq
   - [How do I whitelist a module?](#module-whitelist)
   - [How do I install software?](#software)
   - [How do I install my VPN?](#vpn)
+  - [How is gaming on secureblue?](#gaming)
   - [How do I install Steam?](#steam)
   - [How do I enable anti-cheat support?](#anticheat)
   - [How do I install Docker?](#docker)
@@ -229,6 +230,17 @@ Alternatively, you can download a WireGuard profile config from your VPN provide
 <img alt="Gnome Settings screenshot" src="/assets/gnome-settings-vpn-step4.png" />
 
 {% include alert.html type='note' content='If you get an error that says "Cannot Import VPN", that is likely because the name of the WireGuard configuration file is too long. GNOME Settings will only accept WireGuard configuration files with filenames 15 characters or less.' %}
+
+### [How is gaming on secureblue?](#gaming)
+{: #gaming}
+
+Broadly speaking, gaming support on secureblue is similar to gaming on mainstream desktop Linux distros such as Fedora: if a game can be run on desktop Linux, you should be able to run it on secureblue.
+
+However, some security hardening is enabled by default that may need to be disabled for certain games to run. For example, many games require [Xwayland](#xwayland) to be enabled, some games require [anticheat support](#anticheat), and 32-bit programs require [enabling 32-bit support](/articles/kargs#32bit).
+
+Additionally, some kernel arguments have a negative performance impact. The most impactful is [disabling SMT](/articles/kargs#smt), either unconditionally (with `nosmt=force`) or only if necessary to mitigate a known hardware vulnerability (with `mitigations=auto,nosmt`).
+
+If SMT is disabled, this effectively halves the number of CPU cores; the performance impact of this can be significant (up to around 40%) for highly parallel, CPU-intensive workloads. A few other kernel arguments have a negative performance impact but those are much more minor.
 
 ### [How do I install Steam?](#steam)
 {: #steam}
