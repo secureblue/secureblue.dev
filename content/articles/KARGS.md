@@ -52,7 +52,6 @@ installation, and are always applied by the script `ujust set-kargs-hardening`.
   vulnerability.
 - `lockdown=confidentiality`: Enable kernel lockdown in the strictest mode.
 - `loglevel=0`: Only log level 0 (system is unusable) messages to the console.
-- `mem_encrypt=on`: Enable AMD Secure Memory Encryption (SME).
 - `mitigations=auto,nosmt`: Automatically mitigate all known CPU
   vulnerabilities, including disabling SMT if necessary.
 - `module.sig_enforce=1`: Only allow kernel modules that have been signed with a
@@ -120,5 +119,6 @@ whether to add apply of the 3 sets of kargs detailed below:
   by using the microcode mitigation when available, or by disabling AVX on
   affected systems where the microcode hasn’t been updated to include the
   mitigation.
+- `mem_encrypt=on`: Enable AMD Secure Memory Encryption (SME).
 - `oops=panic`: Treat [oopses](https://en.wikipedia.org/wiki/Linux_kernel_oops)
   as fatal, preventing attacks that depend on repeated oopses.
