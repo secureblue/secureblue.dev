@@ -263,6 +263,7 @@ Similarly, you can uninstall Docker with:
 ujust uninstall-docker
 ```
 
+See [this article](https://wonderfall.dev/docker-hardening/) for a guide on container security.
 
 ### [How do I install virtualization packages?](#libvirt)
 {: #libvirt}
