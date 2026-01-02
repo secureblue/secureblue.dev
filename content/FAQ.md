@@ -236,11 +236,9 @@ Alternatively, you can download a WireGuard profile config from your VPN provide
 
 Broadly speaking, gaming support on secureblue is similar to gaming on mainstream desktop Linux distros such as Fedora: if a game can be run on desktop Linux, you should be able to run it on secureblue.
 
-However, some security hardening is enabled by default that may need to be disabled for certain games to run. For example, many games require [Xwayland](#xwayland) to be enabled, some games require [anticheat support](#anticheat), and 32-bit programs require [enabling 32-bit support](/articles/kargs#32bit).
+However, some hardening is enabled by default that may need to be disabled for certain games to run. For example, many games require [Xwayland](#xwayland) to be enabled, some games require [anticheat support](#anticheat), and 32-bit programs require [enabling 32-bit support](/articles/kargs#32bit).
 
-Additionally, some kernel arguments have a negative performance impact. The most impactful is [disabling SMT](/articles/kargs#smt), either unconditionally (with `nosmt=force`) or only if necessary to mitigate a known hardware vulnerability (with `mitigations=auto,nosmt`).
-
-If SMT is disabled, this effectively halves the number of CPU cores; the performance impact of this can be significant (up to around 40%) for highly parallel, CPU-intensive workloads. A few other kernel arguments have a negative performance impact but those are much more minor.
+Additionally, some kernel arguments have a negative performance impact. The most impactful for multithreaded games is [disabling SMT](#smt). A few other kernel arguments have a negative performance impact but those are much more minor.
 
 ### [How do I install Steam?](#steam)
 {: #steam}
@@ -485,6 +483,8 @@ During rpm-ostree operations, it's normal. Outside of that, make sure you follow
 {: #smt}
 
 `mitigations=auto,nosmt` is set on secureblue. This means that if your CPU is vulnerable to attacks that utilize [Simultaneous Multithreading](https://en.wikipedia.org/wiki/Simultaneous_multithreading), SMT will be disabled. There are several other kargs secureblue sets that may also trigger this behavior, including `nosmt=force`, and `l1tf=full,force`.
+
+If SMT is disabled, this effectively halves the number of CPU cores; the performance impact of this can be significant (up to around 40%) for highly parallel, CPU-intensive workloads. On the other hand, for many workloads the impact is much smaller, and it can even slightly improve performance of single-threaded workloads.
 
 ### [Why don't my AppImages work?](#appimage)
 {: #appimage}
