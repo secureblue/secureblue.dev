@@ -187,14 +187,14 @@ This is an issue with rpm-ostree image-based systems generally, and not specific
 
 All system updates are automatic, running on at least a daily cadence. This includes automatic updates for rpm-ostree, Homebrew, Flatpak, and Podman. If the system is over 1 week out of date (for example in the event of update failures), you will be notified and told how to manually upgrade.
 
-If you need to update your system manually, for example after a severe CVE is patched, run `rpm-ostree upgrade`. To see whether an update is already staged for the next boot, run `rpm-ostree status`. More information can be found in the [rpm-ostree administrator documentation](https://coreos.github.io/rpm-ostree/administrator-handbook/#administering-an-rpm-ostree-based-system).
+If you need to update your system manually, for example after a severe CVE is patched, run `ujust update-system`. To see whether an update is already staged for the next boot, run `rpm-ostree status`. More information can be found in the [rpm-ostree administrator documentation](https://coreos.github.io/rpm-ostree/administrator-handbook/#administering-an-rpm-ostree-based-system).
 
 ### [How do I disable automatic updates?](#disable-update)
 {: #disable-update}
 
 {% include alert.html type='caution' content='Disabling automatic updates is a security degradation. You will no longer automatically receive security updates.' %}
 
-- `systemctl disable rpm-ostreed-automatic.timer` disables automatic system updates. To update manually, run `rpm-ostree upgrade`.
+- `systemctl disable rpm-ostreed-automatic.timer` disables automatic system updates. To update manually, run `ujust update-system`.
 - `systemctl disable flatpak-system-update.timer` and `systemctl disable --global flatpak-user-update.timer` disable automatic updates for system flatpaks and user flatpaks, respectively. To update manually, run `flatpak update`.
 - `systemctl disable brew-upgrade.timer brew-update.timer` disables automatic Homebrew updates. To update manually, run `brew update && brew upgrade`.
 - `systemctl disable podman-auto-update.timer` and `systemctl disable --global podman-auto-update.timer` disable automatic Podman container updates for system and user containers, respectively. To update manually, use `podman update` on your containers.
