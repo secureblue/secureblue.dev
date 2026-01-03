@@ -146,7 +146,7 @@ Consult our [Flatpak article](/articles/flatpak).
 ### [Should I use Electron apps? Why don't they work well with hardened_malloc?](#electron)
 {: #electron}
 
-Consult this [discussion](https://github.com/secureblue/secureblue/issues/193#issuecomment-1953323680)
+For Electron apps like Signal, Slack, FreeTube, Element, VSCode, Discord, etc., consult this [discussion](https://github.com/secureblue/secureblue/issues/193#issuecomment-1953323680)
 
 ### [Should I use Firejail?](#firejail)
 {: #firejail}
