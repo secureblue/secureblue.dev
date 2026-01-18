@@ -129,7 +129,7 @@ ujust toggle-mac-randomization
 ## [Bash environment lockdown](#bash)
 {: #bash}
 
-To mitigate [LD_PRELOAD attacks](https://github.com/Aishou/wayland-keylogger), run:
+To mitigate [LD_PRELOAD attacks](https://github.com/Aishou/wayland-keylogger), run the command below. Note that this is only effective against opportunistic malware and is a weak stopgap until we develop improved SELinux policies for the home directory.
 
 ```
 ujust toggle-bash-environment-lockdown
