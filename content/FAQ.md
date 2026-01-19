@@ -38,7 +38,7 @@ permalink: /faq
   - [How do I install Steam?](#steam)
   - [How do I enable anti-cheat support?](#anticheat)
   - [How do I install Docker?](#docker)
-  - [How do I install virtualization packages?](#libvirt)
+  - [How do I run virtual machines?](#libvirt)
   - [How do I install additional fonts?](#fonts)
   - [How do I enable printing?](#printing)
   - [Why am I unable to start containers?](#container-userns)
@@ -263,14 +263,18 @@ Similarly, you can uninstall Docker with:
 ujust uninstall-docker
 ```
 
+### [How do I run virtual machines?](#libvirt)
 
-### [How do I install virtualization packages?](#libvirt)
 {: #libvirt}
 
-This will install [virt-manager](https://en.wikipedia.org/wiki/Virt-manager) and other virtualization packages:
+Libvirt and the associated [KVM/QEMU drivers](https://libvirt.org/drvqemu.html)
+are preinstalled on secureblue; the desktop images also come with
+[virt-manager](https://en.wikipedia.org/wiki/Virt-manager). To enable support
+for VMs, enable the [libvirt modular daemons](https://libvirt.org/daemons.html)
+with the following command:
 
 ```
-ujust install-libvirt-packages
+ujust set-libvirt-daemons
 ```
 
 ### [How do I install additional fonts?](#fonts)
