@@ -397,6 +397,11 @@ Trivalent comes preloaded with EasyList, EasyPrivacy, Fanboy Annoyance, and a wi
 
 Trivalent’s subresource filter cannot perform script injection or observe and alter what happens inside YouTube’s video player, so it can’t reliably intercept the scripts and dynamic behavior YouTube uses to serve ads. To avoid ads, you need a tool capable of doing that. Common options are FreeTube [Electron Flatpak](https://flathub.org/apps/io.freetubeapp.FreeTube), Pipeline [Piped proxy Flatpak](https://flathub.org/apps/de.schmidhuberj.tubefeeder), and the YouTube PWA paired with uBlock Origin Lite. Consider creating a separate profile for the Youtube PWA, so you can continue browsing extensionless for your usual profile.
 
+### [How do I install a PWA?](#pwa)
+{: #pwa}
+
+It is recommended to install apps such as Discord, Spotify, Element, YouTube, etc. as a PWA on Trivalent. Consult the [Google Chrome support page](https://support.google.com/chrome/answer/9658361) for instructions on installing a PWA.
+
 ### [How do I configure GRUB?](#configure-grub)
 {: #configure-grub}
 
