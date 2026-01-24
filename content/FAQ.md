@@ -482,7 +482,7 @@ During rpm-ostree operations, it's normal. Outside of that, make sure you follow
 ### [On secureblue half of my CPU cores are gone. Why is this?](#smt)
 {: #smt}
 
-`mitigations=auto,nosmt` is set on secureblue. This means that if your CPU is vulnerable to attacks that utilize [Simultaneous Multithreading](https://en.wikipedia.org/wiki/Simultaneous_multithreading), SMT will be disabled. There are several other kargs secureblue sets that may also trigger this behavior, including `nosmt=force`, and `l1tf=full,force`.
+The [kernel argument](/articles/kargs) `mitigations=auto,nosmt` is set on secureblue. This means that if your CPU is vulnerable to attacks that utilize [Simultaneous Multithreading](https://en.wikipedia.org/wiki/Simultaneous_multithreading), SMT will be disabled. There are several other kernel arguments secureblue sets that may also trigger this behavior, including `nosmt=force`, and `l1tf=full,force`.
 
 If SMT is disabled, this effectively halves the number of CPU cores; the performance impact of this can be significant (up to around 40%) for highly parallel, CPU-intensive workloads. On the other hand, for many workloads the impact is much smaller, and it can even slightly improve performance of single-threaded workloads.
 
