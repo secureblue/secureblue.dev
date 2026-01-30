@@ -15,7 +15,7 @@ permalink: /images
   - [Experimental](#experimental)
 - [Server](#server)
   - [CoreOS](#coreos)
-  - [IOT](#iot)
+  - [IoT](#iot)
 
 ## [Security recommendation](#security-recommendation)
 
@@ -91,14 +91,14 @@ Note that there are no ISOs available for experimental images. If you want to tr
 | `securecore-zfs-nvidia-hardened`          | CoreOS    | Yes, closed drivers     | Yes         | No                     |
 | `securecore-zfs-nvidia-open-hardened`     | CoreOS    | Yes, open drivers       | Yes         | No                     |
 
-### [IOT](#iot)
+### [IoT](#iot)
 
 | Name                               | Base      | NVIDIA Support          | ZFS Support | ARM64 Support          |
 |------------------------------------|-----------|-------------------------|-------------|------------------------|
-| `iot-main-hardened`                | IOT       | No                      | No          | Beta                   |
-| `iot-nvidia-hardened`              | IOT       | Yes, closed drivers     | No          | No                     |
-| `iot-nvidia-open-hardened`         | IOT       | Yes, open drivers       | No          | No                     |
-| `iot-zfs-main-hardened`            | IOT       | No                      | Yes         | No                     |
-| `iot-zfs-nvidia-hardened`          | IOT       | Yes, closed drivers     | Yes         | No                     |
-| `iot-zfs-nvidia-open-hardened`     | IOT       | Yes, open drivers       | Yes         | No                     |
+| `iot-main-hardened`                | IoT       | No                      | No          | Beta                   |
+| `iot-nvidia-hardened`              | IoT       | Yes, closed drivers     | No          | No                     |
+| `iot-nvidia-open-hardened`         | IoT       | Yes, open drivers       | No          | No                     |
+| `iot-zfs-main-hardened`            | IoT       | No                      | Yes         | No                     |
+| `iot-zfs-nvidia-hardened`          | IoT       | Yes, closed drivers     | Yes         | No                     |
+| `iot-zfs-nvidia-open-hardened`     | IoT       | Yes, open drivers       | Yes         | No                     |
 
