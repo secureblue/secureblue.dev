@@ -15,7 +15,7 @@ permalink: /install
   - [Secureblue ISO (Desktop)](#iso)
     - [ISO Verification](#verification)
   - [Ignition (Server)](#ignition)
-  - [Rebase (IOT)](#rebase)
+  - [Rebase (IoT)](#rebase)
   - [Rebase (ARM64 - Beta)](#arm64)
 - [Post-install](#post-install)
 
@@ -40,7 +40,7 @@ Before installation, the following checks are recommended:
 secureblue includes a combination of software packages, each under its own licensing terms. The license of secureblue is the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0). The license of secureblue does not supersede the licenses of upstream code and content contained in secureblue images. By downloading secureblue you agree to the license terms of its use.
 
 ```
-Copyright 2024-2025 The Secureblue Authors
+Copyright 2024-2026 The Secureblue Authors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this software except in compliance with the License.
@@ -66,7 +66,7 @@ To install secureblue, you will use one of the following processes. Consult the 
 |------------|------------------------------------------------------------------------------------------------|--------------------------------|
 | Desktop    | Direct installation with a [secureblue ISO](#iso)                                              | Desktop/laptop end user        |
 | CoreOS     | Installation using [Ignition via Butane](#ignition).                                           | Cloud, containerized workloads |
-| IOT        | Installation via [rebase](#rebase).                                                            | Edge computing, bare-metal     |
+| IoT        | Installation via [rebase](#rebase).                                                            | Edge computing, bare-metal     |
 
 Things to remember during installation:
 
@@ -129,12 +129,12 @@ Follow the [Fedora CoreOS docs](https://docs.fedoraproject.org/en-US/fedora-core
 
 You can use our [example.butane](https://github.com/secureblue/secureblue/blob/live/docs/example.butane) as a starting point.
 
-### [Rebase (IOT)](#rebase)
+### [Rebase (IoT)](#rebase)
 {: #rebase}
 
-Install Fedora IOT using one of the [official methods](https://fedoraproject.org/iot/download).
+Install Fedora IoT using one of the [official methods](https://fedoraproject.org/iot/download).
 
-Once Fedora IOT is installed, rebase to secureblue by selecting an appropriate image from [this list](https://github.com/orgs/secureblue/packages?tab=packages&q=iot), and then running the following command:
+Once Fedora IoT is installed, rebase to secureblue by selecting an appropriate image from [this list](https://github.com/orgs/secureblue/packages?tab=packages&q=iot), and then running the following command:
 
 ```
 sudo bootc switch ghcr.io/secureblue/${IMAGE_NAME}:latest

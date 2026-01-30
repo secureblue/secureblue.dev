@@ -11,7 +11,7 @@ permalink: /articles/kargs
 - [Introduction](#introduction)
 - [Standard](#standard)
 - [Additional](#additional)
-  - [Disable 32-bit processes and syscalls](#32-bit)
+  - [Disable 32-bit processes and syscalls](#32bit)
   - [Force disable simultaneous multithreading](#smt)
   - [Unstable kargs](#unstable)
 
@@ -87,7 +87,7 @@ whether to add apply of the 3 sets of kargs detailed below:
 
 ## Disable 32-bit processes and syscalls
 
-{: #32-bit}
+{: #32bit}
 
 {% include alert.html type='note' content='32-bit support is needed by some legacy software, such as Steam.' %}
 
