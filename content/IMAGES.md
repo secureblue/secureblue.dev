@@ -34,7 +34,7 @@ This section is a relative recommendation between the desktop environments avail
 | Sway       | Yes                                   | Weak                    | Stable       | Recommended for tiling WM users |
 | COSMIC     | Yes                                   | None                    | Beta         | Not currently recommended       |
 
-{% include alert.html type='note' content='<b>nvidia-open</b> images are recommended for systems with NVIDIA GPUs Turing or newer (GTX 16XX+, RTX 20XX+). These include NVIDIA's proprietary drivers with their new <a href="https://github.com/NVIDIA/open-gpu-kernel-modules">open source kernel modules</a>, not to be confused with the reverse engineered open source Nouveau drivers (available in <b>main</b> images). <b>nvidia</b> images are recommended for systems with NVIDIA GPUs Pascal or older. These include the closed source kernel modules from NVIDIA. Consult <a href="https://nouveau.freedesktop.org/CodeNames.html">this page</a> if you&#39;re not sure what family your GPU belongs to.' %}
+{% include alert.html type='note' content='`nvidia-open` images are recommended for systems with NVIDIA GPUs Turing or newer (GTX 16XX+, RTX 20XX+). These include NVIDIA's proprietary drivers with their new <a href="https://github.com/NVIDIA/open-gpu-kernel-modules">open source kernel modules</a>, not to be confused with the reverse engineered open source Nouveau drivers (available in the `main` images). `nvidia` images are recommended for systems with NVIDIA GPUs Pascal or older. These include the closed source kernel modules from NVIDIA. Consult <a href="https://nouveau.freedesktop.org/CodeNames.html">this page</a> if you&#39;re not sure what family your GPU belongs to.' %}
 
 
 ## [Desktop](#desktop)
@@ -43,28 +43,28 @@ This section is a relative recommendation between the desktop environments avail
 
 #### Silverblue (GNOME)
 
-| Name                              | Base       | NVIDIA Support                                                                                     | ARM64 Support |
-|-----------------------------------|------------|----------------------------------------------------------------------------------------------------|---------------|
-| `silverblue-main-hardened`        | Silverblue | Reverse engineered Nouveau open source driver (not recommended)                                    | Beta          |
-| `silverblue-nvidia-hardened`      | Silverblue | Proprietary NVIDIA driver with closed source kernel modules (recommended for GTX 10xx and earlier) | No            |
-| `silverblue-nvidia-open-hardened` | Silverblue | Proprietary NVIDIA driver with open source kernel modules (recommended for GTX 16xx and later)     | No            |
+| Name                              | Base       | NVIDIA Support                                                                               | ARM64 Support |
+|-----------------------------------|------------|----------------------------------------------------------------------------------------------|---------------|
+| `silverblue-main-hardened`        | Silverblue | Reverse engineered Nouveau open source driver (not recommended)                              | Beta          |
+| `silverblue-nvidia-hardened`      | Silverblue | Proprietary NVIDIA driver with closed source kernel modules (recommended for pre-Turing)     | No            |
+| `silverblue-nvidia-open-hardened` | Silverblue | Proprietary NVIDIA driver with open source kernel modules (recommended for Turing and later) | No            |
 
 
 #### Kinoite (KDE Plasma)
 
-| Name                           | Base    | NVIDIA Support                                                                                     | ARM64 Support |
-|--------------------------------|---------|----------------------------------------------------------------------------------------------------|---------------|
-| `kinoite-main-hardened`        | Kinoite | Reverse engineered Nouveau open source driver (not recommended)                                    | Beta          |
-| `kinoite-nvidia-hardened`      | Kinoite | Proprietary NVIDIA driver with closed source kernel modules (recommended for GTX 10xx and earlier) | No            |
-| `kinoite-nvidia-open-hardened` | Kinoite | Proprietary NVIDIA driver with open source kernel modules (recommended for GTX 16xx and later)     | No            |
+| Name                           | Base    | NVIDIA Support                                                                               | ARM64 Support |
+|--------------------------------|---------|----------------------------------------------------------------------------------------------|---------------|
+| `kinoite-main-hardened`        | Kinoite | Reverse engineered Nouveau open source driver (not recommended)                              | Beta          |
+| `kinoite-nvidia-hardened`      | Kinoite | Proprietary NVIDIA driver with closed source kernel modules (recommended for pre-Turing)     | No            |
+| `kinoite-nvidia-open-hardened` | Kinoite | Proprietary NVIDIA driver with open source kernel modules (recommended for Turing and later) | No            |
 
 #### Sericea (Sway)
 
-| Name                           | Base    | NVIDIA Support                                                                                     | ARM64 Support |
-|--------------------------------|---------|----------------------------------------------------------------------------------------------------|---------------|
-| `sericea-main-hardened`        | Sericea | Reverse engineered Nouveau open source driver (not recommended)                                    | Beta          |
-| `sericea-nvidia-hardened`      | Sericea | Proprietary NVIDIA driver with closed source kernel modules (recommended for GTX 10xx and earlier) | No            |
-| `sericea-nvidia-open-hardened` | Sericea | Proprietary NVIDIA driver with open source kernel modules (recommended for GTX 16xx and later)     | No            |
+| Name                           | Base    | NVIDIA Support                                                                               | ARM64 Support |
+|--------------------------------|---------|----------------------------------------------------------------------------------------------|---------------|
+| `sericea-main-hardened`        | Sericea | Reverse engineered Nouveau open source driver (not recommended)                              | Beta          |
+| `sericea-nvidia-hardened`      | Sericea | Proprietary NVIDIA driver with closed source kernel modules (recommended for pre-Turing)     | No            |
+| `sericea-nvidia-open-hardened` | Sericea | Proprietary NVIDIA driver with open source kernel modules (recommended for Turing and later) | No            |
 
 ### [Experimental](#experimental)
 
@@ -72,33 +72,33 @@ Note that there are no ISOs available for experimental images. If you want to tr
 
 #### COSMIC
 
-| Name                          | Base   | NVIDIA Support                                                                                     | ARM64 Support |
-|-------------------------------|--------|----------------------------------------------------------------------------------------------------|---------------|
-| `cosmic-main-hardened`        | COSMIC | Reverse engineered Nouveau open source driver (not recommended)                                    | Beta          |
-| `cosmic-nvidia-hardened`      | COSMIC | Proprietary NVIDIA driver with closed source kernel modules (recommended for GTX 10xx and earlier) | No            |
-| `cosmic-nvidia-open-hardened` | COSMIC | Proprietary NVIDIA driver with open source kernel modules (recommended for GTX 16xx and later)     | No            |
+| Name                          | Base   | NVIDIA Support                                                                               | ARM64 Support |
+|-------------------------------|--------|----------------------------------------------------------------------------------------------|---------------|
+| `cosmic-main-hardened`        | COSMIC | Reverse engineered Nouveau open source driver (not recommended)                              | Beta          |
+| `cosmic-nvidia-hardened`      | COSMIC | Proprietary NVIDIA driver with closed source kernel modules (recommended for pre-Turing)     | No            |
+| `cosmic-nvidia-open-hardened` | COSMIC | Proprietary NVIDIA driver with open source kernel modules (recommended for Turing and later) | No            |
 
 ## [Server](#server)
 ### [CoreOS](#coreos)
 {% include alert.html type='note' content='After you finish setting up your <a href="https://fedoraproject.org/coreos/">Fedora CoreOS</a> installation, you will need to disable <code>zincati.service</code> before rebasing to securecore.' %}
 
-| Name                                  | Base   | NVIDIA Support                                                                                     | ZFS Support | ARM64 Support |
-|---------------------------------------|--------|----------------------------------------------------------------------------------------------------|-------------|---------------|
-| `securecore-main-hardened`            | CoreOS | Reverse engineered Nouveau open source driver (not recommended)                                    | No          | Beta          |
-| `securecore-nvidia-hardened`          | CoreOS | Proprietary NVIDIA driver with closed source kernel modules (recommended for GTX 10xx and earlier) | No          | No            |
-| `securecore-nvidia-open-hardened`     | CoreOS | Proprietary NVIDIA driver with open source kernel modules (recommended for GTX 16xx and later)     | No          | No            |
-| `securecore-zfs-main-hardened`        | CoreOS | Reverse engineered Nouveau open source driver (not recommended)                                    | Yes         | No            |
-| `securecore-zfs-nvidia-hardened`      | CoreOS | Proprietary NVIDIA driver with closed source kernel modules (recommended for GTX 10xx and earlier) | Yes         | No            |
-| `securecore-zfs-nvidia-open-hardened` | CoreOS | Proprietary NVIDIA driver with open source kernel modules (recommended for GTX 16xx and later)     | Yes         | No            |
+| Name                                  | Base   | NVIDIA Support                                                                               | ZFS Support | ARM64 Support |
+|---------------------------------------|--------|----------------------------------------------------------------------------------------------|-------------|---------------|
+| `securecore-main-hardened`            | CoreOS | Reverse engineered Nouveau open source driver (not recommended)                              | No          | Beta          |
+| `securecore-nvidia-hardened`          | CoreOS | Proprietary NVIDIA driver with closed source kernel modules (recommended for pre-Turing)     | No          | No            |
+| `securecore-nvidia-open-hardened`     | CoreOS | Proprietary NVIDIA driver with open source kernel modules (recommended for Turing and later) | No          | No            |
+| `securecore-zfs-main-hardened`        | CoreOS | Reverse engineered Nouveau open source driver (not recommended)                              | Yes         | No            |
+| `securecore-zfs-nvidia-hardened`      | CoreOS | Proprietary NVIDIA driver with closed source kernel modules (recommended for pre-Turing)     | Yes         | No            |
+| `securecore-zfs-nvidia-open-hardened` | CoreOS | Proprietary NVIDIA driver with open source kernel modules (recommended for Turing and later) | Yes         | No            |
 
 ### [IoT](#iot)
 
-| Name                           | Base | NVIDIA Support                                                                                     | ZFS Support | ARM64 Support |
-|--------------------------------|------|----------------------------------------------------------------------------------------------------|-------------|---------------|
-| `iot-main-hardened`            | IoT  | Reverse engineered Nouveau open source driver (not recommended)                                    | No          | Beta          |
-| `iot-nvidia-hardened`          | IoT  | Proprietary NVIDIA driver with closed source kernel modules (recommended for GTX 10xx and earlier) | No          | No            |
-| `iot-nvidia-open-hardened`     | IoT  | Proprietary NVIDIA driver with open source kernel modules (recommended for GTX 16xx and later)     | No          | No            |
-| `iot-zfs-main-hardened`        | IoT  | Reverse engineered Nouveau open source driver (not recommended)                                    | Yes         | No            |
-| `iot-zfs-nvidia-hardened`      | IoT  | Proprietary NVIDIA driver with closed source kernel modules (recommended for GTX 10xx and earlier) | Yes         | No            |
-| `iot-zfs-nvidia-open-hardened` | IoT  | Proprietary NVIDIA driver with open source kernel modules (recommended for GTX 16xx and later)     | Yes         | No            |
+| Name                           | Base | NVIDIA Support                                                                               | ZFS Support | ARM64 Support |
+|--------------------------------|------|----------------------------------------------------------------------------------------------|-------------|---------------|
+| `iot-main-hardened`            | IoT  | Reverse engineered Nouveau open source driver (not recommended)                              | No          | Beta          |
+| `iot-nvidia-hardened`          | IoT  | Proprietary NVIDIA driver with closed source kernel modules (recommended for pre-Turing)     | No          | No            |
+| `iot-nvidia-open-hardened`     | IoT  | Proprietary NVIDIA driver with open source kernel modules (recommended for Turing and later) | No          | No            |
+| `iot-zfs-main-hardened`        | IoT  | Reverse engineered Nouveau open source driver (not recommended)                              | Yes         | No            |
+| `iot-zfs-nvidia-hardened`      | IoT  | Proprietary NVIDIA driver with closed source kernel modules (recommended for pre-Turing)     | Yes         | No            |
+| `iot-zfs-nvidia-open-hardened` | IoT  | Proprietary NVIDIA driver with open source kernel modules (recommended for Turing and later) | Yes         | No            |
 
