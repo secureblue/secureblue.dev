@@ -47,7 +47,7 @@ This section is a relative recommendation between the desktop environments avail
 |-----------------------------------|------------|---------------------------------------------------------------------------------------------------------|---------------|
 | `silverblue-main-hardened`        | Silverblue | Reverse engineered Nouveau open source driver (not recommended)                                         | Beta          |
 | `silverblue-nvidia-hardened`      | Silverblue | Legacy proprietary NVIDIA driver (recommended for RTX 10xx and earlier)                                 | No            |
-| `silverblue-nvidia-open-hardened` | Silverblue | Current proprietary NVIDIA driver with open source kernel modules (recommended for RTX 20xx and later)  | No            |
+| `silverblue-nvidia-open-hardened` | Silverblue | Current proprietary NVIDIA driver with open source kernel modules (recommended for RTX 16xx and later)  | No            |
 
 
 #### Kinoite (KDE Plasma)
@@ -56,7 +56,7 @@ This section is a relative recommendation between the desktop environments avail
 |--------------------------------|---------|--------------------------------------------------------------------------------------------------------|---------------|
 | `kinoite-main-hardened`        | Kinoite | Reverse engineered Nouveau open source driver (not recommended)                                        | Beta          |
 | `kinoite-nvidia-hardened`      | Kinoite | Legacy proprietary NVIDIA driver (recommended for RTX 10xx and earlier)                                | No            |
-| `kinoite-nvidia-open-hardened` | Kinoite | Current proprietary NVIDIA driver with open source kernel modules (recommended for RTX 20xx and later) | No            |
+| `kinoite-nvidia-open-hardened` | Kinoite | Current proprietary NVIDIA driver with open source kernel modules (recommended for RTX 16xx and later) | No            |
 
 #### Sericea (Sway)
 
@@ -64,7 +64,7 @@ This section is a relative recommendation between the desktop environments avail
 |--------------------------------|---------|--------------------------------------------------------------------------------------------------------|---------------|
 | `sericea-main-hardened`        | Sericea | Reverse engineered Nouveau open source driver (not recommended)                                        | Beta          |
 | `sericea-nvidia-hardened`      | Sericea | Legacy proprietary NVIDIA driver (recommended for RTX 10xx and earlier)                                | No            |
-| `sericea-nvidia-open-hardened` | Sericea | Current proprietary NVIDIA driver with open source kernel modules (recommended for RTX 20xx and later) | No            |
+| `sericea-nvidia-open-hardened` | Sericea | Current proprietary NVIDIA driver with open source kernel modules (recommended for RTX 16xx and later) | No            |
 
 ### [Experimental](#experimental)
 
@@ -76,7 +76,7 @@ Note that there are no ISOs available for experimental images. If you want to tr
 |-------------------------------|--------|--------------------------------------------------------------------------------------------------------|---------------|
 | `cosmic-main-hardened`        | COSMIC | Reverse engineered Nouveau open source driver (not recommended)                                        | Beta          |
 | `cosmic-nvidia-hardened`      | COSMIC | Legacy proprietary NVIDIA driver (recommended for RTX 10xx and earlier)                                | No            |
-| `cosmic-nvidia-open-hardened` | COSMIC | Current proprietary NVIDIA driver with open source kernel modules (recommended for RTX 20xx and later) | No            |
+| `cosmic-nvidia-open-hardened` | COSMIC | Current proprietary NVIDIA driver with open source kernel modules (recommended for RTX 16xx and later) | No            |
 
 ## [Server](#server)
 ### [CoreOS](#coreos)
@@ -86,10 +86,10 @@ Note that there are no ISOs available for experimental images. If you want to tr
 |---------------------------------------|--------|--------------------------------------------------------------------------------------------------------|-------------|---------------|
 | `securecore-main-hardened`            | CoreOS | Reverse engineered Nouveau open source driver (not recommended)                                        | No          | Beta          |
 | `securecore-nvidia-hardened`          | CoreOS | Legacy proprietary NVIDIA driver (recommended for RTX 10xx and earlier)                                | No          | No            |
-| `securecore-nvidia-open-hardened`     | CoreOS | Current proprietary NVIDIA driver with open source kernel modules (recommended for RTX 20xx and later) | No          | No            |
+| `securecore-nvidia-open-hardened`     | CoreOS | Current proprietary NVIDIA driver with open source kernel modules (recommended for RTX 16xx and later) | No          | No            |
 | `securecore-zfs-main-hardened`        | CoreOS | Reverse engineered Nouveau open source driver (not recommended)                                        | Yes         | No            |
 | `securecore-zfs-nvidia-hardened`      | CoreOS | Legacy proprietary NVIDIA driver (recommended for RTX 10xx and earlier)                                | Yes         | No            |
-| `securecore-zfs-nvidia-open-hardened` | CoreOS | Current proprietary NVIDIA driver with open source kernel modules (recommended for RTX 20xx and later) | Yes         | No            |
+| `securecore-zfs-nvidia-open-hardened` | CoreOS | Current proprietary NVIDIA driver with open source kernel modules (recommended for RTX 16xx and later) | Yes         | No            |
 
 ### [IoT](#iot)
 
@@ -97,8 +97,8 @@ Note that there are no ISOs available for experimental images. If you want to tr
 |--------------------------------|------|--------------------------------------------------------------------------------------------------------|-------------|---------------|
 | `iot-main-hardened`            | IoT  | Reverse engineered Nouveau open source driver (not recommended)                                        | No          | Beta          |
 | `iot-nvidia-hardened`          | IoT  | Legacy proprietary NVIDIA driver (recommended for RTX 10xx and earlier)                                | No          | No            |
-| `iot-nvidia-open-hardened`     | IoT  | Current proprietary NVIDIA driver with open source kernel modules (recommended for RTX 20xx and later) | No          | No            |
+| `iot-nvidia-open-hardened`     | IoT  | Current proprietary NVIDIA driver with open source kernel modules (recommended for RTX 16xx and later) | No          | No            |
 | `iot-zfs-main-hardened`        | IoT  | Reverse engineered Nouveau open source driver (not recommended)                                        | Yes         | No            |
 | `iot-zfs-nvidia-hardened`      | IoT  | Legacy proprietary NVIDIA driver (recommended for RTX 10xx and earlier)                                | Yes         | No            |
-| `iot-zfs-nvidia-open-hardened` | IoT  | Current proprietary NVIDIA driver with open source kernel modules (recommended for RTX 20xx and later) | Yes         | No            |
+| `iot-zfs-nvidia-open-hardened` | IoT  | Current proprietary NVIDIA driver with open source kernel modules (recommended for RTX 16xx and later) | Yes         | No            |
 
