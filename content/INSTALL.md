@@ -95,7 +95,7 @@ Things to remember during installation:
       <select name="nvidia" id="nvidia" required>
         <option value="" disabled selected hidden>Do you have NVIDIA?</option>
         <option value="main">No</option>
-        <option value="nvidia">Yes, closded kernel modules (pre-Turing)</option>
+        <option value="nvidia">Yes, closed kernel modules (pre-Turing)</option>
         <option value="nvidia-open">Yes, open kernel modules (Turing and later)</option>
       </select>
     </div>
