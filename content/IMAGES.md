@@ -37,7 +37,7 @@ This section is a relative recommendation between the desktop environments avail
 
 ## [Desktop](#desktop)
 
-<b>nvidia-open</b> images are recommended for systems with NVIDIA GPUs Turing or newer (GTX 16XX+, RTX 20XX+). These include the new <a href="https://github.com/NVIDIA/open-gpu-kernel-modules">open kernel modules</a> from NVIDIA, not Nouveau. <b>nvidia</b> images are recommended for systems with NVIDIA GPUs Pascal or older. These include the closed kernel modules from NVIDIA.
+<b>nvidia-open</b> images are recommended for systems with NVIDIA GPUs Turing or newer (GTX 16XX+, RTX 20XX+). These include NVIDIA's proprietary drivers with their new <a href="https://github.com/NVIDIA/open-gpu-kernel-modules">open source kernel modules</a>, not to be confused with the reverse engineered open source Nouveau drivers (available in <b>main</b>). <b>nvidia</b> images are recommended for systems with NVIDIA GPUs Pascal or older. These include the closed kernel modules from NVIDIA.
 
 ### [Stable](#stable)
 
