@@ -70,6 +70,7 @@ permalink: /faq
   - [Why don't my AppImages work?](#appimage)
   - [Why won't Trivalent start when Bubblejailed?](#trivalent-bubblejail)
   - [Why won't Trivalent start on Nvidia?](#trivalent-nvidia)
+  - [Why doesn't/won't/can't Trivalent...?](#trivalent-faq)
   - [Why is my splash screen disabled on KDE?](#kde-splash-disabled)
   - [Why is my secureblue virtual machine integration broken?](#vm-integration)
   - [Why can't I see any network services? (e.g. printers, Google Cast, file servers, IoT)](#mdns-resolution)
@@ -496,6 +497,11 @@ rpm-ostree install funionfs
 {: #trivalent-nvidia}
 
 On some Nvidia machines, Trivalent defaults to the X11 backend. Since secureblue disables Xwayland by default, this means that you will need to run `ujust set-xwayland on` and reboot for Trivalent to work.
+
+### [Why doesn't/won't/can't Trivalent...?](#trivalent-faq)
+{: #trivalent-faq}
+
+For any other issues you experience with Trivalent, visit Trivalent's dedicated FAQ page by opening `chrome://trivalent-faq` in Trivalent.
 
 ### [Why is my splash screen disabled on KDE?](#kde-splash-disabled)
 {: #kde-splash-disabled}
