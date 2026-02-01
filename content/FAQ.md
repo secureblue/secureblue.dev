@@ -53,8 +53,7 @@ permalink: /faq
   - [How do I install KDE Connect?](#kde-connect)
   - [How do I change my DE?](#change-de)
   - [How do I enable kernel modules?](#enable-kernel-modules)
-  - [Which filters are included in Trivalent adblocking? How do I add a new filter?](#trivalent-filter)
-  - [Why aren’t YouTube ads blocked, and how can I watch YouTube without ads?](#youtube-ads)
+  - [How do I install an app as a PWA?](#pwa)
   - [How do I configure GRUB?](#configure-grub)
 
 
@@ -71,10 +70,7 @@ permalink: /faq
   - [Why don't my AppImages work?](#appimage)
   - [Why won't Trivalent start when Bubblejailed?](#trivalent-bubblejail)
   - [Why won't Trivalent start on Nvidia?](#trivalent-nvidia)
-  - [Why don't some websites that require JIT/WebAssembly work in Trivalent even with the JavaScript Optimizations toggle enabled?](#trivalent-v8-exceptions)
-  - [Why don't extensions work in Trivalent?](#trivalent-extensions)
-  - [Why does Trivalent log me out of all sites by default?](#trivalent-net-sandbox)
-  - [Why doesn't DRM content (Spotify, Netflix etc.) work in Trivalent?](#trivalent-protected-content)
+  - [Why doesn't/won't/can't Trivalent...?](#trivalent-faq)
   - [Why is my splash screen disabled on KDE?](#kde-splash-disabled)
   - [Why is my secureblue virtual machine integration broken?](#vm-integration)
   - [Why can't I see any network services? (e.g. printers, Google Cast, file servers, IoT)](#mdns-resolution)
@@ -397,15 +393,10 @@ Choose whatever you like from the [available options](https://secureblue.dev/ima
 
 Some functionality requires you to enable extra kernel modules that are disabled by default in secureblue. Modules can be enabled by running `ujust override-enable-module`. For instance, mounting SMB shares requires the `cifs` and `netfs` kernel modules. To load them, simply run `ujust override-enable-module cifs` and `ujust override-enable-module netfs` then reboot.
 
-### [Which filters are included in Trivalent adblocking? How do I add a new filter?](#trivalent-filter)
-{: #trivalent-filter}
+### [How do I install an app as a PWA?](#pwa)
+{: #pwa}
 
-Trivalent comes preloaded with EasyList, EasyPrivacy, Fanboy Annoyance, and a wide set of regional filter lists covering Europe, Asia, the Middle East, and more. It also includes Anti-Adblock Filters to bypass detection. You can see the full list here: [Trivalent filter sources](https://github.com/secureblue/trivalent-subresource-filter/blob/live/copr_script.sh). If you want to add a new filter, open an issue or submit a pull request in the same repository.
-
-### [Why aren’t YouTube ads blocked, and how can I watch YouTube without ads?](#youtube-ads)
-{: #youtube-ads}
-
-Trivalent’s subresource filter cannot perform script injection or observe and alter what happens inside YouTube’s video player, so it can’t reliably intercept the scripts and dynamic behavior YouTube uses to serve ads. To avoid ads, you need a tool capable of doing that. Common options are FreeTube [Electron Flatpak](https://flathub.org/apps/io.freetubeapp.FreeTube), Pipeline [Piped proxy Flatpak](https://flathub.org/apps/de.schmidhuberj.tubefeeder), and the YouTube PWA paired with uBlock Origin Lite. Consider creating a separate profile for the Youtube PWA, so you can continue browsing extensionless for your usual profile.
+It is recommended to install apps whose clients would otherwise use Electron, such as Discord, Spotify, Element, YouTube, etc. as a PWA on Trivalent. Consult the [Google Chrome support page](https://support.google.com/chrome/answer/9658361) for instructions on installing a PWA.
 
 ### [How do I configure GRUB?](#configure-grub)
 {: #configure-grub}
@@ -507,35 +498,10 @@ rpm-ostree install funionfs
 
 On some Nvidia machines, Trivalent defaults to the X11 backend. Since secureblue disables Xwayland by default, this means that you will need to run `ujust set-xwayland on` and reboot for Trivalent to work.
 
-### [Why don't some websites that require JIT/WebAssembly work in Trivalent even with the JavaScript Optimizations toggle enabled?](#trivalent-v8-exceptions)
-{: #trivalent-v8-exceptions}
+### [Why doesn't/won't/can't Trivalent...?](#trivalent-faq)
+{: #trivalent-faq}
 
-This is an [upstream bug](https://issues.chromium.org/issues/373893056) that prevents JavaScript Optimizations settings from being applied to iframes embedded within a parent website. As a result, WebAssembly may not function on services that use a separate URL for their content delivery network or other included domains, such as VSCode Web ([https://github.dev](https://github.dev)). To make VSCode Web work properly, you need to manually allow JavaScript optimizations for the CDN by adding `https://[*.]vscode-cdn.net` to your list of trusted websites.
-\
-\
-There is also currently a bug where the optimizations permission doesn't apply to a tab even after reloading, only after closing and re-opening the tab does the optimizations toggle properly apply.
-
-### [Why don't extensions work in Trivalent?](#trivalent-extensions)
-{: #trivalent-extensions}
-
-Extensions in Trivalent are disabled by default, for security reasons, it is not advised to use them. If you want content/ad blocking, that is already built into Trivalent and enabled by default. If you require extensions, you can re-enable them by disabling the `Disable Extensions` toggle under `chrome://settings/security`, then restart your browser (this toggle is per-profile).
-\
-\
-If the extension you installed doesn't work, it may be because it requires JavaScript Just-In-Time Compilation (JIT). WebAssembly without JIT is enabled on secureblue through an interpreter called DrumBrake, and this should help with extension compatibility.
-\
-To re-enable JavaScript JIT for an extension, visit `chrome://extensions`, under the extension with the issues, go `Details -> Site Settings`, then scroll to `JavaScript optimization & security` and flip to allow. If the extension continues to not work, try reinstalling the extension.
-
-### [Why does Trivalent log me out of all sites by default?](#trivalent-net-sandbox)
-{: #trivalent-net-sandbox}
-
-It shouldn't, this is a bug related to Chromium's Network Service Sandbox where cookies are either cleared or become inaccessible when the browser is closed. If you experience this, navigate to `chrome://settings/security`, at the bottom you will see a `Hardening` section and within it a toggle `Network Service Sandbox`, flip this to off and restart your browser.
-
-Please note that the Network Service Sandbox is [no longer enabled by default](https://github.com/secureblue/Trivalent/pull/480/files/67c2c91a056838f09776c9dd28e99124230adf07#diff-f24bc2fcd4ac4f85c8c6caf588c01bba7223ba8b2ffb109ba5ebfae58571c999). Users should keep in mind that enabling this setting may result in issues with cookie persistence. Also note that this is a global toggle, which means that all your browser profiles will be affected if the setting is toggled.
-
-### [Why doesn't DRM content (Spotify, Netflix etc.) work in Trivalent?](#trivalent-protected-content)
-{: #trivalent-protected-content}
-
-DRM-protected content is available in Trivalent, however it is disabled by default. Visit `chrome://settings/content/protectedContent` and select "Sites can play protected content".
+For any other issues you experience with Trivalent, visit Trivalent's dedicated FAQ page by opening `chrome://trivalent-faq` in Trivalent.
 
 ### [Why is my splash screen disabled on KDE?](#kde-splash-disabled)
 {: #kde-splash-disabled}
