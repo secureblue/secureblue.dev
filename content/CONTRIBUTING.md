@@ -11,7 +11,7 @@ All types of contributions are encouraged and valued. See the [Table of Contents
 And if you like the project, but just don't have time to contribute, that's fine. There are other easy ways to support the project and show your appreciation, which we would also be very happy about:
 
 - Star the project [in GitHub](https://github.com/secureblue/secureblue)
-- Tweet about it
+- Post about it on social media
 - Refer this project in your project's README
 - Mention the project at local meetups and tell your friends/colleagues
 
@@ -101,7 +101,7 @@ rpm-ostree rebase ostree-unverified-registry:ghcr.io/YOURUSERNAME/YOURIMAGENAME:
 ## [Building Locally](#building-locally)
 {: #building-locally}
 
-The minimum tools required are git and a working machine with podman enabled and configured.
+The minimum tools required are git and a working machine with Podman enabled and configured.
 Building locally is much faster than building in GitHub and is a good way to move fast before pushing to a remote.
 
 ### Clone the repo
@@ -144,14 +144,14 @@ Secureblue already includes `bluebuild`, but running locally requires customizin
 
 #### Policy.json configuration
 
-On secureblue only pre-configured signed images are allowed to be pulled. The following repos need to be configured:
+On secureblue, only pre-configured signed images are allowed to be pulled. The following repos need to be configured:
 
 - docker.io/mikefarah/yq `Unsigned`
 - ghcr.io/blue-build/cli `Unsigned`
 - ghcr.io/blue-build/modules `Unsigned`
 - quay.io/fedora-ostree-desktops `Unsigned`
 
-Copy `/etc/containers/policy.json` to `~/.config/containers/policy.json` and then add rules using podman CLI:
+Copy `/etc/containers/policy.json` to `~/.config/containers/policy.json` and then add rules using Podman CLI:
 
 - `podman image trust set --type accept docker.io/mikefarah/yq`
 - `podman image trust set --type accept ghcr.io/blue-build`

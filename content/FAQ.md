@@ -143,7 +143,7 @@ Consult our [Flatpak article](/articles/flatpak).
 ### [Should I use Electron apps? Why don't they work well with hardened_malloc?](#electron)
 {: #electron}
 
-For Electron apps like Signal, Slack, FreeTube, Element, VSCode, Discord, etc., consult this [discussion](https://github.com/secureblue/secureblue/issues/193#issuecomment-1953323680)
+For Electron apps like Signal, Slack, FreeTube, Element, VSCode, Discord, etc., consult this [discussion](https://github.com/secureblue/secureblue/issues/193#issuecomment-1953323680).
 
 ### [Should I use Firejail?](#firejail)
 {: #firejail}
@@ -491,7 +491,7 @@ rpm-ostree install funionfs
 ### [Why won't Trivalent start when Bubblejailed?](#trivalent-bubblejail)
 {: #trivalent-bubblejail}
 
-`bubblejail` shouldn't be used on Trivalent, there are issues reported with the pairing and removing the `bubblejail` config after it is applied can be difficult. It should also be noted that applying additional sandboxing may interfere with chromium's own internal sandbox, so it may end up reducing security.
+`bubblejail` shouldn't be used on Trivalent, there are issues reported with the pairing and removing the `bubblejail` config after it is applied can be difficult. It should also be noted that applying additional sandboxing may interfere with Chromium's own internal sandbox, so it may end up reducing security.
 
 ### [Why won't Trivalent start on Nvidia?](#trivalent-nvidia)
 {: #trivalent-nvidia}
