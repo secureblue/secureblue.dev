@@ -34,6 +34,7 @@ For details on what each kernel argument does, see
 Stable kernel arguments that are set by default on a fresh secureblue
 installation, and are always applied by the script `ujust set-kargs-hardening`.
 
+- `hash_pointers=always`: Hash kernel pointers even if `slab_debug` is enabled.
 - `init_on_alloc=1`: Fill newly allocated pages and heap objects with zeroes,
   mitigating use-after-free vulnerabilities.
 - `init_on_free=1`: Fill freed pages and heap objects with zeroes, mitigating
@@ -69,6 +70,8 @@ installation, and are always applied by the script `ujust set-kargs-hardening`.
   making certain types of attacks more difficult.
 - `rd.shell=0`, `rd.emergency=halt`: Mitigate
   [initramfs malware injection attack](https://insinuator.net/2025/07/insecure-boot-injecting-initramfs-from-a-debug-shell/).
+- `slab_debug=FZ`: Enable sanity checks and red zoning for the
+  [kernel slab allocator](https://www.kernel.org/doc/html/latest/admin-guide/mm/slab.html).
 - `slab_nomerge`: Disable the merging of slabs, increasing difficulty of heap
   exploitation.
 - `spec_store_bypass_disable=on`: Disable spec store bypass for all programs.
