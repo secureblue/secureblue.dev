@@ -207,9 +207,7 @@ secureblue prevents [numerous modules](https://github.com/secureblue/secureblue/
 > `rpm -qa | grep x`
 
 #### Flatpak
-[Flatpaks](https://flatpak.org/) are the recommended way to install GUI software in secureblue, with the exception of [browsers](https://github.com/RKNF404/chromium-hardening-guide/blob/main/pages/BROWSER_SELECTION.md#flatpak-linux). An article on why we recommend flatpaks is available [here](https://secureblue.dev/articles/flatpak)
-
-You can add the unfiltered Flathub repo with `ujust enable-flathub-unfiltered`.
+[Flatpaks](https://flatpak.org/) are the recommended way to install GUI software in secureblue, with the exception of [browsers](https://github.com/RKNF404/chromium-hardening-guide/blob/main/pages/BROWSER_SELECTION.md#flatpak-linux). An article on why we recommend flatpaks, as well as some recommended configuration, is available [here](https://secureblue.dev/articles/flatpak).
 ##### Installing Flatpaks
 ###### Bazaar
 [Bazaar](https://github.com/kolunmi/bazaar) is the app store that comes preinstalled with secureblue. It is forked for secureblue so we can make a few of our own changes and audit updates for security. It by default filters EoL apps and certain apps with known security issues. Do note that the scope of this filter is limited and an app being unfiltered does not mean it is secure. Bazaar has a curated tab for software that compliments secureblue.
