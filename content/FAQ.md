@@ -207,36 +207,22 @@ secureblue prevents [numerous modules](https://github.com/secureblue/secureblue/
 > `rpm -qa | grep x`
 
 #### Flatpak
-[Flatpaks](https://flatpak.org/) are the recommended way to install GUI software in secureblue, with the exception of [browsers](https://github.com/RKNF404/chromium-hardening-guide/blob/main/pages/BROWSER_SELECTION.md#flatpak-linux).
-We have a specific article on flatpaks [here](https://secureblue.dev/articles/flatpak)
-There are a few recommended ujust scripts to run for flatpaks, those being:
-> `ujust harden-flatpak` - Enables [Hardened-Malloc](https://github.com/GrapheneOS/hardened_malloc) for flatpaks
-> `ujust flatpak-permissions-lockdown` - Significantly reduces default permissions of flatpaks.
+[Flatpaks](https://flatpak.org/) are the recommended way to install GUI software in secureblue, with the exception of [browsers](https://github.com/RKNF404/chromium-hardening-guide/blob/main/pages/BROWSER_SELECTION.md#flatpak-linux). An article on why we recommend flatpaks is available [here](https://secureblue.dev/articles/flatpak)
 
 You can add the unfiltered Flathub repo with `ujust enable-flathub-unfiltered`.
 ##### Installing Flatpaks
 ###### Bazaar
-[Bazaar](https://github.com/kolunmi/bazaar) is the app store that comes preinstalled with secureblue. It is forked for secureblue so we can make a few of our own changes and audit updates for security.
-It by default filters EoL apps and certain apps with known security issues. Do note that the scope of this filter is limited and an app being unfiltered does not mean it is secure.
-Bazaar has a curated tab for software that compliments secureblue.
-###### Flatpak CLI
+[Bazaar](https://github.com/kolunmi/bazaar) is the app store that comes preinstalled with secureblue. It is forked for secureblue so we can make a few of our own changes and audit updates for security. It by default filters EoL apps and certain apps with known security issues. Do note that the scope of this filter is limited and an app being unfiltered does not mean it is secure. Bazaar has a curated tab for software that compliments secureblue.
+###### CLI
 Flatpaks can by installed using the flatpak CLI tool, which is preinstalled with secureblue. Run `flatpak --help` for a list of commands and their usage. You can browse this [catalogue of Flatpaks](https://flathub.org) to discover the available packages.
-#### CLI Package
+#### Homebrew
 For CLI packages, you can install with [Homebrew](https://docs.brew.sh/Manpage) using `brew install <package>`. You can browse this [catalogue of Homebrew Formulae](https://formulae.brew.sh) to discover the available formulae.
 #### RPM
-If a package isn't available via Flatpak or Homebrew, or if a package requires greater system integration, `rpm-ostree install <package>` can be used to layer rpms directly into your subsequent deployments.
-Sometimes an additional repository needs to be added to install software. 
-In this case, run:
-`mv /path/to/repo /etc/yum.repos.d/reponame`
-`rpm-ostree install <packagename>`
-Beware, you are trusting a third party to not ship malware. Third party copr's are particularly hazardous.
-#### Distro-specific format (e.g. .deb)
-secureblue comes with [distrobox](https://distrobox.it/). This means that formats that are specific to some other distro can often be ran via distrobox.
-For example, you can create and ubuntu container with `distrobox assemble` and then when you have entered that container with `distrobox enter ubuntu` you can use .deb packages from within it.
-#### AppImage
-See [here](https://secureblue.dev/faq#appimage).
-Note: Sometimes AppImages can work if you extract them with `/path/to/your/appimage --appimage-extract`, then enter the `squashfs-root` directory created and run whatever binary is in there.
+If a package isn't available via Flatpak or Homebrew, or if a package requires greater system integration, `rpm-ostree install <package>` can be used to layer rpms directly into your subsequent deployments. Sometimes an additional repository needs to be added to install software.
 
+Note that by adding a third party repo, you are trusting the owner of that repo. **You should avoid adding third party repos**. But, if you must use a third party repo, run:
+`curl -O --output-dir /etc/yum.repos.d/ <repository-URL>`
+`rpm-ostree install <packagename>`
 
 ### [How do I install my VPN?](#vpn)
 {: #vpn}
@@ -514,6 +500,8 @@ For example:
 ```
 rpm-ostree install funionfs
 ```
+
+Note: Sometimes AppImages can work if you extract them with `/path/to/your/appimage --appimage-extract`, then enter the `squashfs-root` directory created and run whatever binary is in there.
 
 ### [Why won't Trivalent start when Bubblejailed?](#trivalent-bubblejail)
 {: #trivalent-bubblejail}
