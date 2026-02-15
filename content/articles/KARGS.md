@@ -78,6 +78,11 @@ installation, and are always applied by the script `ujust set-kargs-hardening`.
 - `spectre_v2=on`: Turn on spectre_v2 mitigations at boot time for all programs.
 - `ssbd=force-on`: Enable mitigation for Speculative Store Bypass vulnerability
   for both kernel and userspace on vulnerable CPUs.
+- `systemd.ssh_auto=no`: Disable automatic creation of socket-activated SSH
+  server by systemd (see
+  [systemd-ssh-generator(8)](https://man7.org/linux/man-pages/man8/systemd-ssh-generator.8.html)
+  for details), which can lead to
+  [security vulnerabilities](https://blog.nsrun.io/2026/01/15/systemd-vsock-openssh-server/).
 - `vdso32=0`: Disable 32-bit vDSO.
 - `vsyscall=none`: Disable vsyscall as it is both obsolete and enables an ROP
   attack vector.
