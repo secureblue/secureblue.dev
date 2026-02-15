@@ -15,7 +15,7 @@ permalink: /images
   - [Experimental](#experimental)
 - [Server](#server)
   - [CoreOS](#coreos)
-  - [IOT](#iot)
+  - [IoT](#iot)
 
 ## [Security recommendation](#security-recommendation)
 
@@ -25,7 +25,7 @@ In addition, GNOME also provides weak <a href="https://gitlab.gnome.org/GNOME/gn
 
 It should also be noted that our Sericea images disable the wlroots desktop portal, despite it being commonly used alongside Sway. This is because the portal reintroduces the screencopy vulnerability described above, which would undermine the security improvements in Sway for sandboxed applications. The downside of this is that by default on our Sericea images, flatpaks and applications that haven't implemented protocol support (like chromium-based browsers) are entirely prevented from screenshotting and screensharing. If necessary, Sway users can configure this using their own <a href="https://flatpak.github.io/xdg-desktop-portal/docs/portals.conf.html">portals.conf</a>.
 
-This section is a relative recommendation between the desktop environments available on secureblue. This should not be misconstrued as saying that any one solves any of the fundamental issues with desktop Linux security. For more details, consult the table below. Note: this table assumes no extensions are installed. Extensions are a significant source of attack surface in and of themselves and they can reduce the effectivness of, or completely negate, the security advantages described above.
+This section is a relative recommendation between the desktop environments available on secureblue. This should not be misconstrued as saying that any one solves any of the fundamental issues with desktop Linux security. For more details, consult the table below. Note: this table assumes no extensions are installed. Extensions are a significant source of attack surface in and of themselves and they can reduce the effectiveness of, or completely negate, the security advantages described above.
 
 | DE/WM      | Secures privileged Wayland protocols? | Thumbnailer sandboxing? | Stability    | Recommendation                  |
 |------------|---------------------------------------|-------------------------|--------------|---------------------------------|
@@ -91,14 +91,14 @@ Note that there are no ISOs available for experimental images. If you want to tr
 | `securecore-zfs-nvidia-hardened`          | CoreOS    | Yes, closed drivers     | Yes         | No                     |
 | `securecore-zfs-nvidia-open-hardened`     | CoreOS    | Yes, open drivers       | Yes         | No                     |
 
-### [IOT](#iot)
+### [IoT](#iot)
 
 | Name                               | Base      | NVIDIA Support          | ZFS Support | ARM64 Support          |
 |------------------------------------|-----------|-------------------------|-------------|------------------------|
-| `iot-main-hardened`                | IOT       | No                      | No          | Beta                   |
-| `iot-nvidia-hardened`              | IOT       | Yes, closed drivers     | No          | No                     |
-| `iot-nvidia-open-hardened`         | IOT       | Yes, open drivers       | No          | No                     |
-| `iot-zfs-main-hardened`            | IOT       | No                      | Yes         | No                     |
-| `iot-zfs-nvidia-hardened`          | IOT       | Yes, closed drivers     | Yes         | No                     |
-| `iot-zfs-nvidia-open-hardened`     | IOT       | Yes, open drivers       | Yes         | No                     |
+| `iot-main-hardened`                | IoT       | No                      | No          | Beta                   |
+| `iot-nvidia-hardened`              | IoT       | Yes, closed drivers     | No          | No                     |
+| `iot-nvidia-open-hardened`         | IoT       | Yes, open drivers       | No          | No                     |
+| `iot-zfs-main-hardened`            | IoT       | No                      | Yes         | No                     |
+| `iot-zfs-nvidia-hardened`          | IoT       | Yes, closed drivers     | Yes         | No                     |
+| `iot-zfs-nvidia-open-hardened`     | IoT       | Yes, open drivers       | Yes         | No                     |
 
