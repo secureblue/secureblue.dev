@@ -263,7 +263,7 @@ Similarly, you can uninstall Docker with:
 ujust uninstall-docker
 ```
 
-Consider preferring Podman over Docker, as Podman is rootless and is already installed in the Fedora repos. 
+Consider preferring Podman over Docker, as Podman is rootless and is already installed in the Fedora repos.
 
 ### [How do I install virtualization packages?](#libvirt)
 {: #libvirt}
