@@ -39,7 +39,7 @@ Supply chain security is a priority for secureblue. During the the build process
 ### [Provenance](#provenance)
 {: #provenance}
 
-To generate provenance, the build platform (in our case, GitHub Actions) generates and signs an attestation file containing metadata about the build environment. Crucially, it cryptographically attests to the authenticity of runner and the source commit on which the artifact is being built. This attestation is then published in the repository or registry alongside the artifact. On the client side, when the artifact is pulled, the signature of the attestation is validated against the build platform's public key and the contents of the attestation are validated to confirm that the artifact was built: on an authorized runner from a commit in a specific branch in the source repository protected by branch policies, pull request review, and maintainer login 2FA. This means that even in the event that a maintainer's artifact signing keys and artifact repository credentials were both stolen, any malicious builds pushed by the credential thief would be rejected by clients due to provenance validation.
+To generate provenance, the build platform (in our case, [GitHub Actions](https://github.com/features/actions)) generates and signs an attestation file containing metadata about the build environment. Crucially, it cryptographically attests to the authenticity of runner and the source commit on which the artifact is being built. This attestation is then published in the repository or registry alongside the artifact. On the client side, when the artifact is pulled, the signature of the attestation is [validated](https://github.com/slsa-framework/slsa-verifier) against the build platform's public key and the contents of the attestation are validated to confirm that the artifact was built: on an authorized runner from a commit in a specific branch in the source repository (in our case, protected by branch policies, pull request review, and maintainer login 2FA). This means that even in the event that a maintainer's artifact signing keys and artifact repository credentials were both stolen, any malicious builds pushed by the credential thief would be rejected by clients due to provenance validation.
 
 ### [Signatures](#signatures)
 {: #signatures}
@@ -49,16 +49,16 @@ A private key owned by the artifact maintainer is used in combination with a [ha
 ### [Egress auditing](#egress-auditing)
 {: #egress-auditing}
 
-StepSecurity Harden-Runner provides network traffic controls and source code integrity monitoring, among other mechanisms. It restricts outbound traffic to a configurable list of authorized outbound domains, and enforces this at multiple levels (DNS, HTTPS, network layer, transport layer). It has several other functions as well, like  monitoring the source code as the build progresses to ensure tampering doesn't occur, monitoring for anomalous privileged processes, etc.
+StepSecurity [Harden-Runner](https://docs.stepsecurity.io/harden-runner) provides network traffic controls and source code integrity monitoring, among other mechanisms. It restricts outbound traffic to a configurable list of authorized outbound domains, and enforces this at multiple levels (DNS, HTTPS, network layer, transport layer). It has several other functions as well, like  monitoring the source code as the build progresses to ensure tampering doesn't occur, monitoring for anomalous privileged processes, etc.
 
 ### [Branch protection](#branch-protection)
 {: #branch-protection}
 
-Branch protection via rulesets prevents any changes being made to secureblue source code without those changes first meeting specific criteria. Among those criteria is a minimum number of code reviews from maintainers, excluding of course the author of the pull request should they be a maintainer. This means that in the event that a maintainer's source code repository credentials were stolen, the thief would be unable to push changes to the repository. This includes the repo owner credentials, since bypassing rulesets is only possible after 2FA has been granted.
+Branch protection via [rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets) prevents any changes being made to secureblue source code without those changes first meeting specific criteria. Among those criteria is a minimum number of code reviews from maintainers, excluding of course the author of the pull request should they be a maintainer. This means that in the event that a maintainer's source code repository credentials were stolen, the thief would be unable to push changes to the repository. This includes the repo owner credentials, since bypassing rulesets is only possible after 2FA has been granted.
 
 ## [Build process](#build-process)
 {: #build-process}
 
-<a href="/assets/gnome-settings-vpn-step1.png" target="_blank">
-  <img src="/assets/gnome-settings-vpn-step1.png" alt="Secureblue Architecture">
+<a href="/assets/architecture.png" target="_blank">
+  <img src="/assets/architecture.png" alt="Secureblue Architecture">
 </a>
