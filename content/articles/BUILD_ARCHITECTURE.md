@@ -31,10 +31,10 @@ Supply chain security is a priority for secureblue. During the the build process
 
 | Security mechanism  | Implementation tooling | Attack vectors | Scope   |
 |------------|---------------------------------------|-------------------------|--------------|---------------------------------|
-| Provenance      | [SLSA](https://slsa.dev)                                   | Maintainer signing key theft, Rogue maintainers | All secureblue [OCI](https://opencontainers.org/) images, Trivalent RPM packages, Blue-Build build tools |
-| Signatures | [cosign](https://github.com/sigstore/cosign), [GPG](https://gnupg.org/) | Artifact tampering, Artifact forgery, Registry credential theft | All secureblue [OCI](https://opencontainers.org/) images, all secureblue ISOs and torrents, all secureblue RPM packages, all Fedora RPM packages, all Flatpaks from Flathub ([centrally signed](https://flathub.org/repo/flathub.gpg)), Blue-Build build tools |
-| Egress auditing | [StepSecurity Harden-Runner](https://docs.stepsecurity.io/harden-runner) | Maintainer secrets exfiltration, Source code tampering, Dependency tampering, Registry credential theft | All secureblue OCI image builds, Trivalent RPM builds |
-| Branch protection | [GitHub Rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets) | Maintainer source code repository credential theft, Rogue maintainers | All secureblue source code repositories |
+| Provenance      | [SLSA](https://slsa.dev)                                   | Maintainer signing key theft, Rogue maintainers | All secureblue [OCI](https://opencontainers.org/) images, Trivalent RPM packages, BlueBuild build tools |
+| Signatures | [cosign](https://github.com/sigstore/cosign), [GPG](https://gnupg.org/) | - Artifact tampering<br />- Artifact forgery<br />- Registry credential theft | - All secureblue [OCI](https://opencontainers.org/) images<br />- all secureblue ISOs and torrents<br />- all secureblue RPM packages<br />- all Fedora RPM packages<br />- all Flatpaks from Flathub ([centrally signed](https://flathub.org/repo/flathub.gpg))<br />- BlueBuild build tools |
+| Egress auditing | [StepSecurity Harden-Runner](https://docs.stepsecurity.io/harden-runner) | - Maintainer secrets exfiltration<br />- Source code tampering<br />- Dependency tampering<br />- Registry credential theft | - All secureblue OCI image builds<br />- Trivalent RPM builds |
+| Branch protection | [GitHub Rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets) | - Maintainer source code repository credential theft<br />- Rogue maintainers | All secureblue source code repositories |
 
 ## [Mitigation logic](#mitigation-logic)
 {: #mitigation-logic}
@@ -42,12 +42,16 @@ Supply chain security is a priority for secureblue. During the the build process
 ### [Provenance](#provenance)
 {: #provenance}
 
-To generate provenance, the build platform (in our case, [GitHub Actions](https://github.com/features/actions)) generates and signs an attestation file containing metadata about the build environment. Crucially, it cryptographically attests to the authenticity of runner and the source commit on which the artifact is being built. This attestation is then published in the repository or registry alongside the artifact. On the client side, when the artifact is pulled, the signature of the attestation is [validated](https://github.com/slsa-framework/slsa-verifier) against the build platform's public key and the contents of the attestation are validated to confirm that the artifact was built: on an authorized runner from a commit in a specific branch in the source repository (in our case, protected by branch policies, pull request review, and maintainer login 2FA). This means that even in the event that a maintainer's artifact signing keys and artifact repository credentials were both stolen, any malicious builds pushed by the credential thief would be rejected by clients due to provenance validation.
+To generate provenance, the build platform (in our case, [GitHub Actions](https://github.com/features/actions)) generates and signs an attestation file containing metadata about the build environment. Crucially, it cryptographically attests to the authenticity of runner and the source commit on which the artifact is being built. This attestation is then published in the repository or registry alongside the artifact. 
+
+On the client side, when the artifact is pulled, the signature of the attestation is [validated](https://github.com/slsa-framework/slsa-verifier) against the build platform's public key and the contents of the attestation are validated to confirm that the artifact was built: on an authorized runner from a commit in a specific branch in the source repository (in our case, protected by branch policies, pull request review, and maintainer login 2FA). This means that even in the event that a maintainer's artifact signing keys and artifact repository credentials were both stolen, any malicious builds pushed by the credential thief would be rejected by clients due to provenance validation.
 
 ### [Signatures](#signatures)
 {: #signatures}
 
-A private key owned by the artifact maintainer is used in combination with a [hash](https://en.wikipedia.org/wiki/Cryptographic_hash_function) of the artifact to compute a [signature](https://en.wikipedia.org/wiki/Digital_signature). The signature is then provided alongside the artifact so that clients can verify the artifact signature before installing or using the artifact. For example, for our ISOs, each signature is shipped in a corresponding `-CHECKSUM` file. Once the client has all of the required information, it can use the maintainer's public key to verify the signature, revealing a hash that it then compares against a locally-generated hash of the artifact. This means that in the event that an artifact registry was compromised or artifacts otherwise tampered with by malicious third parties, any corresponding signature file would either not be present or fail validation.
+A private key owned by the artifact maintainer is used in combination with a [hash](https://en.wikipedia.org/wiki/Cryptographic_hash_function) of the artifact to compute a [signature](https://en.wikipedia.org/wiki/Digital_signature). The signature is then provided alongside the artifact so that clients can verify the artifact signature before installing or using the artifact. For example, for our ISOs, each signature is shipped in a corresponding `-CHECKSUM` file. 
+
+Once the client has all of the required information, it can use the maintainer's public key to verify the signature, revealing a hash that it then compares against a locally-generated hash of the artifact. This means that in the event that an artifact registry was compromised or artifacts otherwise tampered with by malicious third parties, any corresponding signature file would either not be present or fail validation.
 
 ### [Egress auditing](#egress-auditing)
 {: #egress-auditing}
@@ -74,7 +78,7 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
 
 #### SRPM Build Job
 
-1. Run on a [Github-hosted runner](https://docs.github.com/en/actions/concepts/runners/github-hosted-runners)
+1. Run on a [GitHub-hosted runner](https://docs.github.com/en/actions/concepts/runners/github-hosted-runners)
 1. Run with [StepSecurity Harden-Runner](https://docs.stepsecurity.io/harden-runner) provisioned
 1. Install the [Trivalent source cache](https://github.com/secureblue/trivalent-chromium-clean-source) package from [secureblue's COPR repos](https://copr.fedorainfracloud.org/coprs/secureblue/packages/)
 
@@ -84,7 +88,7 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
 
 #### RPM Build Job
 
-1. Run on a Github-hosted runner
+1. Run on a GitHub-hosted runner
 1. Run on a secureblue-owned, AWS-hosted runner via [Runs-On](https://runs-on.com/)
 1. Run with StepSecurity Harden-Runner provisioned
 1. Pull SRPM from GitHub Artifacts
@@ -98,10 +102,10 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
 
 #### Provenance Job
 
-1. Run on a Github-hosted runner
+1. Run on a GitHub-hosted runner
 1. Run with StepSecurity Harden-Runner provisioned
 1. Fetch hash information from the Signing Job
-1. Fetch context information from the Github Control Plane
+1. Fetch context information from the GitHub Control Plane
 1. Generate, sign, and push the attestation to GitHub Artifacts
 
 ### [Secureblue Build](#secureblue-build)
@@ -109,7 +113,7 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
 
 #### Build Job
 
-1. Run on a Github-hosted runner
+1. Run on a GitHub-hosted runner
 1. Run with StepSecurity Harden-Runner provisioned
 1. Pull base image from [Fedora Quay](https://quay.io/organization/fedora-ostree-desktops)
 
@@ -140,10 +144,10 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
 
 #### Provenance Job
 
-1. Run on a Github-hosted runner
+1. Run on a GitHub-hosted runner
 1. Run with StepSecurity Harden-Runner provisioned
 1. Fetch digest information from the Build Job
-1. Fetch context information from the Github Control Plane
+1. Fetch context information from the GitHub Control Plane
 1. Generate, sign, and push the attestation to GHCR
 
 ### [Image Updates](#image-updates)
@@ -152,4 +156,4 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
 1. Pull the new image to the client machine
 
   - Validate the image signature
-  - Validate the image attestation
+  - Validate the image's provenance
