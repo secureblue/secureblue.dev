@@ -26,7 +26,7 @@ Supply chain security is a priority for secureblue. During the the build process
 ## [Definitions](#definitions)
 {: #definitions}
 
-| Security mechanism  | Implementation tooling | Threat vectors | Scope   |
+| Security mechanism  | Implementation tooling | Attack vectors | Scope   |
 |------------|---------------------------------------|-------------------------|--------------|---------------------------------|
 | Provenance      | [SLSA](https://slsa.dev)                                   | Maintainer signing key theft, Rogue maintainers | All secureblue [OCI](https://opencontainers.org/) images, Trivalent RPM packages, Blue-Build build tools |
 | Signatures | [cosign](https://github.com/sigstore/cosign), [GPG](https://gnupg.org/) | Artifact tampering, Artifact forgery, Registry credential theft | All secureblue [OCI](https://opencontainers.org/) images, all secureblue ISOs and torrents, all secureblue RPM packages, all Fedora RPM packages, all Flatpaks from Flathub ([centrally signed](https://flathub.org/repo/flathub.gpg)), Blue-Build build tools |
@@ -66,7 +66,28 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
   <figcaption>Tap or click image to open larger</figcaption>
 </figure>
 
-### Secureblue Build (Build Job)
+
+### Trivalent Build 
+#### SRPM Build Job
+1. Install the Trivalent source cache package from secureblue's COPR repos
+  + Validate the package's GPG signature
+2. Push built SRPM to GitHub Artifacts
+
+#### RPM Build Job
+1. Pull SRPM from GitHub Artifacts
+2. Push built RPM to GitHub Artifacts 
+
+#### Signing Job
+1. Pull RPM from GitHub Artifacts
+2. Sign and push the RPM to secureblue's RPM repo
+
+#### Provenance Job
+1. Fetch hash information from the Signing Job
+2. Fetch context information from the Github Control Plane
+3. Generate, sign, and push the attestation to GitHub Artifacts
+
+### Secureblue Build 
+#### Build Job
 1. Pull base image from Fedora Quay 
   + Validate the image's cosign signature
 2. Install packages from Fedora's repos 
@@ -83,13 +104,13 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
 7. Sign and push the completed image to GHCR
   + Push the image's signature
 
-### Secureblue Build (Provenance Job)
-8. Fetch digest information from the Build Job
-9. Fetch context information from the Github Control Plane
-10. Generate and push the provenance as an attestation to GHCR
+#### Provenance Job
+1. Fetch digest information from the Build Job
+2. Fetch context information from the Github Control Plane
+3. Generate, sign, and push the attestation to GHCR
 
 ### Image Updates
-11. Pull the new image to the client machine
+1. Pull the new image to the client machine
   + Validate the image signature 
   + Validate the image attestation
 
