@@ -59,6 +59,6 @@ Branch protection via rulesets prevents any changes being made to secureblue sou
 ## [Build process](#build-process)
 {: #build-process}
 
-<a href="https://github.com/secureblue/architecture/releases/latest/download/architecture.png" target="_blank">
-  <img src="https://github.com/secureblue/architecture/releases/latest/download/architecture.png" alt="Secureblue Architecture" width="600">
+<a href="/assets/gnome-settings-vpn-step1.png" target="_blank">
+  <img src="/assets/gnome-settings-vpn-step1.png" alt="Secureblue Architecture">
 </a>
