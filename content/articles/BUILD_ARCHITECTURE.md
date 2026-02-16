@@ -61,5 +61,34 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
 
 <a href="/assets/architecture.png" target="_blank">
   <img src="/assets/architecture.png" alt="Secureblue Architecture">
-  <small>Tap or click image to open larger</small>
+  <figcaption>Tap or click image to open larger</figcaption>
 </a>
+
+### Secureblue Build (Build Job)
+1. Pull base image from Fedora Quay 
+    + Validate the image's cosign signature
+2. Install packages from Fedora's repos 
+    + Validate each package's GPG signature
+3. Install packages from secureblue's COPR repos
+    + Validate each package's GPG signature
+4. From Negativo17, replace certain packages that have patent-encumbered 
+    codecs removed in Fedora's versions 
+    + Validate each package's GPG signature
+5. Pull the Trivalent provenance from the Trivalent repo
+6. From secureblue's repo, install Trivalent
+    + Validate the repo metadata signature
+    + Validate the package's GPG signature
+    + Validate the package's provenance
+7. Sign and push the completed image to GHCR
+    + Push the image's signature
+
+### Secureblue Build (Provenance Job)
+9. Fetch digest information from the Build Job
+9. Fetch context information from the Github Control Plane
+10. Generate and push the provenance as an attestation to GHCR
+
+### Image Updates
+11. Pull the new image to the client machine
+    + Validate the image signature 
+    + Validate the image attestation
+
