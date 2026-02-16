@@ -81,9 +81,7 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
 1. Run on a [GitHub-hosted runner](https://docs.github.com/en/actions/concepts/runners/github-hosted-runners)
 1. Run with [StepSecurity Harden-Runner](https://docs.stepsecurity.io/harden-runner) provisioned
 1. Install the [Trivalent source cache](https://github.com/secureblue/trivalent-chromium-clean-source) package from [secureblue's COPR repos](https://copr.fedorainfracloud.org/coprs/secureblue/packages/)
-
   - Validate the package's GPG signature
-
 1. Push built [SRPM](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/packaging_and_distributing_software/index) to GitHub Artifacts
 
 #### RPM Build Job
@@ -116,30 +114,19 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
 1. Run on a GitHub-hosted runner
 1. Run with StepSecurity Harden-Runner provisioned
 1. Pull base image from [Fedora Quay](https://quay.io/organization/fedora-ostree-desktops)
-
   - Validate the image's cosign signature
-
 1. Install packages from [Fedora's repos](https://packages.fedoraproject.org/)
-
   - Validate each package's GPG signature
-
 1. Install packages from secureblue's COPR repos
-
   - Validate each package's GPG signature
-
 1. From [Negativo17](https://negativo17.org/), replace certain packages that Fedora [strips of patent-encumbered codecs](https://docs.fedoraproject.org/en-US/project/#_freedom)
-
   - Validate each package's GPG signature
-
 1. Pull the Trivalent provenance from the [Trivalent repo](https://github.com/secureblue/Trivalent)
 1. From secureblue's RPM repo, install Trivalent
-
   - Validate the repo metadata signature
   - Validate the package's GPG signature
   - Validate the package's provenance
-
 1. Sign and push the completed image to [GHCR](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry)
-
   - Push the image's signature to GHCR
 
 #### Provenance Job
@@ -154,6 +141,5 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
 {: #image-updates}
 
 1. Pull the new image to the client machine
-
   - Validate the image signature
   - Validate the image's provenance
