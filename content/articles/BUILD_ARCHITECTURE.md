@@ -16,7 +16,7 @@ permalink: /articles/build-architecture
   - [Signatures](#signatures)
   - [Egress auditing](#egress-auditing)
   - [Branch protection](#branch-protection)
-- [Build rocess](#build-process)
+- [Build process](#build-process)
 
 ## [Introduction](#introduction)
 {: #introduction}
@@ -62,8 +62,8 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
 <figure>
   <a href="/assets/architecture.png" target="_blank">
     <img src="/assets/architecture.png" alt="Secureblue Architecture">
-    <figcaption>Tap or click image to open larger</figcaption>
   </a>
+  <figcaption>Tap or click image to open larger</figcaption>
 </figure>
 
 ### Secureblue Build (Build Job)
