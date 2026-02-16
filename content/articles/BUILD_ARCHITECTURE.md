@@ -107,7 +107,7 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
   + Validate the package's GPG signature
   + Validate the package's provenance
 7. Sign and push the completed image to GHCR
-  + Push the image's signature
+  + Push the image's signature to GHCR
 
 #### Provenance Job
 1. Fetch digest information from the Build Job
