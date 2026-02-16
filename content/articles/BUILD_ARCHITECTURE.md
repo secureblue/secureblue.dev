@@ -26,7 +26,7 @@ Supply chain security is a priority for secureblue. During the the build process
 ## [Definitions](#definitions)
 {: #definitions}
 
-| Security mechanism  | Implementation tooling | Threat vectors | Mitigation logic | Scope   |
+| Security mechanism  | Implementation tooling | Threat vectors | Scope   |
 |------------|---------------------------------------|-------------------------|--------------|---------------------------------|
 | Provenance      | [SLSA](https://slsa.dev)                                   | Maintainer signing key theft, Rogue maintainers | All secureblue [OCI](https://opencontainers.org/) images, Trivalent RPM packages, Blue-Build build tools |
 | Signatures | [cosign](https://github.com/sigstore/cosign), [GPG](https://gnupg.org/) | Artifact tampering, Artifact forgery, Registry credential theft | All secureblue [OCI](https://opencontainers.org/) images, all secureblue ISOs and torrents, all secureblue RPM packages, all Fedora RPM packages, all Flatpaks from Flathub ([centrally signed](https://flathub.org/repo/flathub.gpg)), Blue-Build build tools |
