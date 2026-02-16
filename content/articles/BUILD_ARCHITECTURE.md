@@ -59,10 +59,12 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
 ## [Build process](#build-process)
 {: #build-process}
 
-<a href="/assets/architecture.png" target="_blank">
-  <img src="/assets/architecture.png" alt="Secureblue Architecture">
-  <figcaption>Tap or click image to open larger</figcaption>
-</a>
+<figure>
+  <a href="/assets/architecture.png" target="_blank">
+    <img src="/assets/architecture.png" alt="Secureblue Architecture">
+    <figcaption>Tap or click image to open larger</figcaption>
+  </a>
+</figure>
 
 ### Secureblue Build (Build Job)
 1. Pull base image from Fedora Quay 
