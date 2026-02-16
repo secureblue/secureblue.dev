@@ -1,5 +1,5 @@
 ---
-title: "Build Architecture | secureblue"
+title: "Build architecture | secureblue"
 description: "Build architecture for secureblue"
 permalink: /articles/build-architecture
 ---

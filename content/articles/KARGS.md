@@ -1,11 +1,11 @@
 ---
-title: "kargs | secureblue"
-description: "An overview of the hardened boot kargs used in secureblue"
+title: "Kernel arguments | secureblue"
+description: "An overview of the kernel arguments used by secureblue"
 permalink: /articles/kargs
 ---
 
 
-# User namespaces
+# Kernel arguments
 
 ## [Table of Contents](#table-of-contents)
 {: #table-of-contents}
