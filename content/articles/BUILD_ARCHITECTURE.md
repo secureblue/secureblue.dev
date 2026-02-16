@@ -70,25 +70,25 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
 </figure>
 
 ### [Trivalent Build](#trivalent-build)
-{: #trivalent-build} 
+{: #trivalent-build}
 
 #### SRPM Build Job
 
 1. Run on a [Github-hosted runner](https://docs.github.com/en/actions/concepts/runners/github-hosted-runners)
-2. Run with [StepSecurity Harden-Runner](https://docs.stepsecurity.io/harden-runner) provisioned
-3. Install the [Trivalent source cache](https://github.com/secureblue/trivalent-chromium-clean-source) package from [secureblue's COPR repos](https://copr.fedorainfracloud.org/coprs/secureblue/packages/)
+1. Run with [StepSecurity Harden-Runner](https://docs.stepsecurity.io/harden-runner) provisioned
+1. Install the [Trivalent source cache](https://github.com/secureblue/trivalent-chromium-clean-source) package from [secureblue's COPR repos](https://copr.fedorainfracloud.org/coprs/secureblue/packages/)
 
   - Validate the package's GPG signature
 
-4. Push built [SRPM](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/packaging_and_distributing_software/index) to GitHub Artifacts
+1. Push built [SRPM](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/packaging_and_distributing_software/index) to GitHub Artifacts
 
 #### RPM Build Job
 
 1. Run on a Github-hosted runner
-2. Run on a secureblue-owned, AWS-hosted runner via [Runs-On](https://runs-on.com/)
-3. Run with StepSecurity Harden-Runner provisioned
-4. Pull SRPM from GitHub Artifacts
-5. Push built [RPM](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/packaging_and_distributing_software/index) to GitHub Artifacts 
+1. Run on a secureblue-owned, AWS-hosted runner via [Runs-On](https://runs-on.com/)
+1. Run with StepSecurity Harden-Runner provisioned
+1. Pull SRPM from GitHub Artifacts
+1. Push built [RPM](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/packaging_and_distributing_software/index) to GitHub Artifacts 
 
 #### Signing Job
 
@@ -115,7 +115,7 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
 
   - Validate the image's cosign signature
 
-1. Install packages from [Fedora's repos](https://packages.fedoraproject.org/) 
+1. Install packages from [Fedora's repos](https://packages.fedoraproject.org/)
 
   - Validate each package's GPG signature
 
@@ -151,5 +151,5 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
 
 1. Pull the new image to the client machine
 
-  - Validate the image signature 
+  - Validate the image signature
   - Validate the image attestation
