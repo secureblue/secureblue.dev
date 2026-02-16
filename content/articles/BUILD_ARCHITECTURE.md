@@ -42,14 +42,14 @@ Supply chain security is a priority for secureblue. During the the build process
 ### [Provenance](#provenance)
 {: #provenance}
 
-To generate provenance, the build platform (in our case, [GitHub Actions](https://github.com/features/actions)) generates and signs an attestation file containing metadata about the build environment. Crucially, it cryptographically attests to the authenticity of runner and the source commit on which the artifact is being built. This attestation is then published in the repository or registry alongside the artifact. 
+To generate provenance, the build platform (in our case, [GitHub Actions](https://github.com/features/actions)) generates and signs an attestation file containing metadata about the build environment. Crucially, it cryptographically attests to the authenticity of runner and the source commit on which the artifact is being built. This attestation is then published in the repository or registry alongside the artifact.
 
 On the client side, when the artifact is pulled, the signature of the attestation is [validated](https://github.com/slsa-framework/slsa-verifier) against the build platform's public key and the contents of the attestation are validated to confirm that the artifact was built: on an authorized runner from a commit in a specific branch in the source repository (in our case, protected by branch policies, pull request review, and maintainer login 2FA). This means that even in the event that a maintainer's artifact signing keys and artifact repository credentials were both stolen, any malicious builds pushed by the credential thief would be rejected by clients due to provenance validation.
 
 ### [Signatures](#signatures)
 {: #signatures}
 
-A private key owned by the artifact maintainer is used in combination with a [hash](https://en.wikipedia.org/wiki/Cryptographic_hash_function) of the artifact to compute a [signature](https://en.wikipedia.org/wiki/Digital_signature). The signature is then provided alongside the artifact so that clients can verify the artifact signature before installing or using the artifact. For example, for our ISOs, each signature is shipped in a corresponding `-CHECKSUM` file. 
+A private key owned by the artifact maintainer is used in combination with a [hash](https://en.wikipedia.org/wiki/Cryptographic_hash_function) of the artifact to compute a [signature](https://en.wikipedia.org/wiki/Digital_signature). The signature is then provided alongside the artifact so that clients can verify the artifact signature before installing or using the artifact. For example, for our ISOs, each signature is shipped in a corresponding `-CHECKSUM` file.
 
 Once the client has all of the required information, it can use the maintainer's public key to verify the signature, revealing a hash that it then compares against a locally-generated hash of the artifact. This means that in the event that an artifact registry was compromised or artifacts otherwise tampered with by malicious third parties, any corresponding signature file would either not be present or fail validation.
 
