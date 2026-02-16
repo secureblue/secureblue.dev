@@ -61,4 +61,5 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
 
 <a href="/assets/architecture.png" target="_blank">
   <img src="/assets/architecture.png" alt="Secureblue Architecture">
+  <small>Tap or click image to open larger</small>
 </a>
