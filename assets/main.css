@@ -664,6 +664,7 @@ details[open] summary {
 figure {
   border: thin silver solid;
   padding: 5px;
+  margin: auto;
 }
 
 figcaption {
