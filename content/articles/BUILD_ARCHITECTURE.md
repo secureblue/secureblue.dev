@@ -4,11 +4,22 @@ description: "Build architecture for secureblue"
 permalink: /articles/build-architecture
 ---
 
-# Build Architecture
+# Build architecture
+
+## [Table of Contents](#table-of-contents)
+{: #table-of-contents}
+
+- [Introduction](#introduction)
+- [Security mechanisms](#security-mechanisms)
+- [Build Process](#build-process)
+
+## [Introduction](#introduction)
+{: #introduction}
 
 Supply chain security is a priority for secureblue. During the the build process, we use complementary security mechanisms to protect against a variety of supply chain attack vectors. The documentation below covers each of these mechanisms, the protections they provide, and where secureblue uses these mechanisms.
 
-## Security mechanisms
+## [Security mechanisms](#security-mechanisms)
+{: #security-mechanisms}
 
 | Security mechanism  | Implementation tooling | Threat vectors | Mitigation logic | Scope   |
 |------------|---------------------------------------|-------------------------|--------------|---------------------------------|
@@ -17,7 +28,8 @@ Supply chain security is a priority for secureblue. During the the build process
 | Egress auditing|[StepSecurity Harden-Runner](https://docs.stepsecurity.io/harden-runner)|Maintainer secrets exfiltration, Source code tampering, Dependency tampering, Registry credential theft |StepSecurity Harden-Runner provides network traffic controls and source code integrity monitoring, among other mechanisms. It restricts outbound traffic to a configurable list of authorized outbound domains, and enforces this at multiple levels (DNS, HTTPS, network layer, transport layer). It has several other functions as well, like  monitoring the source code as the build progresses to ensure tampering doesn't occur, monitoring for anomalous privileged processes, etc.|All secureblue OCI image builds, Trivalent RPM builds|
 | Branch protection | [GitHub Rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets) | Maintainer source code repository credential theft, Rogue maintainers | Branch protection via rulesets prevents any changes being made to secureblue source code without those changes first meeting specific criteria. Among those criteria is a minimum number of code reviews from maintainers, excluding of course the author of the pull request should they be a maintainer. This means that in the event that a maintainer's source code repository credentials were stolen, the thief would be unable to push changes to the repository. This includes the repo owner credentials, since bypassing rulesets is only possible after 2FA has been granted. |All secureblue source code repositories|
 
-## Build Process
+## [Build Process](#build-process)
+{: #build-process}
 
 <a href="https://github.com/secureblue/architecture/releases/latest/download/architecture.png" target="_blank">
   <img src="https://github.com/secureblue/architecture/releases/latest/download/architecture.png" alt="Secureblue Architecture" width="600">
