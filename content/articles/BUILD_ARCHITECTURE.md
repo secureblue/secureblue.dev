@@ -88,7 +88,7 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
 1. Run on a secureblue-owned, AWS-hosted runner via [Runs-On](https://runs-on.com/)
 1. Run with StepSecurity Harden-Runner provisioned
 1. Pull SRPM from GitHub Artifacts
-1. Push built [RPM](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/packaging_and_distributing_software/index) to GitHub Artifacts 
+1. Push built [RPM](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/packaging_and_distributing_software/index) to GitHub Artifacts
 
 #### Signing Job
 
@@ -111,7 +111,7 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
 
 1. Run on a Github-hosted runner
 1. Run with StepSecurity Harden-Runner provisioned
-1. Pull base image from [Fedora Quay](https://quay.io/organization/fedora-ostree-desktops) 
+1. Pull base image from [Fedora Quay](https://quay.io/organization/fedora-ostree-desktops)
 
   - Validate the image's cosign signature
 
