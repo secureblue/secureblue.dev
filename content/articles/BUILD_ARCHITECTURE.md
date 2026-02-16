@@ -109,7 +109,7 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
   + Validate each package's GPG signature
 5. Install packages from secureblue's COPR repos
   + Validate each package's GPG signature
-6. From [Negativo17](https://negativo17.org/), replace certain packages that have patent-encumbered codecs [removed in Fedora's versions](https://docs.fedoraproject.org/en-US/project/#_freedom) 
+6. From [Negativo17](https://negativo17.org/), replace packages that have patent-encumbered codecs [stripped from Fedora's versions](https://docs.fedoraproject.org/en-US/project/#_freedom) 
   + Validate each package's GPG signature
 7. Pull the Trivalent provenance from the [Trivalent repo](https://github.com/secureblue/Trivalent)
 8. From secureblue's RPM repo, install Trivalent
