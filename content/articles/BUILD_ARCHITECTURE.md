@@ -73,46 +73,58 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
 ### [Trivalent Build](#trivalent-build)
 {: #trivalent-build} 
 #### SRPM Build Job
-1. Install the Trivalent source cache package from secureblue's COPR repos
+1. Run on a Github-hosted runner
+2. Run with StepSecurity Harden-Runner provisioned
+3. Install the Trivalent source cache package from secureblue's COPR repos
   + Validate the package's GPG signature
-2. Push built SRPM to GitHub Artifacts
+4. Push built SRPM to GitHub Artifacts
 
 #### RPM Build Job
-1. Pull SRPM from GitHub Artifacts
-2. Push built RPM to GitHub Artifacts 
+1. Run on a Github-hosted runner
+2. Run on a secureblue-owned, AWS-hosted runner via [Runs-On](https://runs-on.com/)
+3. Run with StepSecurity Harden-Runner provisioned
+4. Pull SRPM from GitHub Artifacts
+5. Push built RPM to GitHub Artifacts 
 
 #### Signing Job
-1. Pull RPM from GitHub Artifacts
-2. Sign and push the RPM to secureblue's RPM repo
+1. Run with StepSecurity Harden-Runner provisioned
+2. Pull RPM from GitHub Artifacts
+3. Sign and push the RPM to secureblue's RPM repo
 
 #### Provenance Job
-1. Fetch hash information from the Signing Job
-2. Fetch context information from the Github Control Plane
-3. Generate, sign, and push the attestation to GitHub Artifacts
+1. Run on a Github-hosted runner
+2. Run with StepSecurity Harden-Runner provisioned
+3. Fetch hash information from the Signing Job
+4. Fetch context information from the Github Control Plane
+5. Generate, sign, and push the attestation to GitHub Artifacts
 
 ### [Secureblue Build](#secureblue-build)
 {: #secureblue-build} 
 #### Build Job
-1. Pull base image from Fedora Quay 
+1. Run on a Github-hosted runner
+2. Run with StepSecurity Harden-Runner provisioned
+3. Pull base image from Fedora Quay 
   + Validate the image's cosign signature
-2. Install packages from Fedora's repos 
+4. Install packages from Fedora's repos 
   + Validate each package's GPG signature
-3. Install packages from secureblue's COPR repos
+5. Install packages from secureblue's COPR repos
   + Validate each package's GPG signature
-4. From Negativo17, replace certain packages that have patent-encumbered codecs removed in Fedora's versions 
+6. From Negativo17, replace certain packages that have patent-encumbered codecs removed in Fedora's versions 
   + Validate each package's GPG signature
-5. Pull the Trivalent provenance from the Trivalent repo
-6. From secureblue's repo, install Trivalent
+7. Pull the Trivalent provenance from the Trivalent repo
+8. From secureblue's repo, install Trivalent
   + Validate the repo metadata signature
   + Validate the package's GPG signature
   + Validate the package's provenance
-7. Sign and push the completed image to GHCR
+9. Sign and push the completed image to GHCR
   + Push the image's signature to GHCR
 
 #### Provenance Job
-1. Fetch digest information from the Build Job
-2. Fetch context information from the Github Control Plane
-3. Generate, sign, and push the attestation to GHCR
+1. Run on a Github-hosted runner
+2. Run with StepSecurity Harden-Runner provisioned
+3. Fetch digest information from the Build Job
+4. Fetch context information from the Github Control Plane
+5. Generate, sign, and push the attestation to GHCR
 
 ### [Image Updates](#image-updates)
 {: #image-updates} 
