@@ -31,10 +31,10 @@ Supply chain security is a priority for secureblue. During the the build process
 
 | Security mechanism  | Implementation tooling | Attack vectors | Scope   |
 |------------|---------------------------------------|-------------------------|--------------|---------------------------------|
-| Provenance      | [SLSA](https://slsa.dev)                                   | Maintainer signing key theft, Rogue maintainers | All secureblue [OCI](https://opencontainers.org/) images, Trivalent RPM packages, BlueBuild build tools |
-| Signatures | [cosign](https://github.com/sigstore/cosign), [GPG](https://gnupg.org/) | - Artifact tampering<br />- Artifact forgery<br />- Registry credential theft | - All secureblue [OCI](https://opencontainers.org/) images<br />- all secureblue ISOs and torrents<br />- all secureblue RPM packages<br />- all Fedora RPM packages<br />- all Flatpaks from Flathub ([centrally signed](https://flathub.org/repo/flathub.gpg))<br />- BlueBuild build tools |
+| Provenance      | [SLSA](https://slsa.dev)                                   | - Maintainer signing key theft<br />- Rogue maintainers | - All secureblue [OCI](https://opencontainers.org/) images<br />- Trivalent RPM packages<br />- BlueBuild build tools |
+| Signatures | [cosign](https://github.com/sigstore/cosign), [GPG](https://gnupg.org/) | - Artifact tampering<br />- Artifact forgery<br />- Registry credential theft | - All secureblue [OCI](https://opencontainers.org/) images<br />- All secureblue ISOs and torrents<br />- All secureblue RPM packages<br />- All Fedora RPM packages<br />- All Flatpaks from Flathub ([centrally signed](https://flathub.org/repo/flathub.gpg))<br />- BlueBuild build tools |
 | Egress auditing | [StepSecurity Harden-Runner](https://docs.stepsecurity.io/harden-runner) | - Maintainer secrets exfiltration<br />- Source code tampering<br />- Dependency tampering<br />- Registry credential theft | - All secureblue OCI image builds<br />- Trivalent RPM builds |
-| Branch protection | [GitHub Rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets) | - Maintainer source code repository credential theft<br />- Rogue maintainers | All secureblue source code repositories |
+| Branch protection | [GitHub Rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets) | - Maintainer source code repository credential theft<br />- Rogue maintainers | - All secureblue source code repositories |
 
 ## [Mitigation logic](#mitigation-logic)
 {: #mitigation-logic}
