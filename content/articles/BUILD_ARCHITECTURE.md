@@ -17,6 +17,9 @@ permalink: /articles/build-architecture
   - [Egress auditing](#egress-auditing)
   - [Branch protection](#branch-protection)
 - [Build process](#build-process)
+  - [Trivalent Build](#trivalent-build)
+  - [Secureblue Build](#secureblue-build)
+  - [Image Updates](#image-updates)
 
 ## [Introduction](#introduction)
 {: #introduction}
@@ -67,7 +70,8 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
 </figure>
 
 
-### Trivalent Build 
+### [Trivalent Build](#trivalent-build)
+{: #trivalent-build} 
 #### SRPM Build Job
 1. Install the Trivalent source cache package from secureblue's COPR repos
   + Validate the package's GPG signature
@@ -86,7 +90,8 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
 2. Fetch context information from the Github Control Plane
 3. Generate, sign, and push the attestation to GitHub Artifacts
 
-### Secureblue Build 
+### [Secureblue Build](#secureblue-build)
+{: #secureblue-build} 
 #### Build Job
 1. Pull base image from Fedora Quay 
   + Validate the image's cosign signature
@@ -109,7 +114,8 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
 2. Fetch context information from the Github Control Plane
 3. Generate, sign, and push the attestation to GHCR
 
-### Image Updates
+### [Image Updates](#image-updates)
+{: #image-updates} 
 1. Pull the new image to the client machine
   + Validate the image signature 
   + Validate the image attestation
