@@ -664,3 +664,11 @@ details[open] summary {
 figure {
   border: thin silver solid;
 }
+
+figcaption {
+  background-color: #222222;
+  color: white;
+  font: italic smaller sans-serif;
+  padding: 3px;
+  text-align: center;
+}
