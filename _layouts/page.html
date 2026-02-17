@@ -14,6 +14,7 @@
 
         <main>
             {{ content | replace: '<table>', '<div class="table-container"><table>' | replace: '</table>', '</table></div>' }}
+            {{ content | replace: '&lt;ul&gt;', '<ul>' | replace: '&lt;/ul&gt;, '</ul>' }}
         </main>
 
         {% include footer.html %}
