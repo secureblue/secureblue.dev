@@ -34,6 +34,7 @@ For details on what each kernel argument does, see
 Stable kernel arguments that are set by default on a fresh secureblue
 installation, and are always applied by the script `ujust set-kargs-hardening`.
 
+- `hash_pointers=always`: Hash kernel pointers even if `slab_debug` is enabled.
 - `init_on_alloc=1`: Fill newly allocated pages and heap objects with zeroes,
   mitigating use-after-free vulnerabilities.
 - `init_on_free=1`: Fill freed pages and heap objects with zeroes, mitigating
@@ -69,12 +70,19 @@ installation, and are always applied by the script `ujust set-kargs-hardening`.
   making certain types of attacks more difficult.
 - `rd.shell=0`, `rd.emergency=halt`: Mitigate
   [initramfs malware injection attack](https://insinuator.net/2025/07/insecure-boot-injecting-initramfs-from-a-debug-shell/).
+- `slab_debug=FZ`: Enable sanity checks and red zoning for the
+  [kernel slab allocator](https://www.kernel.org/doc/html/latest/admin-guide/mm/slab.html).
 - `slab_nomerge`: Disable the merging of slabs, increasing difficulty of heap
   exploitation.
 - `spec_store_bypass_disable=on`: Disable spec store bypass for all programs.
 - `spectre_v2=on`: Turn on spectre_v2 mitigations at boot time for all programs.
 - `ssbd=force-on`: Enable mitigation for Speculative Store Bypass vulnerability
   for both kernel and userspace on vulnerable CPUs.
+- `systemd.ssh_auto=no`: Disable automatic creation of socket-activated SSH
+  server by systemd (see
+  [systemd-ssh-generator(8)](https://man7.org/linux/man-pages/man8/systemd-ssh-generator.8.html)
+  for details), which can lead to
+  [security vulnerabilities](https://blog.nsrun.io/2026/01/15/systemd-vsock-openssh-server/).
 - `vdso32=0`: Disable 32-bit vDSO.
 - `vsyscall=none`: Disable vsyscall as it is both obsolete and enables an ROP
   attack vector.
