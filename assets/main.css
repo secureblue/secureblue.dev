@@ -674,3 +674,7 @@ figcaption {
   padding: 3px;
   text-align: center;
 }
+
+td > ul {
+    padding-inline-start: 16px;
+}
