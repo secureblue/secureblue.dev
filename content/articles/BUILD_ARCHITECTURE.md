@@ -29,12 +29,92 @@ Supply chain security is a priority for secureblue. During the the build process
 ## [Definitions](#definitions)
 {: #definitions}
 
-| Security mechanism  | Implementation tooling | Attack vectors | Scope   |
-|------------|---------------------------------------|-------------------------|--------------|---------------------------------|
-| Provenance      | [SLSA](https://slsa.dev)                                   | &lt;ul&gt;&lt;li&gt;Maintainer signing key theft&lt;/li&gt;&lt;li&gt;Rogue maintainers&lt;/li&gt;&lt;/ul&gt; | • All secureblue [OCI](https://opencontainers.org/) images<br />• Trivalent RPM packages<br />• BlueBuild build tools |
-| Signatures | [cosign](https://github.com/sigstore/cosign), [GPG](https://gnupg.org/) | • Artifact tampering<br />• Artifact forgery<br />• Registry credential theft | • All secureblue OCI images<br />• All secureblue ISOs and torrents<br />• All secureblue RPM packages<br />• All Fedora RPM packages<br />• All Flatpaks from Flathub ([centrally signed](https://flathub.org/repo/flathub.gpg))<br />• BlueBuild build tools |
-| Egress auditing | [Harden-Runner](https://docs.stepsecurity.io/harden-runner) | • Maintainer secrets exfiltration<br />• Source code tampering<br />• Dependency tampering<br />• Registry credential theft | • All secureblue OCI image builds<br />• Trivalent RPM builds |
-| Branch protection | [GitHub Rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets) | • Maintainer source code repository credential theft<br />• Rogue maintainers | • All secureblue source code repositories |
+<table>
+  <thead>
+    <tr>
+      <th>Security mechanism</th>
+      <th>Implementation tooling</th>
+      <th>Attack vectors</th>
+      <th>Scope</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Provenance</td>
+      <td><a href="https://slsa.dev">SLSA</a></td>
+      <td>
+        <ul>
+          <li>Maintainer signing key theft</li>
+          <li>Rogue maintainers</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>All secureblue <a href="https://opencontainers.org/">OCI</a> images</li>
+          <li>Trivalent RPM packages</li>
+          <li>BlueBuild build tools</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>Signatures</td>
+      <td>
+        <a href="https://github.com/sigstore/cosign">cosign</a>, 
+        <a href="https://gnupg.org/">GPG</a>
+      </td>
+      <td>
+        <ul>
+          <li>Artifact tampering</li>
+          <li>Artifact forgery</li>
+          <li>Registry credential theft</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>All secureblue OCI images</li>
+          <li>All secureblue ISOs and torrents</li>
+          <li>All secureblue RPM packages</li>
+          <li>All Fedora RPM packages</li>
+          <li>All Flatpaks from Flathub (<a href="https://flathub.org/repo/flathub.gpg">centrally signed</a>)</li>
+          <li>BlueBuild build tools</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>Egress auditing</td>
+      <td><a href="https://docs.stepsecurity.io/harden-runner">Harden-Runner</a></td>
+      <td>
+        <ul>
+          <li>Maintainer secrets exfiltration</li>
+          <li>Source code tampering</li>
+          <li>Dependency tampering</li>
+          <li>Registry credential theft</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>All secureblue OCI image builds</li>
+          <li>Trivalent RPM builds</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>Branch protection</td>
+      <td><a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets">GitHub Rulesets</a></td>
+      <td>
+        <ul>
+          <li>Maintainer source code repository credential theft</li>
+          <li>Rogue maintainers</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>All secureblue source code repositories</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ## [Mitigation logic](#mitigation-logic)
 {: #mitigation-logic}
