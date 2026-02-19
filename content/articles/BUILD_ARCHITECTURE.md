@@ -59,8 +59,10 @@ Supply chain security is a priority for secureblue. During the the build process
     <tr>
       <td>Signatures</td>
       <td>
-        <a href="https://github.com/sigstore/cosign">cosign</a>, 
-        <a href="https://gnupg.org/">GPG</a>
+        <ul>
+          <li><a href="https://github.com/sigstore/cosign">cosign</a></li>
+          <li><a href="https://gnupg.org/">GPG</a></li>
+        </ul>
       </td>
       <td>
         <ul>
