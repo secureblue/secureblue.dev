@@ -6,7 +6,7 @@ permalink: /images
 
 # Images
 
-## Table of Contents
+## [Table of Contents](#table-of-contents)
 {: #table-of-contents}
 
 - [Security recommendation](#security-recommendation)
@@ -18,6 +18,7 @@ permalink: /images
   - [IoT](#iot)
 
 ## [Security recommendation](#security-recommendation)
+{: #security-recommendation}
 
 GNOME, KDE Plasma, Sway, and COSMIC (Silverblue, Kinoite, Sericea, and COSMIC images, respectively) secure privileged Wayland protocols like screencopy. This means that on environments outside of GNOME, KDE Plasma, Sway, and COSMIC, applications can access screen content of the entire desktop. This implicitly includes the content of other applications. It\'s primarily for this reason that Silverblue, Kinoite, and Sericea images are recommended.
 
@@ -38,8 +39,10 @@ This section is a relative recommendation between the desktop environments avail
 
 
 ## [Desktop](#desktop)
+{: #desktop}
 
 ### [Stable](#stable)
+{: #stable}
 
 #### Silverblue (GNOME)
 
@@ -67,6 +70,7 @@ This section is a relative recommendation between the desktop environments avail
 | `sericea-nvidia-open-hardened` | Sericea | Proprietary NVIDIA driver with open source kernel modules (recommended for Turing and later) | No            |
 
 ### [Experimental](#experimental)
+{: #experimental}
 
 Note that there are no ISOs available for experimental images. If you want to try out an experimental image, you can use `ujust rebase-secureblue` on an existing secureblue installation.
 
@@ -79,7 +83,9 @@ Note that there are no ISOs available for experimental images. If you want to tr
 | `cosmic-nvidia-open-hardened` | COSMIC | Proprietary NVIDIA driver with open source kernel modules (recommended for Turing and later) | No            |
 
 ## [Server](#server)
+{: #server}
 ### [CoreOS](#coreos)
+{: #coreos}
 {% include alert.html type='note' content='After you finish setting up your <a href="https://fedoraproject.org/coreos/">Fedora CoreOS</a> installation, you will need to disable <code>zincati.service</code> before rebasing to securecore.' %}
 
 | Name                                  | Base   | NVIDIA Support                                                                               | ZFS Support | ARM64 Support |
@@ -92,6 +98,7 @@ Note that there are no ISOs available for experimental images. If you want to tr
 | `securecore-zfs-nvidia-open-hardened` | CoreOS | Proprietary NVIDIA driver with open source kernel modules (recommended for Turing and later) | Yes         | No            |
 
 ### [IoT](#iot)
+{: #iot}
 
 | Name                           | Base | NVIDIA Support                                                                               | ZFS Support | ARM64 Support |
 |--------------------------------|------|----------------------------------------------------------------------------------------------|-------------|---------------|

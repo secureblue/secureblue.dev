@@ -7,3 +7,11 @@
 /install
   ! Content-Security-Policy
   Content-Security-Policy: default-src 'none'; style-src 'self'; style-src-attr 'none'; font-src 'self'; img-src 'self'; manifest-src 'self'; form-action https://isos.secureblue.dev https://fosstorrents.com; frame-ancestors 'none'; base-uri 'none'; sandbox allow-popups-to-escape-sandbox allow-downloads allow-popups allow-forms; upgrade-insecure-requests;
+
+/articles/build-architecture
+  ! Content-Security-Policy
+  Content-Security-Policy: default-src 'none'; style-src 'self'; style-src-attr 'none'; font-src 'self'; img-src 'self'; manifest-src 'self'; form-action 'none'; frame-ancestors 'none'; base-uri 'none'; sandbox allow-popups; upgrade-insecure-requests;
+
+/assets/architecture.svg
+  ! Content-Security-Policy
+  Content-Security-Policy: default-src 'none'; style-src 'self' 'sha256-pJVvJ/P/xPmqJuZSyj6+te6vR99ut8KuqvR+akbjsgA=' 'sha256-ZgKIl+lCs4nXEkC9FBHyBrqrmxaywRGDIrzmBT+KC5k=' 'sha256-D6ciJkXzkWJOMV/41dkOmSY+Kw1as59dBtR4/ceidN4=' 'sha256-i4idTnNP6g9a4UP1sE5PlKprlupSy/n3p8+JUE6Ct7w=' 'sha256-6yavdqFIQpZ0QmClXR9ByZE4raltWUFVbqL+jFEvkAo=' 'sha256-siHXn8HtbDsWYxh1Dd5VaV+c0YLVi1HWtYLQjr7IwmU=' 'sha256-T1Foc0HVdDxapXMbxiWNThz5Jsh9/EZsCB/QB0Imhw0=' 'sha256-rhC/1Yz8W1UhJjZaq814iYceUeZJF2iJnVApoNB+BQg=' 'sha256-eXQbyB8YxZkWD5epgriI5Aoh333fjv618WjVSFU6Fbg=' 'sha256-GwHZT535b07mYnmBNai2AVuOqmgTTF1A4EqzeDlIyl0='; style-src-attr 'unsafe-inline'; font-src 'self' data:; img-src 'self' data:; manifest-src 'self'; form-action 'none'; frame-ancestors 'none'; base-uri 'none'; sandbox; upgrade-insecure-requests;

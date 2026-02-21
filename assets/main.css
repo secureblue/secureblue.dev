@@ -660,3 +660,21 @@ details[open] summary {
         background-color: #2c2c2e;
     }
 }
+
+figure {
+  border: thin silver solid;
+  padding: 5px;
+  margin: auto;
+}
+
+figcaption {
+  background-color: #222222;
+  color: white;
+  font: italic smaller sans-serif;
+  padding: 3px;
+  text-align: center;
+}
+
+td > ul {
+    padding-inline-start: 16px;
+}
