@@ -440,7 +440,7 @@ ujust set-xwayland on
 ### [Why do some commands fail when run with run0? (Exit code 203)](#run0-failures)
 {: #run0-failures}
 
-Fedora's SELinux policy causes `run0` to silently fail when run alongside some commands (e.g., dnf). There is already an [open issue](https://github.com/fedora-selinux/selinux-policy/issues/2500) tracking this, and it is expected to be fixed in the future. In the meantime, you can run `run0 -i '<your command>'` or enter a root shell by running `run0` on its own and run the command from there.
+Fedora's SELinux policy causes `run0` to silently fail when run alongside some commands (e.g., dnf). There is already an [open issue](https://github.com/fedora-selinux/selinux-policy/issues/2500) tracking this, and it is expected to be fixed in the future. In the meantime, you can run `run0 -i <your command>` or enter a root shell by running `run0` on its own and run the command from there.
 
 ### [Why I can't install nor use any GNOME user extensions?](#gnome-extensions)
 {: #gnome-extensions}
