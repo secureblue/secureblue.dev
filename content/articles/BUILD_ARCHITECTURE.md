@@ -149,8 +149,8 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
 {: #build-process}
 
 <figure>
-  <a href="/assets/architecture.png" target="_blank">
-    <img src="/assets/architecture.png" alt="Secureblue Architecture">
+  <a href="/assets/architecture.svg" target="_blank">
+    <img src="/assets/architecture.svg" alt="Secureblue Architecture">
   </a>
   <figcaption>Tap or click image to open larger</figcaption>
 </figure>
