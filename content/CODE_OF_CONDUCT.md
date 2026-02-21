@@ -1,6 +1,6 @@
 ---
-title: "Code of Conduct | secureblue"
-description: "secureblue's Code of Conduct"
+title: "Code of conduct | secureblue"
+description: "secureblue's code of conduct"
 permalink: /code-of-conduct
 ---
 

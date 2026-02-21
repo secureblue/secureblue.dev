@@ -1,11 +1,13 @@
 ---
-title: "kargs | secureblue"
-description: "An overview of the hardened boot kargs used in secureblue"
+title: "Kernel arguments | secureblue"
+description: "An overview of the kernel arguments used by secureblue"
 permalink: /articles/kargs
 ---
 
-# Table of contents
 
+# Kernel arguments
+
+## [Table of Contents](#table-of-contents)
 {: #table-of-contents}
 
 - [Introduction](#introduction)
@@ -15,7 +17,8 @@ permalink: /articles/kargs
   - [Force disable simultaneous multithreading](#smt)
   - [Unstable kargs](#unstable)
 
-# Introduction
+## [Introduction](#introduction)
+{: #introduction}
 
 On secureblue and other systems that use `rpm-ostree`, kernel arguments (kargs)
 can be managed using `rpm-ostree kargs`. Run `rpm-ostree kargs --help` for usage
@@ -29,7 +32,8 @@ To remove all kernel arguments that secureblue adds, you can run
 For details on what each kernel argument does, see
 [the kernel documentation](https://www.kernel.org/doc/html/v6.17/admin-guide/kernel-parameters.html).
 
-# Standard
+## [Standard](#standard)
+{: #standard}
 
 Stable kernel arguments that are set by default on a fresh secureblue
 installation, and are always applied by the script `ujust set-kargs-hardening`.
@@ -87,30 +91,28 @@ installation, and are always applied by the script `ujust set-kargs-hardening`.
 - `vsyscall=none`: Disable vsyscall as it is both obsolete and enables an ROP
   attack vector.
 
-# Additional
+## [Additional](#additional)
+{: #additional}
 
 Sets of additional kargs that can be selectively set alongside the standard
 kargs detailed above. The `set-kargs-hardening` command prompts the user on
 whether to add apply of the 3 sets of kargs detailed below:
 
-## Disable 32-bit processes and syscalls
-
+### Disable 32-bit processes and syscalls
 {: #32bit}
 
 {% include alert.html type='note' content='32-bit support is needed by some legacy software, such as Steam.' %}
 
 - `ia32_emulation=0`: Disables 32-bit processes and syscalls.
 
-## Force disable simultaneous multithreading
-
+### Force disable simultaneous multithreading
 {: #smt}
 
 - `nosmt=force`: Disables this hardware feature on user request, regardless of
   whether it is affected by known vulnerabilities. Note that this
   [halves the number of CPU cores](/faq#smt).
 
-## Unstable kargs
-
+### Unstable kargs
 {: #unstable}
 
 {% include alert.html type='caution' content='These may cause issues on some hardware.' %}

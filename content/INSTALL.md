@@ -77,7 +77,7 @@ Things to remember during installation:
 ### [Secureblue ISO (Desktop)](#iso)
 {: #iso}
 
-{% include alert.html type='note' content='<b>nvidia-open</b> images are recommended for systems with NVIDIA GPUs Turing or newer (GTX 16XX+, RTX 20XX+). Consult <a href="https://nouveau.freedesktop.org/CodeNames.html">this page</a> if you&#39;re not sure what family your GPU belongs to. These include the new <a href="https://github.com/NVIDIA/open-gpu-kernel-modules">open kernel modules</a> from NVIDIA, not Nouveau. <b>nvidia</b> images are recommended for systems with NVIDIA GPUs Pascal or older. These include the closed kernel modules from NVIDIA.' %}
+{% include alert.html type='note' content='<code>nvidia-open</code> images are recommended for systems with NVIDIA GPUs Turing or newer (GTX 16XX+, RTX 20XX+). These include NVIDIA's proprietary drivers with their new <a href="https://github.com/NVIDIA/open-gpu-kernel-modules">open source kernel modules</a>, not to be confused with the reverse engineered open source Nouveau drivers (available in the <code>main</code> images). <code>nvidia</code> images are recommended for systems with NVIDIA GPUs Pascal or older. These include the closed source kernel modules from NVIDIA. Consult <a href="https://nouveau.freedesktop.org/CodeNames.html">this page</a> if you&#39;re not sure what family your GPU belongs to.' %}
 
 <form method="GET">
   <div class="select-group">
@@ -91,12 +91,12 @@ Things to remember during installation:
       </select>
     </div>
     <div>
-      <label for="nvidia"><i>NVIDIA Graphics:</i></label><br>
+      <label for="nvidia"><i>NVIDIA Proprietary Drivers:</i></label><br>
       <select name="nvidia" id="nvidia" required>
         <option value="" disabled selected hidden>Do you have NVIDIA?</option>
         <option value="main">No</option>
-        <option value="nvidia">Yes (pre-Turing)</option>
-        <option value="nvidia-open">Yes (Turing and later)</option>
+        <option value="nvidia">Yes, closed kernel modules (pre-Turing)</option>
+        <option value="nvidia-open">Yes, open kernel modules (Turing and later)</option>
       </select>
     </div>
   </div>
