@@ -34,7 +34,7 @@ And if you like the project, but just don't have time to contribute, that's fine
 
 This project and everyone participating in it is governed by the [Code of Conduct](/code-of-conduct).
 By participating, you are expected to uphold this code. Please report unacceptable behavior
-to secureblueadmin@proton.me
+to [secureblueadmin@proton.me](mailto:secureblueadmin@proton.me).
 
 ## [I Have a Question](#i-have-a-question)
 {: #i-have-a-question}
