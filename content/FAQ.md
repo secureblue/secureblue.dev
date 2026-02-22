@@ -357,7 +357,7 @@ The program [Dangerzone](https://dangerzone.rocks/) is designed to sanitize pote
 ujust install-dangerzone
 ```
 
-Note that this comes as a security trade-off, it requires enabling [container-domain user namespaces](#container-userns) and "admin-only attach" ptrace (`ptrace_scope` is set to `2`), allowing privileged users to attach to or trace child processes. Dangerzone runs Podman under the hood, and requires [gVisor](https://gvisor.dev/) to run document processing workloads in an isolated sandbox, [which needs Linux's ptrace subsystem to intercept system calls](https://gvisor.dev/blog/2024/09/23/safe-ride-into-the-dangerzone/).
+Note that this comes with a security trade-off: it requires enabling [container-domain user namespaces](#container-userns) and "admin-only attach" ptrace (`ptrace_scope` is set to `2`), allowing privileged users to attach to or trace child processes. Dangerzone runs Podman under the hood, and requires [gVisor](https://gvisor.dev/) to run document processing workloads in an isolated sandbox, [which needs Linux's ptrace subsystem to intercept system calls](https://gvisor.dev/blog/2024/09/23/safe-ride-into-the-dangerzone/).
 
 ### [Why are Bluetooth kernel modules disabled? How do I enable them?](#bluetooth)
 {: #bluetooth}
