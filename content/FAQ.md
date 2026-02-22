@@ -351,11 +351,13 @@ Attempting to bubblewrap a program without first enabling the ability toggled by
 ### [How do I manage potentially dangerous files or attachments?](#safe-pdfs)
 {: #safe-pdfs}
 
-There is a command to install the program [Dangerzone](https://dangerzone.rocks) which is designed sanitize potentially dangerous pdfs, office documents, or images safely. Note that this comes with the caveat of having to enable [container userns](#container-userns) and "admin-only attach" ptrace, [setting `ptrace_scope` to `2` or lower](https://github.com/secureblue/secureblue/issues/1523#issuecomment-3453657980), allowing privilledged/root users to attach or trace child processes. Dangerzone runs Podman under the hood, and requires [gVisor](https://gvisor.dev/) to run document processing workloads in an isolated sandbox [which needs Linux's ptrace subsystem to intercept system calls](https://gvisor.dev/blog/2024/09/23/safe-ride-into-the-dangerzone/).
+The program [Dangerzone](https://dangerzone.rocks/) is designed to sanitize potentially dangerous PDFs, office documents, or images in a sandboxed environment. To install Dangerzone, run:
 
 ```
 ujust install-dangerzone
 ```
+
+Note that this comes as a security trade-off, it requires enabling [container-domain user namespaces](#container-userns) and "admin-only attach" ptrace (`ptrace_scope` is set to `2`), allowing privileged users to attach to or trace child processes. Dangerzone runs Podman under the hood, and requires [gVisor](https://gvisor.dev/) to run document processing workloads in an isolated sandbox, [which needs Linux's ptrace subsystem to intercept system calls](https://gvisor.dev/blog/2024/09/23/safe-ride-into-the-dangerzone/).
 
 ### [Why are Bluetooth kernel modules disabled? How do I enable them?](#bluetooth)
 {: #bluetooth}
