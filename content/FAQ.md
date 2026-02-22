@@ -45,6 +45,7 @@ permalink: /faq
   - [Why am I unable to start containers?](#container-userns)
   - [How do I allow a specific container to be run?](#container-policy)
   - [How do I enable userns for other apps?](#unconfined-userns)
+  - [How do I manage potentially dangerous files or attachments?](#safe-pdfs)
   - [Why are Bluetooth kernel modules disabled? How do I enable them?](#bluetooth)
   - [How do I provision signed Distroboxes?](#distrobox-assemble)
   - [How do I customize secureblue?](#customization)
@@ -346,6 +347,14 @@ ujust set-unconfined-userns on
 ```
 
 Attempting to bubblewrap a program without first enabling the ability toggled by the ujust above will result in a `bwrap: Creating new namespace failed: Permission denied` error, but beware that enabling it results in a security degradation. Consult our [user namespaces article](/articles/userns) for more details.
+
+### [How do I manage potentially dangerous files or attachments?](#safe-pdfs)
+{: #safe-pdfs}
+There is a command to install the program [Dangerzone](https://dangerzone.rocks) which is designed sanitize potentially dangerous pdfs, office documents, or images safely. Note that this comes with the caveat of having to enable [container userns](#container-userns) and "admin-only attach" ptrace, [setting `ptrace_scope` to `2` or lower](https://github.com/secureblue/secureblue/issues/1523#issuecomment-3453657980), allowing privilledged/root users to attach or trace child processes. Dangerzone runs Podman under the hood, and requires [gVisor](https://gvisor.dev/) to run document processing workloads in an isolated sandbox [which needs Linux's ptrace subsystem to intercept system calls](https://gvisor.dev/blog/2024/09/23/safe-ride-into-the-dangerzone/). 
+
+```
+ujust install-dangerzone
+```
 
 ### [Why are Bluetooth kernel modules disabled? How do I enable them?](#bluetooth)
 {: #bluetooth}
