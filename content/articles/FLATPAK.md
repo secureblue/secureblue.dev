@@ -30,7 +30,7 @@ You can revert this change by running:
 ujust flatpak-reset-global-overrides
 ```
 
-Note that this will not only undo the the `ujust flatpak-permissions-lockdown` command but also any other global overrides (individual app overrides will not be affected). This also affects flatpak's hardened_malloc integration (which is set by default), so you should run this afterwards:
+Note that this will not only undo the `ujust flatpak-permissions-lockdown` command but also any other global overrides (individual app overrides will not be affected). This also affects flatpak's hardened_malloc integration (which is set by default), so you should run this afterwards:
 
 ```
 ujust harden-flatpak
