@@ -18,7 +18,7 @@ permalink: /articles/build-architecture
   - [Branch protection](#branch-protection)
 - [Build process](#build-process)
   - [Trivalent Build](#trivalent-build)
-  - [Secureblue Build](#secureblue-build)
+  - [secureblue Build](#secureblue-build)
   - [Image Updates](#image-updates)
 
 ## [Introduction](#introduction)
@@ -188,7 +188,7 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
 1. Fetch context information from the GitHub Control Plane
 1. Generate, sign, and push the attestation to GitHub Artifacts
 
-### [Secureblue Build](#secureblue-build)
+### [secureblue Build](#secureblue-build)
 {: #secureblue-build}
 
 #### Build Job
