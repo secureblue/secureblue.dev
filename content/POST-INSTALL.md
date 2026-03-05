@@ -45,7 +45,7 @@ ujust enroll-secureblue-secure-boot-key
 ## [Kernel arguments](#kargs)
 {: #kargs}
 
-If you installed secureblue through the ISO installer, a stable set of kernel arguments is already preinstalled. Otherwise - for example if you rebased onto secureblue or securecore - you need to manually apply kernel arguments to your system by running:
+If you installed secureblue through the ISO installer, a stable set of kernel arguments is already preinstalled. Otherwise - for example if you rebased onto secureblue or securecore - you need to manually apply the kernel arguments to your system by running:
 
 ```
 ujust set-kargs-hardening
