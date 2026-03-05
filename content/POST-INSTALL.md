@@ -12,10 +12,10 @@ permalink: /post-install
 - Essential
   - [Subscribe to secureblue release notifications](#release-notifications)
   - [Enroll Secure Boot key](#secureboot)
+  - [Kernel arguments](#kargs)
   - [Validation](#validation)
   - [Read the FAQ](#faq)
 - Recommended
-  - [Kernel argument tuning](#kargs)
   - [Disable booting from USB](#booting-from-usb)
   - [Setup USBGuard](#usbguard)
   - [Create a separate wheel account for admin purposes](#wheel)
@@ -42,6 +42,17 @@ The secureblue Secure Boot key should automatically enroll after installation. I
 ujust enroll-secureblue-secure-boot-key
 ```
 
+## [Kernel arguments](#kargs)
+{: #kargs}
+
+If you installed secureblue through the ISO installer, a stable set of kernel arguments is already preinstalled. Otherwise - for example if you rebased onto secureblue or securecore - you need to manually apply the kernel arguments to your system by running:
+
+```
+ujust set-kargs-hardening
+```
+
+{% include alert.html type='note' content='In either case, it is recommended that you consult our [Kargs article](/articles/kargs) for additional information and guidance on tuning kernel arguments to your needs.' %}
+
 ## [Validation](#validation)
 {: #validation}
 
@@ -62,11 +73,6 @@ A lot of technical issues are covered in the [FAQ](/faq). For new users, the fol
 - [Why don’t my appimages work?](/faq#appimage)
 - [How do I install my VPN?](/faq#vpn)
 - [Why am I unable to start containers?](/faq#container-userns)
-
-## [Kernel argument tuning](#kargs)
-{: #kargs}
-
-A stable set of kernel arguments is preinstalled with secureblue. However, it is recommended that you consult our [Kargs article](/articles/kargs) for guidance on tuning Kargs based on your use case.
 
 ## [Flatpak Permissions Tuning](#flatpak-permissions-tuning)
 {: #flatpak-permissions-tuning}
