@@ -24,7 +24,7 @@ permalink: /articles/build-architecture
 ## [Introduction](#introduction)
 {: #introduction}
 
-Supply chain security is a priority for secureblue. During the the build process, we use complementary security mechanisms to protect against a variety of supply chain attack vectors. The documentation below covers each of these mechanisms, the protections they provide, and where secureblue uses these mechanisms.
+Supply chain security is a priority for secureblue. During the build process, we use complementary security mechanisms to protect against a variety of supply chain attack vectors. The documentation below covers each of these mechanisms, the protections they provide, and where secureblue uses these mechanisms.
 
 ## [Definitions](#definitions)
 {: #definitions}
@@ -148,7 +148,7 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
 ## [Build process](#build-process)
 {: #build-process}
 
-<figure>
+<figure class="arch-diagram">
   <a href="/assets/architecture.svg" target="_blank">
     <img src="/assets/architecture.svg" alt="Secureblue Architecture">
   </a>
