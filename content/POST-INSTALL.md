@@ -66,7 +66,13 @@ A lot of technical issues are covered in the [FAQ](/faq). For new users, the fol
 ## [Kernel argument tuning](#kargs)
 {: #kargs}
 
-A stable set of kernel arguments is preinstalled with secureblue. However, it is recommended that you consult our [Kargs article](/articles/kargs) for guidance on tuning Kargs based on your use case.
+If you installed secureblue through the ISO installer, a stable set of kernel arguments is already preinstalled. Otherwise - for example if you rebased onto secureblue or securecore - you need to manually apply kernel arguments to your system by running:
+
+```
+ujust set-kargs-hardening
+```
+
+{% include alert.html type='note' content='In either case, it is recommended that you consult our [Kargs article](/articles/kargs) for additional information and guidance on tuning kernel arguments to your needs.' %}
 
 ## [Flatpak Permissions Tuning](#flatpak-permissions-tuning)
 {: #flatpak-permissions-tuning}
