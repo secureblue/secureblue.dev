@@ -51,7 +51,7 @@ If you installed secureblue through the ISO installer, a stable set of kernel ar
 ujust set-kargs-hardening
 ```
 
-{% include alert.html type='note' content='In either case, it is recommended that you consult our [Kargs article](/articles/kargs) for additional information and guidance on tuning kernel arguments to your needs.' %}
+{% include alert.html type='note' content='In either case, it is recommended that you consult our <a href="/articles/kargs">Kargs article</a> for additional information and guidance on tuning kernel arguments to your needs.' %}
 
 ## [Validation](#validation)
 {: #validation}
