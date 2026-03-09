@@ -90,6 +90,7 @@ One of the nice things about the image model is that we can generate an entire O
 We strive towards a model where proposed changes are more thoroughly reviewed and tested by the community. So here's how to do it. If you see a pull request that is opened up on an image you're following, you can leave a review on how it's working for you.
 
 ## [Building with GitHub Actions (recommended)](#building-ga)
+{: #building-ga}
 
 Start from your own fork with a branch for the pull request/feature you want to develop. Follow the instructions [here](https://blue-build.org/how-to/cosign/) to add your own keys to verify your own custom image. From there, it's recommended you go to .github/workflows/build.yml and comment out all of the image variants except the ones you use/intend to test. This drastically speeds up your workflow runtime. Then just go to actions > build-secureblue and select run workflow, making sure you select the branch you just set up.
 
