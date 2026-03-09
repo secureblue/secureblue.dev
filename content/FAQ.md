@@ -368,7 +368,7 @@ Note that Distrobox is not a security tool. It focuses on [integration, not isol
 ### [How do I customize secureblue?](#customization)
 {: #customization}
 
-If you want to add your own customizations on top of secureblue that go beyond installing packages, you are advised strongly against forking. Instead, create a repo for your own image by using the [BlueBuild template](https://github.com/blue-build/template), then change your `base-image` to a secureblue image. This allows you to apply your customizations to secureblue in a concise and maintainable way, without the need to constantly sync with upstream. For local development, [building locally](/contributing#building-locally) is the recommended approach.
+If you want to add your own customizations on top of secureblue that go beyond installing packages, you are advised strongly against forking. Instead, create a repo for your own image by using the [BlueBuild template](https://github.com/blue-build/template), then change your `base-image` to a secureblue image. This allows you to apply your customizations to secureblue in a concise and maintainable way, without the need to constantly sync with upstream. For development, forking [building with github actions](/contributing#building-ga) is the recommended approach.
 
 ### [How do I add a repo?](#adding-repos)
 {: #adding-repos}
