@@ -13,6 +13,7 @@ permalink: /faq
 - [Project information](#project)
   - [Why secureblue?](#why-secureblue)
   - [Is secureblue immutable?](#immutable)
+  - [What are the official secureblue communication channels?](#comms)
   - [What is the difference between Qubes OS and secureblue?](#qubes)
   - [Why not upstream your changes?](#upstream)
   - [Is this an install script?](#script)
@@ -92,6 +93,11 @@ secureblue is a collaborative effort to ship a maximally secure Linux operating 
 {: #immutable}
 
 "Immutable" is an old misnomer for atomic systems. It gives the impression that users can't modify or tinker with their system, which is not the case. While directories like `/usr` are mounted read-only by default, settings and configurations can be easily overriden with changes in `/etc`, which is not mounted read-only. This is in addition to the fact that `/usr` is mutated with every deployment that is staged and booted via any `rpm-ostree` operation (like upgrading, installing a new package, etc). As such, secureblue is not immutable.
+
+### [What are the official secureblue communication channels?](#comms)
+{: #comms}
+
+The secureblue [Bluesky account](https://bsky.app/profile/secureblue.dev), GitHub [release notes](https://github.com/secureblue/secureblue/releases), and [official email account](mailto:secureblueadmin@proton.me) are the only official secureblue communication channels. All other accounts and communications are not official secureblue communications.
 
 ### [What is the difference between Qubes OS and secureblue?](#qubes)
 {: #qubes}
