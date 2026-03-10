@@ -108,11 +108,11 @@ Things to remember during installation:
   <br><br>
   <i>Download options</i><br />
   <button type="submit" formaction="https://isos.secureblue.dev/download">Download ISO</button>
-  <button type="submit" formaction="https://isos.secureblue.dev/downloadTorrent" formtarget="_blank" >Download torrent</button>
+  <!-- <button type="submit" formaction="https://isos.secureblue.dev/downloadTorrent" formtarget="_blank" >Download torrent</button> -->
   <br /><br />
   <i>Verification files</i><br />
   <button type="submit" formaction="https://isos.secureblue.dev/downloadSHA256SUM">Download ISO checksum</button>
-  <button type="submit" formaction="https://isos.secureblue.dev/downloadTorrentSHA256SUM">Download torrent checksum</button>
+  <!-- <button type="submit" formaction="https://isos.secureblue.dev/downloadTorrentSHA256SUM">Download torrent checksum</button> -->
   <a href="https://isos.secureblue.dev/secureblue-keyring.gpg" class="button">Download&nbsp;keyring</a>
   <br /><br />
 </form>

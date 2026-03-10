@@ -13,7 +13,7 @@ permalink: /verification
   - [Windows](#windows)
   - [macOS](#macOS)
   - [Linux](#linux)
-- [For torrent users](#torrent-users)
+<!-- - [For torrent users](#torrent-users) -->
 - [For all users](#all-users)
 
 <hr>
@@ -65,7 +65,7 @@ If `gpg --version` gives a `command not found` error, then you do not have GPG i
 brew install gnupg
 ```
 
-## [For torrent users](#torrent-users)
+<!-- ## [For torrent users](#torrent-users)
 {: #torrent-users}
 
 At this point, you should have the torrent file, its corresponding CHECKSUM file, and the keyring file. Use following commands to verify the ISO (where `${IMAGE_NAME}` corresponds to the filename of the torrent you downloaded).
@@ -132,3 +132,4 @@ Expected output:
 IMAGE_NAME.iso: OK
 sha256sum: WARNING: 8 lines are improperly formatted
 ```
+-->
