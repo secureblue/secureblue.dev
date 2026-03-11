@@ -35,3 +35,9 @@ Note that this will not only undo the `ujust flatpak-permissions-lockdown` comma
 ```
 ujust harden-flatpak
 ```
+
+As shown by one of the [links](https://forum.vivaldi.net/topic/33411/flatpak-support/191) in the features page part of flatpak's security model involves [denying user namespaces via SECCOMP-BPF to flatpaks, including flatpak browsers](https://discussion.fedoraproject.org/t/is-it-better-to-have-a-browser-sand-boxed-with-flatpak-or-not/162425/17). This (weakly) isolates them from the system & other apps but breaks their sandboxing layer responsible for site and process isolation, leaving only Zypak + SECCOMP-BPF in its place; or in the case of Firefox/Gecko-based browsers, [outright disables most sandboxing processes entirely by having no Zypak equivalent](https://bugzilla.mozilla.org/show_bug.cgi?id=1756236). The sole known exception to this being the GNOME Web/Epiphany flatpak, whose site isolation is still behind in comparison to the implementations in native Chromium-based & Gecko-based browser packages.
+
+Therefore we've kept hidden flatpak browsers (aside from GNOME Web) from view on the software store frontends including [recently](https://github.com/secureblue/secureblue/pull/1898) on Bazaar to discourage their usage and directing the user to Trivalent.
+
+We have interest in shipping Trivalent as a flatpak in the future nonetheless for more availability but not until a solution like [nested namespaces](https://github.com/flatpak/flatpak/pull/6386) becomes usable to allow the browser to perform the necessary syscalls to execute its sandboxed processes properly.
