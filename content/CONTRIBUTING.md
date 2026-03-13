@@ -26,6 +26,11 @@ And if you like the project, but just don't have time to contribute, that's fine
   - [Pull Requests](#pull-requests)
   - [How to test incoming changes](#how-to-test-incoming-changes)
 - [Building with GitHub Actions (recommended)](#building-ga)
+  - [Setting up your test build branch](#test-branch-ga)
+  - [Preparing Image and Kernel signing key](#signing-keys-ga)
+  - [Preparing GitHub Actions CI Workflow](#workflow-ga)
+  - [Recommended Git Workflow for Pull Requests](#workflow-git)
+  - [Building and Rebasing to your Image Repository](#rebase-ga)
 - [Building Locally](#building-locally)
 - [Styleguides](#styleguides)
   - [Commit Messages](#commit-messages)
@@ -92,13 +97,85 @@ We strive towards a model where proposed changes are more thoroughly reviewed an
 ## [Building with GitHub Actions (recommended)](#building-ga)
 {: #building-ga}
 
-Start from your own fork with a branch for the pull request/feature you want to develop. Follow the instructions [here](https://blue-build.org/how-to/cosign/) to add your own keys to verify your own custom image. Also create two copies of your your public singing key in `/etc/pki/containers/` called  `GITHUB_REPOSITORY_OWNER-2025.pub` and `GITHUB_REPOSITORY_OWNER.pub`.
+Building with GitHub Actions allows you to create your own bootable images to rebase your Fedora Atomic installation to in order to test pull requests/features you are developing.
+
+### [Setting up your test build branch](#test-branch-ga)
+{: #test-branch-ga}
+
+Start from your own fork with a branch for building your images. It is recommended to keep the branch you want to build your images on separate from branches you want to create pull requests for to keep the changes to your workflow separate from your feature changes and avoid merge conflicts. You can create a test branch called `test-build` by doing the following:
+
+```
+# fetch from secureblue remote if you haven't already done so.
+git remote add upstream https://github.com/secureblue/secureblue
+git fetch upstream
+# create your test-build branch based on upstream/live
+git switch -c test-build upstream/live
+```
+
+### [Preparing Image and Kernel signing key](#signing-keys-ga)
+{: #signing-keys-ga}
+
+Follow the instructions [here](https://blue-build.org/how-to/cosign/) to add your own keys to verify your own custom image. Also create two copies of your your public singing key in `/etc/pki/containers/` called  `GITHUB_REPOSITORY_OWNER-2025.pub` and `GITHUB_REPOSITORY_OWNER.pub`.
 
 You must also add a kernel signing key to your repository secrets as well. You can generate your own X.509 key pair or use the one provided in the repository. If using the key pair provided, first copy the private key `.github/workflows/private_key.priv.test` to a GitHub repository secret called `KERNEL_PRIVKEY` alongside your signing key you created to verify your public image. Then copy the public key `.github/workflows/pub_key.der.test` to `files/system/etc/pki/akmods/certs`.
 
-From there, it's recommended you go to `.github/workflows/build-all.yml` and comment out all of the image variants except the ones you use/intend to test. Additionally, make sure to change the `github.triggering_actor` to the GitHub username that will trigger the workflow run to build the images you haven't commented out. Then just go to **Actions** > **build** and select run workflow, making sure you select the branch you just set up.
+### [Preparing GitHub Actions CI Workflow](#workflow-ga)
+{: #workflow-ga}
 
-Once it's done building, go to your VM running Fedora Atomic and rebase to your newly built image. This is a string that starts with `rpm-ostree rebase ostree-unverified-registry:ghcr.io/`, followed by the repo and package name. This can be found by checking the "packages" section in the sidebar of your fork. Take the docker pull command and copy the repo and package reference. Then, append the tag, which is in the format `br-{branchName}-{fedoraVersion}` or just `latest` if it the image is built on your repository's default branch. If your image is not built on the default branch, your command should look like this:
+To prepare the CI workflow in GitHub Actions, it's recommended you go to `.github/workflows/build-all.yml` and comment out all of the image variants except the ones you use/intend to test. For the images you haven't comented out, you must make sure to change the `github.triggering_actor` to the GitHub username that will trigger the workflow.
+
+### [Recommended Git Workflow for Pull Requests](#workflow-git)
+{: #workflow-git}
+
+This is a recommended git workflow you can adopt, assuming you've already [created a test build branch](#test-branch-ga) called `test-build` tracking the upstream secureblue repository. 
+
+Once all of your [signing keys](#signing-keys-ga) and [GitHub workflow](#workflow-ga) changes ready on `test-build`, commit your changes and create a tag called `test-build-setup` so we can reset to it later:
+
+```
+git add .
+git commit -m "DO NOT MERGE: test-build setup"
+git tag -f test-build-setup
+git push origin test-build
+```
+
+You then may want to create a branch for your pull request/feature based on `upstream/live`, for example:
+
+```
+git switch -c new-feature upstream/live
+# ... do the changes ...
+git add .
+git commit -m "feat: ducks can now fly"
+git push origin new-feature
+```
+
+Switch back to `test-build` and cherry pick or merge your changes from `new-feature`.
+
+```
+git switch test-build
+git cherry-pick <hash> # or simply 'git merge new-feature' for the full branch.
+git push origin test-build
+```
+
+You may then go on to [build and rebase to your image](#rebase-ga) to test your pull request.
+
+After you're done testing your feature, you can reset your test branch by doing the following:
+
+```
+git switch test-build # make sure we're on test-build
+git reset --hard upstream/live
+git cherry-pick test-build-setup # this is where the tag comes in hand
+# can cherry-pick more commits or just add more commits for testing purpose
+git push --force-with-lease origin test-build
+```
+
+### [Building and Rebasing to your Image Repository](#rebase-ga)
+{: #rebase-ga}
+
+Once everything is ready, go to **Actions** > **build** and select run workflow, making sure you select the branch you just set up.
+
+Once it's done building, go to your VM running Fedora Atomic and rebase to your newly built image. If you're working from a secureblue image which rejects container images by default, make sure to [add your image repository to the container policy](/faq#container-policy). Your image repository is called `ghcr.io/YOURUSERNAME`.
+
+This is a string that starts with `rpm-ostree rebase ostree-unverified-registry:ghcr.io/`, followed by the repo and package name. This can be found by checking the "packages" section in the sidebar of your fork. Take the docker pull command and copy the repo and package reference. Then, append the tag, which is in the format `br-{branchName}-{fedoraVersion}` or just `latest` if it the image is built on your repository's default branch. If your image is not built on the default branch, your command should look like this:
 
 ```
 rpm-ostree rebase ostree-unverified-registry:ghcr.io/YOURUSERNAME/YOURIMAGENAME:br-YOURBRANCHNAME-42
