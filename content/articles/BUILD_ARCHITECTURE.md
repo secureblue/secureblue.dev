@@ -18,13 +18,13 @@ permalink: /articles/build-architecture
   - [Branch protection](#branch-protection)
 - [Build process](#build-process)
   - [Trivalent Build](#trivalent-build)
-  - [Secureblue Build](#secureblue-build)
+  - [secureblue Build](#secureblue-build)
   - [Image Updates](#image-updates)
 
 ## [Introduction](#introduction)
 {: #introduction}
 
-Supply chain security is a priority for secureblue. During the the build process, we use complementary security mechanisms to protect against a variety of supply chain attack vectors. The documentation below covers each of these mechanisms, the protections they provide, and where secureblue uses these mechanisms.
+Supply chain security is a priority for secureblue. During the build process, we use complementary security mechanisms to protect against a variety of supply chain attack vectors. The documentation below covers each of these mechanisms, the protections they provide, and where secureblue uses these mechanisms.
 
 ## [Definitions](#definitions)
 {: #definitions}
@@ -126,7 +126,7 @@ Supply chain security is a priority for secureblue. During the the build process
 
 To generate provenance, the build platform (in our case, [GitHub Actions](https://github.com/features/actions)) generates and signs an attestation file containing metadata about the build environment. Crucially, it cryptographically attests to the authenticity of runner and the source commit on which the artifact is being built. This attestation is then published in the repository or registry alongside the artifact.
 
-On the client side, when the artifact is pulled, the signature of the attestation is [validated](https://github.com/slsa-framework/slsa-verifier) against the build platform's public key and the contents of the attestation are validated to confirm that the artifact was built: on an authorized runner from a commit in a specific branch in the source repository (in our case, protected by branch policies, pull request review, and maintainer login 2FA). This means that even in the event that a maintainer's artifact signing keys and artifact repository credentials were both stolen, any malicious builds pushed by the credential thief would be rejected by clients due to provenance validation.
+On the client side, when the artifact is pulled, the signature of the attestation is [validated](https://github.com/slsa-framework/slsa-verifier) against the build platform's public key and the contents of the attestation are validated to confirm that the artifact was built on an authorized runner from a commit in a specific branch in the source repository (in our case, protected by branch policies, pull request review, and maintainer login 2FA). This means that even in the event that a maintainer's artifact signing keys and artifact repository credentials were both stolen, any malicious builds pushed by the credential thief would be rejected by clients due to provenance validation.
 
 ### [Signatures](#signatures)
 {: #signatures}
@@ -148,7 +148,7 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
 ## [Build process](#build-process)
 {: #build-process}
 
-<figure>
+<figure class="arch-diagram">
   <a href="/assets/architecture.svg" target="_blank">
     <img src="/assets/architecture.svg" alt="Secureblue Architecture">
   </a>
@@ -188,7 +188,7 @@ Branch protection via [rulesets](https://docs.github.com/en/repositories/configu
 1. Fetch context information from the GitHub Control Plane
 1. Generate, sign, and push the attestation to GitHub Artifacts
 
-### [Secureblue Build](#secureblue-build)
+### [secureblue Build](#secureblue-build)
 {: #secureblue-build}
 
 #### Build Job

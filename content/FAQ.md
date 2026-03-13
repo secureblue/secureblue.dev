@@ -13,6 +13,7 @@ permalink: /faq
 - [Project information](#project)
   - [Why secureblue?](#why-secureblue)
   - [Is secureblue immutable?](#immutable)
+  - [What are the official secureblue communication channels?](#comms)
   - [What is the difference between Qubes OS and secureblue?](#qubes)
   - [Why not upstream your changes?](#upstream)
   - [Is this an install script?](#script)
@@ -45,6 +46,7 @@ permalink: /faq
   - [Why am I unable to start containers?](#container-userns)
   - [How do I allow a specific container to be run?](#container-policy)
   - [How do I enable userns for other apps?](#unconfined-userns)
+  - [How do I manage potentially dangerous files or attachments?](#safe-pdfs)
   - [Why are Bluetooth kernel modules disabled? How do I enable them?](#bluetooth)
   - [How do I provision signed Distroboxes?](#distrobox-assemble)
   - [How do I customize secureblue?](#customization)
@@ -91,6 +93,11 @@ secureblue is a collaborative effort to ship a maximally secure Linux operating 
 {: #immutable}
 
 "Immutable" is an old misnomer for atomic systems. It gives the impression that users can't modify or tinker with their system, which is not the case. While directories like `/usr` are mounted read-only by default, settings and configurations can be easily overriden with changes in `/etc`, which is not mounted read-only. This is in addition to the fact that `/usr` is mutated with every deployment that is staged and booted via any `rpm-ostree` operation (like upgrading, installing a new package, etc). As such, secureblue is not immutable.
+
+### [What are the official secureblue communication channels?](#comms)
+{: #comms}
+
+The secureblue [Bluesky account](https://bsky.app/profile/secureblue.dev), GitHub [release notes](https://github.com/secureblue/secureblue/releases), and [official email account](mailto:secureblueadmin@proton.me) are the only official secureblue communication channels. All other accounts and communications are not official secureblue communications.
 
 ### [What is the difference between Qubes OS and secureblue?](#qubes)
 {: #qubes}
@@ -347,6 +354,17 @@ ujust set-unconfined-userns on
 
 Attempting to bubblewrap a program without first enabling the ability toggled by the ujust above will result in a `bwrap: Creating new namespace failed: Permission denied` error, but beware that enabling it results in a security degradation. Consult our [user namespaces article](/articles/userns) for more details.
 
+### [How do I manage potentially dangerous files or attachments?](#safe-pdfs)
+{: #safe-pdfs}
+
+The program [Dangerzone](https://dangerzone.rocks/) is designed to sanitize potentially dangerous PDFs, office documents, or images in a sandboxed environment. To install Dangerzone, run:
+
+```
+ujust install-dangerzone
+```
+
+Note that this comes with a security trade-off: it requires enabling [container-domain user namespaces](#container-userns) and "admin-only attach" ptrace (`ptrace_scope` is set to `2`), allowing privileged users to attach to or trace child processes. Dangerzone runs Podman under the hood, and requires [gVisor](https://gvisor.dev/) to run document processing workloads in an isolated sandbox, [which needs Linux's ptrace subsystem to intercept system calls](https://gvisor.dev/blog/2024/09/23/safe-ride-into-the-dangerzone/).
+
 ### [Why are Bluetooth kernel modules disabled? How do I enable them?](#bluetooth)
 {: #bluetooth}
 
@@ -368,7 +386,7 @@ Note that Distrobox is not a security tool. It focuses on [integration, not isol
 ### [How do I customize secureblue?](#customization)
 {: #customization}
 
-If you want to add your own customizations on top of secureblue that go beyond installing packages, you are advised strongly against forking. Instead, create a repo for your own image by using the [BlueBuild template](https://github.com/blue-build/template), then change your `base-image` to a secureblue image. This allows you to apply your customizations to secureblue in a concise and maintainable way, without the need to constantly sync with upstream. For local development, [building locally](/contributing#building-locally) is the recommended approach.
+If you want to add your own customizations on top of secureblue that go beyond installing packages, unless you are [contributing](/contributing), you are advised strongly against forking. Instead, create a repo for your own image by using the [BlueBuild template](https://github.com/blue-build/template), then change your `base-image` to a secureblue image. This allows you to apply your customizations to secureblue in a concise and maintainable way, without the need to constantly sync with upstream. For secureblue development purposes, forking then [building with GitHub Actions](/contributing#building-ga) is the recommended approach.
 
 ### [How do I add a repo?](#adding-repos)
 {: #adding-repos}
@@ -508,12 +526,10 @@ For any other issues you experience with Trivalent, visit Trivalent's dedicated 
 ### [Why is my splash screen disabled on KDE?](#kde-splash-disabled)
 {: #kde-splash-disabled}
 
-The KDE splash screen is currently [broken](https://github.com/secureblue/secureblue/issues/926) if Xwayland is disabled (which is the default on secureblue), due to an [upstream bug](https://discuss.kde.org/t/how-to-disable-xwayland-for-the-plasma-wayland-session/19325/6). secureblue automatically disables it for every user to work around this. If you don't want the splash screen to be automatically disabled, run the following commands:
+The KDE splash screen is currently [broken](https://github.com/secureblue/secureblue/issues/926) if Xwayland is disabled (which is the default on secureblue), due to an [upstream bug](https://discuss.kde.org/t/how-to-disable-xwayland-for-the-plasma-wayland-session/19325/6). secureblue automatically disables it for every user to work around this. If you don't want the splash screen to be automatically disabled, run the following command:
 
 ```
-mkdir -p ~/.config/user-tmpfiles.d
-ln -s /dev/null ~/.config/user-tmpfiles.d/ksplashrc.conf
-chmod u+w ~/.config/ksplashrc
+run0 rm /etc/xdg/ksplashrc
 ```
 
 ### [Why is my virtual machine integration broken?](#vm-integration)
