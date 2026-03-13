@@ -102,13 +102,16 @@ Building with GitHub Actions allows you to create your own bootable images to re
 ### [Setting up your test build branch](#test-branch-ga)
 {: #test-branch-ga}
 
-Start from your own fork with a branch for building your images. It is recommended to keep the branch you want to build your images on separate from branches you want to create pull requests for to keep the changes to your workflow separate from your feature changes and avoid merge conflicts. You can create a test branch called `test-build` by doing the following:
+Start from your own fork with a branch for building your images. It is recommended to keep the branch you want to build your images on separate from branches you want to create pull requests for to keep the changes to your workflow separate from your feature changes and avoid merge conflicts. You can create a build branch called `test-build` by doing the following:
 
-```
-# fetch from secureblue remote if you haven't already done so.
+```sh
+# Add upstream remote if wasn't already added
 git remote add upstream https://github.com/secureblue/secureblue
-git fetch upstream
-# create your test-build branch based on upstream/live
+
+# Fetch latest changes from upstream/live 
+git fetch upstream live
+
+# Create your test-build branch based on upstream/live
 git switch -c test-build upstream/live
 ```
 
@@ -129,9 +132,9 @@ To prepare the CI workflow in GitHub Actions, it's recommended you go to `.githu
 
 This is a recommended git workflow you can adopt, assuming you've already [created a test build branch](#test-branch-ga) called `test-build` tracking the upstream secureblue repository.
 
-Once all of your [signing keys](#signing-keys-ga) and [GitHub workflow](#workflow-ga) changes ready on `test-build`, commit your changes and create a tag called `test-build-setup` so we can reset to it later:
+Once all of your [signing keys](#signing-keys-ga) and [GitHub workflow](#workflow-ga) changes ready on `test-build`, commit your changes and create a tag called `test-build-setup` so we can use it later:
 
-```
+```sh
 git add .
 git commit -m "DO NOT MERGE: test-build setup"
 git tag -f test-build-setup
@@ -140,9 +143,13 @@ git push origin test-build
 
 You then may want to create a branch for your pull request/feature based on `upstream/live`, for example:
 
-```
+```sh
+# Fetch latest changes from upstream/live 
+git fetch upstream live
 git switch -c new-feature upstream/live
-# ... do the changes ...
+
+# ... Do the changes ...
+
 git add .
 git commit -m "feat: ducks can now fly"
 git push origin new-feature
@@ -150,21 +157,32 @@ git push origin new-feature
 
 Switch back to `test-build` and cherry pick or merge your changes from `new-feature`.
 
-```
+```sh
 git switch test-build
-git cherry-pick <hash> # or simply 'git merge new-feature' for the full branch.
+git cherry-pick <hash> # Or simply 'git merge new-feature' for the full branch.
 git push origin test-build
 ```
 
 You may then go on to [build and rebase to your image](#rebase-ga) to test your pull request.
 
-After you're done testing your feature, you can reset your test branch by doing the following:
+You can sync your build branch with upstream by doing the following:
 
-```
-git switch test-build # make sure we're on test-build
+```sh
+# Make sure we're on test-build
+git switch test-build
+
+# Fetch latest changes from upstream/live 
+git fetch upstream live
+
+# Reset the branch to upstream/live
 git reset --hard upstream/live
-git cherry-pick test-build-setup # this is where the tag comes in hand
-# can cherry-pick more commits or just add more commits for testing purpose
+
+# Cherry pick the tag defined before
+git cherry-pick test-build-setup
+
+# ... Cherry pick or commit changes ...
+
+# Push rewriting the history 
 git push --force-with-lease origin test-build
 ```
 
