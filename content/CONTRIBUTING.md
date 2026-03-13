@@ -90,12 +90,22 @@ We strive towards a model where proposed changes are more thoroughly reviewed an
 
 ## Building your images with GitHub Actions (recommended)
 
-Start from your own fork with a branch for the pull request/feature you want to develop. Follow the instructions [here](https://blue-build.org/how-to/cosign/) to add your own keys to verify your own custom image. From there, it's recommended you go to .github/workflows/build.yml and comment out all of the image variants except the ones you use/intend to test. This drastically speeds up your workflow runtime. Then just go to actions > build-secureblue and select run workflow, making sure you select the branch you just set up.
+Start from your own fork with a branch for the pull request/feature you want to develop. Follow the instructions [here](https://blue-build.org/how-to/cosign/) to add your own keys to verify your own custom image. Also create two copies of your your public singing key in `/etc/pki/containers/` called  `GITHUB_REPOSITORY_OWNER-2025.pub` and `GITHUB_REPOSITORY_OWNER.pub`.
 
-Once it's done building, go to your VM running Fedora Atomic and rebase to your newly built image. This is a string that starts with 'rpm-ostree rebase ostree-unverified-registry:ghcr.io/', followed by the repo and package name. This can be found by checking the "packages" section in the sidebar of your fork. Take the docker pull command and copy the repo and package reference. Then, append the tag, which is in the format `br-{branchName}-{fedoraVersion}`. Your command should look like this:
+You must also add a kernel signing key to your repository secrets as well. You can generate your own or use the X.509 key pair provided in the repository. First Copy `.github/workflows/private_key.priv.test` to a GitHub repository secret called `KERNEL_PRIVKEY` alongside your signing key you created to verify your public image. Then copy the public key `.github/workflows/pub_key.der.test` to `files/system/etc/pki/akmods/certs`.
+
+From there, it's recommended you go to `.github/workflows/build-all.yml` and comment out all of the image variants except the ones you use/intend to test. Additionally, make sure to change the `github.triggering_actor` to the GitHub username that will trigger the workflow run to build the images you haven't commented out. Then just go to **Actions** > **build** and select run workflow, making sure you select the branch you just set up.
+
+Once it's done building, go to your VM running Fedora Atomic and rebase to your newly built image. This is a string that starts with `rpm-ostree rebase ostree-unverified-registry:ghcr.io/`, followed by the repo and package name. This can be found by checking the "packages" section in the sidebar of your fork. Take the docker pull command and copy the repo and package reference. Then, append the tag, which is in the format `br-{branchName}-{fedoraVersion}`. Your command should look like this:
 
 ```
 rpm-ostree rebase ostree-unverified-registry:ghcr.io/YOURUSERNAME/YOURIMAGENAME:br-YOURBRANCHNAME-42
+```
+
+However, if you set this branch as your default branch the tag will simply be called `latest`, like so:
+
+```
+rpm-ostree rebase ostree-unverified-registry:ghcr.io/YOURUSERNAME/YOURIMAGENAME:latest
 ```
 
 ## [Building Locally](#building-locally)
