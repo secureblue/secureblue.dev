@@ -127,7 +127,7 @@ To prepare the CI workflow in GitHub Actions, it's recommended you go to `.githu
 ### [Recommended Git Workflow for Pull Requests](#workflow-git)
 {: #workflow-git}
 
-This is a recommended git workflow you can adopt, assuming you've already [created a test build branch](#test-branch-ga) called `test-build` tracking the upstream secureblue repository. 
+This is a recommended git workflow you can adopt, assuming you've already [created a test build branch](#test-branch-ga) called `test-build` tracking the upstream secureblue repository.
 
 Once all of your [signing keys](#signing-keys-ga) and [GitHub workflow](#workflow-ga) changes ready on `test-build`, commit your changes and create a tag called `test-build-setup` so we can reset to it later:
 
