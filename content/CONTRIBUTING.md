@@ -102,7 +102,7 @@ Building with GitHub Actions allows you to create your own bootable images to re
 ### [Setting up your test build branch](#test-branch-ga)
 {: #test-branch-ga}
 
-Start from your own fork with a branch for building your images. It is recommended to keep the branch you want to build your images on separate from branches you want to create pull requests for to keep the changes to your workflow separate from your feature changes and avoid merge conflicts. You can create a build branch called `test-build` by doing the following:
+Start from your own fork with a branch for building your images. It is recommended to keep the branch you want to build your images from separate from branches you want to create pull requests from to keep the changes to your workflow separate from your feature changes and avoid merge conflicts. You can create a build branch called `test-build` by doing the following:
 
 ```sh
 # Add upstream remote if wasn't already added
