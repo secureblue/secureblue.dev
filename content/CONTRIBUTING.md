@@ -118,9 +118,9 @@ git switch -c test-build upstream/live
 ### [Preparing Image and Kernel signing key](#signing-keys-ga)
 {: #signing-keys-ga}
 
-Follow the instructions [here](https://blue-build.org/how-to/cosign/) to add your own keys to verify your own custom image. Also create two copies of your your public singing key in `/etc/pki/containers/` called  `GITHUB_REPOSITORY_OWNER-2025.pub` and `GITHUB_REPOSITORY_OWNER.pub`.
+Follow the instructions [here](https://blue-build.org/how-to/cosign/) to add your own keys to verify your own custom image. Then create two copies of your your public singing key in `files/system/etc/pki/containers` called  `GITHUB_REPOSITORY_OWNER-2025.pub` and `GITHUB_REPOSITORY_OWNER.pub`.
 
-You must also add a kernel signing key to your repository secrets as well. You can generate your own X.509 key pair or use the one provided in the repository. If using the key pair provided, first copy the private key `.github/workflows/private_key.priv.test` to a GitHub repository secret called `KERNEL_PRIVKEY` alongside your signing key you created to verify your public image. Then copy the public key `.github/workflows/pub_key.der.test` to `files/system/etc/pki/akmods/certs`.
+You must also add a kernel signing key to your repository secrets for verifying kernel modules. [The kernel signing makes use of an X.509 certificate](https://www.kernel.org/doc/html/latest/admin-guide/module-signing.html), in which you can generate your own or use the test key pair provided in the repository. Note that the key pair in the repository is for test purposes only, as using it in production would allow the loading of malicious kernel modules that seem legitimate. If using the test key pair provided, first copy the private key `.github/workflows/private_key.priv.test` to a GitHub repository secret called `KERNEL_PRIVKEY` alongside your signing key you created to verify your public image. Then copy the public key `.github/workflows/pub_key.der.test` to `files/system/etc/pki/akmods/certs/`.
 
 ### [Preparing GitHub Actions CI Workflow](#workflow-ga)
 {: #workflow-ga}
@@ -151,7 +151,7 @@ git switch -c new-feature upstream/live
 # ... Do the changes ...
 
 git add .
-git commit -m "feat: ducks can now fly"
+git commit -S -m "feat: ducks can now fly"
 git push origin new-feature
 ```
 
@@ -193,10 +193,10 @@ Once everything is ready, go to **Actions** > **build** and select run workflow,
 
 Once it's done building, go to your VM running Fedora Atomic and rebase to your newly built image. If you're working from a secureblue image which rejects container images by default, make sure to [add your image repository to the container policy](/faq#container-policy). Your image repository is called `ghcr.io/YOURUSERNAME`.
 
-This is a string that starts with `rpm-ostree rebase ostree-unverified-registry:ghcr.io/`, followed by the repo and package name. This can be found by checking the "packages" section in the sidebar of your fork. Take the docker pull command and copy the repo and package reference. Then, append the tag, which is in the format `br-{branchName}-{fedoraVersion}` or just `latest` if it the image is built on your repository's default branch. If your image is not built on the default branch, your command should look like this:
+This is a string that starts with `rpm-ostree rebase ostree-unverified-registry:ghcr.io/`, followed by the repository and package name. This can be found by checking the "packages" section in the sidebar of your fork. Take the docker pull command and copy the repo and package reference. Then, append the tag, which is in the format `br-{branchName}-{fedoraVersion}` or just `latest` if it the image is built on your repository's default branch. If your image is not built on the default branch, your command should look like this:
 
 ```
-rpm-ostree rebase ostree-unverified-registry:ghcr.io/YOURUSERNAME/YOURIMAGENAME:br-YOURBRANCHNAME-42
+rpm-ostree rebase ostree-unverified-registry:ghcr.io/YOURUSERNAME/YOURIMAGENAME:br-YOURBRANCHNAME-43
 ```
 
 Likewise, on the default branch your command will look like this:
