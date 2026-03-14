@@ -125,7 +125,7 @@ You must also add a kernel signing key to your repository secrets for verifying 
 ### [Preparing GitHub Actions CI Workflow](#workflow-ga)
 {: #workflow-ga}
 
-To prepare the CI workflow in GitHub Actions, it's recommended you go to `.github/workflows/build-all.yml` and comment out all of the image variants except the ones you use/intend to test. For the images you haven't comented out, you must make sure to change the `github.triggering_actor` to the GitHub username that will trigger the workflow.
+To prepare the CI workflow in GitHub Actions, it's recommended you go to `.github/workflows/build-all.yml` and comment out all of the image variants except the ones you use/intend to test. For the images you haven't commented out, you must make sure to change the `github.triggering_actor` to the GitHub username that will trigger the workflow.
 
 ### [Recommended Git Workflow for Pull Requests](#workflow-git)
 {: #workflow-git}
@@ -191,12 +191,12 @@ git push --force-with-lease origin test-build
 
 Once everything is ready, go to **Actions** > **build** and select run workflow, making sure you select the branch you just set up.
 
-Once it's done building, go to your VM running Fedora Atomic and rebase to your newly built image. If you're working from a secureblue image which rejects container images by default, make sure to [add your image repository to the container policy](/faq#container-policy). Your image repository is called `ghcr.io/YOURUSERNAME`.
+Once it's done building, go to your VM running Fedora Atomic and rebase to your newly built image. If you're working from a secureblue image which rejects container images by default, make sure to [add your image registry to the container policy](/faq#container-policy). Your image registry is called `ghcr.io/YOURUSERNAME`.
 
-This is a string that starts with `rpm-ostree rebase ostree-unverified-registry:ghcr.io/`, followed by the repository and package name. This can be found by checking the "packages" section in the sidebar of your fork. Take the docker pull command and copy the repo and package reference. Then, append the tag, which is in the format `br-{branchName}-{fedoraVersion}` or just `latest` if it the image is built on your repository's default branch. If your image is not built on the default branch, your command should look like this:
+To rebase to your image on your remote registry without a signature, your command will start with `rpm-ostree rebase ostree-unverified-registry:`, followed by the registry and package name. This can be found by checking the "packages" section in the sidebar of your fork. Take the docker pull command and copy the registry and package reference. Then, append the tag, which is in the format `br-{branchName}-{fedoraVersion}` (e.g. `br-test-build-43`) or just `latest` if it the image is built on your repository's default branch. If your image is not built on the default branch, your command should look like this:
 
 ```
-rpm-ostree rebase ostree-unverified-registry:ghcr.io/YOURUSERNAME/YOURIMAGENAME:br-YOURBRANCHNAME-43
+rpm-ostree rebase ostree-unverified-registry:ghcr.io/YOURUSERNAME/YOURIMAGENAME:br-YOURBRANCHNAME-FEDORAVERSION
 ```
 
 Likewise, on the default branch your command will look like this:
