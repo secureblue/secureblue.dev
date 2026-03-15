@@ -13,6 +13,7 @@ permalink: /faq
 - [Project information](#project)
   - [Why secureblue?](#why-secureblue)
   - [Is secureblue immutable?](#immutable)
+  - [Why trust secureblue?](#why-trust-secureblue)
   - [What are the official secureblue communication channels?](#comms)
   - [What is the difference between Qubes OS and secureblue?](#qubes)
   - [Why not upstream your changes?](#upstream)
@@ -93,6 +94,11 @@ secureblue is a collaborative effort to ship a maximally secure Linux operating 
 {: #immutable}
 
 "Immutable" is an old misnomer for atomic systems. It gives the impression that users can't modify or tinker with their system, which is not the case. While directories like `/usr` are mounted read-only by default, settings and configurations can be easily overriden with changes in `/etc`, which is not mounted read-only. This is in addition to the fact that `/usr` is mutated with every deployment that is staged and booted via any `rpm-ostree` operation (like upgrading, installing a new package, etc). As such, secureblue is not immutable.
+
+### [Why trust secureblue?](#why-trust-secureblue)
+{: #why-trust-secureblue}
+
+secureblue uses several complementary mechanisms to protect against a variety of supply chain attack vectors, including vectors like rogue maintainers and theft of maintainer signing keys. For more information on these mechanisms, see the Build Architecture [article](/articles/build-architecture).
 
 ### [What are the official secureblue communication channels?](#comms)
 {: #comms}
