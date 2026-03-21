@@ -50,7 +50,7 @@ permalink: /faq
   - [How do I enable userns for other apps?](#unconfined-userns)
   - [How do I manage potentially dangerous files or attachments?](#safe-pdfs)
   - [Why are Bluetooth kernel modules disabled? How do I enable them?](#bluetooth)
-  - [How do I disable webcam?](#webcam)
+  - [How do I disable webcam kernel modules?](#webcam)
   - [How do I provision signed Distroboxes?](#distrobox-assemble)
   - [How do I customize secureblue?](#customization)
   - [How do I add a repo?](#adding-repos)
@@ -389,7 +389,7 @@ Bluetooth has a long and consistent history of security issues. However, if you 
 ujust set-bluetooth-modules on
 ```
 
-### [How do I disable webcam?](#webcam)
+### [How do I disable webcam kernel modules?](#webcam)
 {: #webcam}
 
 You can disable webcam kernel modules by running the following:
@@ -398,7 +398,7 @@ You can disable webcam kernel modules by running the following:
 ujust set-webcam-modules off
 ```
 
-Note that this will require a reboot.
+Note that this requires a reboot.
 
 ### [How do I provision signed Distroboxes?](#distrobox-assemble)
 {: #distrobox-assemble}
