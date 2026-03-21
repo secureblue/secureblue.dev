@@ -34,6 +34,7 @@ permalink: /faq
 - [Usage](#usage)
   - [How do I update the system?](#update)
   - [How do I disable automatic updates?](#disable-update)
+  - [Why am I receiving so many vulnerability patch notifications?](#update-notifications)
   - [How do I whitelist a module?](#module-whitelist)
   - [How do I install software?](#software)
   - [How do I install my VPN?](#vpn)
@@ -208,7 +209,14 @@ If you need to update your system manually, for example after a severe CVE is pa
 - `systemctl disable flatpak-system-update.timer` and `systemctl disable --global flatpak-user-update.timer` disable automatic updates for system flatpaks and user flatpaks, respectively. To update manually, run `flatpak update`.
 - `systemctl disable brew-upgrade.timer brew-update.timer` disables automatic Homebrew updates. To update manually, run `brew update && brew upgrade`.
 - `systemctl disable podman-auto-update.timer` and `systemctl disable --global podman-auto-update.timer` disable automatic Podman container updates for system and user containers, respectively. To update manually, use `podman update` on your containers.
-  
+
+### [Why am I receiving so many vulnerability patch notifications?](#update-notifications)
+{: #update-notifications}
+
+Notifications are issued when the system detects kernel updates, Trivalent updates, and any other package updates that fix a [CVE](https://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures). All kernel updates trigger a notification because all kernel updates contain bugfixes, and [all kernel bugs are security bugs](http://www.kroah.com/log/blog/2026/01/02/linux-kernel-security-work/). All Trivalent updates trigger a notification because Trivalent updates are pushed when Chromium CVEs are patched upstream.
+
+To check which packages triggered a vulnerability patch notification, check `rpm-ostree status --verbose` and `rpm-ostree db diff`. Note that the quantity and frequency of these notifications is not an indication of a higher rate of security issues. On the contrary, these are security issues which would face any desktop linux system. Unlike those systems however, secureblue ensures that the user is promptly informed when any security-relevant patch is available.
+
 ### [How do I whitelist a module?](#module-whitelist)
 {: #module-whitelist}
 
