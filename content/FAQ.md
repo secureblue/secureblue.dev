@@ -427,7 +427,7 @@ There is no need, they are already included in the image.
 ### [How do I install KDE Connect?](#kde-connect)
 {: #kde-connect}
 
-Due to an [rpm-ostree bug](https://github.com/coreos/rpm-ostree/issues/4554), layering the `kde-connect` package currently does not work. As a workaround, you can layer the `kde-connect-nautilus` package which will pull KDE Connect while bringing minimal additional dependencies. After you do that, you have to permanently enable the 'kdeconnect' service in the firewall configuration in order for devices to recognize and be recognizable via KDE Connect.
+You can install `kde-connect` by running `rpm-ostree install kde-connect` and then rebooting. After you do that, you have to permanently enable the 'kdeconnect' service in the firewall configuration in order for devices to recognize and be recognizable via KDE Connect.
 
 ### [How do I change my DE?](#change-de)
 {: #change-de}
