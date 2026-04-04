@@ -526,13 +526,7 @@ If SMT is disabled, this effectively halves the number of CPU cores; the perform
 ### [Why don't my AppImages work?](#appimage)
 {: #appimage}
 
-AppImages depend on fuse2, which is unmaintained and depends on a SUID root binary. For this reason, fuse2 support is removed by default. It's strongly recommended that you find alternative mechanisms to install your applications (Flatpak, Distrobox, etc.). If you can't find an alternative and still need fuse2, you can add it back by layering something that depends on it.
-
-For example:
-
-```
-rpm-ostree install funionfs
-```
+AppImages depend on fuse2, which is unmaintained and depends on a SUID root binary. For this reason, fuse2 support is removed by default. It's strongly recommended that you find alternative mechanisms to install your applications (Flatpak, Distrobox, etc.). If you can't find an alternative and still need fuse2, you can add it back by layering with `rpm-ostree install fuse` and then rebooting.
 
 ### [Why won't Trivalent start when Bubblejailed?](#trivalent-bubblejail)
 {: #trivalent-bubblejail}
