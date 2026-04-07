@@ -349,7 +349,14 @@ To manage container policy, you can use [`podman image trust`](https://docs.podm
 run0 podman image trust set -t accept registry.fedoraproject.org/fedora
 ```
 
-The same command without `run0` will set this policy for the current user only.
+To set this policy for the current user only, you should run:
+
+```sh
+mkdir -p ~/.config/containers
+cp /usr/etc/containers/policy.json ~/.config/containers/policy.json
+```
+
+Then, you can edit `~/.config/containers/policy.json`. Be aware that any configuration at `~/.config/containers/policy.json` will override the entire system config for the current user.
 
 To reset container policy to the system default, run:
 
