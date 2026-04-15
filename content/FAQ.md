@@ -73,6 +73,7 @@ permalink: /faq
   - [My fans are really loud, is this normal?](#fans)
   - [On secureblue half of my CPU cores are gone. Why is this?](#smt)
   - [Why don't my AppImages work?](#appimage)
+  - [Why don't my games/mods/mod managers work?](#anticheat-troubleshoot)
   - [Why won't Trivalent start when Bubblejailed?](#trivalent-bubblejail)
   - [Why won't Trivalent start on Nvidia?](#trivalent-nvidia)
   - [Why doesn't/won't/can't Trivalent...?](#trivalent-faq)
@@ -268,7 +269,7 @@ ujust install-steam
 ### [How do I enable anti-cheat support?](#anticheat)
 {: #anticheat}
 
-{% include alert.html type='note' content='Kernel-level anti-cheat solutions are generally unsupported on desktop Linux.' %}
+{% include alert.html type='note' content='Kernel-level anti-cheat solutions are generally unsupported on desktop Linux. You may want to search [Are We Anti-Cheat Yet](https://areweanticheatyet.com) if a game doesn't work.' %}
 
 Anti-cheat solutions typically require process tracing to work - the ability to monitor syscalls (and other signals) from other processes. On Linux, process tracing is controlled by the `kernel.yama.ptrace_scope` kernel parameter. [By default, secureblue doesn't allow ptrace attachment](https://github.com/secureblue/secureblue/blob/live/files/system/etc/sysctl.d/61-ptrace-scope.conf) at all, addressing [basic security concerns](https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html). The command below toggles between this restrictive default setting where `ptrace_scope` is set to `3`, breaking anti-cheat software, and a much less restrictive setting where `ptrace_scope` is set to `1`, which allows parent processes to trace child processes, enabling some anti-cheat solutions to work.
 
@@ -527,6 +528,11 @@ If SMT is disabled, this effectively halves the number of CPU cores; the perform
 {: #appimage}
 
 AppImages depend on fuse2, which is unmaintained and depends on a SUID root binary. For this reason, fuse2 support is removed by default. It's strongly recommended that you find alternative mechanisms to install your applications (Flatpak, Distrobox, etc.). If you can't find an alternative and still need fuse2, you can add it back by layering with `rpm-ostree install fuse` and then rebooting.
+
+### [Why don't my games/mods/mod managers work?](#anticheat-troubleshoot)
+{: #anticheat-troubleshoot}
+
+Some modding systems and anti-cheat solutions require process tracing to work, which is disabled by default on secureblue. For more information, see: [How do I enable anti-cheat support?](#anticheat)
 
 ### [Why won't Trivalent start when Bubblejailed?](#trivalent-bubblejail)
 {: #trivalent-bubblejail}
