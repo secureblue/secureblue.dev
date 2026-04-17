@@ -269,7 +269,7 @@ ujust install-steam
 ### [How do I enable anti-cheat support?](#anticheat)
 {: #anticheat}
 
-{% include alert.html type='note' content='Kernel-level anti-cheat solutions are generally unsupported on desktop Linux. You may want to search [Are We Anti-Cheat Yet](https://areweanticheatyet.com) if a game doesn&#39;t work.' %}
+{% include alert.html type='note' content='Kernel-level anti-cheat solutions are generally unsupported on desktop Linux.<br>You may want to search <a href="https://areweanticheatyet.com">Are We Anti-Cheat Yet</a> if a game doesn&#39;t work.' %}
 
 Anti-cheat solutions typically require process tracing to work - the ability to monitor syscalls (and other signals) from other processes. On Linux, process tracing is controlled by the `kernel.yama.ptrace_scope` kernel parameter. [By default, secureblue doesn't allow ptrace attachment](https://github.com/secureblue/secureblue/blob/live/files/system/etc/sysctl.d/61-ptrace-scope.conf) at all, addressing [basic security concerns](https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html). The command below toggles between this restrictive default setting where `ptrace_scope` is set to `3`, breaking anti-cheat software, and a much less restrictive setting where `ptrace_scope` is set to `1`, which allows parent processes to trace child processes, enabling some anti-cheat solutions to work.
 
