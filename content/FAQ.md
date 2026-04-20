@@ -298,15 +298,26 @@ Consider using Podman over Docker as it is already installed on secureblue image
 
 {: #libvirt}
 
-Libvirt and the associated [KVM/QEMU drivers](https://libvirt.org/drvqemu.html)
-are preinstalled on secureblue; the desktop images also come with
-[virt-manager](https://en.wikipedia.org/wiki/Virt-manager). To enable support
-for VMs, enable the [libvirt modular daemons](https://libvirt.org/daemons.html)
-with the following command:
+[Libvirt](https://libvirt.org/index.html), [QEMU](https://www.qemu.org/), the
+[libvirt KVM/QEMU drivers](https://libvirt.org/drvqemu.html), and
+[virt-manager](https://virt-manager.org/) (also called "Virtual Machine
+Manager") are preinstalled on secureblue desktop images. You can run VMs in
+virt-manager using either the QEMU user session or the QEMU system session.
 
-```
-ujust set-libvirt-daemons
-```
+The QEMU user session can be set up in virt-manager by clicking on "Add
+connection" in the "File" menu and selecting "QEMU/KVM User Session" as the
+hypervisor. The user session runs as an unprivileged user and works for most
+simple use-cases; however, it does not support certain advanced features such
+as some more complex networking setups.
+
+The QEMU system session requires connecting to privileged
+[libvirt daemons](https://libvirt.org/daemons.html), which must be enabled
+first. To enable the libvirt modular daemons (which is recommended over using
+the legacy monolithic `libvirtd` daemon), you can run the command
+`ujust set-libvirt-daemons`. Connecting to the QEMU system session requires
+authenticating as an administrator.
+
+{% include alert.html type='caution' content='Some online guides suggest adding your user to the <code>libvirt</code> group to avoid having to authenticate when connecting to the QEMU system session. It is strongly recommended that you do <strong>not</strong> do this, as unrestricted access to the libvirt socket can be exploited to gain root access.' %}
 
 ### [How do I install additional fonts?](#fonts)
 {: #fonts}
