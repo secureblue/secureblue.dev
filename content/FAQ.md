@@ -295,7 +295,6 @@ ujust uninstall-docker
 Consider using Podman over Docker as it is already installed on secureblue images.
 
 ### [How do I run virtual machines?](#libvirt)
-
 {: #libvirt}
 
 [Libvirt](https://libvirt.org/index.html), [QEMU](https://www.qemu.org/), the
