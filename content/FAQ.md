@@ -13,6 +13,8 @@ permalink: /faq
 - [Project information](#project)
   - [Why secureblue?](#why-secureblue)
   - [Is secureblue immutable?](#immutable)
+  - [Why trust secureblue?](#why-trust-secureblue)
+  - [What are the official secureblue communication channels?](#comms)
   - [What is the difference between Qubes OS and secureblue?](#qubes)
   - [Why not upstream your changes?](#upstream)
   - [Is this an install script?](#script)
@@ -32,6 +34,7 @@ permalink: /faq
 - [Usage](#usage)
   - [How do I update the system?](#update)
   - [How do I disable automatic updates?](#disable-update)
+  - [Why am I receiving so many vulnerability patch notifications?](#update-notifications)
   - [How do I whitelist a module?](#module-whitelist)
   - [How do I install software?](#software)
   - [How do I install my VPN?](#vpn)
@@ -45,7 +48,9 @@ permalink: /faq
   - [Why am I unable to start containers?](#container-userns)
   - [How do I allow a specific container to be run?](#container-policy)
   - [How do I enable userns for other apps?](#unconfined-userns)
+  - [How do I manage potentially dangerous files or attachments?](#safe-pdfs)
   - [Why are Bluetooth kernel modules disabled? How do I enable them?](#bluetooth)
+  - [How do I disable webcam kernel modules?](#webcam)
   - [How do I provision signed Distroboxes?](#distrobox-assemble)
   - [How do I customize secureblue?](#customization)
   - [How do I add a repo?](#adding-repos)
@@ -68,6 +73,7 @@ permalink: /faq
   - [My fans are really loud, is this normal?](#fans)
   - [On secureblue half of my CPU cores are gone. Why is this?](#smt)
   - [Why don't my AppImages work?](#appimage)
+  - [Why don't my games/mods/mod managers work?](#anticheat-troubleshoot)
   - [Why won't Trivalent start when Bubblejailed?](#trivalent-bubblejail)
   - [Why won't Trivalent start on Nvidia?](#trivalent-nvidia)
   - [Why doesn't/won't/can't Trivalent...?](#trivalent-faq)
@@ -91,6 +97,16 @@ secureblue is a collaborative effort to ship a maximally secure Linux operating 
 {: #immutable}
 
 "Immutable" is an old misnomer for atomic systems. It gives the impression that users can't modify or tinker with their system, which is not the case. While directories like `/usr` are mounted read-only by default, settings and configurations can be easily overriden with changes in `/etc`, which is not mounted read-only. This is in addition to the fact that `/usr` is mutated with every deployment that is staged and booted via any `rpm-ostree` operation (like upgrading, installing a new package, etc). As such, secureblue is not immutable.
+
+### [Why trust secureblue?](#why-trust-secureblue)
+{: #why-trust-secureblue}
+
+secureblue uses several complementary mechanisms to protect against a variety of supply chain attack vectors, including vectors like rogue maintainers and theft of maintainer signing keys. For more information on these mechanisms, see the Build Architecture [article](/articles/build-architecture).
+
+### [What are the official secureblue communication channels?](#comms)
+{: #comms}
+
+The secureblue [Bluesky account](https://bsky.app/profile/secureblue.dev), GitHub [release notes](https://github.com/secureblue/secureblue/releases), and [official email account](mailto:secureblueadmin@proton.me) are the only official secureblue communication channels. All other accounts and communications are not official secureblue communications.
 
 ### [What is the difference between Qubes OS and secureblue?](#qubes)
 {: #qubes}
@@ -195,7 +211,14 @@ If you need to update your system manually, for example after a severe CVE is pa
 - `systemctl disable flatpak-system-update.timer` and `systemctl disable --global flatpak-user-update.timer` disable automatic updates for system flatpaks and user flatpaks, respectively. To update manually, run `flatpak update`.
 - `systemctl disable brew-upgrade.timer brew-update.timer` disables automatic Homebrew updates. To update manually, run `brew update && brew upgrade`.
 - `systemctl disable podman-auto-update.timer` and `systemctl disable --global podman-auto-update.timer` disable automatic Podman container updates for system and user containers, respectively. To update manually, use `podman update` on your containers.
-  
+
+### [Why am I receiving so many vulnerability patch notifications?](#update-notifications)
+{: #update-notifications}
+
+Notifications are issued when the system detects kernel updates, Trivalent updates, and any other package updates that fix a [CVE](https://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures). All kernel updates trigger a notification because all kernel updates contain bugfixes, and [all kernel bugs are security bugs](http://www.kroah.com/log/blog/2026/01/02/linux-kernel-security-work/). All Trivalent updates trigger a notification because Trivalent updates are pushed when Chromium CVEs are patched upstream.
+
+To check which packages triggered a vulnerability patch notification, check `rpm-ostree status --verbose` and `rpm-ostree db diff`. Note that the quantity and frequency of these notifications is not an indication of a higher rate of security issues. On the contrary, these are security issues which would face any desktop linux system. Unlike those systems however, secureblue ensures that the user is promptly informed when any security-relevant patch is available.
+
 ### [How do I whitelist a module?](#module-whitelist)
 {: #module-whitelist}
 
@@ -246,7 +269,7 @@ ujust install-steam
 ### [How do I enable anti-cheat support?](#anticheat)
 {: #anticheat}
 
-{% include alert.html type='note' content='Kernel-level anti-cheat solutions are generally unsupported on desktop Linux.' %}
+{% include alert.html type='note' content='Kernel-level anti-cheat solutions are generally unsupported on desktop Linux.<br>You may want to search <a href="https://areweanticheatyet.com">Are We Anti-Cheat Yet</a> if a game doesn&#39;t work.' %}
 
 Anti-cheat solutions typically require process tracing to work - the ability to monitor syscalls (and other signals) from other processes. On Linux, process tracing is controlled by the `kernel.yama.ptrace_scope` kernel parameter. [By default, secureblue doesn't allow ptrace attachment](https://github.com/secureblue/secureblue/blob/live/files/system/etc/sysctl.d/61-ptrace-scope.conf) at all, addressing [basic security concerns](https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html). The command below toggles between this restrictive default setting where `ptrace_scope` is set to `3`, breaking anti-cheat software, and a much less restrictive setting where `ptrace_scope` is set to `1`, which allows parent processes to trace child processes, enabling some anti-cheat solutions to work.
 
@@ -347,6 +370,17 @@ ujust set-unconfined-userns on
 
 Attempting to bubblewrap a program without first enabling the ability toggled by the ujust above will result in a `bwrap: Creating new namespace failed: Permission denied` error, but beware that enabling it results in a security degradation. Consult our [user namespaces article](/articles/userns) for more details.
 
+### [How do I manage potentially dangerous files or attachments?](#safe-pdfs)
+{: #safe-pdfs}
+
+The program [Dangerzone](https://dangerzone.rocks/) is designed to sanitize potentially dangerous PDFs, office documents, or images in a sandboxed environment. To install Dangerzone, run:
+
+```
+ujust install-dangerzone
+```
+
+Note that this comes with a security trade-off: it requires enabling [container-domain user namespaces](#container-userns) and "admin-only attach" ptrace (`ptrace_scope` is set to `2`), allowing privileged users to attach to or trace child processes. Dangerzone runs Podman under the hood, and requires [gVisor](https://gvisor.dev/) to run document processing workloads in an isolated sandbox, [which needs Linux's ptrace subsystem to intercept system calls](https://gvisor.dev/blog/2024/09/23/safe-ride-into-the-dangerzone/).
+
 ### [Why are Bluetooth kernel modules disabled? How do I enable them?](#bluetooth)
 {: #bluetooth}
 
@@ -355,6 +389,17 @@ Bluetooth has a long and consistent history of security issues. However, if you 
 ```
 ujust set-bluetooth-modules on
 ```
+
+### [How do I disable webcam kernel modules?](#webcam)
+{: #webcam}
+
+You can disable webcam kernel modules by running the following:
+
+```
+ujust set-webcam-modules off
+```
+
+Note that this requires a reboot.
 
 ### [How do I provision signed Distroboxes?](#distrobox-assemble)
 {: #distrobox-assemble}
@@ -368,7 +413,7 @@ Note that Distrobox is not a security tool. It focuses on [integration, not isol
 ### [How do I customize secureblue?](#customization)
 {: #customization}
 
-If you want to add your own customizations on top of secureblue that go beyond installing packages, you are advised strongly against forking. Instead, create a repo for your own image by using the [BlueBuild template](https://github.com/blue-build/template), then change your `base-image` to a secureblue image. This allows you to apply your customizations to secureblue in a concise and maintainable way, without the need to constantly sync with upstream. For local development, [building locally](/contributing#building-locally) is the recommended approach.
+If you want to add your own customizations on top of secureblue that go beyond installing packages, unless you are [contributing](/contributing), you are advised strongly against forking. Instead, create a repo for your own image by using the [BlueBuild template](https://github.com/blue-build/template), then change your `base-image` to a secureblue image. This allows you to apply your customizations to secureblue in a concise and maintainable way, without the need to constantly sync with upstream. For secureblue development purposes, forking then [building with GitHub Actions](/contributing#building-ga) is the recommended approach.
 
 ### [How do I add a repo?](#adding-repos)
 {: #adding-repos}
@@ -383,7 +428,7 @@ There is no need, they are already included in the image.
 ### [How do I install KDE Connect?](#kde-connect)
 {: #kde-connect}
 
-Due to an [rpm-ostree bug](https://github.com/coreos/rpm-ostree/issues/4554), layering the `kde-connect` package currently does not work. As a workaround, you can layer the `kde-connect-nautilus` package which will pull KDE Connect while bringing minimal additional dependencies. After you do that, you have to permanently enable the 'kdeconnect' service in the firewall configuration in order for devices to recognize and be recognizable via KDE Connect.
+You can install `kde-connect` by running `rpm-ostree install kde-connect` and then rebooting. After you do that, you have to permanently enable the 'kdeconnect' service in the firewall configuration in order for devices to recognize and be recognizable via KDE Connect.
 
 ### [How do I change my DE?](#change-de)
 {: #change-de}
@@ -482,13 +527,12 @@ If SMT is disabled, this effectively halves the number of CPU cores; the perform
 ### [Why don't my AppImages work?](#appimage)
 {: #appimage}
 
-AppImages depend on fuse2, which is unmaintained and depends on a SUID root binary. For this reason, fuse2 support is removed by default. It's strongly recommended that you find alternative mechanisms to install your applications (Flatpak, Distrobox, etc.). If you can't find an alternative and still need fuse2, you can add it back by layering something that depends on it.
+AppImages depend on fuse2, which is unmaintained and depends on a SUID root binary. For this reason, fuse2 support is removed by default. It's strongly recommended that you find alternative mechanisms to install your applications (Flatpak, Distrobox, etc.). If you can't find an alternative and still need fuse2, you can add it back by layering with `rpm-ostree install fuse` and then rebooting.
 
-For example:
+### [Why don't my games/mods/mod managers work?](#anticheat-troubleshoot)
+{: #anticheat-troubleshoot}
 
-```
-rpm-ostree install funionfs
-```
+Some modding systems and anti-cheat solutions require process tracing to work, which is disabled by default on secureblue. For more information, see: [How do I enable anti-cheat support?](#anticheat)
 
 ### [Why won't Trivalent start when Bubblejailed?](#trivalent-bubblejail)
 {: #trivalent-bubblejail}
@@ -508,12 +552,10 @@ For any other issues you experience with Trivalent, visit Trivalent's dedicated 
 ### [Why is my splash screen disabled on KDE?](#kde-splash-disabled)
 {: #kde-splash-disabled}
 
-The KDE splash screen is currently [broken](https://github.com/secureblue/secureblue/issues/926) if Xwayland is disabled (which is the default on secureblue), due to an [upstream bug](https://discuss.kde.org/t/how-to-disable-xwayland-for-the-plasma-wayland-session/19325/6). secureblue automatically disables it for every user to work around this. If you don't want the splash screen to be automatically disabled, run the following commands:
+The KDE splash screen is currently [broken](https://github.com/secureblue/secureblue/issues/926) if Xwayland is disabled (which is the default on secureblue), due to an [upstream bug](https://discuss.kde.org/t/how-to-disable-xwayland-for-the-plasma-wayland-session/19325/6). secureblue automatically disables it for every user to work around this. If you don't want the splash screen to be automatically disabled, run the following command:
 
 ```
-mkdir -p ~/.config/user-tmpfiles.d
-ln -s /dev/null ~/.config/user-tmpfiles.d/ksplashrc.conf
-chmod u+w ~/.config/ksplashrc
+run0 rm /etc/xdg/ksplashrc
 ```
 
 ### [Why is my virtual machine integration broken?](#vm-integration)

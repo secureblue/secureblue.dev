@@ -661,7 +661,7 @@ details[open] summary {
     }
 }
 
-figure {
+figure.arch-diagram {
   border: thin silver solid;
   padding: 5px;
   margin: auto;
