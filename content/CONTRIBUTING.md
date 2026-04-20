@@ -247,7 +247,7 @@ Check out CoreOS's [layering examples](https://github.com/coreos/layering-exampl
 - Podman
 - git
 
-Secureblue already includes `bluebuild`, but running locally requires customizing policy.json for your user to allow pulling a few unsigned images.
+secureblue already includes `bluebuild`, but running locally requires customizing policy.json for your user to allow pulling a few unsigned images.
 
 #### Policy.json configuration
 
