@@ -9,15 +9,15 @@ permalink: /articles/flatpak-browsers
 ## [Table of Contents](#table-of-contents)
 {: #table-of-contents}
 
-- [Introduction](#introduction)
+- [Overview](#overview)
 - [Technical details](#technical)
   - [How browser sandboxing works](#sandboxing-explained)
   - [How Flatpak's sandbox affects it](#flatpak-sandbox)
   - [Replacing the sandbox](#sandbox-replacing)
   - [Conclusion](#conclusion)
 
-## [Introduction](#introduction)
-{: #introduction}
+## [Overview](#overview)
+{: #overview}
 
 While we generally encourage Flatpak usage, this is <em>not</em> the case for web browsers. Currently, they are incapable of reaching the same level of security within the Flatpak sandbox. This [could change in the future](https://github.com/flatpak/flatpak/pull/6386), but right now, there are a lot of reasons to be concerned. As such, we consider it safest to avoid them entirely, and we encourage using other methods of installing a browser, assuming a user truly do not want to use Trivalent.
 
@@ -28,12 +28,12 @@ We also block Flatpak browsers from [appearing in Bazaar](https://github.com/sec
 ## [Technical details](#technical)
 {: #technical}
 
-Browsers implement their own process-level sandboxing systems, which isolate each loaded page from the system *and* from each other. While most of this will be focused on the [Chromium sandbox](https://chromium.googlesource.com/chromium/src/+/0e94f26e8/docs/linux_sandboxing.md) in particular, the principles generally apply to other sandboxing models.
+If you are a general user just wanting to know *what* to do, and you're not interested in the *why*, the rest of this page is not required reading. This is here to document our rationale, to have a consistent resource to link for questions we see often, and simply for those who wish to educate themselves. 
 
 ### [How browser sandboxing works](#sandboxing-explained)
 {: #sandboxing-explained}
 
-Chromium's internal sandbox is comprised of multiple layers.
+Browsers implement their own process-level sandboxing systems, which isolate each loaded page from the system *and* from each other. While this article focuses specifically on the [Chromium sandbox](https://chromium.googlesource.com/chromium/src/+/0e94f26e8/docs/linux_sandboxing.md) in particular, the principles generally apply to other sandboxing models. Chromium's internal sandbox is comprised of multiple layers.
 
 Layer 1 uses [user namespaces](https://lwn.net/Articles/531114/), which essentially isolates a process into its own "user". This comes with the usual security benefits of user isolation, such as filesystem permissions and process isolation, while also allowing full control of that environment. This means that a process can have privileged control within the scope of that environment, while being completely unprivileged to anything outside, and having deliberate restrictions on what exactly is exposed within.
 
