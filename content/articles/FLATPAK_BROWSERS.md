@@ -28,7 +28,7 @@ We also block Flatpak browsers from [appearing in Bazaar](https://github.com/sec
 ## [Technical details](#technical)
 {: #technical}
 
-If you are a general user just wanting to know *what* to do, and you're not interested in the *why*, the rest of this page is not required reading. This is here to document our rationale, to have a consistent resource to link for questions we see often, and simply for those who wish to educate themselves. 
+If you are a general user just wanting to know *what* to do, and you're not interested in the *why*, the rest of this page is not required reading. This is here to document our rationale, to have a consistent resource to link for questions we see often, and simply for those who wish to educate themselves.
 
 ### [How browser sandboxing works](#sandboxing-explained)
 {: #sandboxing-explained}
@@ -37,7 +37,7 @@ Browsers implement their own process-level sandboxing systems, which isolate eac
 
 Layer 1 uses [user namespaces](https://lwn.net/Articles/531114/), which essentially isolates a process into its own "user". This comes with the usual security benefits of user isolation, such as filesystem permissions and process isolation, while also allowing full control of that environment. This means that a process can have privileged control within the scope of that environment, while being completely unprivileged to anything outside, and having deliberate restrictions on what exactly is exposed within.
 
-That leads to Layer 2, which utilizes [`seccomp-bpf`](https://blog.chromium.org/2012/11/a-safer-playground-for-your-linux-and.html). This restricts the system calls that a process is allowed to send to the kernel. For example, applications often do not need to communicate with device drivers via [`ioctl`](https://en.wikipedia.org/wiki/Ioctl), especially websites. Blocking this call removes a lot of attack surface, as an application could try to exploit a vulnerable driver to escape the sandbox. This idea is expanded to the entire list of system calls, only allowing the [bare minimum needed](https://en.wikipedia.org/wiki/Principle_of_least_privilege) to function.
+Layer 2 uses [`seccomp-bpf`](https://blog.chromium.org/2012/11/a-safer-playground-for-your-linux-and.html), which restricts the system calls that a process is allowed to send to the kernel. For example, applications often do not need to communicate with device drivers via [`ioctl`](https://en.wikipedia.org/wiki/Ioctl), especially websites. Blocking this call removes a lot of attack surface, as an application could try to exploit a vulnerable driver to escape the sandbox. This idea is expanded to the entire list of system calls, only allowing the [bare minimum needed](https://en.wikipedia.org/wiki/Principle_of_least_privilege) to function.
 
 These layers combined form a complete sandbox, restricting both what a process can access, and what it can do. However, to create this sandbox, a process needs those privileges itself, acting as a broker of permissions to its subprocesses. You cannot enforce the law without authority. This is where Flatpak, or really any attempt to sandbox a browser, begins to cause problems. It's essentially placing the broker, and all of the sandboxes it has made, into one big sandbox.
 
