@@ -6,6 +6,8 @@ permalink: /articles/flatpak
 
 # Flatpak
 
+{% include alert.html type='caution' content='While we generally encourage Flatpak usage, this is <em>not</em> the case for web browsers. Read <a href="/articles/flatpak-browsers">this article</a> for more information.' %}
+
 Flatpak is an application packaging and distribution system for desktop Linux. It uses Bubblewrap under the hood to sandbox those applications and provide desktop Linux with a de facto standard sandboxing and permissions system. However, it has flaws and its sandboxing strength can vary significantly depending on how it is configured. secureblue addresses these flaws in a couple different ways.
 
 As with any application sandboxing system, flatpaks should be scoped down by default to as few permissions as they need to function. Even better, permissions should be granted directly by the user at app runtime, like in Android. Sadly, neither of these are the case today. Flatpak manifest maintainers define the set of permissions they believe to be necessary and sufficient for the operation of their applications. When a flatpak is installed by a user, the flatpak's permissions default to those defined by the manifest.

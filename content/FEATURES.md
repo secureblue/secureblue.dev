@@ -10,7 +10,7 @@ permalink: /features
 {: #exploit-mitigation}
 
 - Install and enable [hardened_malloc](https://github.com/GrapheneOS/hardened_malloc) globally, including for Flatpaks.
-- Install [Trivalent](https://github.com/secureblue/Trivalent), our security-focused, Chromium-based browser inspired by [Vanadium](https://github.com/GrapheneOS/Vanadium). <sup>[Why Chromium-based?](https://grapheneos.org/usage#web-browsing)</sup> <sup>[Why not a Flatpak?](https://forum.vivaldi.net/post/669805)</sup>
+- Install [Trivalent](https://github.com/secureblue/Trivalent), our security-focused, Chromium-based browser inspired by [Vanadium](https://github.com/GrapheneOS/Vanadium). <sup>[Why Chromium-based?](https://grapheneos.org/usage#web-browsing)</sup> <sup>[Why not a Flatpak?](/articles/flatpak-browsers)</sup>
 - SELinux [confinement](https://github.com/secureblue/Trivalent/blob/live/build/trivalent.te) for Trivalent.
 - Kernel hardening via sysctl. <sup>[details](https://github.com/secureblue/secureblue/blob/live/files/system/usr/lib/sysctl.d/55-hardening.conf)</sup>
 - Kernel hardening via kernel arguments. <sup>[details](/articles/kargs)</sup>

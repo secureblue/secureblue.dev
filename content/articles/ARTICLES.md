@@ -13,4 +13,5 @@ Other articles on assorted topics related to secureblue:
 - [User namespaces](/articles/userns) - Brief overview of unprivileged User Namespaces, the security risk they enabled and how secureblue handles that risk.
 - [Kernel arguments](/articles/kargs) - List and brief explanation of the hardening kargs that the `ujust set-kargs-hardening` command can set.
 - [Flatpak](/articles/flatpak) - Flatpak: the good, the bad, the ugly.
+- [Flatpak web browsers](/articles/flatpak-browsers) - The struggles of keeping the web sandboxed within a sandbox
 - [Build architecture](/articles/build-architecture) - Build architecture for secureblue.
