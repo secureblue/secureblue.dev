@@ -11,10 +11,10 @@ permalink: /articles/flatpak-browsers
 
 - [Introduction](#introduction)
 - [Technical details](#technical)
-	- [How browser sandboxing works](#sandboxing-explained)
-	- [How Flatpak's sandbox affects it](#flatpak-sandbox)
-	- [Replacing the sandbox](#sandbox-replacing)
-	- [Conclusion](#conclusion)
+  - [How browser sandboxing works](#sandboxing-explained)
+  - [How Flatpak's sandbox affects it](#flatpak-sandbox)
+  - [Replacing the sandbox](#sandbox-replacing)
+  - [Conclusion](#conclusion)
 
 ## [Introduction](#introduction)
 {: #introduction}
