@@ -1,0 +1,4 @@
+url: file:///usr/share/secureblue/website
+# or wherever we wanna put it idk
+
+local: true

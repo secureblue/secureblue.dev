@@ -443,7 +443,7 @@ You can install `kde-connect` by running `rpm-ostree install kde-connect` and th
 ### [How do I change my DE?](#change-de)
 {: #change-de}
 
-Choose whatever you like from the [available options](https://secureblue.dev/images) by running `ujust rebase-secureblue`.
+Choose whatever you like from the [available options](/images) by running `ujust rebase-secureblue`.
 
 ### [How do I enable kernel modules?](#enable-kernel-modules)
 {: #enable-kernel-modules}
