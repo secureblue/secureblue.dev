@@ -100,6 +100,7 @@ Things to remember during installation:
       </select>
     </div>
   </div>
+  <input type="hidden" name="dev" value="1">
   <br>
   <label>
     <input type="checkbox" name="terms" required>
