@@ -68,7 +68,7 @@ permalink: /faq
   - [Why doesn't my Xwayland app work?](#xwayland)
   - [Why do some commands fail when run with run0? (Exit code 203)](#run0-failures)
   - [Why I can't install nor use any GNOME user extensions?](#gnome-extensions)
-  - [An app I use won't start due to a malloc issue. How do I fix it?](#standard-malloc)
+  - [An app I use won't start due to a memory allocator issue. How do I fix it?](#standard-malloc)
   - [My clock is wrong, and it's not getting automatically set. How do I fix this?](#clock)
   - [My fans are really loud, is this normal?](#fans)
   - [On secureblue half of my CPU cores are gone. Why is this?](#smt)
@@ -509,11 +509,19 @@ To enable support for installing GNOME user extensions, you can run ujust comman
 ujust toggle-gnome-extensions
 ```
 
-### [An app I use won't start due to a malloc issue. How do I fix it?](#standard-malloc)
+### [An app I use won't start due to a memory allocator issue. How do I fix it?](#standard-malloc)
 {: #standard-malloc}
 
-- For Flatpaks, remove the `LD_PRELOAD` environment variable via Flatseal. To re-enable hardened_malloc for the respective Flatpak, replace the removed variable.
-- For layered packages and packages installed via brew, run the application with `ujust with-standard-malloc APP`. This starts the app without hardened_malloc only once, it does not disable hardened_malloc for the app persistently.
+{% include alert.html type='note' content='This is a common issue for Electron apps. Program crashes triggered by hardened_malloc typically result in terminal output with the phrase "fatal allocator error".' %}
+
+To disable hardened_malloc for a Flatpak app, remove the `LD_PRELOAD` environment variable via Flatseal. This change will persist until you re-enable it by replacing the removed environment variable or running `ujust harden-flatpak APP-ID` (replacing `APP-ID` with the ID of the app).
+
+To run a non-Flatpak program (for example, installed via a layered package or Homebrew) with the standard memory allocator, you can wrap the command in `ujust with-standard-malloc`. This is not a persistent change; it only affects a single run of the program.
+
+To make a non-Flatpak application _always_ launch with the standard memory allocator, you can edit its `.desktop` file:
+
+1. Find the application's `.desktop` file and copy it to `~/.local/share/applications` in your home directory. (The `.desktop` files for layered packages are typically found in `/usr/share/applications`.)
+2. Edit the `Exec=` line in your copy of the `.desktop` file to wrap the command in `ujust with-standard-malloc`. For example, `Exec=foo bar` would become `Exec=ujust with-standard-malloc foo bar`.
 
 ### [My clock is wrong, and it's not getting automatically set. How do I fix this?](#clock)
 {: #clock}
