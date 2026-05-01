@@ -82,7 +82,8 @@ permalink: /faq
   - [Why can't I see any network services? (e.g. printers, Google Cast, file servers, IoT)](#mdns-resolution)
   - [Why is my DNS broken when using a VPN?](#dns-vpn)
   - [Why isn't my network adapter working?](#network-mac)
-  
+  - [Why doesn't iwd work?](#iwd)
+
 <hr>
 
 ## [Project information](#project)
@@ -660,3 +661,16 @@ Some network adapters, especially USB ethernet adapters, can appear stuck in a "
 ```
 ujust toggle-mac-randomization
 ```
+
+### [Why doesn't iwd work?](#iwd)
+{: #iwd}
+
+The [userspace interface to the kernel crypto API](https://www.kernel.org/doc/html/latest/crypto/userspace-if.html) is seldom used, provides substantial attack surface, and has been the source of various exploits, including [Copy Fail](https://copy.fail/). As a proactive security measure, secureblue uses SELinux policy to block all userspace processes from using this API by denying access to `AF_ALG` sockets.
+
+Unfortunately, iwd currently relies on this interface and is not usable with it. (This is not an issue for most users: wpa_supplicant, not iwd, is the default wireless daemon on secureblue.) If you want to use iwd anyway, you can disable this custom SELinux policy with the following command:
+
+```
+run0 -i semodule -v -d deny_af_alg
+```
+
+{% include alert.html type='caution' content='Disabling this SELinux policy is a security degradation.' %}
