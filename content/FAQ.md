@@ -21,6 +21,7 @@ permalink: /faq
   - [Another security project has a feature that's missing in secureblue, can you add it?](#feature-request)
   - [How do I get notified of new releases?](#releases)
   - [What do the GitHub releases involve?](#release-content)
+  - [How do you write the project name?](#secureblue-stylization)
 
 - [System information](#system)
   - [Why is Flatpak included? Should I use Flatpak?](#flatpak)
@@ -146,6 +147,11 @@ If you prefer to use an Atom feed, supported by many RSS clients, you can use th
 {: #release-content}
 
 Substantial testing for new changes is done in the `staging` and `next` branches. However, once a commit is merged into `live`, a new set of builds is immediately generated and deployed. As such, the GitHub releases are an informational measure to track progress and communicate changes to users. This is only the case for the secureblue main repo, it isn't the case for Trivalent. For Trivalent, GitHub releases correspond to RPM releases to the RPM repo.
+
+### [How do you write the project name?](#secureblue-stylization)
+{: #secureblue-stylization}
+
+secureblue should always be written as one lowercase word, even at the beginning of sentences. If it is absolutely mandatory, such as when title casing is strictly enforced, "Secureblue" is acceptable. It is never correct to write it in mixed case like "SecureBlue", nor is it correct to write it as separate words like "secure blue". If you wish to be maximally incorrect, you can write "Secure Blue".
 
 <hr>
 
