@@ -151,7 +151,7 @@ Substantial testing for new changes is done in the `staging` and `next` branches
 ### [How do you write the project name?](#secureblue-stylization)
 {: #secureblue-stylization}
 
-secureblue should always be written as one lowercase word, even at the beginning of sentences. If it is absolutely mandatory, such as when title casing is strictly enforced, "Secureblue" is acceptable. It is never correct to write it in mixed case like "SecureBlue", nor is it correct to write it as separate words like "secure blue". If you wish to be maximally incorrect, you can write "Secure Blue".
+secureblue should always be written as one lowercase word, even at the beginning of sentences. If it is absolutely mandatory, such as when title casing is strictly enforced, "Secureblue" is acceptable. It would be incorrect to write it in mixed case like "SecureBlue" or as separate words like "secure blue".
 
 <hr>
 
