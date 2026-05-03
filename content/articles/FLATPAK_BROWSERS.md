@@ -19,7 +19,7 @@ permalink: /articles/flatpak-browsers
 ## [Overview](#overview)
 {: #overview}
 
-While we generally encourage Flatpak usage, this is <em>not</em> the case for web browsers. Currently, they are incapable of reaching the same level of security within the Flatpak sandbox. This [could change in the future](https://github.com/flatpak/flatpak/pull/6386), but right now, there are a lot of reasons to be concerned. As such, we consider it safest to avoid them entirely, and we encourage using other methods of installing a browser, assuming a user truly do not want to use Trivalent.
+While we generally encourage Flatpak usage, this is *not* the case for web browsers. Currently, they are incapable of reaching the same level of security within the Flatpak sandbox. This [could change in the future](https://github.com/flatpak/flatpak/pull/6386), but right now, there are a lot of reasons to be concerned. As such, we consider it safest to avoid them entirely, and we encourage using other methods of installing a browser, assuming a user truly do not want to use Trivalent.
 
 Note that this does not apply as strongly for web-based apps, like those based on Electron. While they also present [significant security concerns](https://github.com/secureblue/secureblue/issues/193#issuecomment-1953323680), the risk is not *as* severe. Usually, there is only one page loaded at a time, and that page is chosen by the publisher of the application. This means there is less necessity for sandboxing processes from each other, in comparison to web browsers which are constantly executing untrusted code from a variety of sources. If you keep the Flatpak permissions strict, they are not a catastrophic risk. That said, we primarily encourage [using PWA alternatives](https://support.google.com/chrome/answer/9658361) when possible, as they benefit from Trivalent's hardening and confinement.
 
@@ -51,7 +51,7 @@ Essentially, by making a browser a flatpak, the sandbox designed for the browser
 ### [Replacing the sandbox](#sandbox-replacing)
 {: #sandbox-replacing}
 
-Implementations of this sandbox replacement are also of concern, as the Chromium team has no involvement in them whatsoever. The people most familiar with Chromium's security model do not develop them and have no oversight over them.
+Implementations of this sandbox replacement are also of concern. The official Chromium team has no involvement in their development, nor are they providing any oversight or guidance. Instead, these are completely unofficial efforts, and the developers have to keep up with a moving target they don't control, rather than moving along with it as part of Chromium's security model. Instead of being solely focused on security, they inherently also have to focus on making it functional in the first place.
 
 While sometimes the sandboxing source code is [directly patched](https://github.com/flathub/org.chromium.Chromium/blob/master/patches/chromium/flatpak-Add-initial-sandbox-support.patch), Chromium-based flatpaks typically utilize a workaround shim called [Zypak](https://github.com/refi64/zypak). It essentially tricks Chromium into believing the offical sandbox is present, then intercepts the calls to create a new user namespace, instead creating new processes with Flatpak's sandbox. Workarounds like this, which Chromium has no idea are even happening, mean we're dealing with unintended behavior that the Chromium team isn't accounting for.
 
