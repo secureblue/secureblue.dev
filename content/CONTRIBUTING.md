@@ -30,7 +30,7 @@ And if you like the project, but just don't have time to contribute, that's fine
   - [Preparing Image and Kernel signing key](#signing-keys-ga)
   - [Preparing GitHub Actions CI Workflow](#workflow-ga)
   - [Recommended Git Workflow for Pull Requests](#workflow-git)
-  - [Building and Rebasing to your Image Repository](#rebase-ga)
+  - [Building and Rebasing to your Image Registry](#rebase-ga)
 - [Building Locally](#building-locally)
 - [Styleguides](#styleguides)
   - [Commit Messages](#commit-messages)
@@ -186,7 +186,7 @@ git cherry-pick test-build-setup
 git push --force-with-lease origin test-build
 ```
 
-### [Building and Rebasing to your Image Repository](#rebase-ga)
+### [Building and Rebasing to your Image Registry](#rebase-ga)
 {: #rebase-ga}
 
 Once everything is ready, go to **Actions** > **build** and select run workflow, making sure you select the branch you just set up.
