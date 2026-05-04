@@ -665,7 +665,7 @@ ujust toggle-mac-randomization
 ### [Why doesn't iwd work?](#iwd)
 {: #iwd}
 
-The [userspace interface to the kernel crypto API](https://www.kernel.org/doc/html/latest/crypto/userspace-if.html) is seldom used, provides substantial attack surface, and has been the source of various exploits, including [Copy Fail](https://copy.fail/). As a proactive security measure, secureblue uses SELinux policy to block all userspace processes from using this API by denying access to `AF_ALG` sockets.
+The [userspace interface to the kernel crypto API](https://www.kernel.org/doc/html/latest/crypto/userspace-if.html) is seldom used, provides substantial attack surface, and has been the source of various exploits, including [CVE-2026-31431 ("Copy Fail")](https://access.redhat.com/security/cve/cve-2026-31431). As a proactive security measure, secureblue uses SELinux policy to block all userspace processes from using this API by denying access to `AF_ALG` sockets.
 
 Unfortunately, iwd currently relies on this interface and is not usable without it. (This is not an issue for most users: wpa_supplicant, not iwd, is the default wireless daemon on secureblue.) If you want to use iwd anyway, you can disable this custom SELinux policy with the following command:
 
