@@ -48,6 +48,7 @@ permalink: /features
 {: #attack-surface}
 
 - Blacklist numerous unused kernel modules to reduce attack surface. <sup>[details](https://github.com/secureblue/secureblue/blob/live/files/system/usr/lib/modprobe.d/secureblue.conf)</sup>
+- Use SELinux to block all userspace processes from accessing the [kernel crypto API](https://www.kernel.org/doc/html/latest/crypto/userspace-if.html), a source of substantial attack surface.
 - Protect against brute force by locking user accounts for 24 hours after 50 failed login attempts, providing password quality suggestions and making use of hardened password hashing.
 - Disable and mask a variety of services by default (including cups, geoclue, passim, and others).
 
