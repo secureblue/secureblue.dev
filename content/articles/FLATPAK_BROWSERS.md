@@ -68,7 +68,6 @@ These are not exclusively our concerns, they are shared by a number of others, i
 
 Until Flatpak has the necessary features to allow internal browser sandboxes to function as intended, we will continue to strongly recommend against usage of flatpaked browsers. The Flatpak maintainers have stated this is something they're working on, but it will take time for it to be implemented, and for it to be adopted by browsers. While we heavily recommend using Trivalent, and many of our efforts revolve around it; we cannot stop users from installing another browser, so it is important to inform them there are much safer methods available than Flatpak as it is now.
 
-
 [flatpak-userns]: https://github.com/imputnet/helium-linux/issues/46#issuecomment-3707223527
 [electron-concerns]: https://github.com/secureblue/secureblue/issues/193#issuecomment-1953323680
 [pwa-guide]: https://support.google.com/chrome/answer/9658361
