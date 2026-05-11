@@ -82,7 +82,7 @@ permalink: /faq
   - [Why can't I see any network services? (e.g. printers, Google Cast, file servers, IoT)](#mdns-resolution)
   - [Why is my DNS broken when using a VPN?](#dns-vpn)
   - [Why isn't my network adapter working?](#network-mac)
-  - [Why doesn't iwd work?](#iwd)
+  - [Why doesn't VeraCrypt/iwd work?](#crypto-api)
 
 <hr>
 
@@ -662,15 +662,17 @@ Some network adapters, especially USB ethernet adapters, can appear stuck in a "
 ujust toggle-mac-randomization
 ```
 
-### [Why doesn't iwd work?](#iwd)
-{: #iwd}
+### [Why doesn't VeraCrypt/iwd work?](#crypto-api)
+{: #crypto-api}
 
-The [userspace interface to the kernel crypto API](https://www.kernel.org/doc/html/latest/crypto/userspace-if.html) is seldom used, provides substantial attack surface, and has been the source of various exploits, including [CVE-2026-31431 ("Copy Fail")](https://access.redhat.com/security/cve/cve-2026-31431). As a proactive security measure, secureblue uses SELinux policy to block all userspace processes from using this API by denying access to `AF_ALG` sockets.
+The [userspace interface to the kernel crypto API](https://www.kernel.org/doc/html/latest/crypto/userspace-if.html) provides substantial attack surface and has been involved in various exploits, including [CVE-2026-31431 ("Copy Fail")](https://access.redhat.com/security/cve/cve-2026-31431). As a proactive security measure, secureblue uses SELinux policy to block most userspace processes from using this API by denying access to `AF_ALG` sockets.
 
-Unfortunately, iwd currently relies on this interface and is not usable without it. (This is not an issue for most users: wpa_supplicant, not iwd, is the default wireless daemon on secureblue.) If you want to use iwd anyway, you can disable this custom SELinux policy with the following command:
+However, some software does need access to this API. BlueZ (the Linux kernel's Bluetooth stack) is one notable example, and secureblue's SELinux policy grants the Bluetooth daemon access by default.
+
+VeraCrypt and iwd also rely on the kernel crypto API and are not usable without it. (This is not an issue for most users: wpa_supplicant, not iwd, is the default wireless daemon on secureblue.) If you want to use these anyway, you can disable this custom SELinux policy with the following command:
 
 ```
-run0 -i semodule -v -d deny_af_alg
+run0 -i semodule -v -d secureblue_deny_alg_sockets
 ```
 
 {% include alert.html type='caution' content='Disabling this SELinux policy is a security degradation.' %}
