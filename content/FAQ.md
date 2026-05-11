@@ -667,7 +667,7 @@ ujust toggle-mac-randomization
 
 The [userspace interface to the kernel crypto API](https://www.kernel.org/doc/html/latest/crypto/userspace-if.html) provides substantial attack surface and has been involved in various exploits, including [CVE-2026-31431 ("Copy Fail")](https://access.redhat.com/security/cve/cve-2026-31431). As a proactive security measure, secureblue uses SELinux policy to block most userspace processes from using this API by denying access to `AF_ALG` sockets.
 
-However, some software does need access to this API. BlueZ (the Linux kernel's Bluetooth stack) is one notable example, and secureblue's SELinux policy grants the Bluetooth daemon access by default.
+However, some software does need access to this API. BlueZ (the Linux kernel's Bluetooth stack) is one notable example, and secureblue's SELinux policy grants the Bluetooth daemon access by default. (Note that, independently of this, [Bluetooth kernel modules are disabled by default](#bluetooth).)
 
 VeraCrypt and iwd also rely on the kernel crypto API and are not usable without it. (This is not an issue for most users: wpa_supplicant, not iwd, is the default wireless daemon on secureblue.) If you want to use these anyway, you can disable this custom SELinux policy with the following command:
 
