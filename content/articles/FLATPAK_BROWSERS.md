@@ -12,14 +12,14 @@ permalink: /articles/flatpak-browsers
 - [Overview](#overview)
 - [Technical details](#technical)
   - [How browser sandboxing works](#sandboxing-explained)
-  - [How Flatpak's sandbox affects it](#flatpak-sandbox)
+  - [How Flatpak's sandbox affects browsers](#flatpak-sandbox)
   - [Substituting the sandbox](#sandbox-substituting)
   - [Conclusion](#conclusion)
 
 ## [Overview](#overview)
 {: #overview}
 
-While we generally encourage Flatpak usage, this is *not* the case for web browsers. Currently, they are incapable of reaching the same level of security within the Flatpak sandbox. This [could change in the future][flatpak-userns], but right now, there are a lot of reasons to be concerned. As such, we consider it safest to avoid them entirely, and we encourage using other methods of installing a browser, assuming a user truly do not want to use Trivalent.
+While we encourage Flatpak usage for general applications, this is *not* the case for web browsers. Currently, when compared to their native packages, they are incapable of reaching the same level of security within the Flatpak sandbox. This [could change in the future][flatpak-userns], but for the time being, we consider it safest to avoid them entirely. Instead, we encourage using other methods of installing a browser. We heavily recommend using Trivalent, and much of our efforts revolve around it, but we cannot stop users from installing another browser.
 
 Note that this does not apply as strongly for web-based apps, like those based on Electron. While Electron presents [significant security concerns][electron-concerns], the risks that come from it being flatpaked are not *as* severe as with web browsers. Usually, there is only one page loaded at a time, and that page is chosen by the publisher of the application. This means there is less necessity for sandboxing processes from each other, in comparison to web browsers which are constantly executing untrusted code from a variety of sources. If you keep the Flatpak permissions strict, they are not a catastrophic risk. That said, we primarily encourage [using PWA alternatives][pwa-guide] when possible, as they benefit from Trivalent's hardening and confinement.
 
@@ -28,20 +28,20 @@ We block Flatpak browsers from [appearing in Bazaar][bazaar-blocklist] to discou
 ## [Technical details](#technical)
 {: #technical}
 
-If you are a general user just wanting to know *what* to do, and you're not interested in the *why*, the rest of this page is not required reading. This is here to document our rationale, to have a consistent resource to link for questions we see often, and simply for those who wish to educate themselves.
+If you are a general user just wanting to know *what* to do, and you're not interested in *why*, the rest of this page is not required reading. This is here to document our rationale, to have a consistent resource to link for questions we see often, and simply for those who wish to educate themselves.
 
 ### [How browser sandboxing works](#sandboxing-explained)
 {: #sandboxing-explained}
 
-Browsers implement their own process-level sandboxing systems, which isolate each loaded page from the system *and* [from each other][site-isolation]. This is a multi-layered system, with different security measures complementing each other. While this article focuses specifically on the [Chromium sandbox][chromium-sandbox] in particular, the principles generally apply to other sandboxing models.
+Browsers implement their own process-level sandboxing systems, which isolate each loaded page from the system *and* [from each other][site-isolation]. This is a multilayered system, with different security measures complementing each other. While this article focuses specifically on the [Chromium sandbox][chromium-sandbox] in particular, the principles generally apply to other sandboxing models.
 
 Layer 1 uses [user namespaces][userns], which essentially isolates a process into its own "user", sometimes referred to as a [service account][service-account]. This comes with the usual security benefits of user isolation, such as filesystem permissions and process isolation, while also allowing full control of that environment. This means that a process can have privileged control within the scope of that environment, while being completely unprivileged to anything outside, and having deliberate restrictions on what exactly is exposed within.
 
 Layer 2 uses [`seccomp-bpf`][seccomp], which restricts the system calls that a process is allowed to send to the kernel. For example, applications generally do not need to communicate with device drivers via [`ioctl`][ioctl], especially webapps. Blocking this call removes a lot of attack surface, as an application could otherwise try to exploit a vulnerable driver to escape the sandbox. This idea is expanded to the entire list of system calls, only allowing the [bare minimum needed][least-privilege] to function.
 
-These layers combined form a complete sandbox, restricting what a process can access using user namespaces, and restricting what it can do using `seccomp-bpf`. However, to create this sandbox, a process itself needs the privileges it's restricting, acting as a broker of permissions to its subprocesses. You cannot enforce the law without authority. This is where Flatpak, or really any attempt to sandbox a browser, begins to cause problems. It's essentially placing the broker, and all of the sandboxes it has made, into one big sandbox.
+These layers combined form a complete sandbox, restricting what a process can access using user namespaces, and restricting what it can do using `seccomp-bpf`. However, to create this sandbox, a process itself needs the privileges it's restricting, acting as a broker of permissions to its subprocesses. You cannot enforce the law without authority. This is where Flatpak, or really any attempt to sandbox a browser, begins to cause problems. It's essentially placing the broker, and all the sandboxes it makes, into one big sandbox.
 
-### [How Flatpak's sandbox affects it](#flatpak-sandbox)
+### [How Flatpak's sandbox affects browsers](#flatpak-sandbox)
 {: #flatpak-sandbox}
 
 As of now, Flatpak restricts the ability for applications to create user namespaces [within the Flatpak sandbox][flatpak-userns-block]. This means Layer 1 of the browser sandbox cannot function as intended. Instead, the [`flatpak-spawn`][flatpak-spawn] API must be used as a substitute, essentially asking Flatpak to make a new user namespace for a subprocess it wants to make. However, Flatpak controls this new namespace, not the browser. This makes it difficult to restrict the capabilities of the subprocess beyond what Flatpak already does, weakening Layer 2.
@@ -57,7 +57,7 @@ While in some cases the Layer 1 sandbox code is [directly patched][sandbox-patch
 
 These sandbox substitutions also have much smaller teams. Zypak in particular is [maintained by one person][zypak-contribs], which while an impressive undertaking, means they become the sole source of trust for the sandbox functioning properly. Meanwhile, the Chromium sandbox is maintained by an [entire team of professionals][chromium-secteam] who have been involved for years, building off all the [long battle-tested][vuln-lifespan] work done since [2006][chrome-origin], as they [constantly watch][shephard] to identify issues quickly.
 
-Because Chromium is one of the [most used codebases in the world][market-share], and there are countless people, projects, and [governments][cisa-catalog] which rely on it working safely; [many of them][bug-hunters] are independently searching for and [reporting vulnerabilities][chromium-sec-reporting], on top of the formal [security review process][chromium-sec-review] that changes go through. In contrast, these more obscure projects specific to Flatpak have far fewer eyes watching them, and they almost certainly do not have as thorough and strict of a security policy. This lack of scrutiny means they're less understood and less tested, and could be significantly weaker. They may even have major vulnerabilities which nobody has found because nobody has looked, or which have been found yet [haven't been disclosed][zero-days].
+Chromium is one of the [most used codebases in the world][market-share], and there are countless people, projects, and [governments][cisa-catalog] which rely on it working safely. As such, [many of them][bug-hunters] are independently searching for and [reporting vulnerabilities][chromium-sec-reporting], on top of the formal [security review process][chromium-sec-review] that changes go through. In contrast, these more obscure projects specific to Flatpak have far fewer eyes watching them, and they almost certainly do not have as thorough and strict of a security policy. This lack of scrutiny means they're less understood and less tested, and could be significantly weaker. They may even have major vulnerabilities which nobody has found because nobody has looked, or which have been found yet [haven't been disclosed][zero-days].
 
 ### [Conclusion](#conclusion)
 {: #conclusion}
@@ -66,7 +66,7 @@ It's important to note that none of this is necessarily a flaw in Flatpak. The r
 
 These are not exclusively our concerns, they are shared by a number of others, including the [Vivaldi developers][vivaldi], the [Brave developers][brave], the [Helium developers][helium], the [Cromite developers][cromite], the [Tails developers][tails], and even the [Chromium developers themselves][chromium-team-response]. A number of browser projects are wary of making a Flatpak package, because it would mean officially endorsing this method of sandboxing.
 
-Until Flatpak has the necessary features to allow internal browser sandboxes to function as intended, we will continue to strongly recommend against usage of flatpaked browsers. The Flatpak maintainers have stated this is something they're working on, but it will take time for it to be implemented, and for it to be adopted by browsers. While we heavily recommend using Trivalent, and many of our efforts revolve around it; we cannot stop users from installing another browser, so it is important to inform them there are much safer methods available than Flatpak as it is now.
+Until Flatpak has the necessary features to allow internal browser sandboxes to function as intended, we will continue to strongly recommend against usage of flatpaked browsers. The Flatpak maintainers have stated this is something they're working on, but it will take time for it to be implemented, and for it to be adopted by browsers. Until that time comes, it's important to inform them there are much safer methods available than Flatpak as it is now.
 
 [flatpak-userns]: https://github.com/imputnet/helium-linux/issues/46#issuecomment-3707223527
 [electron-concerns]: https://github.com/secureblue/secureblue/issues/193#issuecomment-1953323680
