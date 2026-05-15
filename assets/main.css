@@ -116,6 +116,9 @@ pre {
 
 code {
     border-radius: 8px;
+}
+
+p code {
     padding: 0 2px;
 }
 
