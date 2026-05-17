@@ -99,7 +99,7 @@ sha256sum: WARNING: 8 lines are improperly formatted
 ## [For all users](#all-users)
 {: #all-users}
 
-At this point, you should have the ISO, its corresponding CHECKSUM file, and the keyring file. Use following commands to verify the ISO (where `${IMAGE_NAME}` corresponds to the filename of the ISO you downloaded).
+At this point, you should have the ISO, its corresponding CHECKSUM file, and the keyring file. Use following commands to verify the ISO (where `${IMAGE_NAME}` corresponds to the filename of the ISO you downloaded). Be sure to run `cd ~/Downloads` first, otherwise the commands below will return errors.
 
 First command:
 
