@@ -78,7 +78,26 @@ A good bug report should describe the issue in detail. Generally speaking:
 ### [Pull Requests](#pull-requests)
 {: #pull-requests}
 
-#### Before Submitting a Pull Request
+#### Set up pre-commit hooks (recommended)
+
+The secureblue repository runs a number of code quality and consistency checks in CI. Some of these are also configured as pre-commit hooks. We recommend that you set these up so they run automatically before each commit; this saves time for both contributors and reviewers, as it catches various common issues before you make a pull request.
+
+To configure pre-commit hooks in your local copy of the repository, install either [prek](https://prek.j178.dev/) or [pre-commit](https://pre-commit.com/) (secureblue uses `.pre-commit-config.yaml`, which is compatible with both), then run either `prek install` or `pre-commit install`.
+
+To be able to run pre-commit hooks for [ShellCheck](https://www.shellcheck.net/) and [ty](https://docs.astral.sh/ty/) (a Python type-checker), you will need to install them on your system (for example via Homebrew). You will also need to set up a Python virtual environment with the dependencies from `pyproject.toml` installed.
+
+In summary, the following commands (run from the repository root) will install the necessary tools and set up the repo to run the pre-commit hooks:
+
+```
+brew install prek shellcheck ty uv
+prek install
+uv venv
+uv pip install -r pyproject.toml
+```
+
+(Feel free to use a different Python package manager in place of `uv` if you prefer; these steps are purely for local development.)
+
+#### Before submitting a pull request
 
 A good pull request should be ready for review before it is even created. For all pull requests, ensure:
 
