@@ -272,13 +272,13 @@ ujust install-steam
 
 {% include alert.html type='note' content='Kernel-level anti-cheat solutions are generally unsupported on desktop Linux.<br>You may want to search <a href="https://areweanticheatyet.com">Are We Anti-Cheat Yet</a> if a game doesn&#39;t work.' %}
 
-Anti-cheat solutions typically require process tracing to work - the ability to monitor syscalls (and other signals) from other processes. On Linux, process tracing is controlled by the `kernel.yama.ptrace_scope` kernel parameter. [By default, secureblue doesn't allow ptrace attachment](https://github.com/secureblue/secureblue/blob/live/files/system/etc/sysctl.d/61-ptrace-scope.conf) at all, addressing [basic security concerns](https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html). The command below toggles between this restrictive default setting where `ptrace_scope` is set to `3`, breaking anti-cheat software, and a much less restrictive setting where `ptrace_scope` is set to `1`, which allows parent processes to trace child processes, enabling some anti-cheat solutions to work.
+Anti-cheat solutions typically require process tracing (ptrace) to work: the ability to monitor syscalls (and other signals) from other processes. Secureblue controls ptrace permissions with a combination of two Linux security modules: [Yama](https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html) and SELinux. By default, secureblue doesn't allow ptrace attachment at all.
 
-```
-ujust toggle-anticheat-support
-```
+The command `ujust set-ptrace` (alias `ujust set-anticheat-support`) allows switching between three levels of ptrace access permissions:
 
-The ujust above is aliased as `toggle-ptrace-scope`. You must reboot your computer after running it.
+- Disabled: The default. No processes can use ptrace; this breaks anti-cheat software.
+- Enabled: This enables "restricted" ptrace, which allows parent processes to ptrace-attach to child processes, enabling some anti-cheat solutions to work.
+- Container-only: This enables restricted ptrace, but only inside [#container-userns](container images). You can use this mode, for example, if you're using a [#distrobox-assemble](Distrobox) to run a game that needs anti-cheat support.
 
 ### [How do I install Docker?](#docker)
 {: #docker}
@@ -390,7 +390,7 @@ The program [Dangerzone](https://dangerzone.rocks/) is designed to sanitize pote
 ujust install-dangerzone
 ```
 
-Note that this comes with a security trade-off: it requires enabling [container-domain user namespaces](#container-userns) and "admin-only attach" ptrace (`ptrace_scope` is set to `2`), allowing privileged users to attach to or trace child processes. Dangerzone runs Podman under the hood, and requires [gVisor](https://gvisor.dev/) to run document processing workloads in an isolated sandbox, [which needs Linux's ptrace subsystem to intercept system calls](https://gvisor.dev/blog/2024/09/23/safe-ride-into-the-dangerzone/).
+Note that this comes with a security trade-off: it requires enabling [container-domain user namespaces](#container-userns) and [container-only restricted ptrace](#anticheat), allowing container processes to ptrace-attach to child processes. Dangerzone runs Podman under the hood, and requires [gVisor](https://gvisor.dev/) to run document processing workloads in an isolated sandbox, [which needs Linux's ptrace subsystem to intercept system calls](https://gvisor.dev/blog/2024/09/23/safe-ride-into-the-dangerzone/).
 
 ### [Why are Bluetooth kernel modules disabled? How do I enable them?](#bluetooth)
 {: #bluetooth}
