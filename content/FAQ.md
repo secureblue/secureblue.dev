@@ -278,7 +278,7 @@ The command `ujust set-ptrace` (alias `ujust set-anticheat-support`) allows swit
 
 - Disabled: The default. No processes can use ptrace; this breaks anti-cheat software.
 - Enabled: This enables "restricted" ptrace, which allows parent processes to ptrace-attach to child processes, enabling some anti-cheat solutions to work.
-- Container-only: This enables restricted ptrace, but only inside [#container-userns](container images). You can use this mode, for example, if you're using a [#distrobox-assemble](Distrobox) to run a game that needs anti-cheat support.
+- Container-only: This enables restricted ptrace, but only inside [container images](#container-userns). You can use this mode, for example, if you're using a [Distrobox](#distrobox-assemble) to run a game that needs anti-cheat support.
 
 ### [How do I install Docker?](#docker)
 {: #docker}
