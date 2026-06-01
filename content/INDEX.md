@@ -1,6 +1,6 @@
 ---
-title: "secureblue: A security-focused desktop and server linux operating system."
-description: "A security-focused desktop and server linux operating system."
+title: "secureblue: A security-focused desktop and server Linux operating system."
+description: "A security-focused desktop and server Linux operating system."
 permalink: /
 ---
 
