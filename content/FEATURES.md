@@ -69,4 +69,4 @@ permalink: /features
 - Provide server images with the ZFS kmod and tooling preinstalled (`-zfs`).
 - Provide images for any desired Nvidia driver and kmod configuration: `main` images with Nouveau + NVK, `nvidia` images with the Nvidia-closed kmod and drivers, and `nvidia-open` images with the Nvidia-open kmod and drivers.
 - Provide tooling to easily change desktop environments by rebasing between our images (`ujust rebase-secureblue`).
-- Install Homebrew, which (optionally) simplifies software installation and management of CLI apps.
+- Install [Homebrew](https://brew.sh/), which provides an easy way to install and update many CLI tools, and set up Homebrew to use [brew-proxy](https://codeberg.org/HastD/brew-proxy) for additional security. <sup>[details](/faq#brew)</sup>

@@ -179,7 +179,14 @@ ujust enroll-secureblue-secure-boot-key
 ### [Why does secureblue include Homebrew?](#brew)
 {: #brew}
 
-Homebrew is a cross-platform package manager, originally for macOS that allows users on Atomic systems to install CLI tools without layering and rebooting their system. It also brings with it a recent [independent security audit](https://github.com/trailofbits/publications/blob/master/reviews/2023-08-28-homebrew-securityreview.pdf) and subsequent [actions](https://github.com/Homebrew/brew.sh/blob/master/_posts/2024-07-30-homebrew-security-audit.md?plain=1#L24) taken in response to security findings uncovered by that audit.
+Homebrew is a cross-platform package manager, originally for macOS, that allows users on Atomic systems to install CLI tools without layering and rebooting their system. It also brings with it a recent [independent security audit](https://github.com/trailofbits/publications/blob/master/reviews/2023-08-28-homebrew-securityreview.pdf) and subsequent [actions](https://github.com/Homebrew/brew.sh/blob/master/_posts/2024-07-30-homebrew-security-audit.md?plain=1#L24) taken in response to security findings uncovered by that audit.
+
+For additional security, secureblue sets up Homebrew with [brew-proxy](https://codeberg.org/HastD/brew-proxy). This means that the Homebrew installation (at `/home/linuxbrew`) is owned by a dedicated `linuxbrew` user, and `brew` commands run by other users are mediated by a DBus service that checks whether the user is authorized to run the command and runs them as the `linuxbrew` user if so. This process is mostly transparent to the user, except that many commands (such as `brew install`) will trigger an authentication prompt. This ensures two things:
+
+1. The Homebrew installation, including Homebrew-installed packages and `brew` itself, can only be modified by authorized users.
+2. Homebrew package install scripts, which in principle can execute arbitrary Ruby code, run in an isolated environment with no access to user home directories.
+
+Note that this does *not* affect the security of programs installed via Homebrew; these are publicly accessible executables on the system (like programs in `/usr/bin`), and are not sandboxed unless sandboxing is provided by some other means.
 
 ### [Does secureblue use "linux-hardened"?](#linux-hardened)
 {: #linux-hardened}
