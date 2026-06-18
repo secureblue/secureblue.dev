@@ -340,7 +340,7 @@ restorecon -Rv $HOME/.local/share/fonts
 ### [How do I enable printing?](#printing)
 {: #printing}
 
-To enable printing using [CUPS](https://en.wikipedia.org/wiki/CUPS), run `ujust toggle-cups`. Note that this enables printing support, but still leaves printer discovery disabled for security reasons. The CUPS printer discovery service increases attack surface significantly and has a recent history of [severe vulnerabilities](https://www.redhat.com/en/blog/red-hat-response-openprinting-cups-vulnerabilities).
+To enable printing using [CUPS](https://en.wikipedia.org/wiki/CUPS), run `ujust set-cups on`. Note that this enables printing support, but still leaves printer discovery disabled for security reasons. The CUPS printer discovery service increases attack surface significantly and has a recent history of [severe vulnerabilities](https://www.redhat.com/en/blog/red-hat-response-openprinting-cups-vulnerabilities).
 
 ### [Why am I unable to start containers?](#container-userns)
 {: #container-userns}
@@ -471,6 +471,7 @@ As of Fedora 41, GRUB configuration is now [static](https://discussion.fedorapro
 Please note, the instructions provided by the Arch Wiki article for manually adding a menu entry for Windows are incorrect. The Wiki states you need to provide a `hints_string` as a parameter for the `search` function, however this is not required and will cause GRUB to error. You only need to provide the UUID for the partition that holds the Windows boot EFI file.
 
 ### [How do I disable thumbnailing?](#thumbnailing)
+{: #thumbnailing}
 
 Given that the sandboxing provided for thumbnailing by desktop environments is at best <a href="/images#security-recommendation" target="_blank" class="button">weak</a>, it's recommended that users disable thumbnailing altogether to protect against <a href="https://scarybeastsecurity.blogspot.com/2016/11/0day-exploit-compromising-linux-desktop.html">attacks via thumbnailers</a>. Disabling thumbnailing is currently not supported by COSMIC Files but it has been [proposed](https://github.com/pop-os/cosmic-files/issues/1216). For other systems, follow the instructions below.
 
