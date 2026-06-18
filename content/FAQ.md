@@ -60,7 +60,7 @@ permalink: /faq
   - [How do I enable kernel modules?](#enable-kernel-modules)
   - [How do I install an app as a PWA?](#pwa)
   - [How do I configure GRUB?](#configure-grub)
-
+  - [How do I disable thumbnailing?](#thumbnailing)
 
 - [Troubleshooting](#troubleshooting)
   - [Something broke! How do I rollback?](#rollback)
@@ -68,11 +68,12 @@ permalink: /faq
   - [Why doesn't my Xwayland app work?](#xwayland)
   - [Why do some commands fail when run with run0? (Exit code 203)](#run0-failures)
   - [Why I can't install nor use any GNOME user extensions?](#gnome-extensions)
-  - [An app I use won't start due to a malloc issue. How do I fix it?](#standard-malloc)
+  - [An app I use won't start due to a memory allocator issue. How do I fix it?](#standard-malloc)
   - [My clock is wrong, and it's not getting automatically set. How do I fix this?](#clock)
   - [My fans are really loud, is this normal?](#fans)
   - [On secureblue half of my CPU cores are gone. Why is this?](#smt)
   - [Why don't my AppImages work?](#appimage)
+  - [Why don't my games/mods/mod managers work?](#anticheat-troubleshoot)
   - [Why won't Trivalent start when Bubblejailed?](#trivalent-bubblejail)
   - [Why won't Trivalent start on Nvidia?](#trivalent-nvidia)
   - [Why doesn't/won't/can't Trivalent...?](#trivalent-faq)
@@ -81,7 +82,8 @@ permalink: /faq
   - [Why can't I see any network services? (e.g. printers, Google Cast, file servers, IoT)](#mdns-resolution)
   - [Why is my DNS broken when using a VPN?](#dns-vpn)
   - [Why isn't my network adapter working?](#network-mac)
-  
+  - [Why doesn't VeraCrypt/iwd work?](#crypto-api)
+
 <hr>
 
 ## [Project information](#project)
@@ -177,7 +179,14 @@ ujust enroll-secureblue-secure-boot-key
 ### [Why does secureblue include Homebrew?](#brew)
 {: #brew}
 
-Homebrew is a cross-platform package manager, originally for macOS that allows users on Atomic systems to install CLI tools without layering and rebooting their system. It also brings with it a recent [independent security audit](https://github.com/trailofbits/publications/blob/master/reviews/2023-08-28-homebrew-securityreview.pdf) and subsequent [actions](https://github.com/Homebrew/brew.sh/blob/master/_posts/2024-07-30-homebrew-security-audit.md?plain=1#L24) taken in response to security findings uncovered by that audit.
+Homebrew is a cross-platform package manager, originally for macOS, that allows users on Atomic systems to install CLI tools without layering and rebooting their system. It also brings with it a recent [independent security audit](https://github.com/trailofbits/publications/blob/master/reviews/2023-08-28-homebrew-securityreview.pdf) and subsequent [actions](https://github.com/Homebrew/brew.sh/blob/master/_posts/2024-07-30-homebrew-security-audit.md?plain=1#L24) taken in response to security findings uncovered by that audit.
+
+For additional security, secureblue sets up Homebrew with [brew-proxy](https://codeberg.org/HastD/brew-proxy). This means that the Homebrew installation (at `/home/linuxbrew`) is owned by a dedicated `linuxbrew` user, and `brew` commands run by other users are mediated by a DBus service that checks whether the user is authorized to run the command and runs them as the `linuxbrew` user if so. This process is mostly transparent to the user, except that many commands (such as `brew install`) will trigger an authentication prompt. This ensures two things:
+
+1. The Homebrew installation, including Homebrew-installed packages and `brew` itself, can only be modified by authorized users.
+2. Homebrew package install scripts, which in principle can execute arbitrary Ruby code, run in an isolated environment with no access to user home directories.
+
+Note that this does *not* affect the security of programs installed via Homebrew; these are publicly accessible executables on the system (like programs in `/usr/bin`), and are not sandboxed unless sandboxing is provided by some other means.
 
 ### [Does secureblue use "linux-hardened"?](#linux-hardened)
 {: #linux-hardened}
@@ -208,7 +217,7 @@ If you need to update your system manually, for example after a severe CVE is pa
 
 - `systemctl disable rpm-ostreed-automatic.timer` disables automatic system updates. To update manually, run `ujust update-system`.
 - `systemctl disable flatpak-system-update.timer` and `systemctl disable --global flatpak-user-update.timer` disable automatic updates for system flatpaks and user flatpaks, respectively. To update manually, run `flatpak update`.
-- `systemctl disable brew-upgrade.timer brew-update.timer` disables automatic Homebrew updates. To update manually, run `brew update && brew upgrade`.
+- `systemctl disable --global brew-upgrade.timer brew-update.timer` disables automatic Homebrew updates. To update manually, run `brew update && brew upgrade`.
 - `systemctl disable podman-auto-update.timer` and `systemctl disable --global podman-auto-update.timer` disable automatic Podman container updates for system and user containers, respectively. To update manually, use `podman update` on your containers.
 
 ### [Why am I receiving so many vulnerability patch notifications?](#update-notifications)
@@ -268,15 +277,15 @@ ujust install-steam
 ### [How do I enable anti-cheat support?](#anticheat)
 {: #anticheat}
 
-{% include alert.html type='note' content='Kernel-level anti-cheat solutions are generally unsupported on desktop Linux.' %}
+{% include alert.html type='note' content='Kernel-level anti-cheat solutions are generally unsupported on desktop Linux.<br>You may want to search <a href="https://areweanticheatyet.com">Are We Anti-Cheat Yet</a> if a game doesn&#39;t work.' %}
 
-Anti-cheat solutions typically require process tracing to work - the ability to monitor syscalls (and other signals) from other processes. On Linux, process tracing is controlled by the `kernel.yama.ptrace_scope` kernel parameter. [By default, secureblue doesn't allow ptrace attachment](https://github.com/secureblue/secureblue/blob/live/files/system/etc/sysctl.d/61-ptrace-scope.conf) at all, addressing [basic security concerns](https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html). The command below toggles between this restrictive default setting where `ptrace_scope` is set to `3`, breaking anti-cheat software, and a much less restrictive setting where `ptrace_scope` is set to `1`, which allows parent processes to trace child processes, enabling some anti-cheat solutions to work.
+Anti-cheat solutions typically require process tracing (ptrace) to work: the ability to monitor syscalls (and other signals) from other processes. Secureblue controls ptrace permissions with a combination of two Linux security modules: [Yama](https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html) and SELinux. By default, secureblue doesn't allow ptrace attachment at all.
 
-```
-ujust toggle-anticheat-support
-```
+The command `ujust set-ptrace` (alias `ujust set-anticheat-support`) allows switching between three levels of ptrace access permissions:
 
-The ujust above is aliased as `toggle-ptrace-scope`. You must reboot your computer after running it.
+- Disabled: The default. No processes can use ptrace; this breaks anti-cheat software.
+- Enabled: This enables "restricted" ptrace, which allows parent processes to ptrace-attach to child processes, enabling some anti-cheat solutions to work.
+- Container-only: This enables restricted ptrace, but only inside [container images](#container-userns). You can use this mode, for example, if you're using a [Distrobox](#distrobox-assemble) to run a game that needs anti-cheat support.
 
 ### [How do I install Docker?](#docker)
 {: #docker}
@@ -294,18 +303,28 @@ ujust uninstall-docker
 Consider using Podman over Docker as it is already installed on secureblue images.
 
 ### [How do I run virtual machines?](#libvirt)
-
 {: #libvirt}
 
-Libvirt and the associated [KVM/QEMU drivers](https://libvirt.org/drvqemu.html)
-are preinstalled on secureblue; the desktop images also come with
-[virt-manager](https://en.wikipedia.org/wiki/Virt-manager). To enable support
-for VMs, enable the [libvirt modular daemons](https://libvirt.org/daemons.html)
-with the following command:
+[Libvirt](https://libvirt.org/index.html), [QEMU](https://www.qemu.org/), the
+[libvirt KVM/QEMU drivers](https://libvirt.org/drvqemu.html), and
+[virt-manager](https://virt-manager.org/) (also called "Virtual Machine
+Manager") are preinstalled on secureblue desktop images. You can run VMs in
+virt-manager using either the QEMU user session or the QEMU system session.
 
-```
-ujust set-libvirt-daemons
-```
+The QEMU user session can be set up in virt-manager by clicking on "Add
+connection" in the "File" menu and selecting "QEMU/KVM User Session" as the
+hypervisor. The user session runs as an unprivileged user and works for most
+simple use-cases; however, it does not support certain advanced features such
+as some more complex networking setups.
+
+The QEMU system session requires connecting to privileged
+[libvirt daemons](https://libvirt.org/daemons.html), which must be enabled
+first. To enable the libvirt modular daemons (which is recommended over using
+the legacy monolithic `libvirtd` daemon), you can run the command
+`ujust set-libvirt-daemons`. Connecting to the QEMU system session requires
+authenticating as an administrator.
+
+{% include alert.html type='caution' content='Some online guides suggest adding your user to the <code>libvirt</code> group to avoid having to authenticate when connecting to the QEMU system session. It is strongly recommended that you do <strong>not</strong> do this, as unrestricted access to the libvirt socket can be exploited to gain root access.' %}
 
 ### [How do I install additional fonts?](#fonts)
 {: #fonts}
@@ -321,7 +340,7 @@ restorecon -Rv $HOME/.local/share/fonts
 ### [How do I enable printing?](#printing)
 {: #printing}
 
-To enable printing using [CUPS](https://en.wikipedia.org/wiki/CUPS), run `ujust toggle-cups`. Note that this enables printing support, but still leaves printer discovery disabled for security reasons. The CUPS printer discovery service increases attack surface significantly and has a recent history of [severe vulnerabilities](https://www.redhat.com/en/blog/red-hat-response-openprinting-cups-vulnerabilities).
+To enable printing using [CUPS](https://en.wikipedia.org/wiki/CUPS), run `ujust set-cups on`. Note that this enables printing support, but still leaves printer discovery disabled for security reasons. The CUPS printer discovery service increases attack surface significantly and has a recent history of [severe vulnerabilities](https://www.redhat.com/en/blog/red-hat-response-openprinting-cups-vulnerabilities).
 
 ### [Why am I unable to start containers?](#container-userns)
 {: #container-userns}
@@ -385,7 +404,7 @@ The program [Dangerzone](https://dangerzone.rocks/) is designed to sanitize pote
 ujust install-dangerzone
 ```
 
-Note that this comes with a security trade-off: it requires enabling [container-domain user namespaces](#container-userns) and "admin-only attach" ptrace (`ptrace_scope` is set to `2`), allowing privileged users to attach to or trace child processes. Dangerzone runs Podman under the hood, and requires [gVisor](https://gvisor.dev/) to run document processing workloads in an isolated sandbox, [which needs Linux's ptrace subsystem to intercept system calls](https://gvisor.dev/blog/2024/09/23/safe-ride-into-the-dangerzone/).
+Note that this comes with a security trade-off: it requires enabling [container-domain user namespaces](#container-userns) and [container-only restricted ptrace](#anticheat), allowing container processes to ptrace-attach to child processes. Dangerzone runs Podman under the hood, and requires [gVisor](https://gvisor.dev/) to run document processing workloads in an isolated sandbox, [which needs Linux's ptrace subsystem to intercept system calls](https://gvisor.dev/blog/2024/09/23/safe-ride-into-the-dangerzone/).
 
 ### [Why are Bluetooth kernel modules disabled? How do I enable them?](#bluetooth)
 {: #bluetooth}
@@ -458,6 +477,31 @@ As of Fedora 41, GRUB configuration is now [static](https://discussion.fedorapro
 
 Please note, the instructions provided by the Arch Wiki article for manually adding a menu entry for Windows are incorrect. The Wiki states you need to provide a `hints_string` as a parameter for the `search` function, however this is not required and will cause GRUB to error. You only need to provide the UUID for the partition that holds the Windows boot EFI file.
 
+### [How do I disable thumbnailing?](#thumbnailing)
+{: #thumbnailing}
+
+Given that the sandboxing provided for thumbnailing by desktop environments is at best <a href="/images#security-recommendation" target="_blank" class="button">weak</a>, it's recommended that users disable thumbnailing altogether to protect against <a href="https://scarybeastsecurity.blogspot.com/2016/11/0day-exploit-compromising-linux-desktop.html">attacks via thumbnailers</a>. Disabling thumbnailing is currently not supported by COSMIC Files but it has been [proposed](https://github.com/pop-os/cosmic-files/issues/1216). For other systems, follow the instructions below.
+
+#### GNOME
+
+Within GNOME Files preferences, set "Show Thumbnails" to "Never":
+
+<img alt="GNOME thumbnailing configuration" src="/assets/gnome_thumbnail.png" />
+
+#### KDE
+
+Within Dolphin settings, uncheck all items under the Previews tab in the Interface section:
+
+<img alt="KDE thumbnailing configuration" src="/assets/kde_thumbnail.png" />
+
+#### Sway
+
+Disable tumblerd using the following command:
+
+```
+systemctl mask --user --now tumblerd.service
+```
+
 <hr>
 
 ## [Troubleshooting](#troubleshooting)
@@ -505,11 +549,19 @@ To enable support for installing GNOME user extensions, you can run ujust comman
 ujust toggle-gnome-extensions
 ```
 
-### [An app I use won't start due to a malloc issue. How do I fix it?](#standard-malloc)
+### [An app I use won't start due to a memory allocator issue. How do I fix it?](#standard-malloc)
 {: #standard-malloc}
 
-- For Flatpaks, remove the `LD_PRELOAD` environment variable via Flatseal. To re-enable hardened_malloc for the respective Flatpak, replace the removed variable.
-- For layered packages and packages installed via brew, run the application with `ujust with-standard-malloc APP`. This starts the app without hardened_malloc only once, it does not disable hardened_malloc for the app persistently.
+{% include alert.html type='note' content='This is a common issue for Electron apps. Program crashes triggered by hardened_malloc typically result in terminal output with the phrase "fatal allocator error".' %}
+
+To disable hardened_malloc for a Flatpak app, remove the `LD_PRELOAD` environment variable via Flatseal. This change will persist until you re-enable it by replacing the removed environment variable or running `ujust harden-flatpak APP-ID` (replacing `APP-ID` with the ID of the app).
+
+To run a non-Flatpak program (for example, installed via a layered package or Homebrew) with the standard memory allocator, you can wrap the command in `with-standard-malloc`. This is not a persistent change; it only affects a single run of the program.
+
+To make a non-Flatpak application _always_ launch with the standard memory allocator, you can edit its `.desktop` file:
+
+1. Find the application's `.desktop` file and copy it to `~/.local/share/applications` in your home directory. (The `.desktop` files for layered packages are typically found in `/usr/share/applications`.)
+2. Edit the `Exec=` line in your copy of the `.desktop` file to wrap the command in `with-standard-malloc`. For example, `Exec=foo bar` would become `Exec=with-standard-malloc foo bar`.
 
 ### [My clock is wrong, and it's not getting automatically set. How do I fix this?](#clock)
 {: #clock}
@@ -534,6 +586,11 @@ If SMT is disabled, this effectively halves the number of CPU cores; the perform
 {: #appimage}
 
 AppImages depend on fuse2, which is unmaintained and depends on a SUID root binary. For this reason, fuse2 support is removed by default. It's strongly recommended that you find alternative mechanisms to install your applications (Flatpak, Distrobox, etc.). If you can't find an alternative and still need fuse2, you can add it back by layering with `rpm-ostree install fuse` and then rebooting.
+
+### [Why don't my games/mods/mod managers work?](#anticheat-troubleshoot)
+{: #anticheat-troubleshoot}
+
+Some modding systems and anti-cheat solutions require process tracing to work, which is disabled by default on secureblue. For more information, see: [How do I enable anti-cheat support?](#anticheat)
 
 ### [Why won't Trivalent start when Bubblejailed?](#trivalent-bubblejail)
 {: #trivalent-bubblejail}
@@ -643,3 +700,18 @@ Some network adapters, especially USB ethernet adapters, can appear stuck in a "
 ```
 ujust toggle-mac-randomization
 ```
+
+### [Why doesn't VeraCrypt/iwd work?](#crypto-api)
+{: #crypto-api}
+
+The [userspace interface to the kernel crypto API](https://www.kernel.org/doc/html/latest/crypto/userspace-if.html) provides substantial attack surface and has been involved in various exploits, including [CVE-2026-31431 ("Copy Fail")](https://access.redhat.com/security/cve/cve-2026-31431). As a proactive security measure, secureblue uses SELinux policy to block most userspace processes from using this API by denying access to `AF_ALG` sockets.
+
+However, some software does need access to this API. BlueZ (the Linux kernel's Bluetooth stack) is one notable example, and secureblue's SELinux policy grants the Bluetooth daemon access by default. (Note that, independently of this, [Bluetooth kernel modules are disabled by default](#bluetooth).)
+
+VeraCrypt and iwd also rely on the kernel crypto API and are not usable without it. (This is not an issue for most users: wpa_supplicant, not iwd, is the default wireless daemon on secureblue.) If you want to use these anyway, you can disable this custom SELinux policy with the following command:
+
+```
+run0 -i semodule -v -d secureblue_deny_alg_sockets
+```
+
+{% include alert.html type='caution' content='Disabling this SELinux policy is a security degradation.' %}

@@ -10,7 +10,7 @@ permalink: /install
 {: #table-of-contents}
 
 - [Pre-install](#pre-install)
-- [Terms of Use](#terms)
+- [License](#license)
 - [Installation](#installation)
   - [Secureblue ISO (Desktop)](#iso)
     - [ISO Verification](#verification)
@@ -34,10 +34,10 @@ Before installation, the following checks are recommended:
 
 <hr>
 
-## [Terms of Use](#terms)
-{: #terms}
+## [License](#license)
+{: #license}
 
-secureblue includes a combination of software packages, each under its own licensing terms. The license of secureblue is the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0). The license of secureblue does not supersede the licenses of upstream code and content contained in secureblue images. By downloading secureblue you agree to the license terms of its use.
+secureblue includes a combination of software packages, each under its own licensing terms. The license of secureblue is the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0). The license of secureblue does not supersede the licenses of upstream code and content contained in secureblue images.
 
 ```
 Copyright 2024-2026 The Secureblue Authors
@@ -101,11 +101,6 @@ Things to remember during installation:
     </div>
   </div>
   <br>
-  <label>
-    <input type="checkbox" name="terms" required>
-    I have read and agree to the <a href="#terms">Terms of Use</a>
-  </label>
-  <br><br>
   <i>Download options</i><br />
   <button type="submit" formaction="https://isos.secureblue.dev/download">Download ISO</button>
   <button type="submit" formaction="https://isos.secureblue.dev/downloadTorrent" formtarget="_blank" >Download torrent</button>

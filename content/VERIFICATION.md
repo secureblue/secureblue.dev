@@ -30,15 +30,12 @@ Open PowerShell as a regular user to run these commands:
 
 ```
 winget install -e --id GnuPG.GnuPG
-winget install -e --id uutils.coreutils
 ```
 
-To temporarily enable the `sha256sum` command, you must then **restart PowerShell** and run:
+In place of all sha256sum commands below, use the following in a PowerShell window, where `$IMAGE_NAME` is replaced with the image name:
 
 ```
-function sha256sum {
-    coreutils.exe sha256sum @args
-}
+ $iso = "$IMAGE_NAME.iso"; if ((Get-Content "$iso-CHECKSUM") -match (Get-FileHash $iso -Algorithm SHA256).Hash) { "${iso}: OK" } else { "${iso}: MISMATCH" }
 ```
 
 ### [macOS](#macOS)
