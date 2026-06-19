@@ -11,7 +11,7 @@ permalink: /features
 
 - Install and enable [hardened_malloc](https://github.com/GrapheneOS/hardened_malloc) globally, including for Flatpaks.
 - Install [Trivalent](https://github.com/secureblue/Trivalent), our security-focused, Chromium-based browser inspired by [Vanadium](https://github.com/GrapheneOS/Vanadium). <sup>[Why Chromium-based?](https://grapheneos.org/usage#web-browsing)</sup> <sup>[Why not a Flatpak?](https://forum.vivaldi.net/post/669805)</sup>
-- SELinux [confinement](https://github.com/secureblue/Trivalent/blob/live/build/trivalent.te) for Trivalent.
+- SELinux [confinement](https://github.com/secureblue/Trivalent/blob/live/build/selinux/trivalent.te) for Trivalent.
 - Kernel hardening via sysctl. <sup>[details](https://github.com/secureblue/secureblue/blob/live/files/system/usr/lib/sysctl.d/55-hardening.conf)</sup>
 - Kernel hardening via kernel arguments. <sup>[details](/articles/kargs)</sup>
 - Configure chronyd to use Network Time Security (NTS).
@@ -69,4 +69,4 @@ permalink: /features
 - Provide server images with the ZFS kmod and tooling preinstalled (`-zfs`).
 - Provide images for any desired Nvidia driver and kmod configuration: `main` images with Nouveau + NVK, `nvidia` images with the Nvidia-closed kmod and drivers, and `nvidia-open` images with the Nvidia-open kmod and drivers.
 - Provide tooling to easily change desktop environments by rebasing between our images (`ujust rebase-secureblue`).
-- Install Homebrew, which (optionally) simplifies software installation and management of CLI apps.
+- Install [Homebrew](https://brew.sh/), which provides an easy way to install and update many CLI tools, and set up Homebrew to use [brew-proxy](https://codeberg.org/HastD/brew-proxy) for additional security. <sup>[details](/faq#brew)</sup>

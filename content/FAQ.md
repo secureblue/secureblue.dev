@@ -60,7 +60,7 @@ permalink: /faq
   - [How do I enable kernel modules?](#enable-kernel-modules)
   - [How do I install an app as a PWA?](#pwa)
   - [How do I configure GRUB?](#configure-grub)
-
+  - [How do I disable thumbnailing?](#thumbnailing)
 
 - [Troubleshooting](#troubleshooting)
   - [Something broke! How do I rollback?](#rollback)
@@ -179,7 +179,14 @@ ujust enroll-secureblue-secure-boot-key
 ### [Why does secureblue include Homebrew?](#brew)
 {: #brew}
 
-Homebrew is a cross-platform package manager, originally for macOS that allows users on Atomic systems to install CLI tools without layering and rebooting their system. It also brings with it a recent [independent security audit](https://github.com/trailofbits/publications/blob/master/reviews/2023-08-28-homebrew-securityreview.pdf) and subsequent [actions](https://github.com/Homebrew/brew.sh/blob/master/_posts/2024-07-30-homebrew-security-audit.md?plain=1#L24) taken in response to security findings uncovered by that audit.
+Homebrew is a cross-platform package manager, originally for macOS, that allows users on Atomic systems to install CLI tools without layering and rebooting their system. It also brings with it a recent [independent security audit](https://github.com/trailofbits/publications/blob/master/reviews/2023-08-28-homebrew-securityreview.pdf) and subsequent [actions](https://github.com/Homebrew/brew.sh/blob/master/_posts/2024-07-30-homebrew-security-audit.md?plain=1#L24) taken in response to security findings uncovered by that audit.
+
+For additional security, secureblue sets up Homebrew with [brew-proxy](https://codeberg.org/HastD/brew-proxy). This means that the Homebrew installation (at `/home/linuxbrew`) is owned by a dedicated `linuxbrew` user, and `brew` commands run by other users are mediated by a DBus service that checks whether the user is authorized to run the command and runs them as the `linuxbrew` user if so. This process is mostly transparent to the user, except that many commands (such as `brew install`) will trigger an authentication prompt. This ensures two things:
+
+1. The Homebrew installation, including Homebrew-installed packages and `brew` itself, can only be modified by authorized users.
+2. Homebrew package install scripts, which in principle can execute arbitrary Ruby code, run in an isolated environment with no access to user home directories.
+
+Note that this does *not* affect the security of programs installed via Homebrew; these are publicly accessible executables on the system (like programs in `/usr/bin`), and are not sandboxed unless sandboxing is provided by some other means.
 
 ### [Does secureblue use "linux-hardened"?](#linux-hardened)
 {: #linux-hardened}
@@ -272,13 +279,13 @@ ujust install-steam
 
 {% include alert.html type='note' content='Kernel-level anti-cheat solutions are generally unsupported on desktop Linux.<br>You may want to search <a href="https://areweanticheatyet.com">Are We Anti-Cheat Yet</a> if a game doesn&#39;t work.' %}
 
-Anti-cheat solutions typically require process tracing to work - the ability to monitor syscalls (and other signals) from other processes. On Linux, process tracing is controlled by the `kernel.yama.ptrace_scope` kernel parameter. [By default, secureblue doesn't allow ptrace attachment](https://github.com/secureblue/secureblue/blob/live/files/system/etc/sysctl.d/61-ptrace-scope.conf) at all, addressing [basic security concerns](https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html). The command below toggles between this restrictive default setting where `ptrace_scope` is set to `3`, breaking anti-cheat software, and a much less restrictive setting where `ptrace_scope` is set to `1`, which allows parent processes to trace child processes, enabling some anti-cheat solutions to work.
+Anti-cheat solutions typically require process tracing (ptrace) to work: the ability to monitor syscalls (and other signals) from other processes. Secureblue controls ptrace permissions with a combination of two Linux security modules: [Yama](https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html) and SELinux. By default, secureblue doesn't allow ptrace attachment at all.
 
-```
-ujust toggle-anticheat-support
-```
+The command `ujust set-ptrace` (alias `ujust set-anticheat-support`) allows switching between three levels of ptrace access permissions:
 
-The ujust above is aliased as `toggle-ptrace-scope`. You must reboot your computer after running it.
+- Disabled: The default. No processes can use ptrace; this breaks anti-cheat software.
+- Enabled: This enables "restricted" ptrace, which allows parent processes to ptrace-attach to child processes, enabling some anti-cheat solutions to work.
+- Container-only: This enables restricted ptrace, but only inside [container images](#container-userns). You can use this mode, for example, if you're using a [Distrobox](#distrobox-assemble) to run a game that needs anti-cheat support.
 
 ### [How do I install Docker?](#docker)
 {: #docker}
@@ -333,7 +340,7 @@ restorecon -Rv $HOME/.local/share/fonts
 ### [How do I enable printing?](#printing)
 {: #printing}
 
-To enable printing using [CUPS](https://en.wikipedia.org/wiki/CUPS), run `ujust toggle-cups`. Note that this enables printing support, but still leaves printer discovery disabled for security reasons. The CUPS printer discovery service increases attack surface significantly and has a recent history of [severe vulnerabilities](https://www.redhat.com/en/blog/red-hat-response-openprinting-cups-vulnerabilities).
+To enable printing using [CUPS](https://en.wikipedia.org/wiki/CUPS), run `ujust set-cups on`. Note that this enables printing support, but still leaves printer discovery disabled for security reasons. The CUPS printer discovery service increases attack surface significantly and has a recent history of [severe vulnerabilities](https://www.redhat.com/en/blog/red-hat-response-openprinting-cups-vulnerabilities).
 
 ### [Why am I unable to start containers?](#container-userns)
 {: #container-userns}
@@ -361,7 +368,14 @@ To manage container policy, you can use [`podman image trust`](https://docs.podm
 run0 podman image trust set -t accept registry.fedoraproject.org/fedora
 ```
 
-The same command without `run0` will set this policy for the current user only.
+To set this policy for the current user only, you should run:
+
+```sh
+mkdir -p ~/.config/containers
+cp /usr/etc/containers/policy.json ~/.config/containers/policy.json
+```
+
+Then, you can edit `~/.config/containers/policy.json`. Be aware that any configuration at `~/.config/containers/policy.json` will override the entire system config for the current user.
 
 To reset container policy to the system default, run:
 
@@ -390,7 +404,7 @@ The program [Dangerzone](https://dangerzone.rocks/) is designed to sanitize pote
 ujust install-dangerzone
 ```
 
-Note that this comes with a security trade-off: it requires enabling [container-domain user namespaces](#container-userns) and "admin-only attach" ptrace (`ptrace_scope` is set to `2`), allowing privileged users to attach to or trace child processes. Dangerzone runs Podman under the hood, and requires [gVisor](https://gvisor.dev/) to run document processing workloads in an isolated sandbox, [which needs Linux's ptrace subsystem to intercept system calls](https://gvisor.dev/blog/2024/09/23/safe-ride-into-the-dangerzone/).
+Note that this comes with a security trade-off: it requires enabling [container-domain user namespaces](#container-userns) and [container-only restricted ptrace](#anticheat), allowing container processes to ptrace-attach to child processes. Dangerzone runs Podman under the hood, and requires [gVisor](https://gvisor.dev/) to run document processing workloads in an isolated sandbox, [which needs Linux's ptrace subsystem to intercept system calls](https://gvisor.dev/blog/2024/09/23/safe-ride-into-the-dangerzone/).
 
 ### [Why are Bluetooth kernel modules disabled? How do I enable them?](#bluetooth)
 {: #bluetooth}
@@ -463,6 +477,31 @@ As of Fedora 41, GRUB configuration is now [static](https://discussion.fedorapro
 
 Please note, the instructions provided by the Arch Wiki article for manually adding a menu entry for Windows are incorrect. The Wiki states you need to provide a `hints_string` as a parameter for the `search` function, however this is not required and will cause GRUB to error. You only need to provide the UUID for the partition that holds the Windows boot EFI file.
 
+### [How do I disable thumbnailing?](#thumbnailing)
+{: #thumbnailing}
+
+Given that the sandboxing provided for thumbnailing by desktop environments is at best <a href="/images#security-recommendation" target="_blank" class="button">weak</a>, it's recommended that users disable thumbnailing altogether to protect against <a href="https://scarybeastsecurity.blogspot.com/2016/11/0day-exploit-compromising-linux-desktop.html">attacks via thumbnailers</a>. Disabling thumbnailing is currently not supported by COSMIC Files but it has been [proposed](https://github.com/pop-os/cosmic-files/issues/1216). For other systems, follow the instructions below.
+
+#### GNOME
+
+Within GNOME Files preferences, set "Show Thumbnails" to "Never":
+
+<img alt="GNOME thumbnailing configuration" src="/assets/gnome_thumbnail.png" />
+
+#### KDE
+
+Within Dolphin settings, uncheck all items under the Previews tab in the Interface section:
+
+<img alt="KDE thumbnailing configuration" src="/assets/kde_thumbnail.png" />
+
+#### Sway
+
+Disable tumblerd using the following command:
+
+```
+systemctl mask --user --now tumblerd.service
+```
+
 <hr>
 
 ## [Troubleshooting](#troubleshooting)
@@ -517,12 +556,12 @@ ujust toggle-gnome-extensions
 
 To disable hardened_malloc for a Flatpak app, remove the `LD_PRELOAD` environment variable via Flatseal. This change will persist until you re-enable it by replacing the removed environment variable or running `ujust harden-flatpak APP-ID` (replacing `APP-ID` with the ID of the app).
 
-To run a non-Flatpak program (for example, installed via a layered package or Homebrew) with the standard memory allocator, you can wrap the command in `ujust with-standard-malloc`. This is not a persistent change; it only affects a single run of the program.
+To run a non-Flatpak program (for example, installed via a layered package or Homebrew) with the standard memory allocator, you can wrap the command in `with-standard-malloc`. This is not a persistent change; it only affects a single run of the program.
 
 To make a non-Flatpak application _always_ launch with the standard memory allocator, you can edit its `.desktop` file:
 
 1. Find the application's `.desktop` file and copy it to `~/.local/share/applications` in your home directory. (The `.desktop` files for layered packages are typically found in `/usr/share/applications`.)
-2. Edit the `Exec=` line in your copy of the `.desktop` file to wrap the command in `ujust with-standard-malloc`. For example, `Exec=foo bar` would become `Exec=ujust with-standard-malloc foo bar`.
+2. Edit the `Exec=` line in your copy of the `.desktop` file to wrap the command in `with-standard-malloc`. For example, `Exec=foo bar` would become `Exec=with-standard-malloc foo bar`.
 
 ### [My clock is wrong, and it's not getting automatically set. How do I fix this?](#clock)
 {: #clock}
