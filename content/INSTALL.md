@@ -129,7 +129,7 @@ You can use our [example.butane](https://github.com/secureblue/secureblue/blob/l
 
 Install Fedora IoT using one of the [official methods](https://fedoraproject.org/iot/download).
 
-Once Fedora IoT is installed, rebase to secureblue by selecting an appropriate image from [this list](https://github.com/orgs/secureblue/packages?tab=packages&q=iot), and then running the following command:
+Once Fedora IoT is installed, rebase to secureblue by selecting an appropriate image from [this list](https://secureblue.dev/images#iot), and then running the following command:
 
 ```
 sudo bootc switch ghcr.io/secureblue/${IMAGE_NAME}:latest
