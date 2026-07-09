@@ -21,6 +21,7 @@ permalink: /faq
   - [Another security project has a feature that's missing in secureblue, can you add it?](#feature-request)
   - [How do I get notified of new releases?](#releases)
   - [What do the GitHub releases involve?](#release-content)
+  - [Will secureblue add images for another DE?](#new-images)
 
 - [System information](#system)
   - [Why is Flatpak included? Should I use Flatpak?](#flatpak)
@@ -146,6 +147,16 @@ If you prefer to use an Atom feed, supported by many RSS clients, you can use th
 {: #release-content}
 
 Substantial testing for new changes is done in the `staging` and `next` branches. However, once a commit is merged into `live`, a new set of builds is immediately generated and deployed. As such, the GitHub releases are an informational measure to track progress and communicate changes to users. This is only the case for the secureblue main repo, it isn't the case for Trivalent. For Trivalent, GitHub releases correspond to RPM releases to the RPM repo.
+
+### [Will secureblue add images for another DE?](#new-images)
+{: #new-images}
+
+Secureblue will consider adding new images for an additional desktop environment if it meets the following criteria:
+
+1. There must be an upstream [Fedora Atomic Desktop](https://forge.fedoraproject.org/atomic-desktops) bootable container image for the DE.
+2. The DE must support Wayland.
+3. It must be possible to run the DE with Xwayland entirely disabled.
+4. The DE must properly secure privileged Wayland protocols such as screencopy.
 
 <hr>
 
