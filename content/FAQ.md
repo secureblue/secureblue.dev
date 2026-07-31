@@ -98,7 +98,7 @@ secureblue is a collaborative effort to ship a maximally secure Linux operating 
 ### [Is secureblue immutable?](#immutable)
 {: #immutable}
 
-"Immutable" is an old misnomer for atomic systems. It gives the impression that users can't modify or tinker with their system, which is not the case. While directories like `/usr` are mounted read-only by default, settings and configurations can be easily overriden with changes in `/etc`, which is not mounted read-only. This is in addition to the fact that `/usr` is mutated with every deployment that is staged and booted via any `rpm-ostree` operation (like upgrading, installing a new package, etc). As such, secureblue is not immutable.
+"Immutable" is an old misnomer for atomic systems. It gives the impression that users can't modify or tinker with their system, which is not the case. While directories like `/usr` are mounted read-only by default, settings and configurations can be easily overridden with changes in `/etc`, which is not mounted read-only. This is in addition to the fact that `/usr` is mutated with every deployment that is staged and booted via any `rpm-ostree` operation (like upgrading, installing a new package, etc). As such, secureblue is not immutable.
 
 ### [Why trust secureblue?](#why-trust-secureblue)
 {: #why-trust-secureblue}
