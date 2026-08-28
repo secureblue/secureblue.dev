@@ -58,7 +58,7 @@ When contributing to this project, you must agree that you have authored 100% of
 ### [AI Content Policy](#ai-content)
 {: #ai-content}
 
-In the interest of accuracy, quality, and license of the project, contributing using AI generated code and content of any kind is forbidden.
+In the interest of accuracy, quality, and license of the project, contributing AI generated code or content of any kind is forbidden.
 
 ### [Reporting Bugs](#reporting-bugs)
 {: #reporting-bugs}
