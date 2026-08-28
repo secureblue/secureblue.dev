@@ -33,7 +33,7 @@ This section is a relative recommendation between the desktop environments avail
 | GNOME      | Yes                                   | Weak                    | Stable       | Recommended                     |
 | KDE Plasma | Yes                                   | None                    | Stable       | Recommended                     |
 | Sway       | Yes                                   | Weak                    | Stable       | Recommended for tiling WM users |
-| COSMIC     | Yes                                   | None                    | Beta         | Not currently recommended       |
+| COSMIC     | Yes                                   | None                    | Not yet reliable         | Not currently recommended       |
 
 ## [Desktop](#desktop)
 {: #desktop}
