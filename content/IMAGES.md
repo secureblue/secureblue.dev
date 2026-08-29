@@ -35,7 +35,7 @@ This section is a relative recommendation between the desktop environments avail
 | Sway       | Yes                                   | None*                   | Stable       | Recommended for tiling WM users |
 | COSMIC     | Yes                                   | None                    | Beta         | Not currently recommended       |
 
-* The file managers in GNOME and Sway do support thumbnailer sandboxing via <a href="https://gitlab.gnome.org/GNOME/glycin">Glycin</a> using bubblewrap, but this currently does not work on secureblue since the respective file managers have no access to <a href="https://secureblue.dev/articles/userns">user namespaces</a>. 
+* The file managers in GNOME and Sway do support thumbnailer sandboxing via <a href="https://gitlab.gnome.org/GNOME/glycin">Glycin</a> using bubblewrap, but this currently does not work on secureblue since the respective file managers have no access to <a href="https://secureblue.dev/articles/userns">user namespaces</a>.
 
 ## [Desktop](#desktop)
 {: #desktop}
