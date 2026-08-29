@@ -61,7 +61,7 @@ permalink: /faq
   - [How do I enable kernel modules?](#enable-kernel-modules)
   - [How do I install an app as a PWA?](#pwa)
   - [How do I configure GRUB?](#configure-grub)
-  - [How do I disable thumbnailing?](#thumbnailing)
+  - [How do I enable thumbnailing?](#thumbnailing)
 
 - [Troubleshooting](#troubleshooting)
   - [Something broke! How do I rollback?](#rollback)
@@ -490,29 +490,32 @@ As of Fedora 41, GRUB configuration is now [static](https://discussion.fedorapro
 
 Please note, the instructions provided by the Arch Wiki article for manually adding a menu entry for Windows are incorrect. The Wiki states you need to provide a `hints_string` as a parameter for the `search` function, however this is not required and will cause GRUB to error. You only need to provide the UUID for the partition that holds the Windows boot EFI file.
 
-### [How do I disable thumbnailing?](#thumbnailing)
+### [How do I enable thumbnailing?](#thumbnailing)
 {: #thumbnailing}
 
-Given that the sandboxing provided for thumbnailing by desktop environments is at best <a href="/images#security-recommendation">weak</a>, it's recommended that users disable thumbnailing altogether to protect against <a href="https://scarybeastsecurity.blogspot.com/2016/11/0day-exploit-compromising-linux-desktop.html">attacks via thumbnailers</a>. Disabling thumbnailing is currently not supported by COSMIC Files but it has been [proposed](https://github.com/pop-os/cosmic-files/issues/1216). For other systems, follow the instructions below.
+{% include alert.html type='caution' content='Enabling thumbnailing is a security degradation. Thumbnailers currently have <a href="/images#security-recommendation">no sandboxing</a> on secureblue.' %}
+
+secureblue disables thumbnailing by default (except on COSMIC) to protect against <a href="https://scarybeastsecurity.blogspot.com/2016/11/0day-exploit-compromising-linux-desktop.html">attacks via thumbnailers</a>. Disabling thumbnailing is currently not supported by COSMIC Files but it has been [proposed](https://github.com/pop-os/cosmic-files/issues/1216). To enable thumbnailing on other systems, follow the instructions below.
 
 #### GNOME
 
-Within GNOME Files preferences, set "Show Thumbnails" to "Never":
+Within GNOME Files preferences, set "Show Thumbnails" to "On This Device Only" or "All Folders":
 
 <img alt="GNOME thumbnailing configuration" src="/assets/gnome_thumbnail.png" />
 
 #### KDE
 
-Within Dolphin settings, uncheck all items under the Previews tab in the Interface section:
+Within Dolphin settings, check items under the Previews tab in the Interface section according to your preferences:
 
 <img alt="KDE thumbnailing configuration" src="/assets/kde_thumbnail.png" />
 
 #### Sway
 
-Disable tumblerd using the following command:
+Enable tumblerd using the following command:
 
 ```
-systemctl mask --user --now tumblerd.service
+mkdir -p ~/.config/systemd/user
+cp /usr/lib/systemd/user/tumblerd.service ~/.config/systemd/user
 ```
 
 <hr>
