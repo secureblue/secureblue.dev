@@ -493,9 +493,9 @@ Please note, the instructions provided by the Arch Wiki article for manually add
 ### [How do I enable thumbnailing?](#thumbnailing)
 {: #thumbnailing}
 
-{% include alert.html type='caution' content='Enabling thumbnailing is a security degradation. Thumbnailers currently have <a href="/images#security-recommendation">no sandboxing</a> on secureblue.' %}
+{% include alert.html type='caution' content='Enabling thumbnailing is a <a href="https://scarybeastsecurity.blogspot.com/2016/11/0day-exploit-compromising-linux-desktop.html">security degradation</a>. Thumbnailers currently have <a href="/images#security-recommendation">no sandboxing</a> on secureblue.' %}
 
-secureblue disables thumbnailing by default (except on COSMIC) to protect against <a href="https://scarybeastsecurity.blogspot.com/2016/11/0day-exploit-compromising-linux-desktop.html">attacks via thumbnailers</a>. Disabling thumbnailing is currently not supported by COSMIC Files but it has been [proposed](https://github.com/pop-os/cosmic-files/issues/1216). To enable thumbnailing on other systems, follow the instructions below.
+Disabling thumbnailing is currently not supported by COSMIC Files but it has been [proposed](https://github.com/pop-os/cosmic-files/issues/1216). To enable thumbnailing on other systems, follow the instructions below.
 
 #### GNOME
 
