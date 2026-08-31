@@ -170,7 +170,7 @@ Which should give the following output:
 fb8491059eabecf332f6a9e01e3aa35f0832f2f4d43df3f6f5ce2dfdac0ba9a8  akmods-secureblue.der
 ```
 
-If your output does not match the expected result, please report it to on the [official Discord server](https://github.com/secureblue/secureblue) or [GitHub repo](https://github.com/secureblue/secureblue/issues).
+If your output does not match the expected result, please open a [GitHub issue](https://github.com/secureblue/secureblue/issues) reporting your findings.
 
 For convenience, disable the timeout in the mokutil UEFI menu UI:
 
