@@ -229,6 +229,7 @@ If you need to update your system manually, for example after a severe CVE is pa
 {% include alert.html type='caution' content='Disabling automatic updates is a security degradation. You will no longer automatically receive security updates.' %}
 
 - `systemctl disable rpm-ostreed-automatic.timer` disables automatic system updates. To update manually, run `ujust update-system`.
+- If you are on a UKI image (Pure bootc) `systemctl disable bootc-upgrade.timer`, To update manually, run `ujust update-system`.
 - `systemctl disable flatpak-system-update.timer` and `systemctl disable --global flatpak-user-update.timer` disable automatic updates for system Flatpaks and user Flatpaks, respectively. To update manually, run `flatpak update`.
 - `systemctl disable --global brew-upgrade.timer brew-update.timer` disables automatic Homebrew updates. To update manually, run `brew update && brew upgrade`.
 - `systemctl disable podman-auto-update.timer` and `systemctl disable --global podman-auto-update.timer` disable automatic Podman container updates for system and user containers, respectively. To update manually, use `podman update` on your containers.
