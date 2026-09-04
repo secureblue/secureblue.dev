@@ -17,6 +17,7 @@ permalink: /install
   - [Ignition (Server)](#ignition)
   - [Rebase (IoT)](#rebase)
   - [Rebase (ARM64 - Beta)](#arm64)
+  - [Importing SecureBoot key](#key)
 - [Post-install](#post-install)
 
 <hr>
@@ -129,7 +130,9 @@ You can use our [example.butane](https://github.com/secureblue/secureblue/blob/l
 
 Install Fedora IoT using one of the [official methods](https://fedoraproject.org/iot/download).
 
-Once Fedora IoT is installed, rebase to secureblue by selecting an appropriate image from [this list](https://secureblue.dev/images#iot), and then running the following command:
+Before rebasing to secureblue IoT, you need to temporarily disable SecureBoot. Otherwise, if you do not want or cannot disable SecureBoot, you need to follow [these steps](#key).
+
+Once you are ready, rebase to secureblue IoT by selecting an appropriate image from [this list](https://secureblue.dev/images#iot), and then running the following command:
 
 ```
 sudo bootc switch ghcr.io/secureblue/${IMAGE_NAME}:latest
@@ -143,6 +146,48 @@ Some of our images have Beta support for the ARM64 / aarch64 architecture. Consu
 ```
 sudo bootc switch ghcr.io/secureblue/${IMAGE_NAME}:latest
 ```
+
+### [Importing SecureBoot key](#key)
+{: #key}
+
+You only need to follow these steps if you are rebasing from a non-secureblue image and do not want to or cannot disable SecureBoot. If you are a CoreOS user, you can skip these steps if using our example Butane file.
+
+Download the secureblue key:
+
+```
+curl -O https://raw.githubusercontent.com/secureblue/secureblue/refs/heads/live/files/system/usr/share/pki/akmods/certs/akmods-secureblue.der
+```
+
+Verify the integrity of the downloaded key:
+
+```
+sha256sum akmods-secureblue.der
+```
+
+Which should give the following output:
+
+```
+fb8491059eabecf332f6a9e01e3aa35f0832f2f4d43df3f6f5ce2dfdac0ba9a8  akmods-secureblue.der
+```
+
+If your output does not match the expected result, please open a [GitHub issue](https://github.com/secureblue/secureblue/issues) reporting your findings.
+
+For convenience, disable the timeout in the mokutil UEFI menu UI:
+
+```
+sudo mokutil --timeout -1
+```
+
+Finally, import the secureblue key:
+
+{% include alert.html type='note' content='The next command will prompt for a MOK password. Input "secureblue".' %}
+
+```
+sudo mokutil --import akmods-secureblue.der
+```
+
+At next reboot, the mokutil UEFI menu UI will be displayed (*QWERTY* keyboard input and navigation).
+Then, select "Enroll MOK", and input "secureblue" as the password.
 
 <hr>
 
