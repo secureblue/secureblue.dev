@@ -171,7 +171,7 @@ Consult our [Flatpak article](/articles/flatpak).
 ### [Should I use Electron apps? Why don't they work well with hardened_malloc?](#electron)
 {: #electron}
 
-For Electron apps like Signal, Slack, FreeTube, Element, VSCode, Discord, etc., consult this [discussion](https://github.com/secureblue/secureblue/issues/193#issuecomment-1953323680).
+For Electron apps like Signal, Slack, FreeTube, Element, VSCode, Discord, etc., consult this [discussion](https://github.com/secureblue/secureblue/issues/193#issuecomment-1953323680). See also this [article](https://blog.trailofbits.com/2025/09/03/subverting-code-integrity-checks-to-locally-backdoor-signal-1password-slack-and-more/) for an example of a vulnerability caused by Electron.
 
 ### [Should I use Firejail?](#firejail)
 {: #firejail}
