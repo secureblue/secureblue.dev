@@ -42,7 +42,6 @@ permalink: /faq
   - [How is gaming on secureblue?](#gaming)
   - [How do I install Steam?](#steam)
   - [How do I enable anti-cheat support?](#anticheat)
-  - [How do I install Docker?](#docker)
   - [How do I run virtual machines?](#libvirt)
   - [How do I install additional fonts?](#fonts)
   - [How do I enable printing?](#printing)
@@ -300,21 +299,6 @@ The command `ujust set-ptrace` (alias `ujust set-anticheat-support`) allows swit
 - Disabled: The default. No processes can use ptrace; this breaks anti-cheat software.
 - Enabled: This enables "restricted" ptrace, which allows parent processes to ptrace-attach to child processes, enabling some anti-cheat solutions to work.
 - Container-only: This enables restricted ptrace, but only inside [container images](#container-userns). You can use this mode, for example, if you're using a [Distrobox](#distrobox-assemble) to run a game that needs anti-cheat support.
-
-### [How do I install Docker?](#docker)
-{: #docker}
-
-```
-ujust install-docker
-```
-
-Similarly, you can uninstall Docker with:
-
-```
-ujust uninstall-docker
-```
-
-Consider using Podman over Docker as it is already installed on secureblue images.
 
 ### [How do I run virtual machines?](#libvirt)
 {: #libvirt}
