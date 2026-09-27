@@ -28,12 +28,12 @@ This section is a relative recommendation between the desktop environments avail
 
 | DE/WM      | Secures privileged Wayland protocols? | Thumbnailer sandboxing? | Stability    | Recommendation                  |
 |------------|---------------------------------------|-------------------------|--------------|---------------------------------|
-| GNOME      | Yes                                   | None[^1]                | Stable       | Recommended                     |
+| GNOME      | Yes                                   | Weak[^1]                | Stable       | Recommended                     |
 | KDE Plasma | Yes                                   | None                    | Stable       | Recommended                     |
-| Sway       | Yes                                   | None[^1]                | Stable       | Recommended for tiling WM users |
+| Sway       | Yes                                   | Weak[^1]                | Stable       | Recommended for tiling WM users |
 | COSMIC     | Yes                                   | None                    | Beta         | Not currently recommended       |
 
-[^1]: The file managers in GNOME and Sway do support thumbnailer sandboxing via <a href="https://gitlab.gnome.org/GNOME/glycin">Glycin</a> using bubblewrap, but this currently does not work on secureblue since the respective file managers have no access to <a href="https://secureblue.dev/articles/userns">user namespaces</a>.
+[^1]: The file managers in GNOME and Sway support thumbnailer sandboxing via <a href="https://gitlab.gnome.org/GNOME/glycin">Glycin</a>, which performs image rendering in a sandbox, albeit not an especially strong sandbox.
 
 ## [Desktop](#desktop)
 {: #desktop}

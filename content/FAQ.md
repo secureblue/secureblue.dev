@@ -175,7 +175,7 @@ For Electron apps like Signal, Slack, FreeTube, Element, VSCode, Discord, etc., 
 ### [Should I use Firejail?](#firejail)
 {: #firejail}
 
-[No](https://madaidans-insecurities.github.io/linux.html#firejail), use `bubblejail` if there's no Flatpak available for an app that you want to sandbox. Note that this requires [enabling unconfined user namespaces](#unconfined-userns), which is a security degradation.
+[No](https://madaidans-insecurities.github.io/linux.html#firejail), use `bubblejail` if there's no Flatpak available for an app that you want to sandbox.
 
 ### [Why am I being asked to enroll a Secure Boot key?](#new-key)
 {: #new-key}
@@ -385,13 +385,13 @@ run0 cp /usr/etc/containers/policy.json /etc/containers/policy.json
 ### [How do I enable userns for other apps?](#unconfined-userns)
 {: #unconfined-userns}
 
-The following command will toggle the ability of processes in the unconfined SELinux domain to create user namespaces. It's necessary for any apps that require this feature, such as: browsers other than Trivalent, many [Electron](https://en.wikipedia.org/wiki/Electron_(software_framework)) apps, and bubblejail.
+The following command will toggle the ability of processes in the unconfined SELinux domain to create user namespaces:
 
 ```
 ujust set-unconfined-userns on
 ```
 
-Attempting to bubblewrap a program without first enabling the ability toggled by the ujust above will result in a `bwrap: Creating new namespace failed: Permission denied` error, but beware that enabling it results in a security degradation. Consult our [user namespaces article](/articles/userns) for more details.
+This is necessary for any apps that require this feature, such as [Electron](https://en.wikipedia.org/wiki/Electron_(software_framework)) apps or most web browsers other than Trivalent. However, be aware that enabling this is a security degradation. See our [user namespaces article](/articles/userns) for more details.
 
 ### [How do I manage potentially dangerous files or attachments?](#safe-pdfs)
 {: #safe-pdfs}
@@ -478,7 +478,7 @@ Please note, the instructions provided by the Arch Wiki article for manually add
 ### [How do I enable thumbnailing?](#thumbnailing)
 {: #thumbnailing}
 
-{% include alert.html type='caution' content='Enabling thumbnailing is a <a href="https://scarybeastsecurity.blogspot.com/2016/11/0day-exploit-compromising-linux-desktop.html">security degradation</a>. Thumbnailers currently have <a href="/images#security-recommendation">no sandboxing</a> on secureblue.' %}
+{% include alert.html type='caution' content='Enabling thumbnailing is a <a href="https://scarybeastsecurity.blogspot.com/2016/11/0day-exploit-compromising-linux-desktop.html">security degradation</a>. The sandboxing provided for thumbnailing by desktop environments is <a href="/images#security-recommendation">weak or absent</a>.' %}
 
 Disabling thumbnailing is currently not supported by COSMIC Files but it has been [proposed](https://github.com/pop-os/cosmic-files/issues/1216). To enable thumbnailing on other systems, follow the instructions below.
 
@@ -596,7 +596,7 @@ Some modding systems and anti-cheat solutions require process tracing to work, w
 ### [Why won't Trivalent start when Bubblejailed?](#trivalent-bubblejail)
 {: #trivalent-bubblejail}
 
-`bubblejail` shouldn't be used on Trivalent, there are issues reported with the pairing and removing the `bubblejail` config after it is applied can be difficult. It should also be noted that applying additional sandboxing may interfere with Chromium's own internal sandbox, so it may end up reducing security.
+`bubblejail` shouldn't be used on Trivalent; there are issues reported with the pairing and removing the `bubblejail` config after it is applied can be difficult. It should also be noted that applying additional sandboxing may interfere with Chromium's own internal sandbox, so it may end up reducing security.
 
 ### [Why won't Trivalent start on Nvidia?](#trivalent-nvidia)
 {: #trivalent-nvidia}
