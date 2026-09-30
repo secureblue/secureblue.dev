@@ -38,6 +38,7 @@ For details on what each kernel argument does, see
 Stable kernel arguments that are set by default on a fresh secureblue
 installation, and are always applied by the script `ujust set-kargs-hardening`.
 
+- `amdgpu.iommu_perfopt=0`: Disable AMD GPU IOMMU bypass.
 - `hash_pointers=always`: Hash kernel pointers even if `slab_debug` is enabled.
 - `init_on_alloc=1`: Fill newly allocated pages and heap objects with zeroes,
   mitigating use-after-free vulnerabilities.
@@ -48,6 +49,7 @@ installation, and are always applied by the script `ujust set-kargs-hardening`.
 - `iommu.strict=1`: Synchronously invalidate IOMMU hardware TLBs.
 - `kvm_amd.sev=1`, `kvm_amd.sev_es=1`, `kvm_amd.sev_snp=1`: Enable AMD Secure
   Encrypted Virtualization (SEV) and extensions.
+- `kvm-amd.nested=0`, `kvm-intel.nested=0`: Disable KVM nested virtualization.
 - `kvm-intel.vmentry_l1d_flush=always`: Enable unconditional flushes, required
   for complete L1D vulnerability mitigation.
 - `kvm.mitigate_smt_rsb=1`: Mitigate cross-thread return address predictions
