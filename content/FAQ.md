@@ -261,8 +261,8 @@ Bazaar's interface.
 Note that secureblue configures Flatpak so that only [verified apps] are
 available by default. You can add the unfiltered Flathub remote with `ujust
 set-flathub-unfiltered on`. Be careful when installing unverified apps, as they
-are packaged by a third party and are not vetted by the developer of the
-software itself.
+are packaged by unvetted third parties and are not endorsed by the developer of
+the software itself.
 
 [Flathub]: https://flathub.org
 [verified apps]: https://docs.flathub.org/docs/for-users/verification
@@ -295,8 +295,8 @@ Instructions you find online for installing RPM packages may need to be modified
 
 #### Containers
 
-Containers are [disabled by default](#container-userns) in secureblue, but if
-you enable them, you can run software from a container using
+User namespaces for containers are [disabled by default](#container-userns) in
+secureblue, but if you enable them, you can run software from a container using
 [Podman](https://podman.io/) or a wrapper around Podman such as
 [Distrobox](#distrobox-assemble) or Toolbox. You may need to adjust
 secureblue's [container policy](#container-policy) to allow a container to run.
