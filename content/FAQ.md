@@ -248,17 +248,68 @@ secureblue prevents [numerous modules](https://github.com/secureblue/secureblue/
 ### [How do I install software?](#software)
 {: #software}
 
-1. Check if it's already installed using `rpm -qa | grep x`
-2. For GUI packages, you can install the Flatpak if available using the Software store or using `flatpak install`. You can browse this [catalogue of Flatpaks](https://flathub.org) to discover the available packages.
-3. For CLI packages, you can install from brew if available using `brew install`. You can browse this [catalogue of Homebrew Formulae](https://formulae.brew.sh) to discover the available formulae.
-4. If a package isn't available via the other two options, or if a package requires greater system integration, `rpm-ostree install` can be used to layer rpms directly into your subsequent deployments.
+First, check if it's already installed using `rpm -qa | grep search-string`.
+There are several ways to install software on secureblue: Flatpak, Homebrew,
+rpm-ostree layering, and containers.
 
-You can add the unfiltered Flathub remote with `ujust set-flathub-unfiltered on`.
+#### Flatpak
 
-### [How do I install my VPN?](#vpn)
+For GUI applications, you can install the Flatpak app if available using Bazaar
+or `flatpak install`. You can search [Flathub] either in a web browser or via
+Bazaar's interface.
+
+Note that secureblue configures Flatpak so that only [verified apps] are
+available by default. You can add the unfiltered Flathub remote with `ujust
+set-flathub-unfiltered on`. Be careful when installing unverified apps, as they
+are packaged by a third party and are not vetted by the developer of the
+software itself.
+
+[Flathub]: https://flathub.org
+[verified apps]: https://docs.flathub.org/docs/for-users/verification
+
+#### Homebrew
+
+Many CLI packages can be installed via [Homebrew] using `brew install`. You can
+discover available Homebrew formulae at [this link][Homebrew formulae] or using
+`brew search`. See [this FAQ item](#brew) for more details on secureblue's
+Homebrew setup.
+
+[Homebrew]: https://brew.sh/
+[Homebrew formulae]: https://formulae.brew.sh
+
+#### rpm-ostree layering
+
+If a package isn't available via Flatpak or Homebrew, or if a package requires
+greater system integration, `rpm-ostree install` can be used to layer RPM packages
+directly into your subsequent deployments.
+
+{% include alert.html type='note' content='This option is not available on the <a href="https://github.com/secureblue/secureblue/blob/live/uki/README.md">experimental UKI images</a>.' %}
+
+Instructions you find online for installing RPM packages may need to be modified for image-based systems like secureblue and Fedora Atomic. In particular:
+
+- If you need to install a third-party repository, download the `.repo` file
+  and install it to `/etc/yum.repos.d`. Make sure you trust any third-party
+  repositories you add in this way.
+- Use `rpm-ostree install` instead of `dnf install` to install packages.
+- Reboot after installing to apply the changes.
+
+#### Containers
+
+Containers are [disabled by default](#container-userns) in secureblue, but if
+you enable them, you can run software from a container using
+[Podman](https://podman.io/) or a wrapper around Podman such as
+[Distrobox](#distrobox-assemble) or Toolbox. You may need to adjust
+secureblue's [container policy](#container-policy) to allow a container to run.
+
+### [How do I set up a VPN?](#vpn)
 {: #vpn}
-To install a standalone VPN app, use `ujust install-vpn`.
-Alternatively, you can download a WireGuard profile config from your VPN provider's website and import it via the system network settings menu. Below are the steps for GNOME.
+
+VPN providers vary widely in how their applications are made available. [See
+above](#software) for general advice on how to install software on secureblue.
+
+Alternatively, you can download a WireGuard profile config from your VPN
+provider's website and import it via the system network settings menu. Below
+are the steps for GNOME.
 
 1. Navigate to the "Network" tab in GNOME settings.
 <img alt="Gnome Settings screenshot" src="/assets/gnome-settings-vpn-step1.png" />
