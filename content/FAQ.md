@@ -334,9 +334,24 @@ Additionally, some kernel arguments have a negative performance impact. The most
 ### [How do I install Steam?](#steam)
 {: #steam}
 
-```
-ujust install-steam
-```
+There is no secure way to install Steam, and Steam itself has numerous security issues. That said, if you want to install Steam, the Flatpak is recommended despite it being unverified, since at least you benefit from the external sandboxing that Flatpak provides.
+
+To do so, you need to:
+
+1. Enable 32bit support:
+```rpm-ostree kargs --delete-if-present="ia32_emulation=0"```
+2. Enable Xwayland:
+```ujust set-xwayland on```
+3. Reboot to apply the changes from steps 1 and 2:
+```systemctl reboot```
+4. Enable Flathub unfiltered (allows unverified Flatpaks):
+```ujust set-flathub-unfiltered on```
+5. Install the Steam Flatpak:
+```flatpak install -y --user flathub com.valvesoftware.Steam```
+6. Drop the `hardened_malloc` override from the Steam Flatpak:
+```flatpak override --user --unset-env=LD_PRELOAD --nofilesystem=host-os com.valvesoftware.Steam```
+7. Grant the Steam Flatpak access to networking, IPC, Xwayland, Pulseaudio, multiarch, and per-application shared memory:
+```flatpak override --user --share=network --share=ipc --socket=x11 --socket=pulseaudio --allow=multiarch --allow=per-app-dev-shm com.valvesoftware.Steam```
 
 ### [How do I enable anti-cheat support?](#anticheat)
 {: #anticheat}
