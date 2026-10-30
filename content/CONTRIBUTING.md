@@ -95,11 +95,23 @@ A good bug report should describe the issue in detail. Generally speaking:
 ### [Before You Start](#before-you-start)
 {: #before-you-start}
 
-Before jumping in to a contribution that goes beyond simple bugfixes, it's important to follow a couple quick prerequisite steps that help save time and effort:
+Before jumping in to a contribution that goes beyond simple bugfixes, it's
+important to follow a few quick prerequisite steps that help save time and
+effort:
 
-1. Create a GitHub issue for the change if it doesn't already exist. This gives other contributors a space to provide input and discuss substantial changes.
-2. If referencing an existing GitHub issue, ask other contributors to ensure that the issue is up to date. Issues can refer to problems that are partially solved or that need to be solved in different ways given other changes.
-3. Get buy-in on the scope and design of the changes from other contributors. This ensures you don't invest time on a change only to run into high-level scope or design feedback at review time. To get buy-in, ping @Contributors in the #dev channel on Discord with a link to the GitHub issue you intend to work on and what changes you plan to make.
+1. Create a GitHub issue for the change if it doesn't already exist. This gives
+   other contributors a space to provide input and discuss substantial changes.
+2. If referencing an existing GitHub issue, ask other contributors to ensure
+   that the issue is up to date. Issues can refer to problems that are
+   partially solved or that need to be solved in different ways given other
+   changes.
+3. Get feedback on the scope and design of the changes from other contributors.
+   This ensures you don't invest time on a change only to run into high-level
+   scope or design feedback at review time. To bring attention to an issue you
+   want feedback on, you can ping @Contributors in the #dev channel on Discord
+   with a link to the GitHub issue you intend to work on and what changes you
+   plan to make (or just wait for a response on GitHub, although this may take
+   longer).
 
 ### [Pull Requests](#pull-requests)
 {: #pull-requests}
