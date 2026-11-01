@@ -73,6 +73,7 @@ permalink: /faq
   - [My fans are really loud, is this normal?](#fans)
   - [On secureblue half of my CPU cores are gone. Why is this?](#smt)
   - [Why don't my AppImages work?](#appimage)
+  - [Why won't software stored on an external drive run?](#external-drives)
   - [Why don't my games/mods/mod managers work?](#anticheat-troubleshoot)
   - [Why won't Trivalent start when Bubblejailed?](#trivalent-bubblejail)
   - [Why won't Trivalent start on Nvidia?](#trivalent-nvidia)
@@ -355,6 +356,9 @@ Additionally, if you've used the `flatpak-permissions-lockdown` command, you'll 
 ```flatpak override --user --share=network --share=ipc --socket=x11 --socket=pulseaudio --allow=multiarch --allow=per-app-dev-shm com.valvesoftware.Steam```
 
 Note that to use controllers, you must also grant `device=input`. Games with anti-cheats will likely require granting `allow=devel` alongside the steps below.
+
+If your games are installed on an external drive, you may also need to [label
+external drives](#external-drives).
 
 ### [How do I enable anti-cheat support?](#anticheat)
 {: #anticheat}
@@ -662,6 +666,20 @@ If SMT is disabled, this effectively halves the number of CPU cores; the perform
 {: #appimage}
 
 AppImages depend on fuse2, which is unmaintained and depends on a SUID root binary. For this reason, fuse2 support is removed by default. It's strongly recommended that you find alternative mechanisms to install your applications (Flatpak, Distrobox, etc.). If you can't find an alternative and still need fuse2, you can add it back by layering with `rpm-ostree install fuse` and then rebooting.
+
+### [Why won't software stored on an external drive start?](#external-drives)
+{: #external-drives}
+
+Secureblue's SELinux policies can sometimes prevent programs in unlabeled
+directories from running. This can happen, for example, when trying to launch a
+game from Steam that's stored on an external drive.
+
+Run the following command to relabel the contents of an external drive so that
+SELinux treats it as an extension of your home directory:
+
+```
+ujust label-external-drives
+```
 
 ### [Why don't my games/mods/mod managers work?](#anticheat-troubleshoot)
 {: #anticheat-troubleshoot}
