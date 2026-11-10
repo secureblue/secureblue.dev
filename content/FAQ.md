@@ -433,26 +433,33 @@ When an image is rejected by policy, it produces an error message along the line
 
 > Source image rejected: Running image [...] is rejected by policy.
 
-To manage container policy, you can use [`podman image trust`](https://docs.podman.io/en/latest/markdown/podman-image-trust.1.html). For example, to allow all images from `registry.fedoraproject.org/fedora` to run without signature verification, you can run
+To customize the container policy, copy the default policy in `/usr/share/containers` to `/etc/containers`:
 
 ```sh
-run0 podman image trust set -t accept registry.fedoraproject.org/fedora
+run0 -i cp /usr/share/containers/policy.json /etc/containers/policy.json
 ```
 
-To set this policy for the current user only, you should run:
+You can then use [`podman image trust`](https://docs.podman.io/en/latest/markdown/podman-image-trust.1.html) to manage the policy. For example, to allow all images from `registry.fedoraproject.org/fedora` to run without signature verification, you can run
+
+```sh
+run0 -i podman image trust set --signature-policy /etc/containers/policy.json \
+    -t accept registry.fedoraproject.org/fedora
+```
+
+To customize the policy for the current user only, instead run:
 
 ```sh
 mkdir -p ~/.config/containers
-cp /usr/etc/containers/policy.json ~/.config/containers/policy.json
+cp /usr/share/containers/policy.json ~/.config/containers/policy.json
 ```
 
-Then, you can edit `~/.config/containers/policy.json`. Be aware that any configuration at `~/.config/containers/policy.json` will override the entire system config for the current user.
+Then, you can edit `~/.config/containers/policy.json`, either manually or with `podman image trust`. Be aware that any configuration at `~/.config/containers/policy.json` will override the entire system config for the current user.
 
 To reset container policy to the system default, run:
 
 ```sh
 rm -f ~/.config/containers/policy.json
-run0 cp /usr/etc/containers/policy.json /etc/containers/policy.json
+run0 -i rm -f /etc/containers/policy.json
 ```
 
 ### [How do I enable userns for other apps?](#unconfined-userns)
