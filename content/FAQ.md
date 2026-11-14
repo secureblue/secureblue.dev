@@ -566,7 +566,7 @@ Disabling thumbnailing is currently not supported by COSMIC Files but it has bee
 ### [Why are user flatpaks recommended?](#system-flatpaks)
 {: #system-flatpaks}
 
-System flatpaks have a dependency on `flatpak-system-helper`, a rootful daemon that runs arbitrary package maintainer content as root. This is a substantial source of attack surface. If you are already using system flatpaks, you can run `flatpak remote-delete --system flathub` (replace `flathub` with the remote name, if different) and then reinstall your applications from a user remote. If you want to continue using system flatpaks, you can run `systemctl unmask flatpak-system-helper.service`. However, this is not recommended as it's a security degradation.
+System flatpaks have a dependency on `flatpak-system-helper`, a rootful daemon that runs arbitrary package maintainer content as root. This is a substantial source of attack surface. If you are already using system flatpaks, you can run `run0 -i flatpak remote-delete --system flathub` (replace `flathub` with the remote name, if different) and then reinstall your applications from a user remote. If you want to continue using system flatpaks, you can run `systemctl unmask flatpak-system-helper.service`. However, this is not recommended as it's a security degradation.
 
 #### GNOME
 
