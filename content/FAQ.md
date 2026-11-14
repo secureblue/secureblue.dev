@@ -61,6 +61,7 @@ permalink: /faq
   - [How do I install an app as a PWA?](#pwa)
   - [How do I configure GRUB?](#configure-grub)
   - [How do I enable thumbnailing?](#thumbnailing)
+  - [Why are user flatpaks recommended?](#system-flatpaks)
 
 - [Troubleshooting](#troubleshooting)
   - [Something broke! How do I rollback?](#rollback)
@@ -561,6 +562,11 @@ Please note, the instructions provided by the Arch Wiki article for manually add
 {% include alert.html type='caution' content='Enabling thumbnailing is a <a href="https://scarybeastsecurity.blogspot.com/2016/11/0day-exploit-compromising-linux-desktop.html">security degradation</a>. The sandboxing provided for thumbnailing by desktop environments is <a href="/images#security-recommendation">weak or absent</a>.' %}
 
 Disabling thumbnailing is currently not supported by COSMIC Files but it has been [proposed](https://github.com/pop-os/cosmic-files/issues/1216). To enable thumbnailing on other systems, follow the instructions below.
+
+### [Why are user flatpaks recommended?](#system-flatpaks)
+{: #system-flatpaks}
+
+System flatpaks have a dependency on `flatpak-system-helper`, a rootful daemon that runs arbitrary package maintainer content as root. This is a substantial source of attack surface. If you are already using system flatpaks, you can run `flatpak remote-delete --system flathub` (replace `flathub` with the remote name, if different) and then reinstall your applications from a user remote. If you want to continue using system flatpaks, you can run `systemctl unmask flatpak-system-helper.service`. However, this is not recommended as it's a security degradation.
 
 #### GNOME
 
