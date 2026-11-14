@@ -563,11 +563,6 @@ Please note, the instructions provided by the Arch Wiki article for manually add
 
 Disabling thumbnailing is currently not supported by COSMIC Files but it has been [proposed](https://github.com/pop-os/cosmic-files/issues/1216). To enable thumbnailing on other systems, follow the instructions below.
 
-### [Why are user flatpaks recommended?](#system-flatpaks)
-{: #system-flatpaks}
-
-System flatpaks have a dependency on `flatpak-system-helper`, a rootful daemon that runs arbitrary package maintainer content as root. This is a substantial source of attack surface. If you are already using system flatpaks, you can run `run0 -i flatpak remote-delete --system flathub` (replace `flathub` with the remote name, if different) and then reinstall your applications from a user remote. If you want to continue using system flatpaks, you can run `systemctl unmask flatpak-system-helper.service`. However, this is not recommended as it's a security degradation.
-
 #### GNOME
 
 Within GNOME Files preferences, set "Show Thumbnails" to "On This Device Only" or "All Folders":
@@ -594,6 +589,11 @@ Enable tumblerd using the following command:
 mkdir -p ~/.config/systemd/user
 cp /usr/lib/systemd/user/tumblerd.service ~/.config/systemd/user
 ```
+
+### [Why are user flatpaks recommended?](#system-flatpaks)
+{: #system-flatpaks}
+
+System flatpaks have a dependency on `flatpak-system-helper`, a rootful daemon that runs arbitrary package maintainer content as root. This is a substantial source of attack surface. If you are already using system flatpaks, you can run `run0 -i flatpak remote-delete --system flathub` (replace `flathub` with the remote name, if different) and then reinstall your applications from a user remote. If you want to continue using system flatpaks, you can run `systemctl unmask flatpak-system-helper.service`. However, this is not recommended as it's a security degradation.
 
 <hr>
 
