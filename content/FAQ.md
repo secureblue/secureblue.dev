@@ -65,6 +65,7 @@ permalink: /faq
 
 - [Troubleshooting](#troubleshooting)
   - [Something broke! How do I rollback?](#rollback)
+  - [Why did a system update fail?](#failed-update)
   - [Why can't I install new KDE themes?](#ghns)
   - [Why doesn't my Xwayland app work?](#xwayland)
   - [Why do some commands fail when run with run0? (Exit code 203)](#run0-failures)
@@ -604,6 +605,32 @@ System flatpaks have a dependency on `flatpak-system-helper`, a rootful daemon t
 {: #rollback}
 
 Each `rpm-ostree` operation generates and stages a new deployment, which includes the creation of a new GRUB entry at position 0. To boot into the previous deployment, simply select the GRUB entry at position 1. As a preventative measure, you can ensure you always have a known-good deployment available by [pinning](https://docs.fedoraproject.org/en-US/fedora-silverblue/faq/#_how_can_i_upgrade_my_system_to_the_next_major_version_for_instance_rawhide_or_an_upcoming_fedora_release_branch_while_keeping_my_current_deployment) an existing deployment.
+
+### [Why did a system update fail?](#failed-update)
+{: #failed-update}
+
+System updates can fail for several reasons:
+
+- Network issues: If you get an error message that mentions a "temporary failure
+  in name resolution" or other network issues, check your network connection and
+  try again.
+- Package conflicts: If you've used `rpm-ostree` to install layered packages,
+  under some circumstances, you might encounter a conflict in package
+  dependencies that prevents an update from completing. If that happens, this
+  sometimes resolves the issue:
+  1. Run `rpm-ostree status` to get a list of currently layered packages, and
+     copy down that list.
+  2. Run `rpm-ostree reset` to remove all layered packages.
+  3. Run `ujust update-system` to run a system update, and then reboot.
+  4. Use `rpm-ostree install` to reinstall any layered packages you still want
+     to have installed.
+- Missing build provenance: As part of secureblue's [supply-chain security
+  measures](/articles/build-architecture), SLSA build provenance is generated
+  for each image and verified before updating. Occasionally, network or server
+  issues during the image build process can result in provenance not being
+  generated. If that happens, you'll get an error mentioning "provenance not
+  found" when attempting to update; there's nothing you can do about this, so
+  just wait for the next update.
 
 ### [Why can't I install new KDE themes?](#ghns)
 {: #ghns}
