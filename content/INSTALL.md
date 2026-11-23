@@ -129,19 +129,79 @@ You can use our [example.butane](https://github.com/secureblue/secureblue/blob/l
 
 Install Fedora IoT using one of the [official methods](https://fedoraproject.org/iot/download).
 
-Once Fedora IoT is installed, rebase to secureblue by selecting an appropriate image from [this list](https://secureblue.dev/images#iot), and then running the following command:
+Once Fedora IoT is installed, rebase to secureblue by selecting an appropriate image from [this list](https://secureblue.dev/images#iot), and then running the following commands as root. Open a root shell:
 
 ```
-sudo bootc switch ghcr.io/secureblue/${IMAGE_NAME}:latest
+sudo -i
+```
+
+Then run:
+
+```
+mkdir -p /etc/pki/containers /etc/containers/registries.d
+echo '-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEdruKsOhUkgdd0lNDHNBymE2Wyb/p
+GVnx59QbNoGFbImqZLRVt6uQnO9MfiHU9IZiJl9aNetfAqDsgsltAUQnXQ==
+-----END PUBLIC KEY-----' > /etc/pki/containers/secureblue-2025.pub
+echo '{
+  "default": [{"type": "reject"}],
+  "transports": {
+    "docker": {
+      "ghcr.io/secureblue": [
+        {
+          "type": "sigstoreSigned",
+          "keyPath": "/etc/pki/containers/secureblue-2025.pub",
+          "signedIdentity": {"type": "matchRepository"}
+        }
+      ]
+    }
+  }
+}' > /etc/containers/policy.json
+echo 'docker:
+  ghcr.io/secureblue:
+    use-sigstore-attachments: true' > /etc/containers/registries.d/secureblue.yaml
+bootc switch --enforce-container-sigpolicy ghcr.io/secureblue/${IMAGE_NAME}:latest
+rm /etc/containers/policy.json /etc/pki/containers/secureblue-2025.pub /etc/containers/registries.d/secureblue.yaml
+exit
 ```
 
 ### [Rebase (ARM64 - Beta)](#arm64)
 {: #arm64}
 
-Some of our images have Beta support for the ARM64 / aarch64 architecture. Consult the <a href="/images">list of available images</a> to check which images have aarch64 support. For images with aarch64 support, our image manifests are multiarch. This means that to install a secureblue aarch64 image, simply install Fedora Atomic using a Fedora Atomic ISO, and then rebase using `bootc` like so:
+Some of our images have Beta support for the ARM64 / aarch64 architecture. Consult the <a href="/images">list of available images</a> to check which images have aarch64 support. For images with aarch64 support, our image manifests are multiarch. This means that to install a secureblue aarch64 image, simply install Fedora Atomic using a Fedora Atomic ISO, and then rebase using `bootc` as root. Open a root shell:
 
 ```
-sudo bootc switch ghcr.io/secureblue/${IMAGE_NAME}:latest
+sudo -i
+```
+
+Then run:
+
+```
+mkdir -p /etc/pki/containers /etc/containers/registries.d
+echo '-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEdruKsOhUkgdd0lNDHNBymE2Wyb/p
+GVnx59QbNoGFbImqZLRVt6uQnO9MfiHU9IZiJl9aNetfAqDsgsltAUQnXQ==
+-----END PUBLIC KEY-----' > /etc/pki/containers/secureblue-2025.pub
+echo '{
+  "default": [{"type": "reject"}],
+  "transports": {
+    "docker": {
+      "ghcr.io/secureblue": [
+        {
+          "type": "sigstoreSigned",
+          "keyPath": "/etc/pki/containers/secureblue-2025.pub",
+          "signedIdentity": {"type": "matchRepository"}
+        }
+      ]
+    }
+  }
+}' > /etc/containers/policy.json
+echo 'docker:
+  ghcr.io/secureblue:
+    use-sigstore-attachments: true' > /etc/containers/registries.d/secureblue.yaml
+bootc switch --enforce-container-sigpolicy ghcr.io/secureblue/${IMAGE_NAME}:latest
+rm /etc/containers/policy.json /etc/pki/containers/secureblue-2025.pub /etc/containers/registries.d/secureblue.yaml
+exit
 ```
 
 <hr>
