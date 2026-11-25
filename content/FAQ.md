@@ -62,6 +62,7 @@ permalink: /faq
   - [How do I configure GRUB?](#configure-grub)
   - [How do I enable thumbnailing?](#thumbnailing)
   - [Why are user flatpaks recommended?](#system-flatpaks)
+  - [I accidentally deleted the flatpak remote, how can I restore it?](#recover-flatpak-remote)
 
 - [Troubleshooting](#troubleshooting)
   - [Something broke! How do I rollback?](#rollback)
@@ -597,6 +598,44 @@ cp /usr/lib/systemd/user/tumblerd.service ~/.config/systemd/user
 System flatpaks have a dependency on `flatpak-system-helper`, a rootful daemon that runs arbitrary package maintainer content as root. This is a substantial source of attack surface. If you are already using system flatpaks, you can run `run0 -i flatpak remote-delete --system flathub` (replace `flathub` with the remote name, if different) and then reinstall your applications from a user remote. If you want to continue using system flatpaks, you can run `systemctl unmask flatpak-system-helper.service`. However, this is not recommended as it's a security degradation.
 
 <hr>
+
+## [I accidentally deleted the flatpak remote, how can I restore it?](#recover-flatpak-remote)
+{: #recover-flatpak-remote}
+
+If you accidentally deleted the flatpak remote by running
+
+```sh
+flatpak remote-delete --user flathub
+```
+
+1. You can restore it by running
+
+```sh
+flatpak remote-add \
+  --user \
+  --if-not-exists \
+  --subset=verified flathub \
+  /usr/share/secureblue/flathub.flatpakrepo
+```
+
+1. Restore Bazaar
+
+```sh
+flatpak install \
+  --user flathub \
+  io.github.kolunmi.Bazaar
+```
+
+1. Restore permissions
+
+```sh
+flatpak override \
+  --user \
+  --filesystem=host-etc:ro \
+  --share=network \
+  --talk-name=org.freedesktop.Flatpak \
+  io.github.kolunmi.Bazaar
+```
 
 ## [Troubleshooting](#troubleshooting)
 {: #troubleshooting}
